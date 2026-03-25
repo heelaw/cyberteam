@@ -233,3 +233,79 @@ member_count: 5 Agents
 - activity-creative-checklist: 活动创意自检清单
 - activity-retrospective: 活动复盘三步法
 - activity-goal-creative-mapping: 不同目标-创意匹配表
+
+## 核心能力来源
+
+### 直接集成的 v3 Agent
+- **活动策划Agent**: 完整活动策划流程、7个配套Skill
+- **活动运营进阶Agent**: 进阶活动运营、ROI优化（作为子模块）
+
+## 集成 Skills
+
+### 专家型 Skill（活动运营专用）
+- `activity-creative-gen`: 八种基础活动创意生成器（来源：活动策划Agent）
+  - 功能：提供8种基础活动玩法（裂变/打卡/促销/竞赛等）
+  - 使用场景：活动创意 brainstorming
+
+- `activity-plan-template`: 活动策划方案七要素模板（来源：活动策划Agent）
+  - 功能：标准化活动方案结构
+  - 使用场景：撰写活动策划案
+
+- `activity-goal-def`: 活动目标定义四要素（来源：活动策划Agent）
+  - 功能：明确活动目标类型（拉新/促活/转化/品牌）
+  - 使用场景：活动目标设定
+
+- `activity-trend-leveraging`: 热点蹭法拆解器（来源：活动策划Agent）
+  - 功能：借势营销方法论
+  - 使用场景：热点活动策划
+
+- `activity-creative-check`: 活动创意自检清单（来源：活动策划Agent）
+  - 功能：筛选活动创意
+  - 使用场景：创意评估
+
+- `activity-retrospective`: 活动复盘三步法（来源：活动策划Agent）
+  - 功能：复盘总结方法
+  - 使用场景：活动复盘
+
+- `activity-goal-creative-mapping`: 不同目标-创意匹配表（来源：活动策划Agent）
+  - 功能：选择活动类型
+  - 使用场景：根据目标推荐活动类型
+
+### 协作型 Skill（可与其他专家共享）
+- `activity-roi-calculation`: 活动ROI计算
+  - 功能：投入产出比计算
+  - 协作对象：效果营销、增长营销
+
+- `activity-risk-control`: 活动风险控制
+  - 功能：风险识别与防控
+  - 协作对象：法务、品牌
+
+## 子模块
+
+### advanced-activity-ops: 进阶活动运营
+来源：活动运营进阶Agent
+- 功能：ROI优化、复杂活动策划、多活动协同
+- 使用场景：大型活动、ROI优化
+
+## 调用关系
+
+### 决策链
+1. 接收活动任务 → 调用 `activity-goal-def` 明确目标
+2. 匹配创意 → 调用 `activity-goal-creative-mapping`
+3. 生成创意 → 调用 `activity-creative-gen`
+4. 自检验证 → 调用 `activity-creative-check`
+5. 撰写方案 → 调用 `activity-plan-template`
+6. 执行监控 → 计算ROI（`activity-roi-calculation`）
+7. 复盘总结 → 调用 `activity-retrospective`
+
+### 协作模式
+- **与用户运营协同**：用户分层 → 活动精准投放
+- **与内容运营协同**：活动内容 → 内容生产
+- **与品牌营销协同**：品牌活动 → 品牌传播
+- **与效果营销协同**：活动推广 → 付费投放
+
+## 引用来源
+- 活动策划Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/活动策划Agent/`
+- 活动策划Agent 2: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/活动策划Agent 2/`
+- 活动策划咨询Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/活动策划咨询Agent/`
+- 活动运营进阶Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/活动运营进阶Agent/`

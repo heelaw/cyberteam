@@ -216,3 +216,77 @@ AppPush > 短信 > 微信 > 邮件 > 电话
 - user-operations-funnel: 横纵相交模型（流程×关键行为）
 - user-operations-value-gap: 价值洼地诊断（投入产出比最高的改进点）
 - user-operations-incentive: 激励体系设计（物质+精神+社交）
+
+---
+
+## 核心能力来源
+
+### 直接集成的 v3 Agent
+- **用户运营Agent**: 全生命周期运营体系、AARRR模型
+- **社群运营Agent**: 社群管理SOP、活跃度提升方法（作为子模块）
+- **社区运营Agent**: 社区建设方法、UGC运营策略（作为子模块）
+
+## 集成 Skills
+
+### 专家型 Skill（用户运营专用）
+- `user-retention-diagnosis`: 用户留存诊断（来源：用户激励Agent）
+  - 功能：4种原因诊断法（产品长期价值不足/短期价值缺失/天然低频/用户不匹配）
+  - 使用场景：诊断用户流失问题、留存率下降分析
+
+- `user-funnel-analysis`: 横纵相交模型（来源：用户激励Agent）
+  - 功能：流程（横向）×关键行为（纵向）的交叉分析
+  - 使用场景：优化特定环节转化率、流程优化
+
+- `user-value-gap`: 价值洼地诊断（来源：用户激励Agent）
+  - 功能：4步诊断（梳理路径/识别流失/评估空间/确定洼地）
+  - 使用场景：识别投入产出比最高的改进点、资源有限时的优先级排序
+
+- `user-incentive-design`: 激励体系设计（来源：用户激励Agent）
+  - 功能：4步设计法（明确目标行为/选择激励方式/平衡投入产出/持续迭代）
+  - 使用场景：设计完整激励体系、提升用户活跃度
+
+- `user-research`: 用户洞察（来源：用户洞察Agent）
+  - 功能：用户研究方法、画像分析
+  - 使用场景：了解用户需求、用户画像构建
+
+- `user-lifecycle`: 用户生命周期运营（来源：用户运营Agent）
+  - 功能：AARRR模型全流程运营
+  - 使用场景：用户增长全流程管理
+
+### 协作型 Skill（可与其他专家共享）
+- `user-tagging`: 用户标签体系
+  - 功能：标签设计方法、标签分层
+  - 协作对象：效果营销、数据团队
+
+## 子模块
+
+### community-management: 社群管理
+来源：社群运营Agent
+- 功能：社群运营SOP、活跃度提升、社群裂变
+- 使用场景：微信群运营、社群活动策划
+
+### community-building: 社区建设
+来源：社区运营Agent
+- 功能：社区氛围营造、UGC运营、KOL培育
+- 使用场景：社区建设、内容生态构建
+
+## 调用关系
+
+### 决策链
+1. 接收用户运营任务 → 判断任务类型（拉新/激活/留存/变现/推荐）
+2. 调用对应 Skill（如留存问题 → `user-retention-diagnosis`）
+3. 如需协作 → 调用协作型 Skill 与其他专家协同
+4. 执行方案 → 监控指标 → 复盘优化
+
+### 协作模式
+- **与内容运营协同**：用户洞察 → 内容选题
+- **与活动运营协同**：用户分层 → 活动精准投放
+- **与效果营销协同**：用户标签 → 精准投放
+- **与品牌营销协同**：用户案例 → 品牌传播
+
+## 引用来源
+- 用户运营Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/用户运营Agent/`
+- 用户激励Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/用户激励Agent/`
+- 用户洞察Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/用户洞察Agent/`
+- 社群运营Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/社群运营Agent/`
+- 社区运营Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/社区运营Agent/`

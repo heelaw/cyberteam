@@ -204,3 +204,78 @@ subordinates:
 - growth-progress-tracking: 进度管理（甘特图+里程碑）
 - growth-retrospective: 复盘模板（目标达成+数据+问题+行动）
 - growth-team-management: 团队管理（激励+沟通+评估）
+
+## 核心能力来源
+
+### 直接集成的 v3 Agent
+- **策略规划Agent**: 战略规划框架、目标拆解方法
+- **团队管理Agent**: 团队建设方法论、管理工具箱
+- **策略执行Agent**: 执行监控体系、结果追踪方法
+
+## 集成 Skills
+
+### 通用型 Skill（可授权给全公司）
+这些 Skill 来源于 v3 运营资产，可授权给其他专家使用：
+
+- `growth-reporting`: 汇报框架（来源：01_汇报框架Agent）
+  - 功能：结构化向上沟通、汇报模板设计
+  - 使用场景：周报、月报、战役汇报
+
+- `growth-time-mgmt`: 时间管理（来源：02_时间管理Agent）
+  - 功能：优先级四象限、时间分配方法
+  - 使用场景：任务优先级排序、资源冲突解决
+
+- `growth-progress-track`: 进度管理（来源：03_进度管理Agent）
+  - 功能：甘特图、里程碑追踪、进度预警
+  - 使用场景：项目管理、战役进度监控
+
+- `growth-retrospective`: 复盘模板（来源：04_复盘模板Agent）
+  - 功能：目标达成+数据+问题+行动四步法
+  - 使用场景：活动复盘、月度复盘
+
+- `growth-1v1-communication`: 1v1沟通（来源：07_1v1沟通Agent）
+  - 功能：一对一沟通SOP、反馈技巧
+  - 使用场景：员工沟通、绩效反馈
+
+- `growth-team-incentive`: 团队激励（来源：08_团队激励Agent）
+  - 功能：激励设计四步法、动机管理
+  - 使用场景：团队士气提升、激励方案设计
+
+- `growth-intent-analysis`: 高层意图识别（来源：高层意图识别Agent）
+  - 功能：5W1H1Y问题拆解、意图分析
+  - 使用场景：理解CEO需求、任务分拣
+
+- `growth-talent-review`: 人力盘点（来源：05_人力盘点Agent）
+  - 功能：团队能力评估矩阵、人才盘点表
+  - 使用场景：团队评估、人才规划
+
+- `growth-idp-plan`: IDP计划（来源：06_IDP计划Agent）
+  - 功能：个人发展计划模板、成长路径图
+  - 使用场景：员工成长规划、能力提升
+
+### 专用型 Skill（仅总监使用）
+- `growth-strategy-planning`: 策略规划（来源：策略规划Agent）
+  - 功能：战略框架+目标拆解
+  - 使用场景：年度战略规划、季度目标制定
+
+- `growth-execution-monitor`: 执行监控（来源：策略执行Agent）
+  - 功能：结果追踪+预警机制
+  - 使用场景：战役执行监控、进度跟踪
+
+## 调用关系
+
+### 决策链
+1. 接收 CEO 任务 → 使用 `growth-intent-analysis` 拆解问题
+2. 判断任务类型 → 匹配对应专家或组建专家组
+3. 分配任务 + 授权 Skill → 监控执行进度
+4. 汇总结果 → 使用 `growth-reporting` 向 CEO 汇报
+
+### 协作模式
+- **战役模式**：全员协同，调用所有协作型 Skill
+- **专家组模式**：2-3个专家协同，共享各自专用 Skill
+- **单兵模式**：单个专家独立处理，使用其专用 Skill
+
+## 引用来源
+- 策略规划Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/策略规划Agent/`
+- 团队管理Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/团队管理Agent/`
+- 策略执行Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/策略执行Agent/`

@@ -265,3 +265,97 @@ Campaign（营销活动层）→ AdSet（广告组层）→ Ad（广告层）
 - performance-bidding-strategy: 出价策略（oCPA/oCPM优先）
 - performance-ab-testing: A/B测试（单变量验证）
 
+## 核心能力来源
+
+### 直接集成的 v3 Agent
+- **财务模型Agent**: 财务建模、ROI分析
+- **指标监控器**: 实时监控、预警（作为子模块）
+- **渠道推广Agent**: 渠道运营、投放优化（作为子模块）
+- **推广营销进阶Agent**: 进阶推广策略（作为子模块）
+
+## 集成 Skills
+
+### 专家型 Skill（效果营销专用）
+- `performance-roi-calculation`: ROI计算（来源：财务模型Agent）
+  - 功能：增量收入/总投入计算
+  - 使用场景：活动ROI评估、渠道ROI评估
+
+- `performance-account-structure`: 账户结构优化（来源：渠道推广Agent）
+  - 功能：Campaign→AdSet→Ad三层结构
+  - 使用场景：广告账户搭建、账户优化
+
+- `performance-bidding-strategy`: 出价策略（来源：渠道推广Agent）
+  - 功能：oCPA/oCPM优先、出价优化
+  - 使用场景：投放出价策略
+
+- `performance-ab-testing`: A/B测试（来源：数据驱动Agent）
+  - 功能：单变量验证、测试设计
+  - 使用场景：素材测试、落地页测试
+
+- `performance-north-star`: 北极星指标制定（来源：北极星指标Agent）
+  - 功能：北极星指标设定
+  - 使用场景：目标设定、指标拆解
+
+- `performance-metric-breakdown`: 指标拆解（来源：指标拆解Agent）
+  - 功能：目标拆解、指标分解
+  - 使用场景：目标分解、指标规划
+
+- `performance-conversion-optimization`: 转化优化（来源：营销转化Agent）
+  - 功能：转化漏斗优化、CVR提升
+  - 使用场景：转化率提升
+
+- `performance-funnel-analysis`: 漏斗分析（来源：营销转化Agent）
+  - 功能：转化漏斗分析、流失定位
+  - 使用场景：漏斗优化、流失分析
+
+### 协作型 Skill（可与其他专家共享）
+- `performance-data-analysis`: 数据分析（来源：数据驱动Agent）
+  - 功能：数据分析方法
+  - 协作对象：所有专家
+
+- `performance-channel-ops`: 渠道运营（来源：渠道推广Agent）
+  - 功能：渠道运营方法
+  - 协作对象：增长营销
+
+## 子模块
+
+### real-time-monitoring: 实时监控
+来源：指标监控器
+- 功能：实时监控、预警机制
+- 使用场景：投放监控、实时预警
+
+### channel-operations: 渠道运营
+来源：渠道推广Agent
+- 功能：渠道运营、投放优化
+- 使用场景：多渠道投放
+
+### advanced-promotion: 进阶推广策略
+来源：推广营销进阶Agent
+- 功能：进阶推广策略
+- 使用场景：复杂投放场景
+
+## 调用关系
+
+### 决策链
+1. 接收投放任务 → 调用 `performance-north-star` 设定目标
+2. 拆解指标 → 调用 `performance-metric-breakdown` 拆解
+3. 搭建账户 → 调用 `performance-account-structure` 搭建
+4. 设定出价 → 调用 `performance-bidding-strategy` 出价
+5. 优化转化 → 调用 `performance-conversion-optimization`
+6. 评估效果 → 调用 `performance-roi-calculation` 计算ROI
+
+### 协作模式
+- **与增长营销协同**：渠道策略 → 投放执行
+- **与内容运营协同**：效果内容 → 广告素材
+- **与品牌营销协同**：品牌广告 → 品牌投放
+- **与数据团队协同**：数据共享 → 优化策略
+
+## 引用来源
+- 财务模型Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/财务模型Agent/`
+- 北极星指标Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/北极星指标Agent/`
+- 指标拆解Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/指标拆解Agent/`
+- 指标监控器: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/指标监控器/`
+- 数据驱动Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/数据驱动Agent/`
+- 渠道推广Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/渠道推广Agent/`
+- 营销转化Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/营销转化Agent/`
+- 推广营销进阶Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/推广营销进阶Agent/`

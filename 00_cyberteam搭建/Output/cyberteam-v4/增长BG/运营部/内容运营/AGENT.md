@@ -228,3 +228,78 @@ member_count: 5 Agents
 - content-production: 内容生产（原创撰写+排版优化）
 - content-title-optimization: 标题优化（点击率提升）
 - content-distribution: 多平台分发（同步+发布优化）
+
+---
+
+## 核心能力来源
+
+### 直接集成的 v3 Agent
+- **内容运营Agent**: 内容生产全流程、公众号运营
+- **新媒体运营Agent**: 多平台运营策略（作为子模块）
+- **新媒体进阶Agent**: 进阶增长玩法（作为子模块）
+
+## 集成 Skills
+
+### 专家型 Skill（内容运营专用）
+- `content-topic-planning`: 选题策划（来源：内容运营Agent）
+  - 功能：痛点挖掘+选题判断+转载评估
+  - 使用场景：内容选题规划、爆款选题挖掘
+
+- `content-production`: 内容生产（来源：内容运营Agent）
+  - 功能：原创撰写+排版优化+标题设计
+  - 使用场景：日常内容生产、内容质量把控
+
+- `content-title-optimization`: 标题优化（来源：文案进阶Agent）
+  - 功能：点击率提升、标题设计技巧
+  - 使用场景：文章标题优化、提升打开率
+
+- `content-copywriting`: 文案撰写（来源：文案Agent）
+  - 功能：基础文案写作、文案框架
+  - 使用场景：日常文案创作、广告文案
+
+- `content-advanced-copy`: 高级文案（来源：文案进阶Agent）
+  - 功能：品牌文案、高级文案技巧
+  - 使用场景：品牌内容、高端文案
+
+- `content-promotion`: 内容推广策略（来源：推广策略Agent）
+  - 功能：内容渠道选择、推广策略设计
+  - 使用场景：内容分发规划、推广方案
+
+### 协作型 Skill（可与其他专家共享）
+- `content-distribution`: 多平台分发
+  - 功能：同步+发布优化
+  - 协作对象：品牌营销、效果营销
+
+- `content-calendar`: 内容日历
+  - 功能：内容排期规划
+  - 协作对象：活动运营、增长营销
+
+## 子模块
+
+### multi-platform-ops: 多平台运营
+来源：新媒体运营Agent + 新媒体进阶Agent
+- 功能：多平台同步、平台差异化运营、进阶增长玩法
+- 使用场景：抖音/小红书/公众号等多平台运营
+
+## 调用关系
+
+### 决策链
+1. 接收内容任务 → 判断内容类型（流量型/粘性型/转化型）
+2. 调用选题 Skill（`content-topic-planning`）
+3. 生产内容 → 调用生产 Skill（`content-production`）
+4. 优化标题 → 调用标题优化（`content-title-optimization`）
+5. 分发推广 → 调用分发 Skill（`content-distribution`）
+
+### 协作模式
+- **与用户运营协同**：用户洞察 → 选题方向
+- **与活动运营协同**：活动内容 → 内容生产
+- **与品牌营销协同**：品牌内容 → 品牌传播
+- **与效果营销协同**：效果内容 → 广告素材
+
+## 引用来源
+- 内容运营Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/内容运营Agent/`
+- 新媒体运营Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/新媒体运营Agent/`
+- 新媒体进阶Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/新媒体进阶Agent/`
+- 文案Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/文案Agent/`
+- 文案进阶Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/文案进阶Agent/`
+- 推广策略Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/推广策略Agent/`

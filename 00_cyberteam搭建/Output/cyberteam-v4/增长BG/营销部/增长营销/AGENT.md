@@ -182,3 +182,87 @@ K > 1 时实现自增长
 - growth-channel-roi: 渠道ROI分析（LTV/CAC）
 - growth-viral-coefficient: 病毒系数计算（K因子）
 - growth-attribution: 归因分析（多触点归因）
+
+## 核心能力来源
+
+### 直接集成的 v3 Agent
+- **增长Agent**: 增长模型构建、AARRR/RARRR
+- **渠道推广Agent**: 渠道运营、投放优化（作为子模块）
+- **推广营销进阶Agent**: 进阶推广策略（作为子模块）
+
+## 集成 Skills
+
+### 专家型 Skill（增长营销专用）
+- `growth-model-building`: 增长模型构建（来源：增长Agent）
+  - 功能：AARRR/RARRR模型构建
+  - 使用场景：增长策略规划、增长模型设计
+
+- `growth-channel-roi`: 渠道ROI分析（来源：数据驱动Agent）
+  - 功能：LTV/CAC计算、渠道效率评估
+  - 使用场景：渠道选择、预算分配
+
+- `growth-viral-coefficient`: 病毒系数计算（来源：增长Agent）
+  - 功能：K因子计算、裂变效果评估
+  - 使用场景：裂变活动设计、病毒传播评估
+
+- `growth-attribution`: 归因分析（来源：数据驱动Agent）
+  - 功能：多触点归因、U型归因
+  - 使用场景：渠道效果评估、投放优化
+
+- `growth-business-model`: 业务模型规划（来源：增长业务模型规划器）
+  - 功能：业务模型构建、增长路径设计
+  - 使用场景：新业务增长规划
+
+- `growth-diagnosis`: 增长问题诊断（来源：增长策略咨询Agent）
+  - 功能：增长问题分析、诊断方法
+  - 使用场景：增长停滞分析、问题定位
+
+- `growth-conversion-optimization`: 营销转化优化（来源：营销转化Agent）
+  - 功能：转化漏斗优化、CVR提升
+  - 使用场景：转化率提升、漏斗优化
+
+### 协作型 Skill（可与其他专家共享）
+- `growth-data-analysis`: 数据分析（来源：数据驱动Agent）
+  - 功能：A/B测试、数据分析
+  - 协作对象：所有专家
+
+- `growth-funnel-analysis`: 漏斗分析（来源：营销转化Agent）
+  - 功能：转化漏斗分析
+  - 协作对象：效果营销、用户运营
+
+## 子模块
+
+### channel-operations: 渠道运营
+来源：渠道推广Agent
+- 功能：渠道运营、投放优化、渠道管理
+- 使用场景：多渠道投放、渠道优化
+
+### advanced-promotion: 进阶推广策略
+来源：推广营销进阶Agent
+- 功能：进阶推广策略、组合投放
+- 使用场景：复杂推广场景
+
+## 调用关系
+
+### 决策链
+1. 接收增长任务 → 调用 `growth-model-building` 构建模型
+2. 分析现状 → 调用 `growth-diagnosis` 诊断问题
+3. 规划策略 → 调用 `growth-business-model` 设计路径
+4. 选择渠道 → 调用 `growth-channel-roi` 评估效率
+5. 优化转化 → 调用 `growth-conversion-optimization`
+6. 评估效果 → 调用 `growth-attribution` 归因分析
+
+### 协作模式
+- **与用户运营协同**：增长模型 → 用户生命周期
+- **与内容运营协同**：增长内容 → 内容生产
+- **与活动运营协同**：增长活动 → 活动策划
+- **与效果营销协同**：渠道策略 → 付费投放
+
+## 引用来源
+- 增长Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/增长Agent/`
+- 增长策略咨询Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/增长策略咨询Agent/`
+- 增长业务模型规划器: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/增长业务模型规划器/`
+- 渠道推广Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/渠道推广Agent/`
+- 营销转化Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/营销转化Agent/`
+- 推广营销进阶Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/推广营销进阶Agent/`
+- 数据驱动Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/数据驱动Agent/`

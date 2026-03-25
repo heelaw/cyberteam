@@ -198,3 +198,82 @@ member_count: 5 Agents
 - brand-communication: 品牌传播（认知→认同→追随）
 - brand-crisis-management: 危机管理（三级响应）
 - brand-health-monitoring: 品牌健康度监测（NPS/搜索指数）
+
+---
+
+## 核心能力来源
+
+### 直接集成的 v3 Agent
+- **商业认知咨询Agent**: 商业模式分析、竞争分析
+- **运营进阶Agent**: 进阶运营策略（作为子模块）
+- **运营高阶Agent**: 高阶运营思维（作为子模块）
+
+## 集成 Skills
+
+### 专家型 Skill（品牌营销专用）
+- `brand-positioning`: 品牌定位（来源：商业认知咨询Agent）
+  - 功能：STP模型、品牌差异化定位
+  - 使用场景：品牌定位设计、品牌重塑
+
+- `brand-communication`: 品牌传播（来源：商业认知咨询Agent）
+  - 功能：认知→认同→追随三阶段传播
+  - 使用场景：品牌传播策略、品牌活动策划
+
+- `brand-crisis-management`: 危机管理（来源：商业认知咨询Agent）
+  - 功能：三级响应机制、危机公关SOP
+  - 使用场景：品牌危机处理、负面舆情应对
+
+- `brand-health-monitoring`: 品牌健康度监测（来源：数据驱动Agent）
+  - 功能：NPS监测、搜索指数、声量分析
+  - 使用场景：品牌健康度评估
+
+- `brand-business-analysis`: 商业模式分析（来源：商业认知咨询Agent）
+  - 功能：商业模式画布、竞争分析
+  - 使用场景：品牌战略规划
+
+- `brand-case-analysis`: 案例分析（来源：运营案例Agent）
+  - 功能：案例分析方法、经验提炼
+  - 使用场景：竞品分析、行业案例研究
+
+### 协作型 Skill（可与其他专家共享）
+- `brand-methodology`: 运营方法论（来源：运营方法论Agent）
+  - 功能：运营方法体系、最佳实践
+  - 协作对象：所有专家
+
+- `brand-competitive-analysis`: 竞争分析（来源：商业认知咨询Agent）
+  - 功能：竞争对手分析、行业格局
+  - 协作对象：增长营销、策略规划
+
+## 子模块
+
+### advanced-operations: 进阶运营策略
+来源：运营进阶Agent
+- 功能：进阶运营策略、复杂运营场景
+- 使用场景：高阶运营问题
+
+### high-level-thinking: 高阶运营思维
+来源：运营高阶Agent
+- 功能：高阶运营思维、战略视角
+- 使用场景：战略级运营问题
+
+## 调用关系
+
+### 决策链
+1. 接收品牌任务 → 调用 `brand-positioning` 确定定位
+2. 分析环境 → 调用 `brand-competitive-analysis` 竞争分析
+3. 规划传播 → 调用 `brand-communication` 传播策略
+4. 监测健康 → 调用 `brand-health-monitoring` 健康度
+5. 处理危机 → 调用 `brand-crisis-management` 危机管理
+
+### 协作模式
+- **与内容运营协同**：品牌内容 → 内容生产
+- **与活动运营协同**：品牌活动 → 活动策划
+- **与用户运营协同**：品牌用户 → 用户运营
+- **与增长营销协同**：品牌增长 → 增长策略
+
+## 引用来源
+- 商业认知咨询Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/商业认知咨询Agent/`
+- 运营方法论Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/运营方法论Agent/`
+- 运营案例Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/运营案例Agent/`
+- 运营进阶Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/运营进阶Agent/`
+- 运营高阶Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/运营高阶Agent/`
