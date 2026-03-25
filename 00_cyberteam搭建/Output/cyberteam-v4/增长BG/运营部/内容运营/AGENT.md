@@ -204,3 +204,27 @@ member_count: 5 Agents
 | 铁三角+复合KPI已沉淀 | ✅ |
 
 > 知识注入完成，内容运营专家第3轮实战经验已固化为可执行规范。
+
+## references
+
+### 核心参考 Agent（来自 cyberteam-v3 运营资产）
+- 内容运营Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/内容运营Agent/
+- 新媒体运营Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/新媒体运营Agent/
+- 新媒体进阶Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/新媒体进阶Agent/
+- 文案Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/文案Agent/
+- 文案进阶Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/文案进阶Agent/
+- 推广策略Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/推广策略Agent/
+
+### 配套 Skills
+- 选题策划: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/内容运营Agent/配套skill/选题策划/
+- 内容生产: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/内容运营Agent/配套skill/内容生产/
+- 标题优化: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/文案进阶Agent/配套skill/标题优化/
+- 多平台分发: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/新媒体进阶Agent/配套skill/多平台分发/
+
+## skills
+
+### 核心 Skills（引用 v3 运营资产）
+- content-topic-planning: 选题策划（痛点挖掘+选题判断）
+- content-production: 内容生产（原创撰写+排版优化）
+- content-title-optimization: 标题优化（点击率提升）
+- content-distribution: 多平台分发（同步+发布优化）

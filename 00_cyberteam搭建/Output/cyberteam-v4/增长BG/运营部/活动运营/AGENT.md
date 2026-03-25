@@ -205,3 +205,31 @@ member_count: 5 Agents
 - 处置流程：预警 → 降级 → 熔断 → 复盘
 
 **风控四步骤**：预防 → 预案 → 实时监控 → 熔断
+
+## references
+
+### 核心参考 Agent（来自 cyberteam-v3 运营资产）
+- 活动策划Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/活动策划Agent/
+- 活动策划Agent 2: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/活动策划Agent 2/
+- 活动策划咨询Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/活动策划咨询Agent/
+- 活动运营进阶Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/活动运营进阶Agent/
+
+### 配套 Skills
+- 八种基础活动创意生成器: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/活动策划Agent/配套skill/八种基础活动创意生成器/
+- 活动策划方案七要素模板: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/活动策划Agent/配套skill/活动策划方案七要素模板/
+- 活动目标定义四要素: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/活动策划Agent/配套skill/活动目标定义四要素/
+- 热点蹭法拆解器: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/活动策划Agent/配套skill/热点蹭法拆解器/
+- 活动创意自检清单: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/活动策划Agent/配套skill/活动创意自检清单/
+- 活动复盘三步法: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/活动策划Agent/配套skill/活动复盘三步法/
+- 不同目标-创意匹配表: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/活动策划Agent/配套skill/不同目标-创意匹配表/
+
+## skills
+
+### 核心 Skills（引用 v3 运营资产）
+- activity-creative-generator: 八种基础活动创意生成器
+- activity-plan-template: 活动策划方案七要素模板
+- activity-goal-definition: 活动目标定义四要素
+- activity-trend-leveraging: 热点蹭法拆解器（借势营销）
+- activity-creative-checklist: 活动创意自检清单
+- activity-retrospective: 活动复盘三步法
+- activity-goal-creative-mapping: 不同目标-创意匹配表

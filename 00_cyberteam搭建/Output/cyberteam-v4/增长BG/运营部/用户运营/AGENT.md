@@ -190,3 +190,29 @@ AppPush > 短信 > 微信 > 邮件 > 电话
 - ARPU（每用户平均收入）
 
 **预警机制**：建立规则化预警，当指标跌破阈值时自动触发警报。
+
+---
+
+## references
+
+### 核心参考 Agent（来自 cyberteam-v3 运营资产）
+- 用户运营Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/用户运营Agent/
+- 用户运营咨询Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/用户运营咨询Agent/
+- 用户激励Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/用户激励Agent/
+- 用户洞察Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/用户洞察Agent/
+- 社群运营Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/社群运营Agent/
+- 社区运营Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/社区运营Agent/
+
+### 配套 Skills
+- 用户留存诊断: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/用户激励Agent/配套skill/用户留存诊断/
+- 横纵相交模型: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/用户激励Agent/配套skill/横纵相交模型/
+- 价值洼地诊断: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/用户激励Agent/配套skill/价值洼地诊断/
+- 激励体系设计: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/用户激励Agent/配套skill/激励体系设计/
+
+## skills
+
+### 核心 Skills（引用 v3 运营资产）
+- user-operations-retention: 用户留存诊断
+- user-operations-funnel: 横纵相交模型（流程×关键行为）
+- user-operations-value-gap: 价值洼地诊断（投入产出比最高的改进点）
+- user-operations-incentive: 激励体系设计（物质+精神+社交）

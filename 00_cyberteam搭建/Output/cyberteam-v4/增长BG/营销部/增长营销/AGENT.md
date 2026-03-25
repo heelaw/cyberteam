@@ -157,3 +157,28 @@ K > 1 时实现自增长
 - **创新测试基金**：预留10-15%预算用于新渠道/新玩法测试
 - **渠道调剂权**：赋予投放团队20%临时调度权，响应市场窗口
 - **止损线**：ROI<1的渠道立即暂停，避免消耗无效预算
+
+## references
+
+### 核心参考 Agent（来自 cyberteam-v3 运营资产）
+- 增长Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/增长Agent/
+- 增长策略咨询Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/增长策略咨询Agent/
+- 增长业务模型规划器: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/增长业务模型规划器/
+- 渠道推广Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/渠道推广Agent/
+- 营销转化Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/营销转化Agent/
+- 推广营销进阶Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/推广营销进阶Agent/
+- 数据驱动Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/数据驱动Agent/
+
+### 配套 Skills
+- 增长模型构建: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/增长Agent/配套skill/增长模型构建/
+- 渠道ROI分析: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/数据驱动Agent/配套skill/渠道ROI分析/
+- 病毒系数计算: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/增长Agent/配套skill/病毒系数计算/
+- 归因分析: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/数据驱动Agent/配套skill/归因分析/
+
+## skills
+
+### 核心 Skills（引用 v3 运营资产）
+- growth-model-building: 增长模型构建（AARRR/RARRR）
+- growth-channel-roi: 渠道ROI分析（LTV/CAC）
+- growth-viral-coefficient: 病毒系数计算（K因子）
+- growth-attribution: 归因分析（多触点归因）

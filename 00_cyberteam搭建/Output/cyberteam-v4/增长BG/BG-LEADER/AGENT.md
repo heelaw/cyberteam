@@ -172,3 +172,35 @@ subordinates:
 - **周报**：每周一提交
 - **月报**：每月月初
 - **季报**：每季度
+
+## references
+
+### 核心参考 Agent（来自 cyberteam-v3 运营资产）
+- 01_汇报框架Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/01_汇报框架Agent/
+- 02_时间管理Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/02_时间管理Agent/
+- 03_进度管理Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/03_进度管理Agent/
+- 04_复盘模板Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/04_复盘模板Agent/
+- 05_人力盘点Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/05_人力盘点Agent/
+- 06_IDP计划Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/06_IDP计划Agent/
+- 07_1v1沟通Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/07_1v1沟通Agent/
+- 08_团队激励Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/08_团队激励Agent/
+- 团队管理Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/团队管理Agent/
+- 策略规划Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/策略规划Agent/
+- 策略执行Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/策略执行Agent/
+- 高层意图识别Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/高层意图识别Agent/
+
+### 配套 Skills
+- 汇报框架: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/01_汇报框架Agent/配套skill/汇报框架/
+- 时间管理: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/02_时间管理Agent/配套skill/时间管理/
+- 进度管理: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/03_进度管理Agent/配套skill/进度管理/
+- 复盘模板: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/04_复盘模板Agent/配套skill/复盘模板/
+- 团队管理: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/团队管理Agent/配套skill/团队管理/
+
+## skills
+
+### 核心 Skills（引用 v3 运营资产）
+- growth-reporting-framework: 汇报框架（结构化向上沟通）
+- growth-time-management: 时间管理（优先级四象限）
+- growth-progress-tracking: 进度管理（甘特图+里程碑）
+- growth-retrospective: 复盘模板（目标达成+数据+问题+行动）
+- growth-team-management: 团队管理（激励+沟通+评估）

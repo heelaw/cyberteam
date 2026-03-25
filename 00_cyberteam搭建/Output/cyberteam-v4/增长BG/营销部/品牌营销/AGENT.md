@@ -175,3 +175,26 @@ member_count: 5 Agents
 - **文档体系**：品牌手册 + 内容指南 + 审核机制
 - **角色定位**：赋能者而非审美警察
 - **审核机制**：一线品牌专员初审 + 总监最终审核
+
+## references
+
+### 核心参考 Agent（来自 cyberteam-v3 运营资产）
+- 商业认知咨询Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/商业认知咨询Agent/
+- 运营方法论Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/运营方法论Agent/
+- 运营案例Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/运营案例Agent/
+- 运营进阶Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/运营进阶Agent/
+- 运营高阶Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/运营高阶Agent/
+
+### 配套 Skills
+- 品牌定位: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/商业认知咨询Agent/配套skill/品牌定位/
+- 品牌传播: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/商业认知咨询Agent/配套skill/品牌传播/
+- 危机管理: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/商业认知咨询Agent/配套skill/危机管理/
+- 品牌健康度监测: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/数据驱动Agent/配套skill/品牌健康度监测/
+
+## skills
+
+### 核心 Skills（引用 v3 运营资产）
+- brand-positioning: 品牌定位（STP模型）
+- brand-communication: 品牌传播（认知→认同→追随）
+- brand-crisis-management: 危机管理（三级响应）
+- brand-health-monitoring: 品牌健康度监测（NPS/搜索指数）
