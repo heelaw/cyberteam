@@ -1,0 +1,40 @@
+# CyberTeam V4 Docker Compose
+# Local development environment
+
+services:
+  # Core Engine Service
+  engine:
+    image: python:3.11-slim
+    working_dir: /app
+    volumes:
+      - ./:/app
+    command: tail -f /dev/null
+    ports:
+      - "8000:8000"
+    environment:
+      - ENV=development
+      - LOG_LEVEL=INFO
+
+  # Configuration Service
+  config:
+    image: python:3.11-slim
+    working_dir: /app
+    volumes:
+      - ./config:/app/config
+    command: tail -f /dev/null
+
+  # Agents Service
+  agents:
+    image: python:3.11-slim
+    working_dir: /app
+    volumes:
+      - ./agents:/app/agents
+    command: tail -f /dev/null
+
+  # Skills Service
+  skills:
+    image: python:3.11-slim
+    working_dir: /app
+    volumes:
+      - ./skills:/app/skills
+    command: tail -f /dev/null

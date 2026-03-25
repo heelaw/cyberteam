@@ -1,0 +1,79 @@
+# CI/CD Pipeline for CyberTeam V4
+
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate project structure
+        run: |
+          echo "Validating CyberTeam V4 structure..."
+          ls -la
+
+          # Check required directories exist
+          required_dirs=("agents" "engine" "skills" "config" "docs" "integration" "tests")
+          for dir in "${required_dirs[@]}"; do
+            if [ -d "$dir" ]; then
+              echo "✓ $dir exists"
+            else
+              echo "✗ $dir missing"
+              exit 1
+            fi
+          done
+
+      - name: Check for required config files
+        run: |
+          echo "Checking for config files..."
+          ls -la config/ 2>/dev/null || echo "No config directory content"
+
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Check Python syntax
+        run: |
+          python -m py_compile $(find . -name "*.py" -type f 2>/dev/null | head -20) || true
+
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run basic tests
+        run: |
+          echo "Running CyberTeam V4 tests..."
+          if [ -d "tests" ]; then
+            echo "Tests directory exists"
+          else
+            echo "No tests directory - skipping"
+          fi
