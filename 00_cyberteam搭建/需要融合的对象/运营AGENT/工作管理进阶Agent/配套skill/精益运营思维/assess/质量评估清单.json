@@ -1,0 +1,220 @@
+{
+  "skill_name": "精益运营决策助手",
+  "version": "1.0",
+  "assess_type": "质量评估清单",
+  "total_score": 100,
+  "pass_threshold": 85,
+  "evaluation_dimensions": [
+    {
+      "dimension": "完整性",
+      "weight": 20,
+      "description": "评估决策框架的全面程度",
+      "criteria": [
+        {
+          "item": "想法收集完整性",
+          "description": "列出用户所有想法，不遗漏",
+          "score_levels": {
+            "excellent": "5",
+            "good": "4",
+            "acceptable": "3",
+            "poor": "1"
+          }
+        },
+        {
+          "item": "假设提取完整性",
+          "description": "每个想法都识别出核心假设",
+          "score_levels": {
+            "excellent": "5",
+            "good": "4",
+            "acceptable": "3",
+            "poor": "1"
+          }
+        },
+        {
+          "item": "验证方案完整性",
+          "description": "包含验证方法、周期、成功/失败标准",
+          "score_levels": {
+            "excellent": "5",
+            "good": "4",
+            "acceptable": "3",
+            "poor": "1"
+          }
+        }
+      ]
+    },
+    {
+      "dimension": "实用性",
+      "weight": 20,
+      "description": "评估决策方案的可执行性",
+      "criteria": [
+        {
+          "item": "最小成本原则",
+          "description": "验证方案成本低于正式投入",
+          "score_levels": {
+            "excellent": "5",
+            "good": "4",
+            "acceptable": "3",
+            "poor": "1"
+          }
+        },
+        {
+          "item": "可执行性",
+          "description": "验证计划可直接执行",
+          "score_levels": {
+            "excellent": "5",
+            "good": "4",
+            "acceptable": "3",
+            "poor": "1"
+          }
+        },
+        {
+          "item": "止损点设定",
+          "description": "设定明确的止损点和停止条件",
+          "score_levels": {
+            "excellent": "5",
+            "good": "4",
+            "acceptable": "3",
+            "poor": "1"
+          }
+        }
+      ]
+    },
+    {
+      "dimension": "专业性",
+      "weight": 20,
+      "description": "评估决策方法的专业水准",
+      "criteria": [
+        {
+          "item": "假设识别准确性",
+          "description": "每个想法的核心假设明确、具体、可验证",
+          "score_levels": {
+            "excellent": "5",
+            "good": "4",
+            "acceptable": "3",
+            "poor": "1"
+          }
+        },
+        {
+          "item": "验证方法匹配",
+          "description": "假设类型与验证方法匹配",
+          "score_levels": {
+            "excellent": "5",
+            "good": "4",
+            "acceptable": "3",
+            "poor": "1"
+          }
+        },
+        {
+          "item": "优先级合理性",
+          "description": "根据假设风险和验证成本设定优先级",
+          "score_levels": {
+            "excellent": "5",
+            "good": "4",
+            "acceptable": "3",
+            "poor": "1"
+          }
+        }
+      ]
+    },
+    {
+      "dimension": "严谨性",
+      "weight": 20,
+      "description": "评估决策框架的严密程度",
+      "criteria": [
+        {
+          "item": "成功/失败标准明确",
+          "description": "验证前定义明确的成功/失败标准",
+          "score_levels": {
+            "excellent": "5",
+            "good": "4",
+            "acceptable": "3",
+            "poor": "1"
+          }
+        },
+        {
+          "item": "风险分级",
+          "description": "对假设进行风险等级划分",
+          "score_levels": {
+            "excellent": "5",
+            "good": "4",
+            "acceptable": "3",
+            "poor": "1"
+          }
+        },
+        {
+          "item": "量化比较",
+          "description": "不同方案有量化比较维度",
+          "score_levels": {
+            "excellent": "5",
+            "good": "4",
+            "acceptable": "3",
+            "poor": "1"
+          }
+        }
+      ]
+    },
+    {
+      "dimension": "独特个性",
+      "weight": 10,
+      "description": "评估Skill的独特风格",
+      "criteria": [
+        {
+          "item": "精益思维体现",
+          "description": "强调最小成本验证，避免盲目投入",
+          "score_levels": {
+            "excellent": "5",
+            "good": "4",
+            "acceptable": "3",
+            "poor": "1"
+          }
+        },
+        {
+          "item": "数据驱动风格",
+          "description": "用数据说话，注重验证和迭代",
+          "score_levels": {
+            "excellent": "5",
+            "good": "4",
+            "acceptable": "3",
+            "poor": "1"
+          }
+        }
+      ]
+    },
+    {
+      "dimension": "规范性",
+      "weight": 10,
+      "description": "评估输出格式的规范性",
+      "criteria": [
+        {
+          "item": "输出格式规范",
+          "description": "使用标准化的决策框架模板",
+          "score_levels": {
+            "excellent": "5",
+            "good": "4",
+            "acceptable": "3",
+            "poor": "1"
+          }
+        },
+        {
+          "item": "术语使用规范",
+          "description": "使用规范的专业术语",
+          "score_levels": {
+            "excellent": "5",
+            "good": "4",
+            "acceptable": "3",
+            "poor": "1"
+          }
+        }
+      ]
+    }
+  ],
+  "common_fail_points": [
+    "想法收集不完整",
+    "假设提取模糊",
+    "验证成本过高",
+    "成功/失败标准不明确",
+    "无止损点",
+    "无优先级排序",
+    "验证方案无法落地"
+  ]
+}

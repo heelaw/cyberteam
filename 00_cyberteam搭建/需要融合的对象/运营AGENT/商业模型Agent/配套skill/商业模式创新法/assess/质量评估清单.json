@@ -1,0 +1,205 @@
+{
+  "skill_name": "商业模式创新法",
+  "version": "1.0",
+  "evaluation_type": "skill_quality",
+  "quality_dimensions": [
+    {
+      "dimension": "完整性",
+      "weight": "20%",
+      "score_levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": [
+            "包含收入来源、价值主张、渠道、交付方式、客户关系五大创新维度",
+            "每个维度都有具体分析",
+            "创新方向全面，包含Quick Wins/Strategic Bets/Transformational三层"
+          ]
+        },
+        "good": {
+          "score": 4,
+          "criteria": [
+            "五大维度齐全但部分维度分析较浅"
+          ]
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": [
+            "仅覆盖3-4个维度"
+          ]
+        },
+        "poor": {
+          "score": 1,
+          "criteria": [
+            "维度不完整"
+          ]
+        }
+      }
+    },
+    {
+      "dimension": "实用性",
+      "weight": "20%",
+      "score_levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": [
+            "创新方法清晰可操作（五维创新矩阵）",
+            "方案设计具体可行",
+            "有实施路径和步骤，包含创新路线图"
+          ]
+        },
+        "good": {
+          "score": 4,
+          "criteria": [
+            "方法较清晰，基本可操作"
+          ]
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": [
+            "有基本方法但操作困难"
+          ]
+        },
+        "poor": {
+          "score": 1,
+          "criteria": [
+            "方法模糊难以落地"
+          ]
+        }
+      }
+    },
+    {
+      "dimension": "专业性",
+      "weight": "20%",
+      "score_levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": [
+            "创新理论正确（五维创新矩阵）",
+            "案例支撑充分",
+            "分析逻辑严密"
+          ]
+        },
+        "good": {
+          "score": 4,
+          "criteria": [
+            "理论较正确，案例基本到位"
+          ]
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": [
+            "存在少量理论或逻辑问题"
+          ]
+        },
+        "poor": {
+          "score": 1,
+          "criteria": [
+            "理论错误多，逻辑混乱"
+          ]
+        }
+      }
+    },
+    {
+      "dimension": "严谨性",
+      "weight": "20%",
+      "score_levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": [
+            "必须遵守规则≥5条",
+            "禁止行为明确≥5条",
+            "风险识别到位，包含市场风险/运营风险/财务风险",
+            "触发场景描述具体明确"
+          ]
+        },
+        "good": {
+          "score": 4,
+          "criteria": [
+            "Critical Rules完整但风险识别较简略"
+          ]
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": [
+            "Critical Rules不足5条"
+          ]
+        },
+        "poor": {
+          "score": 1,
+          "criteria": [
+            "Critical Rules缺失或不足3条"
+          ]
+        }
+      }
+    },
+    {
+      "dimension": "独特个性",
+      "weight": "10%",
+      "score_levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": [
+            "有明确的方法论特色（五维创新矩阵+三层创新层次）",
+            "角色定位清晰（商业模式创新顾问）",
+            "有独特的分析框架和视角",
+            "有标志性语言风格和Signature"
+          ]
+        },
+        "good": {
+          "score": 4,
+          "criteria": [
+            "有方法论特色但角色定位较简略"
+          ]
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": [
+            "有基本框架但缺乏独特性"
+          ]
+        },
+        "poor": {
+          "score": 1,
+          "criteria": [
+            "缺乏独特个性，千篇一律"
+          ]
+        }
+      }
+    },
+    {
+      "dimension": "规范性",
+      "weight": "10%",
+      "score_levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": [
+            "完全符合模板规范",
+            "输入输出字段完整",
+            "格式统一，层级清晰"
+          ]
+        },
+        "good": {
+          "score": 4,
+          "criteria": [
+            "基本符合规范，有少量格式问题"
+          ]
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": [
+            "部分格式不规范"
+          ]
+        },
+        "poor": {
+          "score": 1,
+          "criteria": [
+            "格式混乱，字段缺失严重"
+          ]
+        }
+      }
+    }
+  ],
+  "pass_threshold": {
+    "total_score": "≥85分",
+    "各维度最低要求": "每个维度至少3分"
+  }
+}

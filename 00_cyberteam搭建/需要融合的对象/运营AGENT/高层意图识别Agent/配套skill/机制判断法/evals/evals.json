@@ -1,0 +1,87 @@
+{
+  "skill_name": "机制判断法",
+  "version": "1.0",
+  "eval_type": "skill_functional",
+  "test_cases": [
+    {
+      "id": 1,
+      "difficulty": "simple",
+      "category": "基础判断",
+      "input": {
+        "situation": "团队报销经常出问题，需要规范一下",
+        "proposed_mechanism": "建立报销流程",
+        "context": {
+          "team_size": 15,
+          "problem_frequency": "偶尔",
+          "current_impact": 2
+        }
+      },
+      "expected_output": {
+        "must_include": ["问题定义：报销管理需求", "必要性分析：团队规模/报销频率/成本收益", "时机判断：根据当前团队情况判断", "替代方案：能否用更简单方式解决", "建议：建立/不建立/简化处理"],
+        "output_structure": "问题定义+必要性分析+时机判断+替代方案+建议",
+        "min_score": 3
+      },
+      "evaluation_criteria": {
+        "completeness": "是否包含全部要素",
+        "accuracy": "判断是否准确",
+        "clarity": "输出是否清晰可读",
+        "cost_benefit": "成本收益分析是否到位"
+      }
+    },
+    {
+      "id": 2,
+      "difficulty": "medium",
+      "category": "机制建立",
+      "input": {
+        "situation": "团队越来越大，要建立绩效机制吗？",
+        "proposed_mechanism": "建立绩效管理系统",
+        "context": {
+          "team_size": 80,
+          "problem_frequency": "经常",
+          "current_impact": 4
+        }
+      },
+      "expected_output": {
+        "must_include": ["问题定义：团队管理/激励问题", "必要性分析：收益(管理效率/员工激励)vs成本(执行成本/管理成本)", "时机判断：50人以下可暂缓，50人以上建议建立", "替代方案：能否用文化/领导力解决", "建议：建立/不建立/再等等+具体形式"],
+        "output_structure": "问题定义+必要性分析+时机判断+替代方案+建议+实施要点",
+        "min_score": 3
+      },
+      "evaluation_criteria": {
+        "completeness": "是否包含全部要素",
+        "analysis": "收益vs成本分析是否到位",
+        "clarity": "输出是否清晰可读",
+        "timing_sensitivity": "时机判断是否合理"
+      }
+    },
+    {
+      "id": 3,
+      "difficulty": "hard",
+      "category": "复杂判断",
+      "input": {
+        "situation": "公司想建立员工持股计划(ESOP)，请判断是否应该建立以及最佳时机",
+        "proposed_mechanism": "建立ESOP",
+        "context": {
+          "team_size": 200,
+          "problem_frequency": "经常",
+          "current_impact": 5
+        }
+      },
+      "expected_output": {
+        "must_include": ["问题定义：长期激励/人才保留问题", "必要性分析：收益(绑定核心人才/激发主人翁意识)vs成本(稀释股份/管理复杂)", "时机判断：B轮后/核心团队稳定后/融资后", "替代方案：奖金/期权替代方案", "建议：建立+具体形式+实施要点"],
+        "output_structure": "问题定义+必要性分析+时机判断+替代方案+建议+实施要点+风险缓解",
+        "min_score": 3
+      },
+      "evaluation_criteria": {
+        "completeness": "是否包含全部要素",
+        "depth": "分析是否有深度",
+        "practicality": "建议是否具有实操性",
+        "risk_awareness": "风险识别是否充分"
+      }
+    }
+  ],
+  "evaluation_methodology": {
+    "scoring": "每个维度1-5分，5分制评分",
+    "pass_criteria": "总分≥15分（满分25分），且每个维度≥3分",
+    "process": "1.明确定义要解决的问题 2.进行必要性分析(收益vs成本) 3.判断最佳时机 4.给出具体建议"
+  }
+}

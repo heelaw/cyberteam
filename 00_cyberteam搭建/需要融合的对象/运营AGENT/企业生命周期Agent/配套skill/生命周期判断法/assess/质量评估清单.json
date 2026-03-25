@@ -1,0 +1,68 @@
+{
+  "skill_name": "生命周期判断法",
+  "version": "1.0",
+  "evaluation_type": "skill_quality",
+  "quality_dimensions": [
+    {
+      "dimension": "完整性",
+      "weight": "20%",
+      "score_levels": {
+        "excellent": {"score": 5, "criteria": ["包含初创期、成长期、成熟期、转型期四阶段", "每个阶段有明确判断标准", "判断维度完整（融资阶段/团队规模/收入规模/市场阶段）", "包含过渡期判断和多维度交叉验证"]},
+        "good": {"score": 4, "criteria": ["四阶段齐全但判断维度或过渡期描述不足"]},
+        "acceptable": {"score": 3, "criteria": ["仅覆盖3个阶段或部分维度"]},
+        "poor": {"score": 1, "criteria": ["阶段或核心维度不完整"]}
+      }
+    },
+    {
+      "dimension": "实用性",
+      "weight": "20%",
+      "score_levels": {
+        "excellent": {"score": 5, "criteria": ["判断步骤清晰明确", "每个步骤有具体指引", "输出模板可直接使用", "包含置信度和关键指标追踪建议"]},
+        "good": {"score": 4, "criteria": ["步骤较清晰，有基本模板"]},
+        "acceptable": {"score": 3, "criteria": ["有基本步骤但指引或模板不足"]},
+        "poor": {"score": 1, "criteria": ["步骤模糊难以操作"]}
+      }
+    },
+    {
+      "dimension": "专业性",
+      "weight": "20%",
+      "score_levels": {
+        "excellent": {"score": 5, "criteria": ["阶段定义完全准确（初创期找PMF/成长期规模化/成熟期效率/转型期新增长）", "判断逻辑正确（多维度交叉验证）", "术语准确无误", "行业特殊性处理合理"]},
+        "good": {"score": 4, "criteria": ["定义较准确，逻辑基本正确"]},
+        "acceptable": {"score": 3, "criteria": ["存在少量定义或逻辑问题"]},
+        "poor": {"score": 1, "criteria": ["定义错误多，逻辑混乱"]}
+      }
+    },
+    {
+      "dimension": "严谨性",
+      "weight": "20%",
+      "score_levels": {
+        "excellent": {"score": 5, "criteria": ["Critical Rules完整(必须遵守≥5条)", "禁止行为明确(≥5条)", "触发场景描述具体", "错误处理机制完善"]},
+        "good": {"score": 4, "criteria": ["Critical Rules完整，错误处理较完善"]},
+        "acceptable": {"score": 3, "criteria": ["Critical Rules不足5条或错误处理不足"]},
+        "poor": {"score": 1, "criteria": ["Critical Rules缺失或不足3条"]}
+      }
+    },
+    {
+      "dimension": "独特个性",
+      "weight": "10%",
+      "score_levels": {
+        "excellent": {"score": 5, "criteria": ["有明确角色定位（如阶段诊断师/多维度交叉验证分析师）", "独特方法论描述（强调四维度交叉验证vs单一维度）", "有鲜明的语言风格和说话方式", "有核心价值主张"]},
+        "good": {"score": 4, "criteria": ["有角色定位和方法论描述"]},
+        "acceptable": {"score": 3, "criteria": ["有简单个性描述但不够鲜明"]},
+        "poor": {"score": 1, "criteria": ["缺乏独特个性描述"]}
+      }
+    },
+    {
+      "dimension": "规范性",
+      "weight": "10%",
+      "score_levels": {
+        "excellent": {"score": 5, "criteria": ["完全符合模板规范", "字段完整（输入/输出/示例/错误处理等）", "格式统一", "JSON格式正确"]},
+        "good": {"score": 4, "criteria": ["基本符合规范，格式基本正确"]},
+        "acceptable": {"score": 3, "criteria": ["部分格式不规范或字段缺失"]},
+        "poor": {"score": 1, "criteria": ["格式混乱或严重缺失字段"]}
+      }
+    }
+  ],
+  "pass_threshold": {"total_score": "≥85分", "计算方式": "各维度得分×权重之和，满分100分", "各维度最低要求": "每个维度至少3分"}
+}

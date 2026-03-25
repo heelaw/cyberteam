@@ -1,0 +1,45 @@
+[
+  {
+    "id": "eval-001",
+    "name": "618大促活动策划",
+    "difficulty": "medium",
+    "input": {
+      "business": "某电商平台",
+      "period": "618大促",
+      "budget": "100万",
+      "target": "提升销售额"
+    },
+    "expected_output": {
+      "6_elements_completed": true,
+      "goal_smarter": true,
+      "risk_assessment": true,
+      "execution_timeline": true
+    },
+    "evaluation_criteria": [
+      "目标是否符合SMART",
+      "用户分层是否精准",
+      "玩法是否有差异化",
+      "激励是否有吸引力",
+      "风险是否有预案"
+    ]
+  },
+  {
+    "id": "eval-002",
+    "name": "拉新活动策划",
+    "difficulty": "simple",
+    "input": {
+      "business": "在线教育App",
+      "goal": "新增付费用户",
+      "budget": "10万"
+    },
+    "expected_output": {
+      "6_elements_draft": true,
+      "裂变机制": true
+    },
+    "evaluation_criteria": [
+      "是否有清晰的活动目标",
+      "是否有裂变机制",
+      "成本是否可控"
+    ]
+  }
+]

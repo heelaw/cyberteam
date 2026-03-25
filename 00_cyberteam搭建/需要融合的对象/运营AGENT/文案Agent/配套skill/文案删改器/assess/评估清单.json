@@ -1,0 +1,71 @@
+{
+  "skill_name": "文案删改器",
+  "version": "1.0.0",
+  "assess_type": "quality",
+  "metrics": [
+    {
+      "id": "m1",
+      "name": "删减效果",
+      "description": "删减后字数是否减少≥20%",
+      "type": "binary",
+      "threshold": true,
+      "weight": 20
+    },
+    {
+      "id": "m2",
+      "name": "核心信息保留",
+      "description": "核心信息是否100%保留",
+      "type": "binary",
+      "threshold": true,
+      "weight": 25
+    },
+    {
+      "id": "m3",
+      "name": "表达优化",
+      "description": "改写是否让表达更清晰有力",
+      "type": "binary",
+      "threshold": true,
+      "weight": 20
+    },
+    {
+      "id": "m4",
+      "name": "整体效果",
+      "description": "整体优化是否提升文案质量",
+      "type": "binary",
+      "threshold": true,
+      "weight": 20
+    },
+    {
+      "id": "m5",
+      "name": "Critical Rules",
+      "description": "是否有至少5条禁止行为",
+      "type": "count",
+      "threshold": 5,
+      "weight": 10
+    },
+    {
+      "id": "m6",
+      "name": "Success Metrics",
+      "description": "是否有量化指标",
+      "type": "binary",
+      "threshold": true,
+      "weight": 3
+    },
+    {
+      "id": "m7",
+      "name": "Skill协同",
+      "description": "是否有前后置Skill定义",
+      "type": "binary",
+      "threshold": true,
+      "weight": 2
+    }
+  ],
+  "pass_threshold": 0.85,
+  "version_history": [
+    {
+      "version": "1.0.0",
+      "created": "2026-03-18",
+      "notes": "初始版本"
+    }
+  ]
+}

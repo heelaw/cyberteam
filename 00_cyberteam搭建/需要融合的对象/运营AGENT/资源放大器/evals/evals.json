@@ -1,0 +1,49 @@
+{
+  "version": "1.0",
+  "test_cases": [
+    {
+      "id": "1",
+      "scenario": "验证成功后放大",
+      "description": "MVP验证成功后制定放大方案",
+      "difficulty": "medium",
+      "input": {
+        "verification_result": "核心假设验证通过",
+        "unit_economics": "LTV/CAC=3",
+        "available_budget": "100万/季度"
+      },
+      "expected_output": {
+        "timing_judgment": "ready",
+        "confidence": "90%",
+        "strategy": "分三阶段放大",
+        "resource_plan": "20万+30万+50万",
+        "risk_control": "设置止损线15万"
+      },
+      "evaluation_points": [
+        "时机判断合理",
+        "策略系统完整"
+      ]
+    },
+    {
+      "id": "2",
+      "scenario": "早期项目放大评估",
+      "description": "评估一个早期项目是否可以放大",
+      "difficulty": "simple",
+      "input": {
+        "verification_result": "部分假设验证通过",
+        "unit_economics": "LTV/CAC=1.5"
+      },
+      "expected_output": {
+        "timing_judgment": "not_ready",
+        "reasons": ["单位经济模型不够健康"]
+      },
+      "evaluation_points": [
+        "准确判断时机不成熟"
+      ]
+    }
+  ],
+  "evaluation_criteria": {
+    "timing_accuracy": "时机判断准确",
+    "strategy_quality": "放大策略有效",
+    "risk_control": "风险控制措施到位"
+  }
+}

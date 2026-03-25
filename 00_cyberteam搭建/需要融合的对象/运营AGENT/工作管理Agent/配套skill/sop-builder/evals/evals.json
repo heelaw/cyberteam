@@ -1,0 +1,136 @@
+{
+  "skill_name": "sop-builder",
+  "测试案例": [
+    {
+      "id": "eval-1",
+      "难度": "medium",
+      "案例": "某电商公司需要建立用户投诉处理SOP，当前客服处理投诉标准不统一，用户满意度仅65%",
+      "输入": {
+        "work_description": "用户投诉处理流程",
+        "current_process": "用户投诉→客服接单→自行处理→结果反馈。无统一标准，处理结果参差不齐",
+        "pain_points": ["处理标准不统一", "重复投诉率高", "处理时长超过48小时"],
+        "team_size": 8
+      },
+      "预期输出": {
+        "sop_document": {
+          "title": "用户投诉处理标准化流程",
+          "objective": "统一处理标准，提升用户满意度至85%以上",
+          "scope": "适用于所有客服团队处理用户投诉场景",
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "接收并记录投诉",
+              "responsible": "客服专员",
+              "tool": "客服系统",
+              "output": "投诉工单",
+              "standard": "30分钟内响应",
+              "time": "10分钟"
+            },
+            {
+              "step_number": 2,
+              "action": "分类投诉等级",
+              "responsible": "客服组长",
+              "tool": "投诉分类表",
+              "output": "投诉等级判定",
+              "standard": "30分钟内完成分类",
+              "time": "30分钟"
+            },
+            {
+              "step_number": 3,
+              "action": "按等级处理",
+              "responsible": "对应负责人",
+              "tool": "处理手册",
+              "output": "处理方案",
+              "standard": "普通24小时，紧急4小时",
+              "time": "按等级"
+            },
+            {
+              "step_number": 4,
+              "action": "结果反馈用户",
+              "responsible": "客服专员",
+              "tool": "客服系统/电话",
+              "output": "处理结果",
+              "standard": "用户确认",
+              "time": "30分钟"
+            },
+            {
+              "step_number": 5,
+              "action": "复盘优化",
+              "responsible": "客服组长",
+              "tool": "投诉分析表",
+              "output": "月度投诉分析报告",
+              "standard": "每月复盘",
+              "time": "2小时"
+            }
+          ],
+          "checkpoints": ["投诉分类准确性", "处理时效达标率", "用户满意度"],
+          "exception_handling": ["升级机制：2次处理不满意自动升级", "重大投诉24小时内上报"]
+        }
+      }
+    },
+    {
+      "id": "eval-2",
+      "难度": "simple",
+      "案例": "创业公司需要建立周会SOP，让团队同步进度更高效",
+      "输入": {
+        "work_description": "周会流程",
+        "current_process": "随机发言，缺乏结构，经常超时",
+        "team_size": 5
+      },
+      "预期输出": {
+        "sop_document": {
+          "title": "高效周会SOP",
+          "objective": "让每次周会30分钟内完成，有效同步团队进度",
+          "scope": "适用于5-10人团队周会",
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "会前准备",
+              "responsible": "每位成员",
+              "tool": "协作文档",
+              "output": "周报文档",
+              "standard": "周五18:00前提交",
+              "time": "10分钟"
+            },
+            {
+              "step_number": 2,
+              "action": "轮流汇报",
+              "responsible": "主持人",
+              "tool": "计时器",
+              "output": "进度同步",
+              "standard": "每人3分钟",
+              "time": "15分钟"
+            },
+            {
+              "step_number": 3,
+              "action": "讨论 blockers",
+              "responsible": "全员",
+              "tool": "白板",
+              "output": "问题清单",
+              "standard": "需有解决方案或负责人",
+              "time": "10分钟"
+            },
+            {
+              "step_number": 4,
+              "action": "下周计划确认",
+              "responsible": "主持人",
+              "tool": "协作文档",
+              "output": "下周任务清单",
+              "standard": "明确优先级",
+              "time": "5分钟"
+            }
+          ],
+          "checkpoints": ["准时开始/结束", "每人发言不超时", "blockers有跟进"],
+          "exception_handling": ["超时自动终止，讨论移至线下", "核心成员缺席会议取消"]
+        }
+      }
+    }
+  ],
+  "评分标准": {
+    "步骤完整性": "是否包含从开始到结束的所有必要步骤",
+    "可执行性": "每步是否清晰可执行，有明确产出",
+    "责任人明确": "每步是否都有明确责任人",
+    "异常处理": "是否有异常处理和升级机制",
+    "效果验证": "SOP是否能有效解决痛点，达成目标"
+  }
+}

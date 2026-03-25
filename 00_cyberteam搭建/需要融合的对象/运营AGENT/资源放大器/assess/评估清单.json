@@ -1,0 +1,37 @@
+{
+  "dimension": "资源放大",
+  "version": "1.0",
+  "author": "Cyberwiz",
+  "review_status": "待审查",
+  "review_required": false,
+  "review_threshold": 90,
+  "items": [
+    {
+      "id": "1",
+      "item": "时机判断",
+      "weight": 30,
+      "criteria": "准确判断放大时机，验证充分后才放大",
+      "measurement": "判断准确率≥90%"
+    },
+    {
+      "id": "2",
+      "item": "放大策略",
+      "weight": 40,
+      "criteria": "策略系统有效，各维度考虑周全",
+      "measurement": "投入产出比≥3"
+    },
+    {
+      "id": "3",
+      "item": "风险控制",
+      "weight": 30,
+      "criteria": "风险控制措施有效，失败率低",
+      "measurement": "失败率≤20%"
+    }
+  ],
+  "scoring_rules": {
+    "excellent": "90-100",
+    "good": "80-89",
+    "pass": "70-79",
+    "fail": "0-69"
+  }
+}

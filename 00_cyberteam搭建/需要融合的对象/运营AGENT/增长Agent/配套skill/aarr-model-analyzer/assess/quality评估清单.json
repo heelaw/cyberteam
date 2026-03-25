@@ -1,0 +1,71 @@
+{
+  "skill_name": "aarr-model-analyzer",
+  "version": "1.0.0",
+  "assess_type": "quality",
+  "metrics": [
+    {
+      "id": "m1",
+      "name": "环节完整性",
+      "description": "是否分析全部5个AARRR环节",
+      "type": "count",
+      "threshold": 5,
+      "weight": 20
+    },
+    {
+      "id": "m2",
+      "name": "数据支撑",
+      "description": "每个环节是否有可量化数据",
+      "type": "count",
+      "threshold": 5,
+      "weight": 15
+    },
+    {
+      "id": "m3",
+      "name": "瓶颈识别",
+      "description": "是否识别出核心瓶颈环节",
+      "type": "binary",
+      "threshold": true,
+      "weight": 20
+    },
+    {
+      "id": "m4",
+      "name": "优化建议可执行性",
+      "description": "每个瓶颈是否有可落地的优化建议",
+      "type": "count",
+      "threshold": 3,
+      "weight": 15
+    },
+    {
+      "id": "m5",
+      "name": "跨环节协同",
+      "description": "是否考虑各环节的协同效应",
+      "type": "binary",
+      "threshold": true,
+      "weight": 10
+    },
+    {
+      "id": "m6",
+      "name": "优先级排序",
+      "description": "是否给出优化优先级建议",
+      "type": "binary",
+      "threshold": true,
+      "weight": 10
+    },
+    {
+      "id": "m7",
+      "name": "行业对比",
+      "description": "是否对比行业基准数据",
+      "type": "binary",
+      "threshold": true,
+      "weight": 10
+    }
+  ],
+  "pass_threshold": 0.85,
+  "version_history": [
+    {
+      "version": "1.0.0",
+      "created": "2026-03-17",
+      "notes": "初始版本"
+    }
+  ]
+}

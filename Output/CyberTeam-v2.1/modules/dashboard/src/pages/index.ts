@@ -1,5 +1,0 @@
-export { DashboardPage } from "./DashboardPage"
-export { KanbanPage } from "./KanbanPage"
-export { AgentsPage } from "./AgentsPage"
-export { MessagesPage } from "./MessagesPage"
-export { SettingsPage } from "./SettingsPage"

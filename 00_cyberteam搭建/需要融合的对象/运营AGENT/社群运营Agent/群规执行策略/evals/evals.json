@@ -1,0 +1,90 @@
+{
+  "skill_name": "群规执行策略",
+  "version": "1.0",
+  "eval_type": "skill_functional",
+  "test_cases": [
+    {
+      "id": 1,
+      "difficulty": "simple",
+      "category": "轻度违规处理",
+      "input": {
+        "scenario": "一个新用户入群2小时后发了一条无关投票链接，其他用户举报。作为群主你该如何处理？"
+      },
+      "expected_output": {
+        "must_include": [
+          "违规判定（轻度）",
+          "处理方式选择",
+          "处理话术",
+          "记录存档"
+        ],
+        "output_structure": "完整处理流程",
+        "min_score": 3
+      },
+      "evaluation_criteria": {
+        "fairness": "处理是否公平",
+        "feasibility": "方案是否可行",
+        "tone": "话术是否得当"
+      }
+    },
+    {
+      "id": 2,
+      "difficulty": "medium",
+      "category": "重度违规处理",
+      "input": {
+        "scenario": "一个入群3个月的老用户，上周因发无关链接被警告过一次，今天又发了一条广告链接。群内其他用户已经有意见了"
+      },
+      "expected_output": {
+        "must_include": [
+          "违规分级判定",
+          "处理方式（考虑重复违规）",
+          "群内公告话术",
+          "私下沟通话术",
+          "记录存档"
+        ],
+        "output_structure": "完整处理流程+用户沟通",
+        "min_score": 3
+      },
+      "evaluation_criteria": {
+        "fairness": "是否公平执法",
+        "consistency": "是否与之前警告一致",
+        "tone": "话术是否体现人情味"
+      }
+    },
+    {
+      "id": 3,
+      "difficulty": "hard",
+      "category": "特殊场景处理",
+      "input": {
+        "scenario": "用户在违规被处理时狡辩说\"我不知道这个不能做\"，同时群里有其他用户在起哄\"算了算了\""
+      },
+      "expected_output": {
+        "must_include": [
+          "应对用户狡辩的策略",
+          "处理起哄的策略",
+          "坚持执法原则",
+          "群内氛围维护"
+        ],
+        "output_structure": "特殊场景处理方案",
+        "min_score": 3
+      },
+      "evaluation_criteria": {
+        "principle": "是否坚持原则",
+        "flexibility": "是否灵活应对",
+        "tone": "话术是否得当"
+      }
+    }
+  ],
+  "evaluation_methodology": {
+    "scoring": "每个维度1-5分，5分制评分",
+    "pass_criteria": "总分≥15分（满分25分），且每个维度≥3分",
+    "process": "1.判定违规级别 2.选择处理方式 3.执行处理 4.用户沟通 5.群内说明 6.记录存档"
+  },
+  "coverage": {
+    "场景覆盖": ["轻度违规", "重度/重复违规", "特殊场景"],
+    "难度分布": {
+      "simple": 1,
+      "medium": 1,
+      "hard": 1
+    }
+  }
+}

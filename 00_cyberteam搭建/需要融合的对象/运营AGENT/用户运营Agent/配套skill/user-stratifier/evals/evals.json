@@ -1,0 +1,97 @@
+{
+  "skill_name": "user-stratifier",
+  "测试案例": [
+    {
+      "id": "eval-1",
+      "难度": "medium",
+      "案例": "某电商平台有10万用户，需要进行精细化分层运营",
+      "输入": {
+        "user_data": {
+          "购买数据": "月均订单数、客单价、品类偏好",
+          "行为数据": "浏览深度、收藏率、加购率",
+          "活跃数据": "登录频率、最近购买时间"
+        },
+        "stratification_purpose": "精细化运营，提升整体GMV20%"
+      },
+      "预期输出": {
+        "user_segments": [
+          {
+            "segment_name": "高价值用户",
+            "criteria": "月消费>1000元且月订单>3单",
+            "characteristics": ["购买频次高", "客单价高", "复购意愿强"],
+            "size_percentage": "15%"
+          },
+          {
+            "segment_name": "潜力用户",
+            "criteria": "月消费500-1000元或高活跃度",
+            "characteristics": ["有消费能力", "活跃度高", "品类单一"],
+            "size_percentage": "25%"
+          },
+          {
+            "segment_name": "普通用户",
+            "criteria": "有过购买但客单价或频次一般",
+            "characteristics": ["偶尔购买", "价格敏感"],
+            "size_percentage": "45%"
+          },
+          {
+            "segment_name": "流失风险用户",
+            "criteria": "60天无登录或180天无购买",
+            "characteristics": ["沉默", "可能已流失"],
+            "size_percentage": "15%"
+          }
+        ],
+        "strategy_mapping": {
+          "高价值用户": {
+            "operation_strategy": "专属VIP服务、优先新品体验、专属客服",
+            "resource_investment": "高（1对1服务）",
+            "expected_outcomes": "提升复购率至60%"
+          },
+          "潜力用户": {
+            "operation_strategy": "定向推送高客单商品、发放大额券刺激升级",
+            "resource_investment": "中（自动化触达）",
+            "expected_outcomes": "30%转化为高价值用户"
+          },
+          "普通用户": {
+            "operation_strategy": "标准化促销活动、积分体系维系",
+            "resource_investment": "低（批量运营）",
+            "expected_outcomes": "保持基本活跃度"
+          },
+          "流失风险用户": {
+            "operation_strategy": "流失预警模型定向召回、专属唤醒优惠",
+            "resource_investment": "中（重点召回）",
+            "expected_outcomes": "召回率15%"
+          }
+        }
+      }
+    },
+    {
+      "id": "eval-2",
+      "难度": "simple",
+      "案例": "教育培训班需要按学习行为对学生家长进行分层",
+      "输入": {
+        "user_data": {"报名时间": "2024年内", "出勤率": "0-100%", "续费率": "是/否"},
+        "stratification_purpose": "制定差异化服务策略"
+      },
+      "预期输出": {
+        "user_segments": [
+          {"segment_name": "核心家长", "criteria": "续费率100%+出勤率>90%", "characteristics": ["高度认可", "主动转介绍"], "size_percentage": "20%"},
+          {"segment_name": "稳定家长", "criteria": "续费率>70%+出勤率>80%", "characteristics": ["认可课程", "关系稳定"], "size_percentage": "40%"},
+          {"segment_name": "观望家长", "criteria": "出勤率不稳定或续费待定", "characteristics": ["需要维护", "易流失"], "size_percentage": "30%"},
+          {"segment_name": "流失风险", "criteria": "出勤率<50%或明确表示不续费", "characteristics": ["关系疏远", "需重点挽回"], "size_percentage": "10%"}
+        ],
+        "strategy_mapping": {
+          "核心家长": {"operation_strategy": "荣誉奖励、推荐奖励、优先活动名额", "resource_investment": "高", "expected_outcomes": "持续续费+转介绍"},
+          "稳定家长": {"operation_strategy": "定期沟通、正常教学服务", "resource_investment": "中", "expected_outcomes": "保持续费率"},
+          "观望家长": {"operation_strategy": "主动关怀、约谈了解顾虑、提供体验", "resource_investment": "高", "expected_outcomes": "转化为稳定"},
+          "流失风险": {"operation_strategy": "深入家访、针对性解决、优惠挽留", "resource_investment": "极高", "expected_outcomes": "至少挽回50%"}
+        }
+      }
+    }
+  ],
+  "评分标准": {
+    "分层合理性": "分层标准是否清晰科学",
+    "策略匹配": "各层策略是否有针对性和差异",
+    "可执行性": "分层结果是否可落地执行",
+    "数据支撑": "分层是否有数据依据"
+  }
+}

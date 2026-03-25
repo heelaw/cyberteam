@@ -1,0 +1,79 @@
+{
+  "skill_name": "product-positioning-template",
+  "version": "1.0.0",
+  "assess_type": "quality",
+  "metrics": [
+    {
+      "id": "m1",
+      "name": "三要素完整",
+      "description": "价值主张是否包含用户需求+解决方案+差异化价值",
+      "type": "count",
+      "threshold": 3,
+      "weight": 20
+    },
+    {
+      "id": "m2",
+      "name": "目标用户清晰",
+      "description": "是否有明确的目标用户画像和痛点",
+      "type": "binary",
+      "threshold": true,
+      "weight": 15
+    },
+    {
+      "id": "m3",
+      "name": "四象限定位",
+      "description": "是否完成四象限定位分析",
+      "type": "binary",
+      "threshold": true,
+      "weight": 15
+    },
+    {
+      "id": "m4",
+      "name": "四问题验证",
+      "description": "是否通过4个验证问题（至少3个）",
+      "type": "count",
+      "threshold": 3,
+      "weight": 15
+    },
+    {
+      "id": "m5",
+      "name": "Success Metrics",
+      "description": "是否有至少2个量化指标",
+      "type": "binary",
+      "threshold": true,
+      "weight": 10
+    },
+    {
+      "id": "m6",
+      "name": "Critical Rules",
+      "description": "是否有至少3条Critical Rules",
+      "type": "count",
+      "threshold": 3,
+      "weight": 10
+    },
+    {
+      "id": "m7",
+      "name": "Deliverable Template",
+      "description": "是否有完整的输出模板",
+      "type": "binary",
+      "threshold": true,
+      "weight": 10
+    },
+    {
+      "id": "m8",
+      "name": "Skill协同",
+      "description": "是否有前后置Skill定义",
+      "type": "binary",
+      "threshold": true,
+      "weight": 5
+    }
+  ],
+  "pass_threshold": 0.85,
+  "version_history": [
+    {
+      "version": "1.0.0",
+      "created": "2026-03-18",
+      "notes": "从项目组2整合"
+    }
+  ]
+}

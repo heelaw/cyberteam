@@ -1,0 +1,123 @@
+{
+  "version": "1.1",
+  "test_cases": [
+    {
+      "id": "1",
+      "scenario": "在线教育提升完课率",
+      "description": "一家在线职业技能培训公司，用户完课率只有15%，想借鉴其他行业提升留存的经验",
+      "difficulty": "medium",
+      "input": {
+        "business_problem": "在线职业技能课程完课率只有15%",
+        "target_dimension": "用户运营",
+        "industry": "在线教育",
+        "constraints": "预算有限，希望低成本方案"
+      },
+      "expected_output": {
+        "benchmarks": ["游戏化设计（Duolingo）", "会员体系（网易云音乐）"],
+        "migratable_elements": [
+          "经验值系统：完成课程获得学分",
+          "等级系统：学分累积升级",
+          "成就系统：完成学习任务获得勋章"
+        ],
+        "localization": "有完整的本地化适配方案",
+        "pilot_suggestion": "先上线经验值+等级系统"
+      },
+      "evaluation_points": [
+        "四步法完整执行",
+        "标杆选择相关性强",
+        "拆解深度足够",
+        "本地化建议可执行"
+      ]
+    },
+    {
+      "id": "2",
+      "scenario": "电商平台设计会员体系",
+      "description": "一家电商平台想设计会员体系，借鉴其他行业的成功经验",
+      "difficulty": "medium",
+      "input": {
+        "business_problem": "用户复购率低，缺乏会员体系",
+        "target_dimension": "用户运营",
+        "industry": "电商平台",
+        "constraints": "技术团队有限"
+      },
+      "expected_output": {
+        "benchmarks": ["航空会员（万豪）", "信用卡积分（银行）"],
+        "migratable_elements": [
+          "积分获取规则",
+          "积分消耗场景",
+          "会员等级设计",
+          "权益体系"
+        ],
+        "localization": "有完整的会员体系设计方案"
+      },
+      "evaluation_points": [
+        "标杆选择准确",
+        "拆解维度完整",
+        "本地化适配合理"
+      ]
+    },
+    {
+      "id": "3",
+      "scenario": "SaaS产品设计订阅变现",
+      "description": "一家B2B SaaS公司想设计订阅变现模式",
+      "difficulty": "simple",
+      "input": {
+        "business_problem": "当前按项目收费，现金流不稳定",
+        "target_dimension": "变现模式",
+        "industry": "B2B SaaS",
+        "constraints": "企业客户，决策周期长"
+      },
+      "expected_output": {
+        "benchmarks": ["Netflix订阅制", "Salesforce企业服务"],
+        "migratable_elements": [
+          "订阅权益设计",
+          "定价策略",
+          "续费机制"
+        ],
+        "localization": "有企业级订阅方案"
+      },
+      "evaluation_points": [
+        "标杆选择合适",
+        "方案可执行"
+      ]
+    },
+    {
+      "id": "4",
+      "scenario": "零售企业设计裂变增长",
+      "description": "一家零售企业想设计裂变增长体系，从0构建社交传播机制",
+      "difficulty": "hard",
+      "input": {
+        "business_problem": "获客成本高，依赖线下渠道",
+        "target_dimension": "增长策略",
+        "industry": "零售",
+        "constraints": "用户基数大但数字化程度低"
+      },
+      "expected_output": {
+        "benchmarks": ["拼多多社交裂变", "瑞幸咖啡裂变"],
+        "migratable_elements": [
+          "裂变激励机制",
+          "传播链路设计",
+          "防刷机制"
+        ],
+        "localization": "有完整的数字化裂变方案"
+      },
+      "evaluation_points": [
+        "标杆选择有创新性",
+        "拆解深度足够",
+        "本地化适配考虑线下结合"
+      ]
+    }
+  ],
+  "evaluation_criteria": {
+    "step_completeness": "四步法完整执行",
+    "benchmark_accuracy": "标杆选择符合标准",
+    "analysis_depth": "拆解维度完整",
+    "localization_quality": "本地化建议可执行",
+    "schema_completeness": "输入输出格式规范"
+  },
+  "difficulty_grading": {
+    "hard": "需要多维度分析，标杆选择创新性强，本地化适配复杂",
+    "medium": "有明确的借鉴维度，标杆选择常规，本地化适配中等",
+    "simple": "借鉴目标明确，标杆选择直接，本地化适配简单"
+  }
+}
