@@ -1,0 +1,70 @@
+{
+  "version": "1.0",
+  "core_theory": {
+    "name": "工作计划生成方法论",
+    "source": "业务操盘手课程 - 第四章：工作规划与模型",
+    "summary": "将目标转化为详细的执行计划和任务清单",
+    "key_principle": "目标 → 任务 → 时间 → 资源"
+  },
+  "task_hierarchy": [
+    {
+      "level": "项目",
+      "description": "大的工作模块",
+      "duration": "月级别"
+    },
+    {
+      "level": "里程碑",
+      "description": "关键节点",
+      "duration": "阶段节点"
+    },
+    {
+      "level": "任务",
+      "description": "具体执行工作",
+      "duration": "1-2周"
+    },
+    {
+      "level": "子任务",
+      "description": "任务的细分",
+      "duration": "天级别"
+    }
+  ],
+  "task_decomposition_principles": [
+    {
+      "principle": "粒度适中",
+      "description": "每个任务1-2周可完成",
+      "reason": "便于管理和追踪"
+    },
+    {
+      "principle": "独立完整",
+      "description": "任务有明确边界",
+      "reason": "便于分配和考核"
+    },
+    {
+      "principle": "可交付",
+      "description": "任务有明确产出",
+      "reason": "便于验收和评估"
+    }
+  ],
+  "priority_levels": [
+    {"level": "P0", "description": "必须完成，影响目标达成"},
+    {"level": "P1", "description": "重要任务，影响里程碑"},
+    {"level": "P2", "description": "常规任务，可灵活调整"}
+  ],
+  "time_planning_elements": [
+    "开始时间",
+    "结束时间",
+    "持续时间",
+    "里程碑",
+    "缓冲时间"
+  ],
+  "resource_types": [
+    {"type": "人力", "content": "人数、技能要求"},
+    {"type": "预算", "content": "资金需求"},
+    {"type": "设备", "content": "工具、设备"},
+    {"type": "其他", "content": "外部依赖"}
+  ],
+  "references": [
+    {"name": "目标拆解方法论", "source": "业务操盘手课程 - 第四章"},
+    {"name": "项目管理知识", "source": "PMBOK"}
+  ]
+}

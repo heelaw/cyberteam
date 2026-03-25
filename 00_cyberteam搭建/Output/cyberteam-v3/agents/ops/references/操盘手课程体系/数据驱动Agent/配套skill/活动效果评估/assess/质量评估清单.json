@@ -1,0 +1,235 @@
+{
+  "skill_name": "活动效果评估",
+  "version": "1.0.0",
+  "assess_date": "2026-03-19",
+  "assessor": "系统评估",
+  "quality_dimension": [
+    {
+      "dimension": "完整性",
+      "weight": 20,
+      "description": "评估是否覆盖活动效果的所有关键维度",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "四维度（产出/成本/传播/行为）评估完整，无遗漏"
+        },
+        "good": {
+          "score": 4,
+          "description": "四维度评估基本完整，有轻微遗漏"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "部分维度评估缺失，但核心维度完整"
+        },
+        "poor": {
+          "score": 1,
+          "description": "维度严重缺失，评估不完整"
+        }
+      },
+      "criteria": [
+        "产出指标评估是否完整（拉新/转化/营收）",
+        "成本指标评估是否完整（成本构成/CAC/ROI）",
+        "传播指标评估是否完整（漏斗/渠道/驱动因素）",
+        "用户行为指标评估是否完整（参与漏斗/体验）"
+      ]
+    },
+    {
+      "dimension": "实用性",
+      "weight": 20,
+      "description": "评估产出的结论和建议对实际业务的指导价值",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "建议具体可执行，有明确优先级和预期效果"
+        },
+        "good": {
+          "score": 4,
+          "description": "建议较具体，有优先级，但预期效果不明确"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "建议较模糊，但方向正确"
+        },
+        "poor": {
+          "score": 1,
+          "description": "建议空洞笼统，无法落地"
+        }
+      },
+      "criteria": [
+        "是否给出具体的优化方向",
+        "建议是否有明确优先级（P0/P1/P2）",
+        "建议是否有可量化的预期效果"
+      ]
+    },
+    {
+      "dimension": "专业性",
+      "weight": 20,
+      "description": "评估数据分析的专业程度和方法论正确性",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "指标计算准确，对比分析专业，结论有数据支撑"
+        },
+        "good": {
+          "score": 4,
+          "description": "指标计算基本准确，有对比分析"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "指标计算有小误差，对比分析较简单"
+        },
+        "poor": {
+          "score": 1,
+          "description": "指标计算错误，缺乏对比分析"
+        }
+      },
+      "criteria": [
+        "CAC/ROI等核心指标计算是否准确",
+        "对比分析（目标/历史/行业）是否合理",
+        "结论是否有数据支撑"
+      ]
+    },
+    {
+      "dimension": "严谨性",
+      "weight": 20,
+      "description": "评估分析过程的逻辑严密性和客观性",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "分析逻辑严密，客观公正，能识别异常数据并解释"
+        },
+        "good": {
+          "score": 4,
+          "description": "分析逻辑较严密，基本客观"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "分析逻辑有漏洞，但整体可接受"
+        },
+        "poor": {
+          "score": 1,
+          "description": "分析逻辑混乱，存在明显偏见"
+        }
+      },
+      "criteria": [
+        "是否客观呈现正负两面发现",
+        "异常数据是否有合理解释",
+        "评级是否基于加权计算而非主观判断"
+      ]
+    },
+    {
+      "dimension": "独特个性",
+      "weight": 10,
+      "description": "评估是否体现运营专业见解和独特视角",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "有独特见解，能发现隐藏机会点"
+        },
+        "good": {
+          "score": 4,
+          "description": "有部分独到见解"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "见解较常规但合理"
+        },
+        "poor": {
+          "score": 1,
+          "description": "缺乏独特见解"
+        }
+      },
+      "criteria": [
+        "是否能发现业务中的隐藏机会",
+        "是否有独特的分析视角"
+      ]
+    },
+    {
+      "dimension": "规范性",
+      "weight": 10,
+      "description": "评估输出格式和Critical Rules的规范性",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "格式规范，Critical Rules完整，Workflow Steps标准"
+        },
+        "good": {
+          "score": 4,
+          "description": "格式规范，Critical Rules较完整"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "格式基本规范，有部分缺失"
+        },
+        "poor": {
+          "score": 1,
+          "description": "格式混乱，Critical Rules严重缺失"
+        }
+      },
+      "criteria": [
+        "输出格式是否符合标准模板",
+        "Critical Rules是否≥5条必须遵守+≥5条禁止行为",
+        "Workflow Steps是否包含输入/处理/输出/成功标准"
+      ]
+    }
+  ],
+  "quality_score": {
+    "total_score": 100,
+    "pass_threshold": 85,
+    "excellent": [90, 100],
+    "good": [85, 89],
+    "acceptable": [70, 84],
+    "poor": [0, 69]
+  },
+  "critical_rules_check": {
+    "description": "Critical Rules检查清单",
+    "rules": [
+      {
+        "rule": "数据必须完整真实",
+        "check_item": "数据是否来源可靠、口径统一",
+        "pass_condition": "所有数据维度完整"
+      },
+      {
+        "rule": "评估必须多维度",
+        "check_item": "是否从产出、成本、传播、行为多角度评估",
+        "pass_condition": "四维度缺一不可"
+      },
+      {
+        "rule": "对比必须合理",
+        "check_item": "是否有目标、历史、行业对比",
+        "pass_condition": "有参照系才有意义"
+      },
+      {
+        "rule": "结论必须有数据支撑",
+        "check_item": "每个结论是否有数据依据",
+        "pass_condition": "数据说话"
+      },
+      {
+        "rule": "建议必须可执行",
+        "check_item": "建议是否具体可操作、有优先级",
+        "pass_condition": "不能空泛"
+      }
+    ]
+  },
+  "forbidden_check": {
+    "description": "禁止行为检查",
+    "items": [
+      "禁止只报喜不报忧",
+      "禁止用单一指标衡量活动效果",
+      "禁止忽视成本只谈产出",
+      "禁止数据造假或选择性呈现",
+      "禁止脱离业务背景解读数据",
+      "禁止空泛模糊的建议"
+    ]
+  },
+  "output_standard": {
+    "must_include": [
+      "一、产出指标评估（拉新/转化/营收）",
+      "二、成本指标评估（成本构成/CAC/ROI）",
+      "三、传播指标评估（漏斗/渠道/驱动因素）",
+      "四、用户行为评估（参与漏斗/用户体验）",
+      "五、综合结论（评级/发现/建议/经验）"
+    ],
+    "format_requirement": "四维度评估必须完整，综合评级需加权计算"
+  }
+}

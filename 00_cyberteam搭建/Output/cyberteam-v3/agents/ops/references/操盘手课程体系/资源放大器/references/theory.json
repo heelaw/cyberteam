@@ -1,0 +1,89 @@
+{
+  "version": "1.0",
+  "core_theory": {
+    "name": "资源放大方法论",
+    "source": "业务操盘手课程 - 第五章：探索型项目破局",
+    "summary": "在验证成功后系统性放大业务模型，实现规模化增长",
+    "key_principle": "时机 → 策略 → 规划 → 控制"
+  },
+  "amplification_steps": [
+    {
+      "step": "时机判断",
+      "description": "判断是否可以开始放大"
+    },
+    {
+      "step": "放大策略",
+      "description": "制定系统性的放大方案"
+    },
+    {
+      "step": "资源规划",
+      "description": "规划放大所需的资源投入"
+    },
+    {
+      "step": "风险控制",
+      "description": "控制放大过程中的风险"
+    }
+  ],
+  "timing_criteria": [
+    {
+      "dimension": "假设验证",
+      "description": "核心假设全部验证通过",
+      "standard": "100%核心假设验证通过"
+    },
+    {
+      "dimension": "单位经济模型",
+      "description": "LTV必须大于CAC",
+      "standard": "LTV/CAC > 2"
+    },
+    {
+      "dimension": "市场需求",
+      "description": "需求稳定且有增长空间",
+      "standard": "市场规模足够大"
+    },
+    {
+      "dimension": "竞争环境",
+      "description": "无强竞争对手进入",
+      "standard": "竞争壁垒已建立"
+    }
+  ],
+  "amplification_strategies": [
+    {
+      "dimension": "用户获取",
+      "options": ["渠道放大", "内容放大", "裂变", "合作"]
+    },
+    {
+      "dimension": "供给端",
+      "options": ["供应链扩展", "服务能力提升", "产能扩充"]
+    },
+    {
+      "dimension": "变现端",
+      "options": ["变现模式优化", "客单价提升", "变现渠道拓展"]
+    },
+    {
+      "dimension": "组织端",
+      "options": ["团队扩充", "能力建设", "流程优化"]
+    }
+  ],
+  "risk_types": [
+    {
+      "type": "执行风险",
+      "description": "放大执行过程中出现问题",
+      "control": "小步快跑，及时调整"
+    },
+    {
+      "type": "资金风险",
+      "description": "投入过大导致资金链问题",
+      "control": "设置止损线，分阶段投入"
+    },
+    {
+      "type": "市场风险",
+      "description": "市场环境发生变化",
+      "control": "保持市场敏感度，定期评估"
+    }
+  ],
+  "references": [
+    {"name": "增长黑客", "source": "Sean Ellis"},
+    {"name": "规模化增长", "source": "业务实践"},
+    {"name": "探索型项目破局", "source": "业务操盘手课程 - 第五章"}
+  ]
+}

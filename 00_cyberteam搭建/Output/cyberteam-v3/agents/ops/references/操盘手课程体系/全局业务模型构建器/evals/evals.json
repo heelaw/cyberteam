@@ -1,0 +1,95 @@
+{
+  "version": "1.0",
+  "test_cases": [
+    {
+      "id": "1",
+      "scenario": "在线课程平台构建业务模型",
+      "description": "一家提供在线付费课程的职业教育公司，需要构建全局业务模型",
+      "input": {
+        "company_type": "在线教育",
+        "product": "在线付费课程",
+        "target_users": "职场转行人群",
+        "revenue_model": "课程销售收入",
+        "current_channels": ["公众号", "短视频", "投放"]
+      },
+      "expected_output": {
+        "revenue_formula": "收入 = 流量 × 转化率 × 客单价",
+        "business_model": "产销收入模式",
+        "revenue_chain": "流量获取→课程曝光→用户报名→付费转化→课程交付",
+        "three_extra_thinking": {
+          "product_lifecycle": "课程可迭代，生命周期相对较长，需关注复购",
+          "scarce_resource": "优质课程内容是稀缺资源，需要持续搞定",
+          "supply_chain": "不受供应链制约，可快速规模化"
+        },
+        "key_assumptions": [
+          "课程质量能持续吸引用户",
+          "流量获取成本可控",
+          "转化率有提升空间"
+        ]
+      },
+      "difficulty": "simple"
+    },
+    {
+      "id": "2",
+      "scenario": "电商平台构建业务模型",
+      "description": "一家连接商家和消费者的电商平台，需要构建全局业务模型",
+      "input": {
+        "company_type": "电商平台",
+        "product": "连接商家和用户的平台服务",
+        "target_users": "商家和消费者",
+        "revenue_model": "交易抽成+广告收入",
+        "current_channels": ["APP", "小程序"]
+      },
+      "expected_output": {
+        "revenue_formula": "收入 = 交易笔数 × 单笔金额 × 收成比例 + 广告收入",
+        "business_model": "平台交易收成模式 + 流量广告模式",
+        "revenue_chain": "商家入驻→商品展示→用户购买→交易完成→抽成结算",
+        "three_extra_thinking": {
+          "product_lifecycle": "商品生命周期取决于商家运营",
+          "scarce_resource": "优质商家是稀缺资源，需要持续BD",
+          "supply_chain": "增长受供应链（优质商家）制约明显"
+        },
+        "key_assumptions": [
+          "平台能持续吸引优质商家",
+          "用户购买转化率稳定",
+          "抽成比例有竞争力"
+        ]
+      },
+      "difficulty": "medium"
+    },
+    {
+      "id": "3",
+      "scenario": "SaaS工具构建业务模型",
+      "description": "一家提供SaaS工具的公司，需要构建全局业务模型",
+      "input": {
+        "company_type": "SaaS",
+        "product": "企业协作工具",
+        "target_users": "中小企业",
+        "revenue_model": "订阅会员费",
+        "current_channels": ["销售团队", "渠道代理", "线上获客"]
+      },
+      "expected_output": {
+        "revenue_formula": "收入 = 付费企业数 × ARPU × 续费率",
+        "business_model": "流量+增值服务模式（订阅制）",
+        "revenue_chain": "线索获取→试用转化→付费签约→客户成功→续费留存",
+        "three_extra_thinking": {
+          "product_lifecycle": "工具类产品，生命周期长，但需持续功能迭代",
+          "scarce_resource": "产品能力是核心竞争力",
+          "supply_chain": "不受实体供应链制约，可快速扩张"
+        },
+        "key_assumptions": [
+          "产品能持续满足用户需求",
+          "续费率保持高水平",
+          "获客成本低于LTV"
+        ]
+      },
+      "difficulty": "medium"
+    }
+  ],
+  "evaluation_criteria": {
+    "revenue_chain_completeness": "全链条覆盖，无关键环节遗漏",
+    "model_matching_accuracy": "选择的商业模式与业务实际匹配",
+    "three_thinking_coverage": "三个额外思考都有实质性分析",
+    "assumption_clarity": "假设清晰可验证"
+  }
+}

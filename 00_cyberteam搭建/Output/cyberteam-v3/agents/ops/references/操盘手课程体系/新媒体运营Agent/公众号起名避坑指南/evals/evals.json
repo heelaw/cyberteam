@@ -1,0 +1,110 @@
+{
+  "skill_name": "公众号起名避坑指南",
+  "version": "1.0",
+  "eval_type": "skill_functional",
+  "test_cases": [
+    {
+      "id": 1,
+      "difficulty": "simple",
+      "category": "基础起名场景",
+      "description": "为简单定位的公众号起名",
+      "input": {
+        "account_positioning": "分享家常美食制作，目标用户厨房新手",
+        "target_users": "热爱美食的新手厨师",
+        "content_scope": ["家常菜做法", "厨房技巧", "食材选购"],
+        "naming_preferences": {
+          "style": "轻松活泼",
+          "include_personal": false,
+          "max_length": 6
+        }
+      },
+      "expected_output": {
+        "must_include": [
+          "定位关键词提取",
+          "候选名称2-3个",
+          "推荐名称及理由",
+          "符合起名规则（避坑检查）"
+        ],
+        "output_structure": "关键词+候选+推荐+理由",
+        "min_score": 3
+      },
+      "evaluation_criteria": {
+        "accuracy": "是否避坑",
+        "relevance": "是否与定位匹配",
+        "clarity": "输出是否清晰"
+      }
+    },
+    {
+      "id": 2,
+      "difficulty": "medium",
+      "category": "竞品分析起名",
+      "description": "有竞品参考的公众号起名，需要差异化",
+      "input": {
+        "account_positioning": "帮助25-35岁职场人突破职业瓶颈",
+        "target_users": "职场中高层管理者",
+        "content_scope": ["职业规划", "领导力", "团队管理"],
+        "competitor_names": ["职场实用心理学", "职场达人进化论", "管理者笔记"],
+        "naming_preferences": {
+          "style": "专业亲切",
+          "include_personal": false,
+          "max_length": 7
+        }
+      },
+      "expected_output": {
+        "must_include": [
+          "定位关键词提取",
+          "竞品差异化分析",
+          "候选名称3个",
+          "推荐名称及理由",
+          "避坑检查结果"
+        ],
+        "output_structure": "分析+候选+推荐+理由",
+        "min_score": 3
+      },
+      "evaluation_criteria": {
+        "differentiation": "是否与竞品差异化",
+        "completeness": "是否包含全部要素",
+        "practicality": "建议是否具有实操性"
+      }
+    },
+    {
+      "id": 3,
+      "difficulty": "hard",
+      "category": "复杂多维度起名",
+      "description": "多内容覆盖、多竞品的复杂起名场景",
+      "input": {
+        "account_positioning": "0-3岁新手妈妈育儿指南，内容覆盖育儿知识、产后恢复、亲子互动",
+        "target_users": "新手妈妈",
+        "content_scope": ["育儿知识", "产后恢复", "亲子互动", "早教游戏"],
+        "competitor_names": ["育儿百科", "妈妈帮", "宝宝树", "辣妈育儿经"],
+        "naming_preferences": {
+          "style": "温暖亲切",
+          "include_personal": false,
+          "max_length": 8
+        }
+      },
+      "expected_output": {
+        "must_include": [
+          "多维度定位分析（年龄段+角色+内容范围）",
+          "竞品全覆盖分析",
+          "候选名称5个",
+          "推荐名称优先级排序",
+          "每个名称的优缺点分析",
+          "风险提示"
+        ],
+        "output_structure": "分析+候选+推荐+优先级+风险",
+        "min_score": 3
+      },
+      "evaluation_criteria": {
+        "completeness": "分析是否全面",
+        "differentiation": "差异化是否明显",
+        "priority": "优先级排序是否合理"
+      }
+    }
+  ],
+  "evaluation_methodology": {
+    "scoring": "每个维度1-5分，5分制评分",
+    "pass_criteria": "总分≥15分（满分25分），且每个维度≥3分",
+    "process": "1.分析账号定位 2.提取关键词 3.分析竞品 4.产出候选名称 5.避坑检查 6.给出推荐"
+  }
+}

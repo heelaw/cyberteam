@@ -1,0 +1,28 @@
+
+# 示例项目配置
+
+project:
+  name: "示例项目"
+  framework: "o2o-preorder"
+  version: "1.0"
+
+metrics:
+  cac:
+    value: 175
+    currency: "USD"
+    benchmark: "$50-500"
+
+  ltv:
+    value: 3025
+    currency: "USD"
+    benchmark: "$500-2000"
+
+conversion_funnel:
+  - step: "触达"
+    rate: 1.0
+  - step: "完播"
+    rate: 0.30
+  - step: "兴趣"
+    rate: 0.08
+  - step: "预约"
+    rate: 0.06

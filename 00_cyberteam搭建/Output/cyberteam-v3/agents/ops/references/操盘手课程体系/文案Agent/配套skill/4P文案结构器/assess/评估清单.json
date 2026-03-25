@@ -1,0 +1,79 @@
+{
+  "skill_name": "4P文案结构器",
+  "version": "1.0.0",
+  "assess_type": "quality",
+  "metrics": [
+    {
+      "id": "m1",
+      "name": "4P四阶段完整",
+      "description": "是否包含完整的Picture/Promise/Prove/Push四阶段",
+      "type": "count",
+      "threshold": 4,
+      "weight": 15
+    },
+    {
+      "id": "m2",
+      "name": "画面感强度",
+      "description": "Picture阶段是否创造强画面感",
+      "type": "binary",
+      "threshold": true,
+      "weight": 20
+    },
+    {
+      "id": "m3",
+      "name": "承诺与画面对应",
+      "description": "Promise是否与Picture场景对应",
+      "type": "binary",
+      "threshold": true,
+      "weight": 15
+    },
+    {
+      "id": "m4",
+      "name": "证明充分性",
+      "description": "Prove阶段证据是否充分支撑承诺",
+      "type": "binary",
+      "threshold": true,
+      "weight": 20
+    },
+    {
+      "id": "m5",
+      "name": "推进自然度",
+      "description": "Push阶段推进是否自然不生硬",
+      "type": "binary",
+      "threshold": true,
+      "weight": 15
+    },
+    {
+      "id": "m6",
+      "name": "Critical Rules",
+      "description": "是否有至少5条禁止行为",
+      "type": "count",
+      "threshold": 5,
+      "weight": 10
+    },
+    {
+      "id": "m7",
+      "name": "Success Metrics",
+      "description": "是否有量化指标",
+      "type": "binary",
+      "threshold": true,
+      "weight": 3
+    },
+    {
+      "id": "m8",
+      "name": "Skill协同",
+      "description": "是否有前后置Skill定义",
+      "type": "binary",
+      "threshold": true,
+      "weight": 2
+    }
+  ],
+  "pass_threshold": 0.85,
+  "version_history": [
+    {
+      "version": "1.0.0",
+      "created": "2026-03-18",
+      "notes": "初始版本"
+    }
+  ]
+}
