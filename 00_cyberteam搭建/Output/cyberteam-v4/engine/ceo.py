@@ -7,12 +7,33 @@ CyberTeam V4 - CEO 路由引擎 (L1)
 2. 意图识别 (数据分析/内容运营/技术研发/安全合规)
 3. 复杂度评估 (高/中/低)
 4. 路由决策 (L2/L3A/L3B/L3C)
+5. Swarm 智能编排 (复杂任务自动组建团队)
 """
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import Enum
-from typing import Optional
+from typing import Optional, List, Dict, Any
 import re
+import uuid
+from datetime import datetime
+
+# Swarm Intelligence 集成
+from pathlib import Path
+import sys
+
+# 添加项目根目录到 path
+_project_root = Path(__file__).parent.parent
+if str(_project_root) not in sys.path:
+    sys.path.insert(0, str(_project_root))
+
+try:
+    from integration.clawteam_adapter import ClawTeamAdapter
+    from swarm_orchestrator import SwarmOrchestrator, SwarmStatus
+    SWARM_AVAILABLE = True
+except ImportError:
+    SWARM_AVAILABLE = False
+    ClawTeamAdapter = None
+    SwarmOrchestrator = None
 
 
 class Complexity(Enum):
@@ -37,17 +58,20 @@ class RoutingTarget(Enum):
     L3A = "L3A"         # CyberTeam 部门
     L3B = "L3B"         # Gstack Skills
     L3C = "L3C"         # 独立 Agents
+    SWARM = "SWARM"     # Swarm 群体智能 (新!)
 
 
 @dataclass
 class RoutingResult:
     """路由结果"""
     decision: str           # 路由决策
-    target: str              # "L2"|"L3A"|"L3B"|"L3C"
-    target_name: str         # "PM"|"数据分析部"|"/review"|"gsd-executor"
+    target: str              # "L2"|"L3A"|"L3B"|"L3C"|"SWARM"
+    target_name: str         # "PM"|"数据分析部"|"/review"|"gsd-executor"|"SwarmTeam"
     intent: str              # 识别的意图
     complexity: str          # "高"|"中"|"低"
     reason: str              # 路由理由
+    swarm_id: Optional[str] = None  # Swarm ID (如果是 Swarm 路由)
+    agents: Optional[List[str]] = None  # 子 Agent 列表
 
 
 class CEORouter:
@@ -89,6 +113,18 @@ class CEORouter:
 
     def __init__(self):
         self.router_config = self._load_router_config()
+        # Swarm 集成
+        self._swarm_adapter = None
+        self._active_swarms: Dict[str, Any] = {}
+
+    @property
+    def swarm_adapter(self) -> Optional[ClawTeamAdapter]:
+        """懒加载 Swarm 适配器"""
+        if ClawTeamAdapter is None:
+            return None
+        if self._swarm_adapter is None:
+            self._swarm_adapter = ClawTeamAdapter(repo_root=Path(__file__).parent.parent)
+        return self._swarm_adapter
 
     def _load_router_config(self) -> dict:
         """加载路由配置"""
@@ -187,6 +223,33 @@ class CEORouter:
         # Step 4: 路由决策
         return self._make_routing_decision(user_input, intent, complexity)
 
+    def should_use_swarm(self, user_input: str, intent: Intent, complexity: Complexity) -> bool:
+        """判断是否应该使用 Swarm 群体智能"""
+        # 不需要 Swarm 的情况
+        if not SWARM_AVAILABLE:
+            return False
+
+        # Swarm 关键词
+        swarm_keywords = [
+            "团队", "团队协作", "多个专家", "分工", "并行",
+            "组建团队", "自主完成", "群体智能", "swarm"
+        ]
+        has_swarm_keyword = any(kw in user_input.lower() for kw in swarm_keywords)
+
+        # 高复杂度任务
+        is_high_complexity = complexity == Complexity.HIGH
+
+        # 多领域任务 (需要多个专家)
+        multi_domain = len(user_input.split()) > 5 and any(
+            kw in user_input.lower()
+            for kw in ["并且", "以及", "还有", "和", "and", ","]
+        )
+
+        # 战略/规划类任务 (需要多轮迭代)
+        is_strategy_task = intent in [Intent.STRATEGY, Intent.DATA_ANALYSIS]
+
+        return has_swarm_keyword or is_high_complexity or multi_domain or is_strategy_task
+
     def _make_routing_decision(
         self,
         user_input: str,
@@ -226,6 +289,26 @@ class CEORouter:
                     complexity=complexity.value,
                     reason="通用功能开发"
                 )
+
+        # 规则2.5: Swarm 群体智能 (高复杂度/多领域/明确要求)
+        if self.should_use_swarm(user_input, intent, complexity):
+            swarm_id = f"swarm-{uuid.uuid4().hex[:8]}"
+            agents = ["researcher-1", "researcher-2", "executor-1", "executor-2", "qa"]
+            self._active_swarms[swarm_id] = {
+                "goal": user_input,
+                "intent": intent.value,
+                "created_at": datetime.utcnow().isoformat()
+            }
+            return RoutingResult(
+                decision="Swarm 群体智能",
+                target=RoutingTarget.SWARM.value,
+                target_name="SwarmTeam",
+                intent=intent.value,
+                complexity=complexity.value,
+                reason="高复杂度任务，自动组建 Swarm 团队",
+                swarm_id=swarm_id,
+                agents=agents
+            )
 
         # 规则3: 复杂任务 → L2 (PM + Strategy)
         if complexity == Complexity.HIGH:
@@ -269,6 +352,97 @@ class CEORouter:
             reason="直接路由到部门"
         )
 
+    # ========== Swarm 执行方法 ==========
+
+    def create_swarm_team(self, goal: str, intent: str) -> Dict[str, Any]:
+        """
+        创建 Swarm 团队
+
+        Args:
+            goal: 团队目标
+            intent: 意图类型
+
+        Returns:
+            Swarm 创建结果
+        """
+        if not SWARM_AVAILABLE or self.swarm_adapter is None:
+            return {
+                "success": False,
+                "error": "Swarm 模块不可用"
+            }
+
+        # 生成团队名称
+        team_name = f"ceo-{intent[:8]}-{uuid.uuid4().hex[:6]}"
+
+        try:
+            # 创建 Swarm
+            swarm = self.swarm_adapter.create_swarm(
+                team_name=team_name,
+                goal=goal,
+                template="swarm"
+            )
+
+            return {
+                "success": True,
+                "swarm_id": team_name,
+                "swarm": swarm,
+                "agents": list(swarm.agents.keys()),
+                "status": "created"
+            }
+        except Exception as e:
+            return {
+                "success": False,
+                "error": str(e)
+            }
+
+    def execute_swarm(self, goal: str, intent: str, task: str, blocked_by: Optional[List[str]] = None) -> Dict[str, Any]:
+        """
+        执行 Swarm 任务
+
+        Args:
+            goal: 目标
+            intent: 意图
+            task: 任务描述
+            blocked_by: 依赖任务
+
+        Returns:
+            执行结果
+        """
+        if not SWARM_AVAILABLE or self.swarm_adapter is None:
+            return {"success": False, "error": "Swarm 不可用"}
+
+        team_name = f"ceo-{intent[:8]}-{uuid.uuid4().hex[:6]}"
+
+        try:
+            # 1. 创建团队
+            swarm = self.swarm_adapter.create_swarm(team_name, goal)
+
+            # 2. 分配任务
+            agents = ["researcher-1", "researcher-2", "executor-1", "executor-2"]
+            for agent in agents:
+                self.swarm_adapter.assign_task(team_name, agent, f"{agent} 的任务", blocked_by=blocked_by)
+
+            return {
+                "success": True,
+                "swarm_id": team_name,
+                "task_id": task,
+                "status": "executed"
+            }
+        except Exception as e:
+            return {"success": False, "error": str(e)}
+
+    def get_swarm_status(self, swarm_id: str) -> Optional[Dict[str, Any]]:
+        """获取 Swarm 状态"""
+        if not SWARM_AVAILABLE or self.swarm_adapter is None:
+            return None
+        return self.swarm_adapter.get_swarm_status(swarm_id)
+
+    def list_active_swarms(self) -> List[Dict[str, Any]]:
+        """列出活跃的 Swarms"""
+        if not SWARM_AVAILABLE or self.swarm_adapter is None:
+            return []
+        return self.swarm_adapter.list_swarms()
+
 
 def main():
     """CLI 测试"""
@@ -291,6 +465,24 @@ def main():
     print(f"意图: {result.intent}")
     print(f"复杂度: {result.complexity}")
     print(f"理由: {result.reason}")
+
+    # Swarm 相关输出
+    if hasattr(result, 'swarm_id') and result.swarm_id:
+        print(f"Swarm ID: {result.swarm_id}")
+        print(f"子 Agents: {result.agents}")
+
+        # 如果是 Swarm 路由，尝试创建团队
+        if result.target == RoutingTarget.SWARM.value and "--no-swarm" not in user_input:
+            print("\n" + "=" * 50)
+            print("自动创建 Swarm 团队")
+            print("=" * 50)
+            swarm_result = router.create_swarm_team(result.reason, result.intent)
+            if swarm_result["success"]:
+                print(f"✅ Swarm 创建成功: {swarm_result['swarm_id']}")
+                print(f"   Agents: {swarm_result['agents']}")
+                print(f"   状态: {swarm_result['status']}")
+            else:
+                print(f"❌ Swarm 创建失败: {swarm_result.get('error')}")
 
 
 if __name__ == "__main__":

@@ -22,6 +22,8 @@ from ceo import CEORouter, RoutingResult
 from strategy import StrategyEngine, ExecutionPlan
 from pm import PMCoordinator, ExecutionMode
 from department import DepartmentExecutor
+from debate_engine import DebateEngine
+from integration.clawteam_adapter import ClawTeamAdapter
 
 
 class CyberTeamV4:
@@ -33,6 +35,8 @@ class CyberTeamV4:
         self.strategy = StrategyEngine()
         self.pm = PMCoordinator()
         self.department = DepartmentExecutor()
+        self.debate_engine = DebateEngine()
+        self.clawteam = ClawTeamAdapter()
         self.task_history = []
 
     def run(self, user_input: str, context: dict = None) -> dict:

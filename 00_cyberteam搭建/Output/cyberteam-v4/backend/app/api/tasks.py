@@ -1,5 +1,6 @@
 """Tasks API — 任务管理。"""
 
+import uuid
 from typing import Optional, Union, List
 import logging
 from datetime import datetime
@@ -63,15 +64,20 @@ async def list_tasks(
     db: AsyncSession = Depends(get_db),
 ):
     """获取任务列表。"""
-    query = Task.query
+    from sqlalchemy import select, func
 
+    stmt = select(Task)
     if state:
-        query = query.filter(Task.state == state)
+        stmt = stmt.filter(Task.state == state)
     if priority:
-        query = query.filter(Task.priority == priority)
+        stmt = stmt.filter(Task.priority == priority)
 
-    total = await query.count()
-    tasks = await query.limit(limit).offset(offset).all()
+    count_stmt = select(func.count()).select_from(stmt.subquery())
+    total = (await db.execute(count_stmt)).scalar()
+
+    stmt = stmt.limit(limit).offset(offset)
+    result = await db.execute(stmt)
+    tasks = result.scalars().all()
 
     return {
         "tasks": [t.to_dict() for t in tasks],
