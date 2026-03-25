@@ -11,12 +11,19 @@ import pytest
 import sys
 from pathlib import Path
 
-# 添加 engine 到路径
-sys.path.insert(0, str(Path(__file__).parent.parent / "engine"))
+# 添加项目根目录到路径
+project_root = Path(__file__).parent.parent
+sys.path.insert(0, str(project_root))
 
-from ceo import CEORouter, Intent, Complexity, RoutingTarget
-from debate_engine import DebateEngine, DebateState, RoundType
-from integration.cyberteam_adapter import CyberTeamAdapter, TeamStatus
+from engine.ceo.ceo import CEORouter, Intent, Complexity, RoutingTarget
+from engine.debate.debate_engine import DebateEngine, DebateState, RoundType
+try:
+    from integration.cyberteam_adapter import CyberTeamAdapter, TeamStatus
+    SWARM_AVAILABLE = True
+except ImportError:
+    SWARM_AVAILABLE = False
+    CyberTeamAdapter = None
+    TeamStatus = None
 
 
 class TestCEORouter:

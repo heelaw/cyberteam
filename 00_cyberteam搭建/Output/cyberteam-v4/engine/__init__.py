@@ -1,24 +1,33 @@
-# CyberTeam V4 Engine
+"""
+CyberTeam V4 Engine - 核心引擎
 
-from .ceo import CEORouter, RoutingResult, Intent, Complexity
-from .strategy import StrategyEngine, ExecutionPlan, ThinkingFramework
-from .pm import PMCoordinator, ExecutionResult, TaskStatus
-from .department import DepartmentExecutor, GstackAdapter, AgentAdapter
-from .launcher import CyberTeamV4
+包含：
+- CEO 路由引擎
+- 项目管理
+- 部门调度
+- 策略设计
+- 辩论引擎
+- 思维注入
+"""
+
+from .ceo import CEORouter, Complexity, Intent, RoutingTarget, RoutingResult
+from .pm import PMCoordinator
+from .department import DepartmentExecutor
+from .strategy import StrategyEngine
+from .debate import DebateEngine
+from .thinking import ThinkingInjector, ThinkingRouter, ThinkingLoader
 
 __all__ = [
     "CEORouter",
-    "RoutingResult",
-    "Intent",
     "Complexity",
-    "StrategyEngine",
-    "ExecutionPlan",
-    "ThinkingFramework",
+    "Intent",
+    "RoutingTarget",
+    "RoutingResult",
     "PMCoordinator",
-    "ExecutionResult",
-    "TaskStatus",
     "DepartmentExecutor",
-    "GstackAdapter",
-    "AgentAdapter",
-    "CyberTeamV4"
+    "StrategyEngine",
+    "DebateEngine",
+    "ThinkingInjector",
+    "ThinkingRouter",
+    "ThinkingLoader",
 ]

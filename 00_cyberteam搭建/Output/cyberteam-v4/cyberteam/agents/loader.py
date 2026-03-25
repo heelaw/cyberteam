@@ -102,11 +102,49 @@ class AgentLoader:
 
         return registered
 
+    def scan_growth_agents(self) -> List[str]:
+        """扫描并注册增长BG Agent"""
+        registry = get_registry()
+        registered = []
+
+        growth_path = self.base_path / "specialized" / "growth"
+        if not growth_path.exists():
+            return registered
+
+        for module_info in pkgutil.iter_modules([str(growth_path)]):
+            module_name = module_info.name
+            try:
+                module = importlib.import_module(
+                    f"cyberteam.agents.specialized.growth.{module_name}"
+                )
+
+                for attr_name in dir(module):
+                    attr = getattr(module, attr_name)
+                    if (
+                        isinstance(attr, type)
+                        and issubclass(attr, SpecializedAgent)
+                        and attr != SpecializedAgent
+                    ):
+                        instance = attr()
+                        registry.register(
+                            name=instance.metadata.name,
+                            agent_class=attr,
+                            metadata=instance.metadata,
+                            category="growth"
+                        )
+                        registered.append(instance.metadata.name)
+
+            except Exception as e:
+                print(f"Warning: Failed to load growth agent {module_name}: {e}")
+
+        return registered
+
     def load_all(self) -> int:
         """加载所有 Agent，返回加载数量"""
         total = 0
         total += len(self.scan_thinking_experts())
         total += len(self.scan_specialized_agents())
+        total += len(self.scan_growth_agents())
         return total
 
     @staticmethod

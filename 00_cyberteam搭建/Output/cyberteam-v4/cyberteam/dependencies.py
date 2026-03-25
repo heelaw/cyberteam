@@ -5,6 +5,7 @@
 
 import sys
 from typing import Dict, List, NamedTuple, Optional
+from packaging import version as pkg_version
 
 
 class DependencyInfo(NamedTuple):
@@ -26,7 +27,7 @@ CORE_DEPENDENCIES: List[DependencyInfo] = [
         description="CLI 应用程序框架"
     ),
     DependencyInfo(
-        name="pyyaml",
+        name="yaml",
         version_constraint=">=6.0,<7.0",
         min_version="6.0",
         max_version="7.0",
@@ -79,7 +80,7 @@ DEV_DEPENDENCIES: List[DependencyInfo] = [
         description="测试框架"
     ),
     DependencyInfo(
-        name="pytest-asyncio",
+        name="pytest_asyncio",
         version_constraint=">=0.21.0,<1.0.0",
         min_version="0.21.0",
         max_version="1.0.0",
@@ -107,6 +108,15 @@ def get_all_dependencies() -> List[DependencyInfo]:
     return CORE_DEPENDENCIES + DEV_DEPENDENCIES
 
 
+def _parse_version(version_str: str) -> pkg_version.Version:
+    """解析版本字符串"""
+    try:
+        return pkg_version.parse(version_str)
+    except Exception:
+        # 如果解析失败，返回一个默认的大版本
+        return pkg_version.parse("0.0.0")
+
+
 def check_dependency(name: str) -> tuple[bool, Optional[str]]:
     """检查依赖是否已安装并满足版本要求
 
@@ -116,22 +126,50 @@ def check_dependency(name: str) -> tuple[bool, Optional[str]]:
     Returns:
         (是否满足要求, 错误信息)
     """
-    try:
-        module = __import__(name)
-    except ImportError:
+    # 模块名映射（某些模块的导入名与包名不同）
+    module_name_map = {
+        "yaml": "yaml",  # pyyaml 导入名为 yaml
+        "pytest_asyncio": "pytest_asyncio",  # pytest-asyncio 导入名为 pytest_asyncio
+    }
+
+    import_name = module_name_map.get(name, name)
+    module = None
+
+    # 尝试导入模块
+    for mod_name in [import_name, name]:
+        try:
+            module = __import__(mod_name)
+            break
+        except ImportError:
+            continue
+
+    if module is None:
         return False, f"模块 '{name}' 未安装"
 
     # 检查版本
+    module_version = None
     if hasattr(module, "__version__"):
-        version = module.__version__
+        module_version = module.__version__
+    elif hasattr(module, "version"):
+        module_version = module.version
+
+    if module_version:
         for dep in CORE_DEPENDENCIES + DEV_DEPENDENCIES:
             if dep.name == name:
-                # 简单版本检查
-                if dep.min_version and version < dep.min_version:
-                    return False, f"模块 '{name}' 版本 {version} 不满足最低要求 {dep.min_version}"
-                if dep.max_version and version >= dep.max_version:
-                    return False, f"模块 '{name}' 版本 {version} 超过最高限制 {dep.max_version}"
-                return True, None
+                try:
+                    v_installed = _parse_version(module_version)
+                    if dep.min_version:
+                        v_min = _parse_version(dep.min_version)
+                        if v_installed < v_min:
+                            return False, f"模块 '{name}' 版本 {module_version} 不满足最低要求 {dep.min_version}"
+                    if dep.max_version:
+                        v_max = _parse_version(dep.max_version)
+                        if v_installed >= v_max:
+                            return False, f"模块 '{name}' 版本 {module_version} 超过最高限制 {dep.max_version}"
+                    return True, None
+                except Exception:
+                    # 版本比较失败时假定 OK
+                    return True, None
 
     return True, None
 

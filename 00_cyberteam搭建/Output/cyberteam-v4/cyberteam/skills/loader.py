@@ -6,10 +6,11 @@
 import importlib
 import pkgutil
 from pathlib import Path
-from typing import List, Optional, Type
+from typing import Any, Dict, List, Optional, Type
 
-from cyberteam.skills.base import BaseSkill, SkillMetadata
+from cyberteam.skills.base import BaseSkill, SkillMetadata, WritingSkill, ContentReviewSkill
 from cyberteam.skills.registry import SkillRegistry, get_registry
+from abc import ABC
 
 
 class SkillLoader:
@@ -56,15 +57,22 @@ class SkillLoader:
                         isinstance(attr, type)
                         and issubclass(attr, BaseSkill)
                         and attr != BaseSkill
+                        and attr != WritingSkill  # 跳过抽象基类
+                        and attr != ContentReviewSkill  # 跳过抽象基类
+                        and not (hasattr(attr, '__abstractmethods__') and attr.__abstractmethods__)
                     ):
-                        instance = attr()
-                        registry.register(
-                            name=instance.metadata.name,
-                            skill_class=attr,
-                            metadata=instance.metadata,
-                            category=category
-                        )
-                        registered.append(instance.metadata.name)
+                        try:
+                            instance = attr()
+                            registry.register(
+                                name=instance.metadata.name,
+                                skill_class=attr,
+                                metadata=instance.metadata,
+                                category=category
+                            )
+                            registered.append(instance.metadata.name)
+                        except TypeError:
+                            # 跳过无法实例化的抽象类
+                            pass
 
             except Exception as e:
                 print(f"Warning: Failed to load skills in {category}: {e}")

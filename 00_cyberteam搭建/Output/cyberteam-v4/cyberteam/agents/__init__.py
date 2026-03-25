@@ -1,6 +1,7 @@
 """CyberTeam Agents 模块。
 
 整合所有 Agent，包括思维专家和专业 Agent。
+包含增长BG的7个专家Agent。
 """
 
 from cyberteam.agents.base import (
@@ -37,6 +38,14 @@ from cyberteam.agents.specialized import (
     DebateModerator,
     ScoreEvaluator,
     ReportWriter,
+    # 增长BG Agents
+    GrowthBGAgent,
+    UserOpsAgent,
+    ContentOpsAgent,
+    ActivityOpsAgent,
+    GrowthMarketingAgent,
+    BrandMarketingAgent,
+    PerformanceMarketingAgent,
 )
 
 __all__ = [
@@ -72,6 +81,14 @@ __all__ = [
     "DebateModerator",
     "ScoreEvaluator",
     "ReportWriter",
+    # 增长BG Agents (7个)
+    "GrowthBGAgent",
+    "UserOpsAgent",
+    "ContentOpsAgent",
+    "ActivityOpsAgent",
+    "GrowthMarketingAgent",
+    "BrandMarketingAgent",
+    "PerformanceMarketingAgent",
 ]
 
 # 版本信息
