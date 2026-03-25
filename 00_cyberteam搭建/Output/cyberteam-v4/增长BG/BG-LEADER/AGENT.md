@@ -176,25 +176,25 @@ subordinates:
 ## references
 
 ### 核心参考 Agent（来自 cyberteam-v3 运营资产）
-- 01_汇报框架Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/01_汇报框架Agent/
-- 02_时间管理Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/02_时间管理Agent/
-- 03_进度管理Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/03_进度管理Agent/
-- 04_复盘模板Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/04_复盘模板Agent/
-- 05_人力盘点Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/05_人力盘点Agent/
-- 06_IDP计划Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/06_IDP计划Agent/
-- 07_1v1沟通Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/07_1v1沟通Agent/
-- 08_团队激励Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/08_团队激励Agent/
-- 团队管理Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/团队管理Agent/
-- 策略规划Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/策略规划Agent/
-- 策略执行Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/策略执行Agent/
-- 高层意图识别Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/高层意图识别Agent/
+- 01_汇报框架Agent: ../../skills/v3-agents/ops/01_汇报框架Agent/
+- 02_时间管理Agent: ../../skills/v3-agents/ops/02_时间管理Agent/
+- 03_进度管理Agent: ../../skills/v3-agents/ops/03_进度管理Agent/
+- 04_复盘模板Agent: ../../skills/v3-agents/ops/04_复盘模板Agent/
+- 05_人力盘点Agent: ../../skills/v3-agents/ops/05_人力盘点Agent/
+- 06_IDP计划Agent: ../../skills/v3-agents/ops/06_IDP计划Agent/
+- 07_1v1沟通Agent: ../../skills/v3-agents/ops/07_1v1沟通Agent/
+- 08_团队激励Agent: ../../skills/v3-agents/ops/08_团队激励Agent/
+- 团队管理Agent: ../../skills/v3-agents/ops/团队管理Agent/
+- 策略规划Agent: ../../skills/v3-agents/ops/策略规划Agent/
+- 策略执行Agent: ../../skills/v3-agents/ops/策略执行Agent/
+- 高层意图识别Agent: ../../skills/v3-agents/ops/高层意图识别Agent/
 
 ### 配套 Skills
-- 汇报框架: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/01_汇报框架Agent/配套skill/汇报框架/
-- 时间管理: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/02_时间管理Agent/配套skill/时间管理/
-- 进度管理: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/03_进度管理Agent/配套skill/进度管理/
-- 复盘模板: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/04_复盘模板Agent/配套skill/复盘模板/
-- 团队管理: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/团队管理Agent/配套skill/团队管理/
+- 汇报框架: ../../skills/v3-agents/ops/01_汇报框架Agent/配套skill/汇报框架/
+- 时间管理: ../../skills/v3-agents/ops/02_时间管理Agent/配套skill/时间管理/
+- 进度管理: ../../skills/v3-agents/ops/03_进度管理Agent/配套skill/进度管理/
+- 复盘模板: ../../skills/v3-agents/ops/04_复盘模板Agent/配套skill/复盘模板/
+- 团队管理: ../../skills/v3-agents/ops/团队管理Agent/配套skill/团队管理/
 
 ## skills
 
@@ -276,6 +276,6 @@ subordinates:
 - **单兵模式**：单个专家独立处理，使用其专用 Skill
 
 ## 引用来源
-- 策略规划Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/策略规划Agent/`
-- 团队管理Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/团队管理Agent/`
-- 策略执行Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/策略执行Agent/`
+- 策略规划Agent: `../../skills/v3-agents/ops/策略规划Agent/`
+- 团队管理Agent: `../../skills/v3-agents/ops/团队管理Agent/`
+- 策略执行Agent: `../../skills/v3-agents/ops/策略执行Agent/`

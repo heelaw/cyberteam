@@ -208,18 +208,18 @@ member_count: 5 Agents
 ## references
 
 ### 核心参考 Agent（来自 cyberteam-v3 运营资产）
-- 内容运营Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/内容运营Agent/
-- 新媒体运营Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/新媒体运营Agent/
-- 新媒体进阶Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/新媒体进阶Agent/
-- 文案Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/文案Agent/
-- 文案进阶Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/文案进阶Agent/
-- 推广策略Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/推广策略Agent/
+- 内容运营Agent: ../../skills/v3-agents/ops/内容运营Agent/
+- 新媒体运营Agent: ../../skills/v3-agents/ops/新媒体运营Agent/
+- 新媒体进阶Agent: ../../skills/v3-agents/ops/新媒体进阶Agent/
+- 文案Agent: ../../skills/v3-agents/ops/文案Agent/
+- 文案进阶Agent: ../../skills/v3-agents/ops/文案进阶Agent/
+- 推广策略Agent: ../../skills/v3-agents/ops/推广策略Agent/
 
 ### 配套 Skills
-- 选题策划: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/内容运营Agent/配套skill/选题策划/
-- 内容生产: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/内容运营Agent/配套skill/内容生产/
-- 标题优化: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/文案进阶Agent/配套skill/标题优化/
-- 多平台分发: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/新媒体进阶Agent/配套skill/多平台分发/
+- 选题策划: ../../skills/v3-agents/ops/内容运营Agent/配套skill/选题策划/
+- 内容生产: ../../skills/v3-agents/ops/内容运营Agent/配套skill/内容生产/
+- 标题优化: ../../skills/v3-agents/ops/文案进阶Agent/配套skill/标题优化/
+- 多平台分发: ../../skills/v3-agents/ops/新媒体进阶Agent/配套skill/多平台分发/
 
 ## skills
 
@@ -297,9 +297,9 @@ member_count: 5 Agents
 - **与效果营销协同**：效果内容 → 广告素材
 
 ## 引用来源
-- 内容运营Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/内容运营Agent/`
-- 新媒体运营Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/新媒体运营Agent/`
-- 新媒体进阶Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/新媒体进阶Agent/`
-- 文案Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/文案Agent/`
-- 文案进阶Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/文案进阶Agent/`
-- 推广策略Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/推广策略Agent/`
+- 内容运营Agent: `../../skills/v3-agents/ops/内容运营Agent/`
+- 新媒体运营Agent: `../../skills/v3-agents/ops/新媒体运营Agent/`
+- 新媒体进阶Agent: `../../skills/v3-agents/ops/新媒体进阶Agent/`
+- 文案Agent: `../../skills/v3-agents/ops/文案Agent/`
+- 文案进阶Agent: `../../skills/v3-agents/ops/文案进阶Agent/`
+- 推广策略Agent: `../../skills/v3-agents/ops/推广策略Agent/`

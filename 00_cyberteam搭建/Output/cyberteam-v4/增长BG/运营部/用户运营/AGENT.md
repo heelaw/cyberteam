@@ -196,18 +196,18 @@ AppPush > 短信 > 微信 > 邮件 > 电话
 ## references
 
 ### 核心参考 Agent（来自 cyberteam-v3 运营资产）
-- 用户运营Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/用户运营Agent/
-- 用户运营咨询Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/用户运营咨询Agent/
-- 用户激励Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/用户激励Agent/
-- 用户洞察Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/用户洞察Agent/
-- 社群运营Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/社群运营Agent/
-- 社区运营Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/社区运营Agent/
+- 用户运营Agent: ../../skills/v3-agents/ops/用户运营Agent/
+- 用户运营咨询Agent: ../../skills/v3-agents/ops/用户运营咨询Agent/
+- 用户激励Agent: ../../skills/v3-agents/ops/用户激励Agent/
+- 用户洞察Agent: ../../skills/v3-agents/ops/用户洞察Agent/
+- 社群运营Agent: ../../skills/v3-agents/ops/社群运营Agent/
+- 社区运营Agent: ../../skills/v3-agents/ops/社区运营Agent/
 
 ### 配套 Skills
-- 用户留存诊断: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/用户激励Agent/配套skill/用户留存诊断/
-- 横纵相交模型: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/用户激励Agent/配套skill/横纵相交模型/
-- 价值洼地诊断: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/用户激励Agent/配套skill/价值洼地诊断/
-- 激励体系设计: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/用户激励Agent/配套skill/激励体系设计/
+- 用户留存诊断: ../../skills/v3-agents/ops/用户激励Agent/配套skill/用户留存诊断/
+- 横纵相交模型: ../../skills/v3-agents/ops/用户激励Agent/配套skill/横纵相交模型/
+- 价值洼地诊断: ../../skills/v3-agents/ops/用户激励Agent/配套skill/价值洼地诊断/
+- 激励体系设计: ../../skills/v3-agents/ops/用户激励Agent/配套skill/激励体系设计/
 
 ## skills
 
@@ -285,8 +285,8 @@ AppPush > 短信 > 微信 > 邮件 > 电话
 - **与品牌营销协同**：用户案例 → 品牌传播
 
 ## 引用来源
-- 用户运营Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/用户运营Agent/`
-- 用户激励Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/用户激励Agent/`
-- 用户洞察Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/用户洞察Agent/`
-- 社群运营Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/社群运营Agent/`
-- 社区运营Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/社区运营Agent/`
+- 用户运营Agent: `../../skills/v3-agents/ops/用户运营Agent/`
+- 用户激励Agent: `../../skills/v3-agents/ops/用户激励Agent/`
+- 用户洞察Agent: `../../skills/v3-agents/ops/用户洞察Agent/`
+- 社群运营Agent: `../../skills/v3-agents/ops/社群运营Agent/`
+- 社区运营Agent: `../../skills/v3-agents/ops/社区运营Agent/`

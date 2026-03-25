@@ -209,19 +209,19 @@ member_count: 5 Agents
 ## references
 
 ### 核心参考 Agent（来自 cyberteam-v3 运营资产）
-- 活动策划Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/活动策划Agent/
-- 活动策划Agent 2: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/活动策划Agent 2/
-- 活动策划咨询Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/活动策划咨询Agent/
-- 活动运营进阶Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/活动运营进阶Agent/
+- 活动策划Agent: ../../skills/v3-agents/ops/活动策划Agent/
+- 活动策划Agent 2: ../../skills/v3-agents/ops/活动策划Agent 2/
+- 活动策划咨询Agent: ../../skills/v3-agents/ops/活动策划咨询Agent/
+- 活动运营进阶Agent: ../../skills/v3-agents/ops/活动运营进阶Agent/
 
 ### 配套 Skills
-- 八种基础活动创意生成器: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/活动策划Agent/配套skill/八种基础活动创意生成器/
-- 活动策划方案七要素模板: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/活动策划Agent/配套skill/活动策划方案七要素模板/
-- 活动目标定义四要素: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/活动策划Agent/配套skill/活动目标定义四要素/
-- 热点蹭法拆解器: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/活动策划Agent/配套skill/热点蹭法拆解器/
-- 活动创意自检清单: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/活动策划Agent/配套skill/活动创意自检清单/
-- 活动复盘三步法: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/活动策划Agent/配套skill/活动复盘三步法/
-- 不同目标-创意匹配表: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/活动策划Agent/配套skill/不同目标-创意匹配表/
+- 八种基础活动创意生成器: ../../skills/v3-agents/ops/活动策划Agent/配套skill/八种基础活动创意生成器/
+- 活动策划方案七要素模板: ../../skills/v3-agents/ops/活动策划Agent/配套skill/活动策划方案七要素模板/
+- 活动目标定义四要素: ../../skills/v3-agents/ops/活动策划Agent/配套skill/活动目标定义四要素/
+- 热点蹭法拆解器: ../../skills/v3-agents/ops/活动策划Agent/配套skill/热点蹭法拆解器/
+- 活动创意自检清单: ../../skills/v3-agents/ops/活动策划Agent/配套skill/活动创意自检清单/
+- 活动复盘三步法: ../../skills/v3-agents/ops/活动策划Agent/配套skill/活动复盘三步法/
+- 不同目标-创意匹配表: ../../skills/v3-agents/ops/活动策划Agent/配套skill/不同目标-创意匹配表/
 
 ## skills
 
@@ -305,7 +305,7 @@ member_count: 5 Agents
 - **与效果营销协同**：活动推广 → 付费投放
 
 ## 引用来源
-- 活动策划Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/活动策划Agent/`
-- 活动策划Agent 2: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/活动策划Agent 2/`
-- 活动策划咨询Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/活动策划咨询Agent/`
-- 活动运营进阶Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/活动运营进阶Agent/`
+- 活动策划Agent: `../../skills/v3-agents/ops/活动策划Agent/`
+- 活动策划Agent 2: `../../skills/v3-agents/ops/活动策划Agent 2/`
+- 活动策划咨询Agent: `../../skills/v3-agents/ops/活动策划咨询Agent/`
+- 活动运营进阶Agent: `../../skills/v3-agents/ops/活动运营进阶Agent/`

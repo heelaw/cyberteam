@@ -242,20 +242,20 @@ Campaign（营销活动层）→ AdSet（广告组层）→ Ad（广告层）
 ## references
 
 ### 核心参考 Agent（来自 cyberteam-v3 运营资产）
-- 财务模型Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/财务模型Agent/
-- 北极星指标Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/北极星指标Agent/
-- 指标拆解Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/指标拆解Agent/
-- 指标监控器: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/指标监控器/
-- 数据驱动Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/数据驱动Agent/
-- 渠道推广Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/渠道推广Agent/
-- 营销转化Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/营销转化Agent/
-- 推广营销进阶Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/推广营销进阶Agent/
+- 财务模型Agent: ../../skills/v3-agents/ops/财务模型Agent/
+- 北极星指标Agent: ../../skills/v3-agents/ops/北极星指标Agent/
+- 指标拆解Agent: ../../skills/v3-agents/ops/指标拆解Agent/
+- 指标监控器: ../../skills/v3-agents/ops/指标监控器/
+- 数据驱动Agent: ../../skills/v3-agents/ops/数据驱动Agent/
+- 渠道推广Agent: ../../skills/v3-agents/ops/渠道推广Agent/
+- 营销转化Agent: ../../skills/v3-agents/ops/营销转化Agent/
+- 推广营销进阶Agent: ../../skills/v3-agents/ops/推广营销进阶Agent/
 
 ### 配套 Skills
-- ROI计算: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/财务模型Agent/配套skill/ROI计算/
-- 账户结构优化: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/渠道推广Agent/配套skill/账户结构优化/
-- 出价策略: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/渠道推广Agent/配套skill/出价策略/
-- A/B测试: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/数据驱动Agent/配套skill/A/B测试/
+- ROI计算: ../../skills/v3-agents/ops/财务模型Agent/配套skill/ROI计算/
+- 账户结构优化: ../../skills/v3-agents/ops/渠道推广Agent/配套skill/账户结构优化/
+- 出价策略: ../../skills/v3-agents/ops/渠道推广Agent/配套skill/出价策略/
+- A/B测试: ../../skills/v3-agents/ops/数据驱动Agent/配套skill/A/B测试/
 
 ## skills
 
@@ -351,11 +351,11 @@ Campaign（营销活动层）→ AdSet（广告组层）→ Ad（广告层）
 - **与数据团队协同**：数据共享 → 优化策略
 
 ## 引用来源
-- 财务模型Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/财务模型Agent/`
-- 北极星指标Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/北极星指标Agent/`
-- 指标拆解Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/指标拆解Agent/`
-- 指标监控器: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/指标监控器/`
-- 数据驱动Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/数据驱动Agent/`
-- 渠道推广Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/渠道推广Agent/`
-- 营销转化Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/营销转化Agent/`
-- 推广营销进阶Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/推广营销进阶Agent/`
+- 财务模型Agent: `../../skills/v3-agents/ops/财务模型Agent/`
+- 北极星指标Agent: `../../skills/v3-agents/ops/北极星指标Agent/`
+- 指标拆解Agent: `../../skills/v3-agents/ops/指标拆解Agent/`
+- 指标监控器: `../../skills/v3-agents/ops/指标监控器/`
+- 数据驱动Agent: `../../skills/v3-agents/ops/数据驱动Agent/`
+- 渠道推广Agent: `../../skills/v3-agents/ops/渠道推广Agent/`
+- 营销转化Agent: `../../skills/v3-agents/ops/营销转化Agent/`
+- 推广营销进阶Agent: `../../skills/v3-agents/ops/推广营销进阶Agent/`

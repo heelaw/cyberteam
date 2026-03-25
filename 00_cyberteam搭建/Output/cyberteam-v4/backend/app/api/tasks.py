@@ -1,7 +1,9 @@
 """Tasks API — 任务管理。"""
 
 import uuid
-from typing import Optional, Union, List
+import sys
+from pathlib import Path
+from typing import Optional, Union, List, Dict, Any
 import logging
 from datetime import datetime
 
@@ -14,6 +16,34 @@ from ..models import Task, TaskState
 
 log = logging.getLogger("cyberteam.api.tasks")
 router = APIRouter()
+
+# ── Engine 模块路径设置 ──
+_backend_path = Path(__file__).parent.parent.parent
+_engine_path = _backend_path / "engine"
+_cyberteam_path = _backend_path / "cyberteam"
+_integration_path = _backend_path / "integration"
+
+for p in [str(_backend_path), str(_engine_path), str(_cyberteam_path), str(_integration_path)]:
+    if p not in sys.path:
+        sys.path.insert(0, p)
+
+# ── SwarmOrchestrator 和 CyberTeamAdapter (懒加载) ──
+
+_cyberteam_adapter = None
+
+
+def _get_cyberteam_adapter():
+    """获取 CyberTeam 适配器（懒加载）"""
+    global _cyberteam_adapter
+    if _cyberteam_adapter is None:
+        try:
+            from integration.cyberteam_adapter import CyberTeamAdapter
+            _cyberteam_adapter = CyberTeamAdapter(repo_root=_backend_path)
+            log.info("CyberTeamAdapter loaded successfully")
+        except Exception as e:
+            log.warning(f"Failed to load CyberTeamAdapter: {e}")
+            _cyberteam_adapter = None
+    return _cyberteam_adapter
 
 
 # ── Schemas ──
@@ -51,6 +81,32 @@ class TaskOut(BaseModel):
 
     class Config:
         from_attributes = True
+
+
+# ── Swarm 相关 Schemas ──
+
+class SwarmCreate(BaseModel):
+    """创建 Swarm 团队请求"""
+    team_name: str = Field(..., description="团队名称")
+    goal: str = Field(..., description="团队目标")
+    template: str = Field(default="swarm", description="团队模板: dev/research/content/fullstack/swarm")
+
+
+class SwarmAssignTask(BaseModel):
+    """分配 Swarm 任务请求"""
+    team_name: str = Field(..., description="团队名称")
+    agent_name: str = Field(..., description="Agent 名称")
+    task: str = Field(..., description="任务描述")
+    blocked_by: Optional[List[str]] = Field(default=None, description="依赖任务ID列表")
+
+
+class SwarmStatus(BaseModel):
+    """Swarm 状态响应"""
+    name: str
+    goal: str
+    status: str
+    agent_count: int
+    started_at: str
 
 
 # ── Endpoints ──
@@ -198,3 +254,145 @@ async def delete_task(
     await db.commit()
 
     return {"message": "deleted", "task_id": task_id}
+
+
+# ── Swarm SwarmOrchestrator 集成 ──
+
+@router.post("/swarm/create", status_code=201)
+async def create_swarm(
+    body: SwarmCreate,
+):
+    """创建 Swarm 团队"""
+    adapter = _get_cyberteam_adapter()
+    if adapter is None:
+        raise HTTPException(status_code=503, detail="CyberTeamAdapter not available")
+
+    try:
+        swarm = adapter.create_swarm(
+            team_name=body.team_name,
+            goal=body.goal,
+            template=body.template
+        )
+
+        return {
+            "success": True,
+            "team_name": swarm.team_name,
+            "goal": swarm.goal,
+            "agents": list(swarm.agents.keys()),
+            "status": "created"
+        }
+    except Exception as e:
+        log.error(f"Failed to create swarm: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to create swarm: {str(e)}")
+
+
+@router.post("/swarm/assign")
+async def assign_swarm_task(
+    body: SwarmAssignTask,
+):
+    """为 Swarm Agent 分配任务"""
+    adapter = _get_cyberteam_adapter()
+    if adapter is None:
+        raise HTTPException(status_code=503, detail="CyberTeamAdapter not available")
+
+    try:
+        task = adapter.assign_task(
+            team_name=body.team_name,
+            agent_name=body.agent_name,
+            task=body.task,
+            blocked_by=body.blocked_by
+        )
+
+        if task is None:
+            raise HTTPException(status_code=404, detail="Swarm or agent not found")
+
+        return {
+            "success": True,
+            "task_id": task.task_id,
+            "subject": task.subject,
+            "blocked_by": body.blocked_by or []
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        log.error(f"Failed to assign task: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to assign task: {str(e)}")
+
+
+@router.get("/swarm/{team_name}/status")
+async def get_swarm_status(
+    team_name: str,
+):
+    """获取 Swarm 状态"""
+    adapter = _get_cyberteam_adapter()
+    if adapter is None:
+        raise HTTPException(status_code=503, detail="CyberTeamAdapter not available")
+
+    status = adapter.get_swarm_status(team_name)
+    if status is None:
+        raise HTTPException(status_code=404, detail="Swarm not found")
+
+    return status
+
+
+@router.get("/swarm/{team_name}/tasks")
+async def get_swarm_tasks(
+    team_name: str,
+):
+    """获取 Swarm 所有任务"""
+    adapter = _get_cyberteam_adapter()
+    if adapter is None:
+        raise HTTPException(status_code=503, detail="CyberTeamAdapter not available")
+
+    swarm = adapter.get_swarm(team_name)
+    if swarm is None:
+        raise HTTPException(status_code=404, detail="Swarm not found")
+
+    tasks = []
+    for task_id, task in swarm.task_store.items():
+        tasks.append({
+            "task_id": task.task_id,
+            "subject": task.subject,
+            "status": task.status.value,
+            "assigned_to": task.assigned_to,
+            "blocked_by": task.blocked_by,
+            "created_at": task.created_at
+        })
+
+    return {"tasks": tasks, "total": len(tasks)}
+
+
+@router.get("/swarms")
+async def list_swarms():
+    """列出所有活跃的 Swarms"""
+    adapter = _get_cyberteam_adapter()
+    if adapter is None:
+        raise HTTPException(status_code=503, detail="CyberTeamAdapter not available")
+
+    return {"swarms": adapter.list_swarms(), "total": len(adapter.list_swarms())}
+
+
+@router.post("/swarm/{team_name}/shutdown")
+async def shutdown_swarm(
+    team_name: str,
+):
+    """关闭 Swarm"""
+    adapter = _get_cyberteam_adapter()
+    if adapter is None:
+        raise HTTPException(status_code=503, detail="CyberTeamAdapter not available")
+
+    success = adapter.shutdown_swarm(team_name)
+    if not success:
+        raise HTTPException(status_code=404, detail="Swarm not found")
+
+    return {"message": "shutdown", "team_name": team_name}
+
+
+@router.get("/swarm/status")
+async def get_swarm_integration_status():
+    """获取 Swarm 集成状态"""
+    adapter = _get_cyberteam_adapter()
+    return {
+        "adapter_available": adapter is not None,
+        "swarm_count": len(adapter.swarms) if adapter else 0
+    }

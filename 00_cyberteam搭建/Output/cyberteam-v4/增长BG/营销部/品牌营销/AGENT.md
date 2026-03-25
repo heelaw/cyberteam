@@ -179,17 +179,17 @@ member_count: 5 Agents
 ## references
 
 ### 核心参考 Agent（来自 cyberteam-v3 运营资产）
-- 商业认知咨询Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/商业认知咨询Agent/
-- 运营方法论Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/运营方法论Agent/
-- 运营案例Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/运营案例Agent/
-- 运营进阶Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/运营进阶Agent/
-- 运营高阶Agent: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/运营高阶Agent/
+- 商业认知咨询Agent: ../../skills/v3-agents/ops/商业认知咨询Agent/
+- 运营方法论Agent: ../../skills/v3-agents/ops/运营方法论Agent/
+- 运营案例Agent: ../../skills/v3-agents/ops/运营案例Agent/
+- 运营进阶Agent: ../../skills/v3-agents/ops/运营进阶Agent/
+- 运营高阶Agent: ../../skills/v3-agents/ops/运营高阶Agent/
 
 ### 配套 Skills
-- 品牌定位: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/商业认知咨询Agent/配套skill/品牌定位/
-- 品牌传播: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/商业认知咨询Agent/配套skill/品牌传播/
-- 危机管理: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/商业认知咨询Agent/配套skill/危机管理/
-- 品牌健康度监测: ../../../cyberteam-v3/agents/ops/references/操盘手课程体系/数据驱动Agent/配套skill/品牌健康度监测/
+- 品牌定位: ../../skills/v3-agents/ops/商业认知咨询Agent/配套skill/品牌定位/
+- 品牌传播: ../../skills/v3-agents/ops/商业认知咨询Agent/配套skill/品牌传播/
+- 危机管理: ../../skills/v3-agents/ops/商业认知咨询Agent/配套skill/危机管理/
+- 品牌健康度监测: ../../skills/v3-agents/ops/数据驱动Agent/配套skill/品牌健康度监测/
 
 ## skills
 
@@ -272,8 +272,8 @@ member_count: 5 Agents
 - **与增长营销协同**：品牌增长 → 增长策略
 
 ## 引用来源
-- 商业认知咨询Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/商业认知咨询Agent/`
-- 运营方法论Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/运营方法论Agent/`
-- 运营案例Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/运营案例Agent/`
-- 运营进阶Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/运营进阶Agent/`
-- 运营高阶Agent: `../../../cyberteam-v3/agents/ops/references/操盘手课程体系/运营高阶Agent/`
+- 商业认知咨询Agent: `../../skills/v3-agents/ops/商业认知咨询Agent/`
+- 运营方法论Agent: `../../skills/v3-agents/ops/运营方法论Agent/`
+- 运营案例Agent: `../../skills/v3-agents/ops/运营案例Agent/`
+- 运营进阶Agent: `../../skills/v3-agents/ops/运营进阶Agent/`
+- 运营高阶Agent: `../../skills/v3-agents/ops/运营高阶Agent/`

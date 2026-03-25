@@ -2,6 +2,8 @@
 
 import logging
 from typing import Optional, List
+import sys
+from pathlib import Path
 
 from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import BaseModel, Field
@@ -12,6 +14,14 @@ from ..db import get_db
 log = logging.getLogger("cyberteam.api.agents")
 router = APIRouter()
 
+# ── Engine 模块路径设置 ──
+_backend_path = Path(__file__).parent.parent.parent
+_engine_path = _backend_path / "engine"
+_cyberteam_path = _backend_path / "cyberteam"
+
+for p in [str(_backend_path), str(_engine_path), str(_cyberteam_path)]:
+    if p not in sys.path:
+        sys.path.insert(0, p)
 
 # ── 14个思维专家定义 ──
 
@@ -102,8 +112,7 @@ EXPERT_FRAMEWORKS = {
     },
 }
 
-
-# ── 6个执行部门定义 ──
+# ── 执行部门定义 ──
 
 DEPARTMENTS = {
     "product": {
@@ -138,6 +147,55 @@ DEPARTMENTS = {
     },
 }
 
+# ── Gstack Skills 和 Agents (动态加载) ──
+
+_gstack_adapter = None
+_agent_adapter = None
+
+
+def _get_gstack_adapter():
+    """获取 Gstack 适配器（懒加载）"""
+    global _gstack_adapter
+    if _gstack_adapter is None:
+        try:
+            from engine.department import GstackAdapter
+            _gstack_adapter = GstackAdapter()
+        except Exception as e:
+            log.warning(f"Failed to load GstackAdapter: {e}")
+            _gstack_adapter = None
+    return _gstack_adapter
+
+
+def _get_agent_adapter():
+    """获取 Agent 适配器（懒加载）"""
+    global _agent_adapter
+    if _agent_adapter is None:
+        try:
+            from engine.department import AgentAdapter
+            _agent_adapter = AgentAdapter()
+        except Exception as e:
+            log.warning(f"Failed to load AgentAdapter: {e}")
+            _agent_adapter = None
+    return _agent_adapter
+
+
+def list_gstack_skills() -> List[dict]:
+    """获取 Gstack Skills 列表"""
+    adapter = _get_gstack_adapter()
+    if adapter:
+        skills = adapter.list_skills()
+        return [{"skill_id": s, "name": s, "type": "gstack"} for s in skills]
+    return []
+
+
+def list_system_agents() -> List[dict]:
+    """获取系统 Agents 列表"""
+    adapter = _get_agent_adapter()
+    if adapter:
+        agents = adapter.list_agents()
+        return [{"agent_id": a, "name": a, "type": "system"} for a in agents]
+    return []
+
 
 # ── Schemas ──
 
@@ -145,7 +203,7 @@ class AgentOut(BaseModel):
     """Agent 信息输出。"""
     agent_id: str
     name: str
-    type: str  # expert | department
+    type: str  # expert | department | gstack | system
     framework: Optional[str] = None
     description: str
     keywords: Optional[List[str]] = None
@@ -155,10 +213,10 @@ class AgentOut(BaseModel):
 
 @router.get("")
 async def list_agents(
-    agent_type: Optional[str] = Query(None, description="过滤类型: expert/department"),
+    agent_type: Optional[str] = Query(None, description="过滤类型: expert/department/gstack/system"),
     db: AsyncSession = Depends(get_db),
 ):
-    """获取所有 Agent 列表。"""
+    """获取所有 Agent 列表（支持动态加载 Gstack Skills 和 System Agents）"""
     agents = []
 
     if agent_type is None or agent_type == "expert":
@@ -183,12 +241,37 @@ async def list_agents(
                 "responsibility": info["responsibility"],
             })
 
+    # 动态加载 Gstack Skills
+    if agent_type is None or agent_type == "gstack":
+        gstack_skills = list_gstack_skills()
+        agents.extend(gstack_skills)
+        log.info(f"Loaded {len(gstack_skills)} Gstack Skills dynamically")
+
+    # 动态加载 System Agents
+    if agent_type is None or agent_type == "system":
+        system_agents = list_system_agents()
+        agents.extend(system_agents)
+        log.info(f"Loaded {len(system_agents)} System Agents dynamically")
+
     return {"agents": agents, "total": len(agents)}
+
+
+@router.get("/skills")
+async def list_gstack_skills_endpoint():
+    """获取所有 Gstack Skills（动态加载）"""
+    return {"skills": list_gstack_skills(), "total": len(list_gstack_skills())}
+
+
+@router.get("/systems")
+async def list_system_agents_endpoint():
+    """获取所有系统 Agents（动态加载）"""
+    return {"agents": list_system_agents(), "total": len(list_system_agents())}
 
 
 @router.get("/{agent_id}")
 async def get_agent(agent_id: str):
-    """获取指定 Agent 信息。"""
+    """获取指定 Agent 信息"""
+    # 思维专家
     if agent_id in EXPERT_FRAMEWORKS:
         info = EXPERT_FRAMEWORKS[agent_id]
         return {
@@ -200,6 +283,7 @@ async def get_agent(agent_id: str):
             "keywords": info["keywords"],
         }
 
+    # 执行部门
     if agent_id in DEPARTMENTS:
         info = DEPARTMENTS[agent_id]
         return {
@@ -209,5 +293,29 @@ async def get_agent(agent_id: str):
             "description": info["description"],
             "responsibility": info["responsibility"],
         }
+
+    # Gstack Skills
+    gstack_adapter = _get_gstack_adapter()
+    if gstack_adapter and agent_id.startswith("/"):
+        skills = gstack_adapter.list_skills()
+        if agent_id in skills:
+            return {
+                "agent_id": agent_id,
+                "name": agent_id,
+                "type": "gstack",
+                "description": gstack_adapter.SKILLS.get(agent_id, ""),
+            }
+
+    # System Agents
+    agent_adapter = _get_agent_adapter()
+    if agent_adapter:
+        agents = agent_adapter.list_agents()
+        if agent_id in agents:
+            return {
+                "agent_id": agent_id,
+                "name": agent_id,
+                "type": "system",
+                "description": agent_adapter.AGENTS.get(agent_id, ""),
+            }
 
     raise HTTPException(status_code=404, detail=f"Agent not found: {agent_id}")

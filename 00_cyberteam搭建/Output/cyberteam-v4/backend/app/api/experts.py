@@ -1,7 +1,9 @@
 """Experts API — 意图识别与专家路由。"""
 
 import logging
-from typing import Optional
+import sys
+from pathlib import Path
+from typing import Optional, List, Dict, Any
 
 from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import BaseModel, Field
@@ -11,6 +13,48 @@ from ..db import get_db
 
 log = logging.getLogger("cyberteam.api.experts")
 router = APIRouter()
+
+# ── Engine 模块路径设置 ──
+_backend_path = Path(__file__).parent.parent.parent
+_engine_path = _backend_path / "engine"
+_cyberteam_path = _backend_path / "cyberteam"
+
+for p in [str(_backend_path), str(_engine_path), str(_cyberteam_path)]:
+    if p not in sys.path:
+        sys.path.insert(0, p)
+
+# ── Strategy Engine 和 CEO Router (懒加载) ──
+
+_strategy_engine = None
+_ceo_router = None
+
+
+def _get_strategy_engine():
+    """获取 Strategy Engine（懒加载）"""
+    global _strategy_engine
+    if _strategy_engine is None:
+        try:
+            from engine.strategy import StrategyEngine
+            _strategy_engine = StrategyEngine()
+            log.info("StrategyEngine loaded successfully")
+        except Exception as e:
+            log.warning(f"Failed to load StrategyEngine: {e}")
+            _strategy_engine = None
+    return _strategy_engine
+
+
+def _get_ceo_router():
+    """获取 CEO Router（懒加载）"""
+    global _ceo_router
+    if _ceo_router is None:
+        try:
+            from engine.ceo import CEORouter
+            _ceo_router = CEORouter()
+            log.info("CEORouter loaded successfully")
+        except Exception as e:
+            log.warning(f"Failed to load CEORouter: {e}")
+            _ceo_router = None
+    return _ceo_router
 
 
 # ── 关键词到专家的映射 ──
@@ -100,6 +144,41 @@ class IntentClassifyResponse(BaseModel):
     keywords: list[str] = Field(..., description="识别的关键词")
 
 
+class StrategyAnalyzeRequest(BaseModel):
+    """策略分析请求（使用 StrategyEngine）"""
+    task_id: str = Field(..., description="任务ID")
+    user_input: str = Field(..., description="用户输入")
+    intent: str = Field(..., description="识别的意图")
+    complexity: str = Field(default="中", description="复杂度：高/中/低")
+
+
+class StrategyAnalyzeResponse(BaseModel):
+    """策略分析响应"""
+    task_id: str
+    decomposition: Dict[str, Any]  # 5W1H1Y 分解结果
+    mece: Dict[str, Any]  # MECE 分类结果
+    framework: str  # 思维框架
+    schedule: List[Dict[str, Any]]  # 执行计划
+    resources: Dict[str, Any]  # 资源需求
+
+
+class CEORouteRequest(BaseModel):
+    """CEO 路由请求"""
+    user_input: str = Field(..., description="用户输入")
+
+
+class CEORouteResponse(BaseModel):
+    """CEO 路由响应"""
+    decision: str
+    target: str
+    target_name: str
+    intent: str
+    complexity: str
+    reason: str
+    swarm_id: Optional[str] = None
+    agents: Optional[List[str]] = None
+
+
 class ExpertRouteRequest(BaseModel):
     """专家路由请求。"""
     task_id: str = Field(..., description="任务ID")
@@ -168,6 +247,71 @@ async def classify_intent_endpoint(
     )
 
 
+@router.post("/strategy/analyze", response_model=StrategyAnalyzeResponse)
+async def analyze_with_strategy(
+    body: StrategyAnalyzeRequest,
+):
+    """使用 StrategyEngine 进行策略分析（5W1H1Y + MECE）"""
+    engine = _get_strategy_engine()
+    if engine is None:
+        raise HTTPException(status_code=503, detail="StrategyEngine not available")
+
+    try:
+        plan = engine.create_plan(
+            task_id=body.task_id,
+            user_input=body.user_input,
+            intent=body.intent,
+            complexity=body.complexity
+        )
+
+        return StrategyAnalyzeResponse(
+            task_id=plan.task_id,
+            decomposition={
+                "what": plan.decomposition.what,
+                "why": plan.decomposition.why,
+                "who": plan.decomposition.who,
+                "when": plan.decomposition.when,
+                "where": plan.decomposition.where,
+                "how": plan.decomposition.how,
+                "how_much": plan.decomposition.how_much,
+            },
+            mece={"categories": plan.mece.categories},
+            framework=plan.framework.value,
+            schedule=plan.schedule,
+            resources=plan.resources,
+        )
+    except Exception as e:
+        log.error(f"Strategy analysis failed: {e}")
+        raise HTTPException(status_code=500, detail=f"Strategy analysis failed: {str(e)}")
+
+
+@router.post("/route/ceo", response_model=CEORouteResponse)
+async def route_with_ceo(
+    body: CEORouteRequest,
+):
+    """使用 CEORouter 进行路由决策"""
+    router = _get_ceo_router()
+    if router is None:
+        raise HTTPException(status_code=503, detail="CEORouter not available")
+
+    try:
+        result = router.route(body.user_input)
+
+        return CEORouteResponse(
+            decision=result.decision,
+            target=result.target,
+            target_name=result.target_name,
+            intent=result.intent,
+            complexity=result.complexity,
+            reason=result.reason,
+            swarm_id=getattr(result, 'swarm_id', None),
+            agents=getattr(result, 'agents', None),
+        )
+    except Exception as e:
+        log.error(f"CEO routing failed: {e}")
+        raise HTTPException(status_code=500, detail=f"CEO routing failed: {str(e)}")
+
+
 @router.post("/route")
 async def route_experts(
     body: ExpertRouteRequest,
@@ -200,6 +344,18 @@ async def route_experts(
         task_id=body.task_id,
         expert_tasks=expert_tasks,
     )
+
+
+@router.get("/engine/status")
+async def get_engine_status():
+    """获取 Strategy Engine 和 CEO Router 的状态"""
+    engine = _get_strategy_engine()
+    router = _get_ceo_router()
+
+    return {
+        "strategy_engine": "available" if engine else "unavailable",
+        "ceo_router": "available" if router else "unavailable",
+    }
 
 
 @router.get("/{expert_id}/info")
