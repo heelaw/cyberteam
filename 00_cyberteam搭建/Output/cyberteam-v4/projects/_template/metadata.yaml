@@ -1,0 +1,57 @@
+# 项目元数据
+
+| 字段 | 说明 | 示例 |
+|------|------|------|
+| project_id | 项目唯一标识 | proj_20260325_001 |
+| project_name | 项目名称 | 在下辉子账号运营诊断 |
+| project_type | 项目类型 | 案例分析/策略制定/危机处理/常规运营 |
+| start_date | 开始日期 | 2026-03-25 |
+| status | 项目状态 | active/completed/archived |
+| owner | 项目负责人 | 运营总监 |
+| participants | 参与Agent | 运营总监,用户运营专家,内容运营专家 |
+| related_agents | 涉及Agent | 增长总监,营销总监 |
+| business_context | 业务背景文件 | context/business_context.md |
+| input_files | 输入文件清单 | context/input_files.md |
+| output_files | 输出文件清单 | decisions/output_files.md |
+
+---
+
+## 项目生命周期
+
+```
+启动 → 执行 → 归档
+  │        │       │
+  │        │       └─→ shared/knowledge_base/ (沉淀到知识库)
+  │        │
+  │        └─→ 每个决策/会议产生文档存入 decisions/ 或 meetings/
+  │
+  └─→ 初始化时从 shared/templates/ 复制项目模板
+```
+
+---
+
+## 路径规范
+
+```
+projects/{project_id}/
+├── metadata.yaml          # 本文件 - 项目元数据
+├── context/               # 输入：业务数据和资料
+│   ├── business_context.md   # 业务背景描述
+│   ├── data_*.md           # 数据文件（CSV/JSON转MD）
+│   ├── user_persona.md      # 用户画像
+│   ├── product_info.md      # 产品信息
+│   ├── market_data.md       # 市场数据
+│   └── input_files.md       # 所有输入文件清单
+├── decisions/             # 输出：决策与方案
+│   ├── diagnosis.md        # 问题诊断
+│   ├── options.md          # 方案选项A/B/C
+│   ├── decision.md         # 最终决策
+│   ├── action_plan.md      # 执行计划
+│   └── output_files.md     # 所有输出文件清单
+├── meetings/              # 输出：会议记录
+│   ├── meeting_YYYYMMDD.md # 每次会议记录
+│   └── conversation_log.md  # Agent对话记录
+└── references/            # 参考资料
+    ├── case_study.md       # 案例参考资料
+    └── benchmark.md        # 行业基准
+```
