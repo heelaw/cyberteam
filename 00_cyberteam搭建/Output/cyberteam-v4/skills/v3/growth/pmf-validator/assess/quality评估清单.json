@@ -1,0 +1,79 @@
+{
+  "skill_name": "pmf-validator",
+  "version": "1.0.0",
+  "assess_type": "quality",
+  "metrics": [
+    {
+      "id": "m1",
+      "name": "目标用户识别完整性",
+      "description": "是否明确识别了核心用户群体并建立了用户画像",
+      "type": "binary",
+      "threshold": true,
+      "weight": 15
+    },
+    {
+      "id": "m2",
+      "name": "用户画像质量",
+      "description": "用户画像是否包含关键维度（人口统计、行为特征、心理特征、使用场景）",
+      "type": "count",
+      "threshold": 3,
+      "weight": 10
+    },
+    {
+      "id": "m3",
+      "name": "需求验证完整性",
+      "description": "用户需求是否经过验证（访谈/问卷/观察），而非假设",
+      "type": "binary",
+      "threshold": true,
+      "weight": 15
+    },
+    {
+      "id": "m4",
+      "name": "需求清单数量",
+      "description": "是否列出3个以上经过验证的用户需求",
+      "type": "count",
+      "threshold": 3,
+      "weight": 10
+    },
+    {
+      "id": "m5",
+      "name": "产品定位清晰度",
+      "description": "是否形成清晰的一句话产品定位陈述",
+      "type": "binary",
+      "threshold": true,
+      "weight": 15
+    },
+    {
+      "id": "m6",
+      "name": "MVP功能精简度",
+      "description": "MVP功能是否控制在5项以内",
+      "type": "count",
+      "threshold": 5,
+      "weight": 15
+    },
+    {
+      "id": "m7",
+      "name": "PMF验证执行",
+      "description": "是否执行了用户测试并收集反馈",
+      "type": "binary",
+      "threshold": true,
+      "weight": 10
+    },
+    {
+      "id": "m8",
+      "name": "40%标准评估",
+      "description": "是否评估了核心用户认可度是否达到40%标准",
+      "type": "binary",
+      "threshold": true,
+      "weight": 10
+    }
+  ],
+  "pass_threshold": 0.85,
+  "version_history": [
+    {
+      "version": "1.0.0",
+      "created": "2026-03-17",
+      "notes": "初始版本"
+    }
+  ]
+}

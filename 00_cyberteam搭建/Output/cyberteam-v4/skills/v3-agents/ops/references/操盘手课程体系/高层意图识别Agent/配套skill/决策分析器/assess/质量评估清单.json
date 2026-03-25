@@ -1,0 +1,68 @@
+{
+  "skill_name": "决策分析器",
+  "version": "1.0",
+  "evaluation_type": "skill_quality",
+  "quality_dimensions": [
+    {
+      "dimension": "完整性",
+      "weight": "20%",
+      "score_levels": {
+        "excellent": {"score": 5, "criteria": ["包含问题澄清、变量识别、方案分析、影响评估、风险分析六要素", "有明确决策建议", "分析全面(短期/中期/长期)"]},
+        "good": {"score": 4, "criteria": ["六要素齐全但部分内容简略"]},
+        "acceptable": {"score": 3, "criteria": ["仅覆盖4-5个要素"]},
+        "poor": {"score": 1, "criteria": ["要素不完整"]}
+      }
+    },
+    {
+      "dimension": "实用性",
+      "weight": "20%",
+      "score_levels": {
+        "excellent": {"score": 5, "criteria": ["分析步骤清晰明确(5步)", "有具体决策框架", "输出可直接指导行动", "有具体下一步建议"]},
+        "good": {"score": 4, "criteria": ["步骤较清晰"]},
+        "acceptable": {"score": 3, "criteria": ["有基本步骤但指引不足"]},
+        "poor": {"score": 1, "criteria": ["步骤模糊难以操作"]}
+      }
+    },
+    {
+      "dimension": "专业性",
+      "weight": "20%",
+      "score_levels": {
+        "excellent": {"score": 5, "criteria": ["框架完全正确(决策树+概率思维)", "逻辑严密", "术语准确(可控变量/不可控变量/可行性评分)", "符合高层决策语境"]},
+        "good": {"score": 4, "criteria": ["框架较正确"]},
+        "acceptable": {"score": 3, "criteria": ["存在少量问题"]},
+        "poor": {"score": 1, "criteria": ["框架错误多"]}
+      }
+    },
+    {
+      "dimension": "严谨性",
+      "weight": "20%",
+      "score_levels": {
+        "excellent": {"score": 5, "criteria": ["Critical Rules完整(≥5条)", "禁止行为明确(≥5条)", "触发场景描述具体", "强调不替老板做决定"]},
+        "good": {"score": 4, "criteria": ["Critical Rules完整"]},
+        "acceptable": {"score": 3, "criteria": ["Critical Rules不足5条"]},
+        "poor": {"score": 1, "criteria": ["Critical Rules缺失或不足3条"]}
+      }
+    },
+    {
+      "dimension": "独特个性",
+      "weight": "10%",
+      "score_levels": {
+        "excellent": {"score": 5, "criteria": ["有独特的\"决策陪练员\"定位", "明确差异化：不替老板做决定，只提供分析框架", "揭示隐性假设+概率思维"]},
+        "good": {"score": 4, "criteria": ["有一定独特性"]},
+        "acceptable": {"score": 3, "criteria": ["个性不够鲜明"]},
+        "poor": {"score": 1, "criteria": ["无独特性"]}
+      }
+    },
+    {
+      "dimension": "规范性",
+      "weight": "10%",
+      "score_levels": {
+        "excellent": {"score": 5, "criteria": ["完全符合模板规范", "字段完整(输入/输出/示例/错误处理/独特个性)", "格式统一"]},
+        "good": {"score": 4, "criteria": ["基本符合规范"]},
+        "acceptable": {"score": 3, "criteria": ["部分格式不规范"]},
+        "poor": {"score": 1, "criteria": ["格式混乱"]}
+      }
+    }
+  ],
+  "pass_threshold": {"total_score": "≥85分", "各维度最低要求": "每个维度至少3分", "计算方式": "各维度得分×权重之和，满分100分"}
+}

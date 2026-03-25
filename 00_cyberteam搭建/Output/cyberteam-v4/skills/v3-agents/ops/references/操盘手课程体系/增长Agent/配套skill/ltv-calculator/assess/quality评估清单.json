@@ -1,0 +1,95 @@
+{
+  "skill_name": "ltv-calculator",
+  "version": "1.0.0",
+  "assess_type": "quality",
+  "metrics": [
+    {
+      "id": "m1",
+      "name": "产品类型识别",
+      "description": "是否明确识别了产品类型（SaaS/电商/游戏/订阅）",
+      "type": "binary",
+      "threshold": true,
+      "weight": 10
+    },
+    {
+      "id": "m2",
+      "name": "商业模式明确",
+      "description": "是否清晰说明了商业模式和收入来源",
+      "type": "binary",
+      "threshold": true,
+      "weight": 10
+    },
+    {
+      "id": "m3",
+      "name": "核心数据完整性",
+      "description": "是否收集了至少5项核心数据（ARPU、流失率、客单价、CAC等）",
+      "type": "count",
+      "threshold": 5,
+      "weight": 15
+    },
+    {
+      "id": "m4",
+      "name": "数据验证",
+      "description": "是否进行了数据验证（交叉验证、时间范围一致、口径一致）",
+      "type": "binary",
+      "threshold": true,
+      "weight": 10
+    },
+    {
+      "id": "m5",
+      "name": "模型选择依据",
+      "description": "模型选择是否有明确的产品类型和业务场景依据",
+      "type": "binary",
+      "threshold": true,
+      "weight": 10
+    },
+    {
+      "id": "m6",
+      "name": "计算过程透明",
+      "description": "计算过程是否完整展示（公式、步骤、假设）",
+      "type": "binary",
+      "threshold": true,
+      "weight": 15
+    },
+    {
+      "id": "m7",
+      "name": "LTV/CAC分析",
+      "description": "是否计算了LTV/CAC比值并给出健康度评估",
+      "type": "binary",
+      "threshold": true,
+      "weight": 10
+    },
+    {
+      "id": "m8",
+      "name": "敏感性分析",
+      "description": "是否进行了敏感性分析（关键变量±10%/20%变化影响）",
+      "type": "binary",
+      "threshold": true,
+      "weight": 10
+    },
+    {
+      "id": "m9",
+      "name": "决策建议质量",
+      "description": "是否提供了至少2条具体可执行的建议",
+      "type": "count",
+      "threshold": 2,
+      "weight": 5
+    },
+    {
+      "id": "m10",
+      "name": "风险识别",
+      "description": "是否识别了关键风险并提供应对方法",
+      "type": "binary",
+      "threshold": true,
+      "weight": 5
+    }
+  ],
+  "pass_threshold": 0.85,
+  "version_history": [
+    {
+      "version": "1.0.0",
+      "created": "2026-03-18",
+      "notes": "初始版本 - 基于增长黑客高阶课程LTV方法论"
+    }
+  ]
+}

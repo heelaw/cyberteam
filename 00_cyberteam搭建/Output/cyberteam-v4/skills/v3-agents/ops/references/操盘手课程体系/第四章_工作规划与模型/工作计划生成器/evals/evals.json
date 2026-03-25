@@ -1,0 +1,53 @@
+{
+  "version": "1.0",
+  "test_cases": [
+    {
+      "id": "1",
+      "scenario": "电商618活动计划生成",
+      "description": "为618大促活动生成详细执行计划",
+      "difficulty": "medium",
+      "input": {
+        "goal": "618大促销售额500万",
+        "metrics": "活动期间UV100万，转化率3%",
+        "timeframe": "5月1日-6月30日",
+        "resources": "运营5人，投放预算50万"
+      },
+      "expected_output": {
+        "tasks": "完整的任务清单",
+        "timeline": "有明确时间安排",
+        "resources": "资源匹配合理",
+        "milestones": "有里程碑"
+      },
+      "evaluation_points": [
+        "任务覆盖完整",
+        "时间规划合理",
+        "资源配置匹配"
+      ]
+    },
+    {
+      "id": "2",
+      "scenario": "产品上线计划生成",
+      "description": "为新产品上线生成执行计划",
+      "difficulty": "simple",
+      "input": {
+        "goal": "V2.0版本上线",
+        "metrics": "6月30日前完成",
+        "timeframe": "5月-6月",
+        "resources": "开发5人"
+      },
+      "expected_output": {
+        "tasks": "开发、测试、上线任务清单",
+        "timeline": "有明确时间"
+      },
+      "evaluation_points": [
+        "任务清晰",
+        "时间合理"
+      ]
+    }
+  ],
+  "evaluation_criteria": {
+    "task_completeness": "任务覆盖完整",
+    "timeline_feasibility": "时间规划可行",
+    "resource_matching": "资源匹配合理"
+  }
+}

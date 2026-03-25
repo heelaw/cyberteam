@@ -1,0 +1,76 @@
+{
+  "skill_name": "case-analysis-framework",
+  "eval_version": "v1.0",
+  "evaluation_date": "2026-03-19",
+
+  "test_cases": [
+    {
+      "case_id": "eval-1",
+      "case_name": "分析瑞幸9.9元营销策略",
+      "difficulty": "medium",
+      "scenario": "用户需要深入分析一个具体的低价营销案例",
+      "input": {
+        "user_request": "分析一下瑞幸咖啡9.9元策略为什么成功",
+        "case_type": "单一案例",
+        "analysis_depth": "深度拆解"
+      },
+      "expected_output": {
+        "basic_info": "品牌/产品、运营时间、所属领域",
+        "core_results": "数据指标、成功程度",
+        "business_purpose": "目的类型[A/B/C]、核心目标",
+        "execution_highlights": "四维度亮点分析",
+        "reusable_experience": "3条以上可复用经验",
+        "lessons_learned": "2条以上可借鉴教训"
+      },
+      "evaluation_criteria": [
+        "框架完整性: 报告是否覆盖所有四个维度",
+        "目的明确性: 业务目的是否清晰合理",
+        "亮点识别度: 执行亮点是否能被识别",
+        "经验可复用性: 总结的经验是否可直接指导实践"
+      ],
+      "pass_threshold": {
+        "框架完整性": "100%",
+        "目的明确性": "清晰",
+        "亮点识别度": "3个以上",
+        "经验可复用性": "2条以上"
+      }
+    },
+    {
+      "case_id": "eval-2",
+      "case_name": "批量拆解裂变活动案例",
+      "difficulty": "simple",
+      "scenario": "用户需要快速积累裂变活动弹药库",
+      "input": {
+        "user_request": "我想积累裂变活动的弹药库，帮我拆解几个典型案例",
+        "case_type": "批量案例",
+        "case_count": "3-5个"
+      },
+      "expected_output": {
+        "batch拆解记录表": "包含案例名称/主题亮点/形式/流程/类型",
+        "弹药库封装": "分类清晰的弹药库条目",
+        "弹药库结构": "主题库/形式库/流程库"
+      },
+      "evaluation_criteria": [
+        "拆解记录表格式规范",
+        "弹药库结构清晰",
+        "案例数量满足要求"
+      ],
+      "pass_threshold": {
+        "拆解记录表": "格式规范",
+        "弹药库结构": "3个以上分类",
+        "案例数量": "3个以上"
+      }
+    }
+  ],
+
+  "difficulty_distribution": {
+    "simple": 1,
+    "medium": 1,
+    "complex": 0
+  },
+
+  "overall_pass_threshold": 0.8,
+  "version_history": [
+    {"version": "v1.0", "date": "2026-03-19", "note": "初始版本"}
+  ]
+}

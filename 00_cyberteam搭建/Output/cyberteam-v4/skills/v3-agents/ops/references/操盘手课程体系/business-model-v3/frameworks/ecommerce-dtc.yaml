@@ -1,0 +1,140 @@
+# 电商DTC模式框架
+# Direct-to-Consumer E-commerce Business Model Framework
+
+name: "电商DTC模式"
+english_name: "DTC E-commerce Model"
+version: "1.0"
+description: "直接面向消费者的电商模式，强调品牌建设和复购"
+
+applicable_scenarios:
+  - 垂直品类电商
+  - 自有品牌电商
+  - 订阅制电商
+  - 跨境电商
+
+typical_examples:
+  - "Warby Parker (眼镜)"
+  - "Dollar Shave Club (剃须刀)"
+  - "Glossier (美妆)"
+
+required_modules:
+  - id: "conversion-funnel.ecommerce"
+    description: "电商转化漏斗"
+    priority: 1
+
+  - id: "unit-economics.customer_lifetime"
+    description: "客户生命周期价值"
+    priority: 1
+
+  - id: "inventory-management"
+    description: "库存管理"
+    priority: 1
+
+optional_modules:
+  - id: "subscription-analysis"
+    description: "订阅模式分析"
+    when: "有订阅服务"
+
+  - id: "social-commerce"
+    description: "社交电商分析"
+    when: "主要依赖社交流量"
+
+key_metrics:
+  acquisition:
+    - metric: "CAC"
+      benchmark: "$20-150"
+
+  revenue:
+    - metric: "AOV"
+      name: "平均订单价值"
+      formula: "总收入 / 订单数"
+      benchmark: "$50-200"
+
+    - metric: "purchase_frequency"
+      name: "购买频率"
+      formula: "年订单数 / 独立客户数"
+      benchmark: "2-6次/年"
+
+  retention:
+    - metric: "repeat_purchase_rate"
+      name: "复购率"
+      benchmark: "30-50%"
+
+    - metric: "email_engagement_rate"
+      benchmark: "15-25%"
+
+standard_funnel_steps:
+  - step: 1
+    name: "曝光"
+    typical_rate: 1.0
+
+  - step: 2
+    name: "点击"
+    typical_rate: 0.01-0.05
+
+  - step: 3
+    name: "访问"
+    typical_rate: 0.80-0.95
+
+  - step: 4
+    name: "加购"
+    typical_rate: 0.05-0.15
+
+  - step: 5
+    name: "结账"
+    typical_rate: 0.20-0.40
+
+  - step: 6
+    name: "购买"
+    typical_rate: 0.60-0.80
+
+cost_structure:
+  variable_costs:
+    - item: "销货成本 (COGS)"
+      range: "30-50% of revenue"
+
+    - item: "物流履约"
+      range: "10-20% of revenue"
+
+    - item: "支付手续费"
+      range: "2-3% of transaction"
+
+  fixed_costs:
+    - item: "营销推广"
+      range: "15-30% of revenue"
+
+    - item: "技术与平台"
+      range: "3-8% of revenue"
+
+    - item: "团队运营"
+      range: "10-20% of revenue"
+
+  profit_margins:
+    - metric: "毛利率"
+      range: "50-70%"
+
+    - metric: "净利率"
+      range: "5-15%"
+
+common_risks:
+  - risk: "库存积压"
+    impact: "高"
+    mitigation: "按需生产、预售模式、清仓策略"
+
+  - risk: "流量成本上涨"
+    impact: "高"
+    mitigation: "品牌建设、私域流量、UGC"
+
+  - risk: "退货率高"
+    impact: "中"
+    mitigation: "产品描述优化、尺码指南、质量把控"
+
+growth_strategies:
+  - strategy: "品类扩展"
+    kpis: ["新品占比", "交叉购买率"]
+
+  - strategy: "品牌联名"
+    kpis: ["联名款销量", "新客获取"]
+
+  - strategy: "会员体系"
+    kpis: ["会员转化率", "会员ARPU"]

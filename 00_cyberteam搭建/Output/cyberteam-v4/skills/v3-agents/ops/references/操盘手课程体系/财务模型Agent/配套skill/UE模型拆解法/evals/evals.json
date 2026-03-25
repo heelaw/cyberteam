@@ -1,0 +1,84 @@
+{
+  "skill_name": "UE模型拆解法",
+  "version": "1.0",
+  "eval_type": "skill_functional",
+  "test_cases": [
+    {
+      "id": 1,
+      "difficulty": "simple",
+      "category": "基础计算",
+      "description": "电商App的LTV/CAC/ROI基本计算",
+      "input": {
+        "scenario": "一家电商App，ARPU 100元/月，毛利率30%，用户平均使用6个月，假设获取用户成本是200元"
+      },
+      "expected_output": {
+        "must_include": [
+          "LTV计算：100 × 0.3 × 6 = 180元",
+          "CAC：200元",
+          "ROI：180 ÷ 200 = 0.9",
+          "健康度判断：ROI < 1，亏损状态"
+        ],
+        "output_structure": "LTV + CAC + ROI + 健康度",
+        "min_score": 3
+      },
+      "evaluation_criteria": {
+        "accuracy": "LTV/CAC/ROI计算是否正确",
+        "health_judgment": "健康度判断是否准确",
+        "clarity": "输出是否清晰可读"
+      }
+    },
+    {
+      "id": 2,
+      "difficulty": "medium",
+      "category": "中等复杂度",
+      "description": "在线教育公司的复购率LTV计算",
+      "input": {
+        "scenario": "一家在线教育公司，客单价5000元，年复购率20%，用户生命周期2年，毛利率70%，营销费用100万，新增用户1000人"
+      },
+      "expected_output": {
+        "must_include": [
+          "LTV：5000 × (1/0.2) × 0.7 × 2 = 35000元",
+          "CAC：1000000 ÷ 1000 = 1000元",
+          "ROI：35000 ÷ 1000 = 35",
+          "健康度判断：非常健康，ROI远大于3"
+        ],
+        "output_structure": "LTV + CAC + ROI + 健康度",
+        "min_score": 3
+      },
+      "evaluation_criteria": {
+        "accuracy": "LTV/CAC/ROI计算是否正确",
+        "formula": "LTV公式是否正确使用复购率",
+        "health_judgment": "健康度判断是否准确"
+      }
+    },
+    {
+      "id": 3,
+      "difficulty": "hard",
+      "category": "复杂计算",
+      "description": "SaaS公司的多成本项LTV/CAC/ROI综合计算",
+      "input": {
+        "scenario": "一家SaaS公司，提供订阅服务，月费99元，续费率60%，毛利率80%，客户生命周期3年，获客成本包括：广告50万+销售提成20万+内容营销10万，共获取新客户2000个"
+      },
+      "expected_output": {
+        "must_include": [
+          "CAC：(500000+200000+100000) ÷ 2000 = 400元",
+          "LTV：99 × 0.8 × 36 = 2851.2元",
+          "ROI：2851.2 ÷ 400 = 7.13",
+          "健康度判断：非常健康，ROI > 3"
+        ],
+        "output_structure": "LTV + CAC + ROI + 健康度",
+        "min_score": 3
+      },
+      "evaluation_criteria": {
+        "accuracy": "LTV/CAC/ROI计算是否正确",
+        "completeness": "是否包含所有成本项",
+        "health_judgment": "健康度判断是否准确"
+      }
+    }
+  ],
+  "evaluation_methodology": {
+    "scoring": "每个维度1-5分，5分制评分",
+    "pass_criteria": "总分≥15分（满分25分），且每个维度≥3分",
+    "process": "1.收集输入数据 2.计算LTV 3.计算CAC 4.计算ROI 5.判断健康度"
+  }
+}

@@ -1,0 +1,235 @@
+{
+  "skill_name": "5W1H分析法",
+  "version": "v1.0",
+  "assess_date": "2026-03-19",
+  "assessor": "系统评估",
+  "quality_dimension": [
+    {
+      "dimension": "完整性",
+      "weight": 20,
+      "description": "评估六要素覆盖的完整程度",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "What/Why/Who/When/Where/How六个要素全部覆盖，每个要素有实质性内容"
+        },
+        "good": {
+          "score": 4,
+          "description": "六个要素基本完整，有轻微不足"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "部分要素缺失，但核心要素完整"
+        },
+        "poor": {
+          "score": 1,
+          "description": "要素严重缺失，无法构成完整分析"
+        }
+      },
+      "criteria": [
+        "六个要素是否全部覆盖",
+        "每个要素是否有实质性内容",
+        "要素之间是否相互印证"
+      ]
+    },
+    {
+      "dimension": "实用性",
+      "weight": 20,
+      "description": "评估结论和行动建议的实用价值",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "结论优先级明确，行动建议具体可执行，有时间节点"
+        },
+        "good": {
+          "score": 4,
+          "description": "有优先级和行动建议，但可执行性稍弱"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "有行动建议但较模糊"
+        },
+        "poor": {
+          "score": 1,
+          "description": "缺乏可执行的行动建议"
+        }
+      },
+      "criteria": [
+        "是否给出优先级排序（P0/P1/P2）",
+        "行动建议是否具体可落地",
+        "是否有执行时间预期"
+      ]
+    },
+    {
+      "dimension": "专业性",
+      "weight": 20,
+      "description": "评估分析的专业深度和方法论正确性",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "Why有数据支撑，要素之间逻辑严密，分析深入到原理层面"
+        },
+        "good": {
+          "score": 4,
+          "description": "有数据支撑，逻辑较清晰"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "分析较浅显，但基本合理"
+        },
+        "poor": {
+          "score": 1,
+          "description": "分析表面化，缺乏深度"
+        }
+      },
+      "criteria": [
+        "Why的根因分析是否有数据支撑",
+        "要素之间逻辑是否相互印证",
+        "How的过程还原是否清晰"
+      ]
+    },
+    {
+      "dimension": "严谨性",
+      "weight": 20,
+      "description": "评估分析过程的逻辑严密性",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "逻辑严密，因果关系清晰，无明显漏洞"
+        },
+        "good": {
+          "score": 4,
+          "description": "逻辑较严密，基本无漏洞"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "逻辑有轻微漏洞"
+        },
+        "poor": {
+          "score": 1,
+          "description": "逻辑混乱，存在明显矛盾"
+        }
+      },
+      "criteria": [
+        "因果关系是否清晰",
+        "是否有遗漏的重要维度",
+        "结论是否过于主观"
+      ]
+    },
+    {
+      "dimension": "独特个性",
+      "weight": 10,
+      "description": "评估是否体现独特见解",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "有独特视角，能发现隐藏的关键因素"
+        },
+        "good": {
+          "score": 4,
+          "description": "有部分独到见解"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "见解较常规"
+        },
+        "poor": {
+          "score": 1,
+          "description": "缺乏独特见解"
+        }
+      },
+      "criteria": [
+        "是否能发现常规分析忽略的因素",
+        "是否有独特的分析视角"
+      ]
+    },
+    {
+      "dimension": "规范性",
+      "weight": 10,
+      "description": "评估输出格式和Critical Rules的规范性",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "格式规范，Critical Rules完整，Workflow Steps标准"
+        },
+        "good": {
+          "score": 4,
+          "description": "格式规范，Critical Rules较完整"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "格式基本规范"
+        },
+        "poor": {
+          "score": 1,
+          "description": "格式混乱"
+        }
+      },
+      "criteria": [
+        "输出格式是否符合标准模板",
+        "Critical Rules是否≥5条必须遵守+≥5条禁止行为",
+        "Workflow Steps是否完整"
+      ]
+    }
+  ],
+  "quality_score": {
+    "total_score": 100,
+    "pass_threshold": 85,
+    "excellent": [90, 100],
+    "good": [85, 89],
+    "acceptable": [70, 84],
+    "poor": [0, 69]
+  },
+  "critical_rules_check": {
+    "description": "Critical Rules检查清单",
+    "rules": [
+      {
+        "rule": "六个要素必须全部覆盖",
+        "check_item": "What/Why/Who/When/Where/How是否完整",
+        "pass_condition": "缺一不可"
+      },
+      {
+        "rule": "Why必须有数据支撑",
+        "check_item": "根因分析是否有用户反馈或行为数据",
+        "pass_condition": "数据说话"
+      },
+      {
+        "rule": "结论必须有优先级",
+        "check_item": "是否区分P0/P1/P2",
+        "pass_condition": "资源有限要分主次"
+      },
+      {
+        "rule": "建议必须可执行",
+        "check_item": "是否有具体动作和时间节点",
+        "pass_condition": "不能空泛"
+      },
+      {
+        "rule": "要素必须相互印证",
+        "check_item": "Who/When/Where是否与Why一致",
+        "pass_condition": "逻辑自洽"
+      }
+    ]
+  },
+  "forbidden_check": {
+    "description": "禁止行为检查",
+    "items": [
+      "禁止要素缺失，任何W或H不能少",
+      "禁止Why分析没有数据支撑",
+      "禁止结论没有优先级",
+      "禁止建议空泛不具体",
+      "禁止要素之间相互矛盾",
+      "禁止只描述现象不分析原因"
+    ]
+  },
+  "output_standard": {
+    "must_include": [
+      "What：问题/现象定义",
+      "Why：根因分析（必须有数据支撑）",
+      "Who：目标用户/相关人",
+      "When：时间维度",
+      "Where：空间/渠道维度",
+      "How：过程还原/解决方案"
+    ],
+    "format_requirement": "六个要素缺一不可，结论要有优先级"
+  }
+}

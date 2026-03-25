@@ -1,0 +1,98 @@
+{
+  "skill_name": "投资人评估框架法",
+  "version": "1.0",
+  "eval_type": "skill_functional",
+  "test_cases": [
+    {
+      "id": 1,
+      "difficulty": "simple",
+      "category": "基础评估",
+      "input": {
+        "context": "一个做在线教育的项目，请用投资人框架评估",
+        "project_type": "在线教育",
+        "stage": "A轮"
+      },
+      "expected_output": {
+        "must_include": ["市场维度分析", "产品维度分析", "团队维度分析", "财务维度分析"],
+        "output_structure": "四大维度完整输出",
+        "min_score": 4
+      },
+      "evaluation_criteria": {
+        "completeness": "是否覆盖四大维度",
+        "depth": "每个维度的分析深度",
+        "actionability": "是否给出可执行的建议"
+      }
+    },
+    {
+      "id": 2,
+      "difficulty": "simple",
+      "category": "局部评估",
+      "input": {
+        "context": "请简单评估一个电商项目的市场情况",
+        "project_type": "电商",
+        "focus": "市场维度"
+      },
+      "expected_output": {
+        "must_include": ["市场规模(TAM/SAM/SOM)", "市场增长率", "竞争格局"],
+        "output_structure": "市场维度聚焦分析",
+        "min_score": 3
+      },
+      "evaluation_criteria": {
+        "focus_accuracy": "是否聚焦市场维度",
+        "key_metrics": "是否包含关键市场指标"
+      }
+    },
+    {
+      "id": 3,
+      "difficulty": "medium",
+      "category": "综合评估",
+      "input": {
+        "context": "评估一个B2B SaaS项目的投资价值",
+        "project_type": "B2B SaaS",
+        "stage": "B轮",
+        "specific_concerns": ["增长效率", "Unit Economics"]
+      },
+      "expected_output": {
+        "must_include": ["四大维度完整分析", "增长逻辑", "UE模型(LTV/CAC)", "投资建议"],
+        "output_structure": "完整投资人报告",
+        "min_score": 4
+      },
+      "evaluation_criteria": {
+        "comprehensiveness": "维度覆盖完整性",
+        "financial_analysis": "财务分析深度",
+        "investment_recommendation": "投资建议合理性"
+      }
+    },
+    {
+      "id": 4,
+      "difficulty": "hard",
+      "category": "复杂场景",
+      "input": {
+        "context": "评估一个处于转型期的传统企业是否值得投资",
+        "project_type": "传统企业转型",
+        "stage": "Pre-IPO",
+        "complexity": "多业务线、多市场"
+      },
+      "expected_output": {
+        "must_include": ["转型风险评估", "新业务潜力分析", "估值合理性", "风险提示"],
+        "output_structure": "风险导向的投资评估",
+        "min_score": 4
+      },
+      "evaluation_criteria": {
+        "risk_awareness": "风险识别能力",
+        "complexity_handling": "复杂场景处理能力",
+        "balanced_view": "正反两面分析平衡"
+      }
+    }
+  ],
+  "evaluation_methodology": {
+    "scoring": "每题满分5分，按evaluation_criteria逐项打分",
+    "pass_standard": "平均分≥4分，且无1分项",
+    "difficulty_distribution": "simple(30%) + medium(40%) + hard(30%)"
+  },
+  "notes": [
+    "测试案例应覆盖Skill的核心功能场景",
+    "难度分布应合理(simple/medium/hard)",
+    "每个案例需明确expected_output和evaluation_criteria"
+  ]
+}

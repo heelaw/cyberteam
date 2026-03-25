@@ -1,0 +1,198 @@
+{
+  "skill_name": "channel-analysis-matrix",
+  "version": "1.0.0",
+  "evals": [
+    {
+      "id": 1,
+      "name": "SaaS产品渠道分析（简单）",
+      "prompt": "我是一款面向中小企业的B2B SaaS产品，主要提供在线协作工具。目前获客主要靠销售团队主动开拓，线上渠道占比很低。请帮我分析应该选择哪些获客渠道，构建渠道组合。\n\n产品信息：\n- 产品类型：B2B SaaS协作工具\n- 目标客户：50-500人中小企业\n- 当前获客方式：销售主动开拓为主\n- 预算：月均10万元\n- 阶段：成长期（产品已验证PMF）",
+      "expected_output": "包含以下内容的报告：1) 渠道盘点（5大类渠道）2) 至少10个具体渠道评估 3) 6维度评估矩阵 4) ICE评分 5) 渠道矩阵定位 6) 阶段性组合策略 7) 预算分配建议",
+      "files": [],
+      "complexity": "simple",
+      "assertions": [
+        {
+          "type": "contains",
+          "field": "渠道类型",
+          "expected": "付费渠道"
+        },
+        {
+          "type": "contains",
+          "field": "渠道类型",
+          "expected": "有机渠道"
+        },
+        {
+          "type": "contains",
+          "field": "渠道类型",
+          "expected": "社交渠道"
+        },
+        {
+          "type": "min_count",
+          "field": "渠道数量",
+          "expected": 10
+        },
+        {
+          "type": "contains",
+          "field": "评估维度",
+          "expected": "规模"
+        },
+        {
+          "type": "contains",
+          "field": "评估维度",
+          "expected": "ROI"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "消费品品牌渠道分析（中等）",
+      "prompt": "我是一个新锐美妆品牌，主打功效型护肤品。目前在电商平台销售，希望建立品牌认知和自有渠道。请帮我制定渠道策略组合。\n\n产品信息：\n- 产品类型：功效型护肤品牌\n- 目标用户：25-35岁都市女性\n- 价格带：200-500元\n- 当前渠道：天猫旗舰店为主\n- 预算：月均50万元\n- 阶段：品牌建设期\n\n团队困惑：\n- 小红书种草效果不稳定\n- 抖音投放ROI忽高忽低\n- 是否应该做私域",
+      "expected_output": "包含以下内容的报告：1) 渠道盘点与分类 2) 6维度渠道评估矩阵 3) ICE评分 4) 渠道矩阵定位（明星/现金牛/潜力/补充）5) 组合策略与预算分配 6) 小红书/抖音/私域的具体建议 7) 阶段性策略",
+      "files": [],
+      "complexity": "medium",
+      "assertions": [
+        {
+          "type": "contains",
+          "field": "渠道类型",
+          "expected": "付费渠道"
+        },
+        {
+          "type": "contains",
+          "field": "渠道类型",
+          "expected": "社交渠道"
+        },
+        {
+          "type": "contains",
+          "field": "渠道类型",
+          "expected": "转化渠道"
+        },
+        {
+          "type": "contains",
+          "field": "评估维度",
+          "expected": "ROI"
+        },
+        {
+          "type": "contains",
+          "field": "评估维度",
+          "expected": "LTV"
+        },
+        {
+          "type": "contains",
+          "field": "矩阵定位",
+          "expected": "明星"
+        },
+        {
+          "type": "contains",
+          "field": "预算分配",
+          "expected": "50"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "跨境电商平台渠道分析（复杂）",
+      "prompt": "我管理一个处于转型期的跨境电商平台，面临以下复杂情况：\n\n【业务背景】\n- 平台模式：B2C（面向北美消费者）\n- 主营品类：家居用品\n- 当前年GMV：5000万美元\n- 目标：3年内达到2亿美元\n\n【渠道现状】\n- Amazon: 占比70%，ROI 150%，但增长放缓\n- 独立站: 占比15%，ROI 80%（亏损边缘）\n- Google Ads: 占比10%，ROI 200%，但规模小\n- 社交渠道: 占比5%，ROI数据混乱\n\n【资源约束】\n- 营销团队：8人（含投放、设计、内容）\n- 月度营销预算：30万美元\n- 技术资源有限，追踪归因困难\n- 只能在Amazon和独立站之间二选一重点投入\n\n【目标冲突】\n- CFO要求：提升整体ROI\n- CMO要求：打造品牌建立独立渠道\n- 运营要求：提升GMV\n- 供应链要求：清库存\n\n【请完成】\n1. 全渠道盘点与评估\n2. 解决三个目标的冲突方案\n3. Amazon vs 独立站的优先级决策及理由\n4. 渠道组合策略与预算分配\n5. 30万预算的最优分配\n6. 未来12个月的渠道执行计划\n7. 风险识别与备选方案",
+      "expected_output": "包含以下内容的综合报告：1) 全渠道盘点（5大类）2) 6维度评估矩阵 3) ICE评分 4) 目标冲突解决方案 5) 渠道优先级决策及理由 6) 完整渠道组合与预算分配 7) 12个月执行计划 8) 风险与备选方案",
+      "files": [],
+      "complexity": "complex",
+      "assertions": [
+        {
+          "type": "contains",
+          "field": "目标冲突",
+          "expected": "ROI"
+        },
+        {
+          "type": "contains",
+          "field": "目标冲突",
+          "expected": "品牌"
+        },
+        {
+          "type": "contains",
+          "field": "决策",
+          "expected": "Amazon"
+        },
+        {
+          "type": "contains",
+          "field": "决策",
+          "expected": "独立站"
+        },
+        {
+          "type": "contains",
+          "field": "渠道矩阵",
+          "expected": "明星"
+        },
+        {
+          "type": "contains",
+          "field": "预算分配",
+          "expected": "30万"
+        },
+        {
+          "type": "min_length",
+          "field": "报告总长度",
+          "expected": 2000
+        },
+        {
+          "type": "contains",
+          "field": "风险",
+          "expected": "风险"
+        },
+        {
+          "type": "contains",
+          "field": "备选方案",
+          "expected": "备选"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "教育培训机构渠道分析（复杂）",
+      "prompt": "我是一家K12教育培训机构的增长负责人，面临以下挑战：\n\n【业务背景】\n- 产品：K12学科辅导（小学到高中）\n- 区域：北京、上海、广州\n- 当前学员数：3万人\n- 目标：明年增长到5万人\n\n【渠道现状与问题】\n- 线下地推：占比40%，单个获客成本800元，但被禁止\n- 搜索引擎：占比30%，成本1200元，ROI仅0.8\n- 社交裂变：占比15%，成本200元，但转化率低\n- 短视频：占比10%，成本500元，数据波动大\n- 异业合作：占比5%，成本300元，规模太小\n\n【特殊约束】\n- 双减政策影响：学科类广告投放受限\n- 暑假旺季即将到来（3个月后）\n- 预算：月均50万，全年600万\n- 团队：只有3个投放专员\n\n【请完成】\n1. 在政策限制下重新评估渠道策略\n2. 制定暑假旺季冲刺方案\n3. 优化现有渠道组合\n4. 设计新的获客渠道探索计划\n5. 给出具体的预算分配和时间表",
+      "expected_output": "包含以下内容的综合报告：1) 政策影响分析 2) 渠道重新盘点与评估 3) 6维度评估（含政策合规性）4) ICE评分 5) 暑假旺季专项策略 6) 渠道组合优化方案 7) 600万年度预算分配 8) 新渠道探索计划 9) 风险与应对",
+      "files": [],
+      "complexity": "complex",
+      "assertions": [
+        {
+          "type": "contains",
+          "field": "政策影响",
+          "expected": "政策"
+        },
+        {
+          "type": "contains",
+          "field": "旺季策略",
+          "expected": "暑假"
+        },
+        {
+          "type": "contains",
+          "field": "渠道评估",
+          "expected": "合规"
+        },
+        {
+          "type": "contains",
+          "field": "预算分配",
+          "expected": "600"
+        },
+        {
+          "type": "min_length",
+          "field": "报告总长度",
+          "expected": 2000
+        },
+        {
+          "type": "contains",
+          "field": "新渠道",
+          "expected": "探索"
+        },
+        {
+          "type": "contains",
+          "field": "风险",
+          "expected": "风险"
+        }
+      ]
+    }
+  ],
+  "version_history": [
+    {
+      "version": "1.0.0",
+      "created": "2026-03-18",
+      "notes": "初始版本 - 基于增长黑客高阶渠道分析方法论"
+    }
+  ]
+}

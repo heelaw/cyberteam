@@ -1,0 +1,73 @@
+{
+  "version": "1.0",
+  "core_theory": {
+    "name": "指标监控方法论",
+    "source": "业务操盘手课程 - 第三章：业务模型巩固篇",
+    "summary": "实时监控业务指标变化，及时发现异常波动并推动解决",
+    "key_principle": "监控 → 检测 → 预警 → 推动"
+  },
+  "monitoring_dimensions": [
+    {
+      "dimension": "当前值",
+      "description": "指标的当前数值"
+    },
+    {
+      "dimension": "环比",
+      "description": "与上一周期对比"
+    },
+    {
+      "dimension": "同比",
+      "description": "与去年同期对比"
+    },
+    {
+      "dimension": "趋势",
+      "description": "过去N天的变化趋势"
+    }
+  ],
+  "anomaly_types": [
+    {
+      "type": "突降",
+      "method": "短期大幅下降",
+      "threshold": "单日下降>20%"
+    },
+    {
+      "type": "突升",
+      "method": "短期大幅上升",
+      "threshold": "单日上升>20%"
+    },
+    {
+      "type": "持续下降",
+      "method": "多周期连续下降",
+      "threshold": "连续3天下降低于阈值"
+    },
+    {
+      "type": "波动大",
+      "method": "标准差超过阈值",
+      "threshold": "波动幅度超过正常范围"
+    }
+  ],
+  "alert_levels": [
+    {
+      "level": "高",
+      "color": "红色",
+      "threshold": "±20%",
+      "action": "立即处理"
+    },
+    {
+      "level": "中",
+      "color": "黄色",
+      "threshold": "±10%",
+      "action": "24小时内处理"
+    },
+    {
+      "level": "低",
+      "color": "绿色",
+      "threshold": "±5%",
+      "action": "关注即可"
+    }
+  ],
+  "references": [
+    {"name": "指标监控方法", "source": "业务实践"},
+    {"name": "业务模型巩固", "source": "业务操盘手课程 - 第三章"}
+  ]
+}

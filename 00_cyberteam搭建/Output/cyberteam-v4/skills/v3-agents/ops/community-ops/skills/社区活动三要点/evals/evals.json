@@ -1,0 +1,61 @@
+{
+  "skill_name": "社区活动三要点",
+  "version": "1.0",
+  "evals": [
+    {
+      "id": "eval_01",
+      "name": "每周话题活动策划",
+      "difficulty": "simple",
+      "scenario": "用户每周需要策划一个产品经理话题活动，预算500元，目标是100人参与",
+      "expected_output": [
+        "活动策划方案（形式/规则/奖励/时间）",
+        "传播排期表",
+        "执行检查清单",
+        "结果公示模板"
+      ],
+      "evaluation_criteria": {
+        "complete": "方案是否包含所有关键要素",
+        "feasible": "预算是否够用",
+        "measurable": "效果是否可评估"
+      }
+    },
+    {
+      "id": "eval_02",
+      "name": "月度大活动策划",
+      "difficulty": "medium",
+      "scenario": "用户想做一个月度大活动，预算5000元，目标是500人参与，需要配合马甲号运营",
+      "expected_output": [
+        "完整活动策划方案",
+        "马甲号配合方案（分工/话术）",
+        "全渠道传播方案",
+        "执行检查清单（预热/进行/收尾）",
+        "复盘模板"
+      ],
+      "evaluation_criteria": {
+        "strategic": "活动设计是否有创意",
+        "systematic": "传播方案是否全面",
+        "practical": "执行清单是否可落地"
+      }
+    },
+    {
+      "id": "eval_03",
+      "name": "年度活动体系规划",
+      "difficulty": "hard",
+      "scenario": "用户想规划全年的社区活动体系，覆盖10000+活跃用户，年度预算10万，需要建立可持续的活动运营机制",
+      "expected_output": [
+        "年度活动日历（12个月活动规划）",
+        "活动分类体系（拉新/促活/品牌等）",
+        "活动模板库（常活动标准化SOP）",
+        "预算分配方案",
+        "团队分工和KPI体系",
+        "活动效果评估体系",
+        "风险预案"
+      ],
+      "evaluation_criteria": {
+        "systematic": "体系是否完整可持续",
+        "diversified": "活动类型是否多样化",
+        "measurable": "效果评估是否可量化"
+      }
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "dimension": "行业标杆分析",
+  "version": "1.0",
+  "author": "Cyberwiz",
+  "review_status": "待审查",
+  "review_required": false,
+  "review_threshold": 90,
+  "items": [
+    {
+      "id": "1",
+      "item": "分析完整性",
+      "weight": 40,
+      "criteria": "从5个维度（商业模型、增长策略、运营体系、核心壁垒、财务模型）完整分析",
+      "measurement": "维度覆盖检查"
+    },
+    {
+      "id": "2",
+      "item": "要素提取准确性",
+      "weight": 30,
+      "criteria": "准确区分可迁移要素、独特要素、壁垒要素",
+      "measurement": "要素有效性评估"
+    },
+    {
+      "id": "3",
+      "item": "对比意识",
+      "weight": 20,
+      "criteria": "与自身业务有对比分析，给出适配建议",
+      "measurement": "对比深度评估"
+    },
+    {
+      "id": "4",
+      "item": "调用机制",
+      "weight": 10,
+      "criteria": "触发关键词明确，场景定义清晰",
+      "measurement": "调用机制评估"
+    }
+  ],
+  "scoring_rules": {
+    "excellent": "90-100",
+    "good": "80-89",
+    "pass": "70-79",
+    "fail": "0-69"
+  }
+}

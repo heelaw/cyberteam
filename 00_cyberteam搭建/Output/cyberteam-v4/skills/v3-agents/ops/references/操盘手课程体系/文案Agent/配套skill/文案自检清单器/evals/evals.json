@@ -1,0 +1,53 @@
+{
+  "skill_name": "文案自检清单器",
+  "version": "1.0.0",
+  "evals": [
+    {
+      "id": 1,
+      "difficulty": "simple",
+      "name": "产品介绍文案自检",
+      "prompt": "请对以下文案进行完整自检：\n\n## 待检文案\n\"XX协作平台让你的团队效率提升100%，是我们经过多年研发推出的全新产品，已获得国家专利，是行业第一品牌。100%用户都说好。\"\n\n请进行结构、内容、格式、合规四维度检查",
+      "expected_output": "完整的自检报告，包含各维度检查结果和问题列表",
+      "files": [],
+      "assertions": [
+        {
+          "type": "contains",
+          "field": "结构检查",
+          "expected": "标题"
+        },
+        {
+          "type": "contains",
+          "field": "合规检查",
+          "expected": "违禁词"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "difficulty": "medium",
+      "name": "课程推广文案自检",
+      "prompt": "请对以下文案进行完整自检：\n\n## 待检文案\n[完整的一段课程推广文案，包含标题、开头、主体、结尾，需要检查结构、内容、格式、合规]\n\n请按照自检清单逐项检查",
+      "expected_output": "完整的四维度自检报告，问题列表和修改建议",
+      "files": [],
+      "assertions": [
+        {
+          "type": "contains",
+          "field": "检查结论",
+          "expected": "通过"
+        },
+        {
+          "type": "contains",
+          "field": "问题记录",
+          "expected": "问题"
+        }
+      ]
+    }
+  ],
+  "version_history": [
+    {
+      "version": "1.0.0",
+      "created": "2026-03-18",
+      "notes": "初始版本"
+    }
+  ]
+}

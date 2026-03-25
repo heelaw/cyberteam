@@ -1,0 +1,60 @@
+{
+  "skill_name": "马甲号运用策略",
+  "version": "1.0",
+  "evals": [
+    {
+      "id": "eval_01",
+      "name": "新社区冷启动",
+      "difficulty": "simple",
+      "scenario": "用户刚搭建一个产品经理社区，有50个用户，需要马甲号运营方案",
+      "expected_output": [
+        "马甲号矩阵方案（2-3个马甲号/人设/分工）",
+        "内容储备库（≥10条内容）",
+        "互动话术库（≥5个场景）",
+        "冷启动执行计划（第一周）"
+      ],
+      "evaluation_criteria": {
+        "feasible": "方案是否可执行",
+        "natural": "人设和内容是否自然",
+        "sufficient": "储备是否足够"
+      }
+    },
+    {
+      "id": "eval_02",
+      "name": "话题活动氛围营造",
+      "difficulty": "medium",
+      "scenario": "用户想做一个产品经理话题活动，预计100人参与，需要马甲号配合",
+      "expected_output": [
+        "活动氛围营造方案",
+        "马甲号分工安排",
+        "预热/进行/收尾阶段的话术",
+        "应急预案"
+      ],
+      "evaluation_criteria": {
+        "comprehensive": "是否覆盖全程",
+        "prepared": "应急预案是否到位",
+        "natural": "氛围营造是否自然"
+      }
+    },
+    {
+      "id": "eval_03",
+      "name": "建立马甲号运营体系",
+      "difficulty": "hard",
+      "scenario": "用户计划3个月内做到10000活跃用户的社区，需要建立完整的马甲号运营体系",
+      "expected_output": [
+        "马甲号矩阵设计方案（至少5个，覆盖不同人设）",
+        "账号养号策略",
+        "内容生产SOP（每周内容日历）",
+        "互动话术库（覆盖≥10个场景）",
+        "效果监测体系",
+        "团队分工和KPI",
+        "风险预案"
+      ],
+      "evaluation_criteria": {
+        "systematic": "体系是否完整系统",
+        "scalable": "是否能支撑规模扩展",
+        "manageable": "团队是否真的能管过来"
+      }
+    }
+  ]
+}

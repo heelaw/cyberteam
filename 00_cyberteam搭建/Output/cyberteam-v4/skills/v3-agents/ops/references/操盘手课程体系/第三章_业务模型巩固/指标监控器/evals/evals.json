@@ -1,0 +1,46 @@
+{
+  "version": "1.0",
+  "test_cases": [
+    {
+      "id": "1",
+      "scenario": "日活指标异常监控",
+      "description": "监控日活指标，发现异常下降并预警",
+      "difficulty": "medium",
+      "input": {
+        "metrics": {
+          "日活": {"current": 8000, "yesterday": 10000, "threshold": "-10%"}
+        }
+      },
+      "expected_output": {
+        "alert": "日活下降20%，触发高危预警",
+        "possible_reasons": ["渠道投放减少", "产品问题", "竞品活动"]
+      },
+      "evaluation_points": [
+        "及时发现异常",
+        "准确判断预警级别"
+      ]
+    },
+    {
+      "id": "2",
+      "scenario": "付费转化率监控",
+      "description": "监控付费转化率，发现异常波动",
+      "difficulty": "simple",
+      "input": {
+        "metrics": {
+          "付费转化率": {"current": 8, "yesterday": 5, "threshold": "+20%"}
+        }
+      },
+      "expected_output": {
+        "alert": "付费转化率上升60%，触发预警"
+      },
+      "evaluation_points": [
+        "识别突升异常"
+      ]
+    }
+  ],
+  "evaluation_criteria": {
+    "detection_speed": "异常发现及时",
+    "alert_accuracy": "预警级别判断准确",
+    "reason_analysis": "原因分析合理"
+  }
+}

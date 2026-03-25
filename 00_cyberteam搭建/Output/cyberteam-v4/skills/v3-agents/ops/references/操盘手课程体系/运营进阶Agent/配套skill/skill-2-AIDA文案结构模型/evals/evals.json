@@ -1,0 +1,48 @@
+[
+  {
+    "id": "eval-001",
+    "name": "朋友圈广告文案",
+    "difficulty": "medium",
+    "input": {
+      "product": "一款在线笔记App",
+      "target_user": "职场办公人群",
+      "scenario": "朋友圈广告",
+      "goal": "引导下载App"
+    },
+    "expected_output": {
+      "aida_structure": true,
+      "attention_title": "能在3秒内引起注意",
+      "interest_paragraph": "50-100字",
+      "desire_paragraph": "有具体证据",
+      "action_cta": "明确行动指引",
+      "word_count": "100字以内"
+    },
+    "evaluation_criteria": [
+      "标题是否吸引眼球",
+      "四阶段是否连贯",
+      "证据是否有说服力",
+      "CTA是否明确",
+      "字数是否符合场景"
+    ]
+  },
+  {
+    "id": "eval-002",
+    "name": "应用商店详情页文案",
+    "difficulty": "simple",
+    "input": {
+      "product": "一款健身App",
+      "target_user": "想健身但没时间的人群",
+      "scenario": "应用商店详情页",
+      "goal": "引导下载"
+    },
+    "expected_output": {
+      "aida_completed": true,
+      "scene_adapted": true
+    },
+    "evaluation_criteria": [
+      "AIDA结构是否完整",
+      "是否适配应用商店场景",
+      "是否突出差异化"
+    ]
+  }
+]

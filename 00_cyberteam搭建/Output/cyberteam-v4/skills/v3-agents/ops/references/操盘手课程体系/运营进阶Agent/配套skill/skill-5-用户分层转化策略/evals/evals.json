@@ -1,0 +1,49 @@
+[
+  {
+    "id": "eval-001",
+    "name": "会员体系用户分层",
+    "difficulty": "medium",
+    "input": {
+      "business": "在线教育平台",
+      "user_data": {
+        "total_users": "10000",
+        "paying_users": "1000",
+        "active_users_7d": "3000",
+        "churned_users": "2000"
+      },
+      "available_fields": ["注册时间", "最后登录时间", "付费金额", "课程完成数"]
+    },
+    "expected_output": {
+      "分层完成": true,
+      "4层用户定义": true,
+      "各层策略": true,
+      "执行计划": true
+    },
+    "evaluation_criteria": [
+      "分层维度是否合理",
+      "各层级定义是否清晰",
+      "策略是否有差异化",
+      "是否有可执行计划"
+    ]
+  },
+  {
+    "id": "eval-002",
+    "name": "沉默用户召回策略",
+    "difficulty": "simple",
+    "input": {
+      "沉默用户定义": "30天未登录的已注册用户",
+      "沉默用户数量": "5000",
+      "历史召回率": "10%"
+    },
+    "expected_output": {
+      "召回策略": true,
+      "触达渠道": true,
+      "激励设计": true
+    },
+    "evaluation_criteria": [
+      "策略是否有针对性",
+      "触达渠道是否合适",
+      "激励是否有吸引力"
+    ]
+  }
+]

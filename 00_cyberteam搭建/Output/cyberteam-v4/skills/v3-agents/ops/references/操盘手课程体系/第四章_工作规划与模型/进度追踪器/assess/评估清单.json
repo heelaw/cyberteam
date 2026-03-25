@@ -1,0 +1,37 @@
+{
+  "dimension": "进度追踪",
+  "version": "1.0",
+  "author": "Cyberwiz",
+  "review_status": "待审查",
+  "review_required": false,
+  "review_threshold": 90,
+  "items": [
+    {
+      "id": "1",
+      "item": "进度准确性",
+      "weight": 40,
+      "criteria": "准确反映实际进度，完成率、偏差计算正确",
+      "measurement": "与实际对比验证"
+    },
+    {
+      "id": "2",
+      "item": "风险预警",
+      "weight": 30,
+      "criteria": "及时识别风险，预警级别判断准确",
+      "measurement": "风险识别覆盖率"
+    },
+    {
+      "id": "3",
+      "item": "问题推动",
+      "weight": 30,
+      "criteria": "问题明确责任人，推动解决直到闭环",
+      "measurement": "问题解决率"
+    }
+  ],
+  "scoring_rules": {
+    "excellent": "90-100",
+    "good": "80-89",
+    "pass": "70-79",
+    "fail": "0-69"
+  }
+}

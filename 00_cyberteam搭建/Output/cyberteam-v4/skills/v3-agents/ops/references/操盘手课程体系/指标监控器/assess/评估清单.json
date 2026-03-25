@@ -1,0 +1,37 @@
+{
+  "dimension": "指标监控",
+  "version": "1.0",
+  "author": "Cyberwiz",
+  "review_status": "待审查",
+  "review_required": false,
+  "review_threshold": 90,
+  "items": [
+    {
+      "id": "1",
+      "item": "监控及时性",
+      "weight": 40,
+      "criteria": "异常指标能够在24小时内及时发现",
+      "measurement": "异常发现时间"
+    },
+    {
+      "id": "2",
+      "item": "预警准确性",
+      "weight": 30,
+      "criteria": "预警准确，减少误报，核实准确率≥90%",
+      "measurement": "核实后确实异常的比例"
+    },
+    {
+      "id": "3",
+      "item": "问题解决",
+      "weight": 30,
+      "criteria": "推动问题解决直到闭环，闭环率≥85%",
+      "measurement": "问题闭环率"
+    }
+  ],
+  "scoring_rules": {
+    "excellent": "90-100",
+    "good": "80-89",
+    "pass": "70-79",
+    "fail": "0-69"
+  }
+}

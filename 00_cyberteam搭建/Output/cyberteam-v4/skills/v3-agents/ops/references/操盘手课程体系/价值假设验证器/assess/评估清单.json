@@ -1,0 +1,37 @@
+{
+  "dimension": "价值假设验证",
+  "version": "1.0",
+  "author": "Cyberwiz",
+  "review_status": "待审查",
+  "review_required": false,
+  "review_threshold": 90,
+  "items": [
+    {
+      "id": "1",
+      "item": "验证设计",
+      "weight": 30,
+      "criteria": "验证方案成本低、效率高，用最小成本获取关键信息",
+      "measurement": "验证成本≤10%预算"
+    },
+    {
+      "id": "2",
+      "item": "判断准确",
+      "weight": 40,
+      "criteria": "用数据准确判断假设是否成立",
+      "measurement": "准确率≥90%"
+    },
+    {
+      "id": "3",
+      "item": "决策有效",
+      "weight": 30,
+      "criteria": "基于验证结果给出有效决策建议",
+      "measurement": "项目最终成功"
+    }
+  ],
+  "scoring_rules": {
+    "excellent": "90-100",
+    "good": "80-89",
+    "pass": "70-79",
+    "fail": "0-69"
+  }
+}

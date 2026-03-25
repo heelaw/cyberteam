@@ -1,0 +1,58 @@
+{
+  "skill_name": "7个问题找方向器",
+  "version": "1.0.0",
+  "evals": [
+    {
+      "id": 1,
+      "difficulty": "simple",
+      "name": "在线教育产品卖点分析",
+      "prompt": "请使用7个问题找方向法分析以下产品：\n\n## 产品信息\n- 产品类型：在线职业技能培训平台\n- 目标用户：想转行的在职人员\n- 主要课程：数据分析、编程、设计\n\n请回答7个问题并输出3个核心卖点方向",
+      "expected_output": "包含完整7个问题的回答和3个卖点方向建议",
+      "files": [],
+      "assertions": [
+        {
+          "type": "contains",
+          "field": "问题1",
+          "expected": "用户描述"
+        },
+        {
+          "type": "contains",
+          "field": "问题5",
+          "expected": "差异化"
+        },
+        {
+          "type": "contains",
+          "field": "卖点方向",
+          "expected": "方向"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "difficulty": "medium",
+      "name": "SaaS产品差异化定位",
+      "prompt": "请使用7个问题找方向法分析以下产品：\n\n## 产品信息\n- 产品类型：B2B企业协作SaaS\n- 目标用户：中小企业管理者\n- 主要功能：任务管理、文档协作、沟通工具\n\n请回答7个问题并输出差异化定位建议",
+      "expected_output": "包含完整分析找到差异化优势",
+      "files": [],
+      "assertions": [
+        {
+          "type": "contains",
+          "field": "问题5",
+          "expected": "竞品对比"
+        },
+        {
+          "type": "contains",
+          "field": "问题7",
+          "expected": "证明"
+        }
+      ]
+    }
+  ],
+  "version_history": [
+    {
+      "version": "1.0.0",
+      "created": "2026-03-18",
+      "notes": "初始版本"
+    }
+  ]
+}
