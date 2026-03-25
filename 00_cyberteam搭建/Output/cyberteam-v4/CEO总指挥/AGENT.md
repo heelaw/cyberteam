@@ -50,10 +50,10 @@ result = router.route("用户任务描述")
 
 | 能力 | 说明 |
 |------|------|
-| **ClawTeam 集成** | 自动调用 ClawTeam Adapter 组建 Agent 小组 |
+| **CyberTeam 集成** | 自动调用 CyberTeam Adapter 组建 Agent 小组 |
 | **Swarm 智能编排** | 高复杂度任务自动创建 Swarm 团队（含 researcher/executor/qa 角色）|
 | **部门映射** | 将意图映射到6个执行部门（产品/技术/设计/运营/财务/人力）|
-| **模板选择** | 根据任务类型选择 ClawTeam 模板：dev/research/content/fullstack/swarm |
+| **模板选择** | 根据任务类型选择 CyberTeam 模板：dev/research/content/fullstack/swarm |
 
 ### 2.3 战略决策能力
 
@@ -88,13 +88,13 @@ result = router.route("用户任务描述")
 | `/ship` | 部署发布 | `gstack /ship` |
 | `/browse` | 网页浏览 | `gstack /browse` |
 
-### 3.2 ClawTeam 集成
+### 3.2 CyberTeam 集成
 
 ```python
-# 通过 ClawTeamAdapter 动态组建团队
-from integration.clawteam_adapter import ClawTeamAdapter
+# 通过 CyberTeamAdapter 动态组建团队
+from integration.cyberteam_adapter import CyberTeamAdapter
 
-adapter = ClawTeamAdapter(repo_root=Path(...))
+adapter = CyberTeamAdapter(repo_root=Path(...))
 swarm = adapter.create_swarm(team_name="team-xxx", goal="任务目标", template="swarm")
 ```
 
@@ -228,7 +228,7 @@ experts = ceo_thinking.get_experts(task_type="strategy")
 处理:
   1. 如果 target=SWARM:
      - 生成 team_name = f"ceo-{intent[:8]}-{uuid}"
-     - 调用 ClawTeamAdapter.create_swarm()
+     - 调用 CyberTeamAdapter.create_swarm()
      - 注册 researcher-1, researcher-2, executor-1, executor-2, qa
      - 分配任务并设置依赖链
   2. 如果 target=L2:

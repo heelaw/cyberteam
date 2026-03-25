@@ -13,14 +13,14 @@ CyberTeam V4 是一个企业级 AI Agent 协作系统，模拟真实公司运作
 - **自动团队组建**: CEO 路由引擎自动分析需求，组建合适的 Agent 团队
 - **多专家协作**: 14个思维专家 + 6个执行部门协同工作
 - **质量保障**: 六维评分 + 五级质量门禁
-- **外部集成**: ClawTeam 多Agent编排
+- **外部集成**: CyberTeam 多Agent编排
 
 ### 1.2 架构概览
 
 ```
 用户输入 → CEO路由(L1) → 策略层(L2) → 专家层(L3) → 评分门禁
                 ↓
-          ClawTeam Agent团队
+          CyberTeam Agent团队
 ```
 
 ---
@@ -90,7 +90,7 @@ CyberTeam V4 是一个企业级 AI Agent 协作系统，模拟真实公司运作
 
 **状态机**: `PREPARING` → `IN_PROGRESS` → `CONVERGED`/`DEADLOCKED` → `COMPLETED`
 
-### 2.6 ClawTeam 适配器 (`integration/clawteam_adapter.py`)
+### 2.6 CyberTeam 适配器 (`integration/cyberteam_adapter.py`)
 
 **功能**:
 - 团队创建与管理

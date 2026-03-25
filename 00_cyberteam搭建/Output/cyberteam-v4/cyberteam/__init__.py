@@ -1,0 +1,3 @@
+"""CyberTeam - Framework-agnostic multi-agent coordination CLI."""
+
+__version__ = "0.1.2"

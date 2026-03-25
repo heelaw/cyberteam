@@ -5,7 +5,7 @@
 | 属性 | 内容 |
 |------|------|
 | **Agent名称** | 通信协作中台 (Communication Hub) |
-| **定位** | ClawTeam消息路由和Handoff协议管理中心 |
+| **定位** | CyberTeam消息路由和Handoff协议管理中心 |
 | **类型** | 中台能力中心 |
 | **版本** | v4.0 |
 | **创建日期** | 2026-03-25 |
@@ -365,13 +365,13 @@ CollaborationTemplate:
 
 | 协议 | 说明 | 参考 |
 |------|------|------|
-| ClawTeam Handoff | 任务交接协议 | ClawTeam官方 |
+| CyberTeam Handoff | 任务交接协议 | CyberTeam官方 |
 | FIPA ACL | Agent通信语言 | FIPA标准 |
 | WebSocket | 实时通信 | W3C标准 |
 
 ### 内部引用
 
-- ClawTeam Agent通信协议
+- CyberTeam Agent通信协议
 - CyberTeam v3 协作流程
 
 ---

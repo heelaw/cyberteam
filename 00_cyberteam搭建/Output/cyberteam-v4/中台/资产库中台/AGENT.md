@@ -282,7 +282,7 @@ ELSE
 
 - CyberTeam v3 资产整合报告
 - gstack Official Documentation
-- ClawTeam Agent Registry
+- CyberTeam Agent Registry
 
 ---
 

@@ -78,7 +78,7 @@ You are {agent_name}, a sub-agent in the CyberTeam swarm team "{team_name}".
 {task}
 
 ### Coordination Commands
-Available commands (use clawteam or direct file ops):
+Available commands (use cyberteam or direct file ops):
 
 1. Check tasks:
    - Read ~/.cyberteam/tasks/{team_name}/task-*.json

@@ -16,7 +16,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent / "engine"))
 
 from ceo import CEORouter, Intent, Complexity, RoutingTarget
 from debate_engine import DebateEngine, DebateState, RoundType
-from integration.clawteam_adapter import ClawTeamAdapter, TeamStatus
+from integration.cyberteam_adapter import CyberTeamAdapter, TeamStatus
 
 
 class TestCEORouter:
@@ -44,9 +44,9 @@ class TestCEORouter:
         assert result.intent == "内容运营"
 
     def test_data_analysis_routing(self):
-        """测试数据分析路由"""
+        """测试数据分析路由（现在路由到 SWARM）"""
         result = self.router.route("分析销售数据")
-        assert result.target == "L3A"
+        assert result.target == "SWARM"
         assert result.intent == "数据分析"
 
     def test_hr_routing(self):
@@ -157,11 +157,11 @@ class TestDebateEngine:
         assert session.state == DebateState.COMPLETED
 
 
-class TestClawTeamAdapter:
-    """ClawTeam 适配器测试"""
+class TestCyberTeamAdapter:
+    """CyberTeam 适配器测试"""
 
     def setup_method(self):
-        self.adapter = ClawTeamAdapter()
+        self.adapter = CyberTeamAdapter()
 
     def test_list_teams(self):
         """测试列出团队"""

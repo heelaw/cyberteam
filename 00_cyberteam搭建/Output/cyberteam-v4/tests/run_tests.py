@@ -15,7 +15,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent / "integration"))
 
 from ceo import CEORouter, Intent
 from debate_engine import DebateEngine, DebateState
-from clawteam_adapter import ClawTeamAdapter
+from cyberteam_adapter import CyberTeamAdapter
 
 
 def test(name, fn):
@@ -86,11 +86,11 @@ def test_debate_engine():
     return True
 
 
-def test_clawteam_adapter():
-    """测试 ClawTeam 适配器"""
-    adapter = ClawTeamAdapter()
+def test_cyberteam_adapter():
+    """测试 CyberTeam 适配器"""
+    adapter = CyberTeamAdapter()
 
-    print("\n【ClawTeam 适配器测试】")
+    print("\n【CyberTeam 适配器测试】")
 
     # 列出团队
     teams = adapter.list_teams()
@@ -132,7 +132,7 @@ def main():
 
     results.append(test_ceo_router())
     results.append(test_debate_engine())
-    results.append(test_clawteam_adapter())
+    results.append(test_cyberteam_adapter())
     results.append(test_integration())
 
     print("\n" + "=" * 60)

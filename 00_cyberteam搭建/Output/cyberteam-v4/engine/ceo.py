@@ -27,12 +27,12 @@ if str(_project_root) not in sys.path:
     sys.path.insert(0, str(_project_root))
 
 try:
-    from integration.clawteam_adapter import ClawTeamAdapter
+    from integration.cyberteam_adapter import CyberTeamAdapter
     from swarm_orchestrator import SwarmOrchestrator, SwarmStatus
     SWARM_AVAILABLE = True
 except ImportError:
     SWARM_AVAILABLE = False
-    ClawTeamAdapter = None
+    CyberTeamAdapter = None
     SwarmOrchestrator = None
 
 
@@ -118,12 +118,12 @@ class CEORouter:
         self._active_swarms: Dict[str, Any] = {}
 
     @property
-    def swarm_adapter(self) -> Optional[ClawTeamAdapter]:
+    def swarm_adapter(self) -> Optional[CyberTeamAdapter]:
         """懒加载 Swarm 适配器"""
-        if ClawTeamAdapter is None:
+        if CyberTeamAdapter is None:
             return None
         if self._swarm_adapter is None:
-            self._swarm_adapter = ClawTeamAdapter(repo_root=Path(__file__).parent.parent)
+            self._swarm_adapter = CyberTeamAdapter(repo_root=Path(__file__).parent.parent)
         return self._swarm_adapter
 
     def _load_router_config(self) -> dict:

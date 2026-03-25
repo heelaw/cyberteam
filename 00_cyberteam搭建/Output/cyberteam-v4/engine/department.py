@@ -232,7 +232,7 @@ class AgentAdapter:
 
     async def spawn(self, agent: str, task: str) -> dict:
         """Spawn Agent"""
-        # TODO: 实际调用 ClawTeam
+        # TODO: 实际调用 CyberTeam
         return {
             "status": "success",
             "output": f"Agent {agent} 执行完成",
