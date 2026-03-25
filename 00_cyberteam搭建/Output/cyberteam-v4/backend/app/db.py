@@ -50,7 +50,7 @@ async def close_db():
 
 
 async def get_db() -> AsyncGenerator[AsyncSession, None]:
-    """获取数据库会话。"""
+    """获取数据库会话（用于 FastAPI 依赖注入）。"""
     if _session_factory is None:
         raise RuntimeError("Database not initialized. Call init_db() first.")
 
@@ -59,7 +59,7 @@ async def get_db() -> AsyncGenerator[AsyncSession, None]:
 
 
 async def get_session() -> AsyncSession:
-    """获取数据库会话（同步方式）。"""
+    """获取数据库会话（同步方式，用于非依赖注入场景）。"""
     if _session_factory is None:
         raise RuntimeError("Database not initialized. Call init_db() first.")
 
