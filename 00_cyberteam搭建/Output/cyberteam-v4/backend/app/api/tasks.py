@@ -1,6 +1,6 @@
 """Tasks API — 任务管理。"""
 
-import uuid
+from typing import Optional, Union, List
 import logging
 from datetime import datetime
 
@@ -21,7 +21,7 @@ class TaskCreate(BaseModel):
     """任务创建请求。"""
     user_input: str = Field(..., description="用户输入的业务目标")
     priority: str = Field(default="中", description="优先级: 高/中/低")
-    tags: list[str] = Field(default_factory=list)
+    tags: List[str] = Field(default_factory=list)
 
 
 class TaskTransition(BaseModel):
@@ -40,13 +40,13 @@ class TaskOut(BaseModel):
     user_input: str
     state: str
     priority: str
-    assignee_org: str | None
+    assignee_org: Optional[str]
     creator: str
-    tags: list[str]
-    score: float | None
-    created_at: str | None
-    updated_at: str | None
-    completed_at: str | None
+    tags: List[str]
+    score: Optional[float]
+    created_at: Optional[str]
+    updated_at: Optional[str]
+    completed_at: Optional[str]
 
     class Config:
         from_attributes = True
@@ -56,8 +56,8 @@ class TaskOut(BaseModel):
 
 @router.get("")
 async def list_tasks(
-    state: str | None = None,
-    priority: str | None = None,
+    state: Optional[str] = None,
+    priority: Optional[str] = None,
     limit: int = Query(default=50, le=200),
     offset: int = Query(default=0, ge=0),
     db: AsyncSession = Depends(get_db),

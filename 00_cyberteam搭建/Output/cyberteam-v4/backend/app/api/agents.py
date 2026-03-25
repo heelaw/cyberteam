@@ -1,7 +1,7 @@
 """Agents API — Agent 信息管理。"""
 
 import logging
-from typing import Optional
+from typing import Optional, List
 
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, Field
@@ -146,16 +146,16 @@ class AgentOut(BaseModel):
     agent_id: str
     name: str
     type: str  # expert | department
-    framework: str | None = None
+    framework: Optional[str] = None
     description: str
-    keywords: list[str] | None = None
+    keywords: Optional[List[str]] = None
 
 
 # ── Endpoints ──
 
 @router.get("")
 async def list_agents(
-    agent_type: str | None = Query(None, description="过滤类型: expert/department"),
+    agent_type: Optional[str] = Query(None, description="过滤类型: expert/department"),
     db: AsyncSession = Depends(get_db),
 ):
     """获取所有 Agent 列表。"""
