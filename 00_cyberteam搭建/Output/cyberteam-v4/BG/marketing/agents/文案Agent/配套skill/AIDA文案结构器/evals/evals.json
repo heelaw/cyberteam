@@ -1,0 +1,63 @@
+{
+  "skill_name": "AIDA文案结构器",
+  "version": "1.0.0",
+  "evals": [
+    {
+      "id": 1,
+      "difficulty": "medium",
+      "name": "SaaS产品AIDA文案撰写",
+      "prompt": "请使用AIDA模型为以下产品撰写文案：\n\n## 产品信息\n- 产品类型：团队文档协作工具\n- 目标用户：中小企业团队管理者\n- 核心卖点：效率提升、版本管理、实时协作\n- 场景：产品销售落地页\n\n请按照AIDA四阶段结构撰写完整文案",
+      "expected_output": "包含Attention/Interest/Desire/Action四个阶段的完整文案",
+      "files": [],
+      "assertions": [
+        {
+          "type": "contains",
+          "field": "Attention",
+          "expected": "标题"
+        },
+        {
+          "type": "contains",
+          "field": "Interest",
+          "expected": "痛点"
+        },
+        {
+          "type": "contains",
+          "field": "Desire",
+          "expected": "收益"
+        },
+        {
+          "type": "contains",
+          "field": "Action",
+          "expected": "CTA"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "difficulty": "medium",
+      "name": "在线课程推广AIDA文案",
+      "prompt": "请使用AIDA模型为以下课程撰写推广文案：\n\n## 课程信息\n- 课程类型：数据分析训练营\n- 目标用户：想转行的在职人员\n- 核心卖点：体系化学习、实战项目、就业指导\n- 场景：公众号推广\n\n请按照AIDA结构撰写",
+      "expected_output": "完整AIDA四阶段文案，包含情感触发和社会证明",
+      "files": [],
+      "assertions": [
+        {
+          "type": "contains",
+          "field": "Desire",
+          "expected": "量化"
+        },
+        {
+          "type": "contains",
+          "field": "Action",
+          "expected": "紧迫感"
+        }
+      ]
+    }
+  ],
+  "version_history": [
+    {
+      "version": "1.0.0",
+      "created": "2026-03-18",
+      "notes": "初始版本"
+    }
+  ]
+}

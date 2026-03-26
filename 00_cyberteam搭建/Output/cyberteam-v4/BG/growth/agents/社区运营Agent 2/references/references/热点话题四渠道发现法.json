@@ -1,0 +1,18 @@
+{
+  "id": "ref_hot_topic_discovery",
+  "name": "热点话题四渠道发现法",
+  "category": "method",
+  "description": "通过四大渠道发现热点话题",
+  "triggers": [
+    "热点发现",
+    "话题运营",
+    "热点话题",
+    "内容策划"
+  ],
+  "channels": [
+    "微博热搜",
+    "抖音热榜",
+    "知乎热榜",
+    "贴吧/论坛"
+  ]
+}

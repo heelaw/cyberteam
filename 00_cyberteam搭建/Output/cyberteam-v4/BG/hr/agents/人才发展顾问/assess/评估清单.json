@@ -1,0 +1,44 @@
+{
+  "dimension": "人才发展",
+  "version": "1.0",
+  "author": "Cyberwiz",
+  "review_status": "待审查",
+  "review_required": false,
+  "review_threshold": 90,
+  "items": [
+    {
+      "id": "1",
+      "item": "人才盘点",
+      "weight": 30,
+      "criteria": "盘点准确全面，结构清晰，识别关键人才",
+      "measurement": "准确率≥95%"
+    },
+    {
+      "id": "2",
+      "item": "IDP制定",
+      "weight": 25,
+      "criteria": "计划具体可执行，与团队目标关联",
+      "measurement": "覆盖率100%"
+    },
+    {
+      "id": "3",
+      "item": "1on1沟通",
+      "weight": 20,
+      "criteria": "沟通有体系，员工感受到支持",
+      "measurement": "满意度≥90%"
+    },
+    {
+      "id": "4",
+      "item": "团队激励",
+      "weight": 25,
+      "criteria": "激励方案有效，团队士气提升",
+      "measurement": "离职率降低≥20%"
+    }
+  ],
+  "scoring_rules": {
+    "excellent": "90-100",
+    "good": "80-89",
+    "pass": "70-79",
+    "fail": "0-69"
+  }
+}

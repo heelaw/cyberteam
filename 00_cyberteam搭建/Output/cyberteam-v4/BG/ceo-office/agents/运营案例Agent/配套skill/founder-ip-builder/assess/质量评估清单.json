@@ -1,0 +1,74 @@
+{
+  "skill_name": "founder-ip-builder",
+  "skill_version": "v1.0",
+  "assessment_date": "2026-03-19",
+  "assessor": "自动化评估",
+
+  "quality_dimensions": [
+    {
+      "dimension": "定位清晰度",
+      "weight": 25,
+      "description": "IP定位是否清晰有辨识度",
+      "criteria": [
+        "核心标签清晰（3个以内）",
+        "人设类型明确",
+        "亲和力/专业度/真实感三角平衡"
+      ],
+      "pass_threshold": "核心标签清晰"
+    },
+    {
+      "dimension": "内容策略完整性",
+      "weight": 25,
+      "description": "内容策略是否系统化",
+      "criteria": [
+        "内容类型分布合理",
+        "各类型有示例",
+        "符合平台特点"
+      ],
+      "pass_threshold": "内容分布合理"
+    },
+    {
+      "dimension": "表达风格一致性",
+      "weight": 25,
+      "description": "表达风格是否统一且符合定位",
+      "criteria": [
+        "口语化特征明显",
+        "有自黑精神",
+        "真诚坦率"
+      ],
+      "pass_threshold": "至少2个特征"
+    },
+    {
+      "dimension": "风险边界意识",
+      "weight": 25,
+      "description": "是否有清晰的风险边界和预案",
+      "criteria": [
+        "明确可以做的内容",
+        "明确需要避免的内容",
+        "有风险应对预案"
+      ],
+      "pass_threshold": "边界清晰有预案"
+    }
+  ],
+
+  "critical_rules_compliance": {
+    "must_follow": [
+      "真实比完美重要 - 用户可以识别虚假",
+      "持续输出 - IP打造需要长期坚持",
+      "服务于品牌 - IP是公司品牌的延伸",
+      "有边界意识 - 创始人言论天然有影响力"
+    ],
+    "must_avoid": [
+      "不完美人设",
+      "不持续断更",
+      "不脱离业务",
+      "不碰争议话题",
+      "不损害品牌形象"
+    ]
+  },
+
+  "overall_quality_threshold": 0.8,
+  "version_history": [
+    {"version": "v1.0", "date": "2026-03-19", "note": "初始版本"}
+  ]
+}

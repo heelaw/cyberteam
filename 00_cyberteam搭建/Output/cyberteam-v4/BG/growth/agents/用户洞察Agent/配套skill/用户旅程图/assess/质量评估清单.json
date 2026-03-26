@@ -1,0 +1,233 @@
+{
+  "skill_name": "用户旅程图",
+  "version": "v1.0",
+  "assess_date": "2026-03-19",
+  "assessor": "系统评估",
+  "quality_dimension": [
+    {
+      "dimension": "完整性",
+      "weight": 20,
+      "description": "评估旅程阶段和五要素的完整程度",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "阶段完整（4-8个阶段），五要素（行为/思考/情绪/接触点/痛点）全部覆盖"
+        },
+        "good": {
+          "score": 4,
+          "description": "阶段基本完整，要素基本覆盖"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "部分阶段或要素缺失"
+        },
+        "poor": {
+          "score": 1,
+          "description": "阶段和要素严重缺失"
+        }
+      },
+      "criteria": [
+        "是否覆盖完整旅程（从认知到完成）",
+        "阶段数量是否合理（4-8个）",
+        "五要素是否完整"
+      ]
+    },
+    {
+      "dimension": "实用性",
+      "weight": 20,
+      "description": "评估优化建议的可执行性",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "每个痛点有对应解决方案，有优先级，有惊喜时刻设计"
+        },
+        "good": {
+          "score": 4,
+          "description": "有解决方案和优先级"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "有建议但较模糊"
+        },
+        "poor": {
+          "score": 1,
+          "description": "缺乏可执行的建议"
+        }
+      },
+      "criteria": [
+        "优化建议是否具体可执行",
+        "是否有优先级排序",
+        "是否有惊喜时刻设计"
+      ]
+    },
+    {
+      "dimension": "专业性",
+      "weight": 20,
+      "description": "评估洞察质量和专业深度",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "情绪变化有数据支撑，痛点有证据，高低点定位准确"
+        },
+        "good": {
+          "score": 4,
+          "description": "有数据支撑，洞察较深入"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "洞察较浅显"
+        },
+        "poor": {
+          "score": 1,
+          "description": "缺乏洞察或洞察不准确"
+        }
+      },
+      "criteria": [
+        "情绪判断是否有数据依据",
+        "痛点是否有具体证据",
+        "高低点定位是否准确"
+      ]
+    },
+    {
+      "dimension": "严谨性",
+      "weight": 20,
+      "description": "评估分析逻辑的严密性",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "阶段划分有逻辑，描述客观准确"
+        },
+        "good": {
+          "score": 4,
+          "description": "逻辑较严密"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "逻辑有轻微漏洞"
+        },
+        "poor": {
+          "score": 1,
+          "description": "逻辑混乱"
+        }
+      },
+      "criteria": [
+        "阶段划分是否有逻辑",
+        "描述是否客观准确",
+        "是否避免主观臆断"
+      ]
+    },
+    {
+      "dimension": "独特个性",
+      "weight": 10,
+      "description": "评估是否体现独特洞察",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "有独特视角，能发现隐藏的体验机会"
+        },
+        "good": {
+          "score": 4,
+          "description": "有部分独到见解"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "见解较常规"
+        },
+        "poor": {
+          "score": 1,
+          "description": "缺乏独特见解"
+        }
+      },
+      "criteria": [
+        "是否能发现隐藏的体验机会",
+        "是否有独特的分析视角"
+      ]
+    },
+    {
+      "dimension": "规范性",
+      "weight": 10,
+      "description": "评估输出格式和Critical Rules的规范性",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "格式规范，Critical Rules完整，Workflow Steps标准"
+        },
+        "good": {
+          "score": 4,
+          "description": "格式规范，Critical Rules较完整"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "格式基本规范"
+        },
+        "poor": {
+          "score": 1,
+          "description": "格式混乱"
+        }
+      },
+      "criteria": [
+        "输出格式是否符合标准模板",
+        "Critical Rules是否≥5条必须遵守+≥5条禁止行为",
+        "Workflow Steps是否完整"
+      ]
+    }
+  ],
+  "quality_score": {
+    "total_score": 100,
+    "pass_threshold": 85,
+    "excellent": [90, 100],
+    "good": [85, 89],
+    "acceptable": [70, 84],
+    "poor": [0, 69]
+  },
+  "critical_rules_check": {
+    "description": "Critical Rules检查清单",
+    "rules": [
+      {
+        "rule": "旅程阶段必须完整",
+        "check_item": "是否从认知起点到完成终点覆盖完整",
+        "pass_condition": "4-8个阶段"
+      },
+      {
+        "rule": "五要素必须完整",
+        "check_item": "每个阶段是否包含行为/思考/情绪/接触点/痛点",
+        "pass_condition": "缺一不可"
+      },
+      {
+        "rule": "痛点必须有证据",
+        "check_item": "每个痛点是否有数据或反馈支撑",
+        "pass_condition": "数据说话"
+      },
+      {
+        "rule": "建议必须有优先级",
+        "check_item": "是否区分P0/P1/P2",
+        "pass_condition": "资源有限要分主次"
+      },
+      {
+        "rule": "必须有惊喜时刻设计",
+        "check_item": "是否不只是修复痛点，还设计愉悦体验",
+        "pass_condition": "超越期望"
+      }
+    ]
+  },
+  "forbidden_check": {
+    "description": "禁止行为检查",
+    "items": [
+      "禁止旅程阶段不完整",
+      "禁止五要素缺失任何一项",
+      "禁止痛点没有数据证据",
+      "禁止建议没有优先级",
+      "禁止只修复痛点不设计惊喜",
+      "禁止主观臆断用户想法"
+    ]
+  },
+  "output_standard": {
+    "must_include": [
+      "阶段划分（4-8个阶段）",
+      "每个阶段的五要素（行为/思考/情绪/接触点/痛点）",
+      "情绪曲线图示",
+      "优化建议及优先级"
+    ],
+    "format_requirement": "五要素完整，有情绪曲线，有优化建议"
+  }
+}

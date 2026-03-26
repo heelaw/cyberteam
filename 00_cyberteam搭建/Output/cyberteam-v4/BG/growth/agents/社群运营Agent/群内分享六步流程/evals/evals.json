@@ -1,0 +1,91 @@
+{
+  "skill_name": "群内分享六步流程",
+  "version": "1.0",
+  "eval_type": "skill_functional",
+  "test_cases": [
+    {
+      "id": 1,
+      "difficulty": "simple",
+      "category": "成员互助型分享",
+      "input": {
+        "scenario": "你计划在创业社群组织一次成员分享，由一位普通成员分享\"我踩过的坑\"，参与者50人左右"
+      },
+      "expected_output": {
+        "must_include": [
+          "分享流程设计",
+          "嘉宾准备支持",
+          "互动环节设计",
+          "氛围维护方案"
+        ],
+        "output_structure": "简化版六步流程",
+        "min_score": 3
+      },
+      "evaluation_criteria": {
+        "feasibility": "是否可执行",
+        "atmosphere": "氛围是否轻松",
+        "completeness": "流程是否完整"
+      }
+    },
+    {
+      "id": 2,
+      "difficulty": "medium",
+      "category": "专家邀请型分享",
+      "input": {
+        "scenario": "你计划在产品经理社群组织一次嘉宾分享，邀请了一位知名产品总监来分享\"从0到1搭建产品团队\"的经验，预计300人参与"
+      },
+      "expected_output": {
+        "must_include": [
+          "完整六步流程",
+          "嘉宾沟通方案",
+          "预告模板",
+          "异常处理预案",
+          "总结反馈方案"
+        ],
+        "output_structure": "完整六步执行方案",
+        "min_score": 3
+      },
+      "evaluation_criteria": {
+        "completeness": "流程是否完整",
+        "feasibility": "是否可执行",
+        "risk_prevention": "异常预案是否完善"
+      }
+    },
+    {
+      "id": 3,
+      "difficulty": "hard",
+      "category": "多嘉宾大型分享",
+      "input": {
+        "scenario": "你计划组织一场\"产品经理成长之路\"主题分享，邀请3位不同阶段的嘉宾（0-3岁、3-5岁、5年以上）进行圆桌对话，500人社群参与"
+      },
+      "expected_output": {
+        "must_include": [
+          "多嘉宾流程设计",
+          "圆桌对话主持方案",
+          "观众互动机制",
+          "突发情况处理",
+          "效果评估方法"
+        ],
+        "output_structure": "大型分享完整方案",
+        "min_score": 3
+      },
+      "evaluation_criteria": {
+        "complexity": "是否能处理复杂场景",
+        "feasibility": "是否可执行",
+        "interactivity": "互动机制是否完善"
+      }
+    }
+  ],
+  "evaluation_methodology": {
+    "scoring": "每个维度1-5分，5分制评分",
+    "pass_criteria": "总分≥15分（满分25分），且每个维度≥3分",
+    "process": "1.设计流程 2.确定人选 3.发布预告 4.异常处理 5.组织分享 6.反馈总结"
+  },
+  "coverage": {
+    "场景覆盖": ["成员分享", "专家分享", "多嘉宾大型分享"],
+    "难度分布": {
+      "simple": 1,
+      "medium": 1,
+      "hard": 1
+    }
+  }
+}

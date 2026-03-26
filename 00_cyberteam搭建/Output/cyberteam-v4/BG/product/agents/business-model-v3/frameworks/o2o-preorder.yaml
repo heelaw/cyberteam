@@ -1,0 +1,255 @@
+# O2O预定模式框架
+# Online-to-Offline Preorder Business Model Framework
+
+name: "O2O预定模式"
+english_name: "O2O Preorder Model"
+version: "1.0"
+description: "线上获客+线下服务+预定收款的商业模式"
+
+# 适用场景
+applicable_scenarios:
+  - 本地服务（美容、健身、教育、医疗）
+  - 高客单价定制服务
+  - 需要预约的服务业
+  - 体验导向型服务
+
+# 典型案例
+typical_examples:
+  - "LaceCode (3D定制假发)"
+  - "ClassPass (健身预约)"
+  - "StyleSeat (美容预约)"
+
+# 必选分析模块
+required_modules:
+  - id: "conversion-funnel.o2o"
+    description: "O2O转化漏斗分析"
+    priority: 1
+
+  - id: "unit-economics.ltv_cac"
+    description: "单体经济模型（LTV:CAC）"
+    priority: 1
+
+  - id: "cash-flow.prepayment"
+    description: "预收款现金流分析"
+    priority: 1
+
+  - id: "operational-metrics.service-quality"
+    description: "服务质量指标"
+    priority: 2
+
+# 可选分析模块
+optional_modules:
+  - id: "geographic-expansion"
+    description: "地理扩张策略"
+    when: "多城市运营"
+
+  - id: "supply-chain optimization"
+    description: "供应链优化"
+    when: "涉及实体产品"
+
+  - id: "partnership-channels"
+    description: "合作伙伴渠道"
+    when: "有B2B2C模式"
+
+# 核心指标模板
+key_metrics:
+  # 获客指标
+  acquisition:
+    - metric: "CAC"
+      name: "客户获取成本"
+      formula: "营销总费用 / 新客数"
+      benchmark: "$50-500"
+
+    - metric: "conversion_rate"
+      name: "整体转化率"
+      formula: "各步骤转化率之积"
+      benchmark: "0.05% - 5%"
+
+  # 营收指标
+  revenue:
+    - metric: "ARPU"
+      name: "平均客单价"
+      formula: "总收入 / 服务客户数"
+      benchmark: "$100-2000"
+
+    - metric: "prepayment_rate"
+      name: "预收款比例"
+      formula: "预收金额 / 总收入"
+      benchmark: "80% - 100%"
+
+  # 留存指标
+  retention:
+    - metric: "retention_rate_90d"
+      name: "90天留存率"
+      formula: "90天后仍活跃客户 / 总客户"
+      benchmark: "60% - 90%"
+
+    - metric: "no_show_rate"
+      name: "爽约率"
+      formula: "未履约预约 / 总预约"
+      benchmark: "< 10%"
+
+  # 现金流指标
+  cash_flow:
+    - metric: "payment_cycle"
+      name: "收款周期（天）"
+      formula: "从预收到服务完成的天数"
+      benchmark: "15-60天"
+
+    - metric: "cash_conversion_cycle"
+      name: "现金转换周期"
+      formula: "应付天数 - 存货天数 + 应收天数"
+      benchmark: "负值（健康）"
+
+# 标准转化路径预设
+standard_funnel_steps:
+  - step: 1
+    name: "触达"
+    name_en: "Reach"
+    description: "用户看到品牌内容"
+    typical_rate: 1.0
+    benchmark: "N/A"
+
+  - step: 2
+    name: "完播"
+    name_en: "View Complete"
+    description: "看完内容或停留足够时间"
+    typical_rate: 0.20-0.40
+    benchmark: "20-40%"
+
+  - step: 3
+    name: "兴趣"
+    name_en: "Interest"
+    description: "产生兴趣，点击或搜索"
+    typical_rate: 0.05-0.15
+    benchmark: "5-15%"
+
+  - step: 4
+    name: "预约"
+    name_en: "Booking"
+    description: "完成预约（可能涉及定金）"
+    typical_rate: 0.03-0.10
+    benchmark: "3-10%"
+
+  - step: 5
+    name: "到店"
+    name_en: "Visit"
+    description: "实际到店接受服务"
+    typical_rate: 0.80-0.95
+    benchmark: "80-95%"
+
+  - step: 6
+    name: "交付"
+    name_en: "Delivery"
+    description: "服务完成，产品交付"
+    typical_rate: 0.95-1.0
+    benchmark: "95-100%"
+
+  - step: 7
+    name: "复购"
+    name_en: "Repurchase"
+    description: "再次购买或续约"
+    typical_rate: 0.30-0.60
+    benchmark: "30-60% (年化)"
+
+# 成本结构模板
+cost_structure:
+  # 可变成本
+  variable_costs:
+    - item: "获客成本 (CAC)"
+      range: "10-30% of revenue"
+
+    - item: "履约成本"
+      range: "20-40% of revenue"
+
+    - item: "支付手续费"
+      range: "2-3% of transaction"
+
+  # 固定成本
+  fixed_costs:
+    - item: "技术平台"
+      range: "5-15% of revenue"
+
+    - item: "团队人力"
+      range: "10-25% of revenue"
+
+    - item: "营销/品牌"
+      range: "5-15% of revenue"
+
+  # 利润率
+  profit_margins:
+    - metric: "毛利率"
+      range: "50-70%"
+
+    - metric: "净利率"
+      range: "10-25%"
+
+# 常见风险点
+common_risks:
+  - risk: "高爽约率"
+    impact: "高"
+    mitigation: "预收款、预约提醒、弹性改期"
+
+  - risk: "履约能力不足"
+    impact: "极高"
+    mitigation: "产能规划、供应商多元化、预约限制"
+
+  - risk: "现金流断裂"
+    impact: "极高"
+    mitigation: "预收款模式、应收账款管理、现金储备"
+
+  - risk: "服务质量不稳定"
+    impact: "高"
+    mitigation: "标准化培训、质检体系、评价系统"
+
+  - risk: "获客成本过高"
+    impact: "中"
+    mitigation: "口碑推荐、UGC激励、复购提升"
+
+# 增长策略模板
+growth_strategies:
+  - strategy: "地理扩张"
+    description: "复制成功模式到新城市"
+    kpis: ["新城市客户数", "跨城复购率"]
+
+  - strategy: "品类扩展"
+    description: "增加新的服务品类"
+    kpis: ["品类渗透率", "交叉销售率"]
+
+  - strategy: "会员体系"
+    description: "建立会员订阅模式"
+    kpis: ["会员转化率", "会员ARPU", "会员留存率"]
+
+  - strategy: "B2B2C合作"
+    description: "与企业或渠道合作"
+    kpis: ["合作伙伴数", "B2B收入占比"]
+
+# 报告章节建议
+recommended_sections:
+  - section: "1. 市场机会"
+    priority: 1
+    content: ["市场规模", "目标客户", "竞争格局"]
+
+  - section: "2. 商业模式"
+    priority: 1
+    content: ["价值主张", "收入模式", "成本结构"]
+
+  - section: "3. 转化链路"
+    priority: 1
+    content: ["转化路径", "关键指标", "流失点"]
+
+  - section: "4. 单体经济"
+    priority: 1
+    content: ["LTV:CAC", "毛利率", "回收周期"]
+
+  - section: "5. 增长计划"
+    priority: 2
+    content: ["获客策略", "扩张计划", "里程碑"]
+
+  - section: "6. 运营指标"
+    priority: 2
+    content: ["KPI体系", "监测机制", "优化重点"]
+
+  - section: "7. 风险与应对"
+    priority: 3
+    content: ["核心风险", "缓解措施", "应急预案"]

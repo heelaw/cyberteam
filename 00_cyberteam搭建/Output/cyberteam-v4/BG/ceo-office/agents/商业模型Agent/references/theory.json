@@ -1,0 +1,40 @@
+{
+  "version": "1.0",
+  "core_theory": {
+    "name": "商业模式画布",
+    "source": "《商业模式画布》- 奥斯特瓦尔德",
+    "summary": "九宫格画布分析商业模式，帮助理解业务如何创造、传递和获取价值"
+  },
+  "business_types": [
+    {
+      "type": "平台型",
+      "features": ["连接供需", "撮合交易", "抽佣盈利"],
+      "examples": ["淘宝", "滴滴", "美团"]
+    },
+    {
+      "type": "自营型",
+      "features": ["自建供给", "自建渠道", "买卖差价"],
+      "examples": ["京东自营", "品牌官网"]
+    },
+    {
+      "type": "混合型",
+      "features": ["平台+自营", "多元化收入"],
+      "examples": ["天猫", "亚马逊"]
+    }
+  ],
+  "canvas_elements": [
+    {"name": "价值主张", "description": "产品或服务为客户解决什么问题"},
+    {"name": "客户细分", "description": "目标客户群体是谁"},
+    {"name": "渠道通路", "description": "如何触达客户"},
+    {"name": "客户关系", "description": "如何维护客户关系"},
+    {"name": "收入来源", "description": "如何从客户那里获得收入"},
+    {"name": "核心资源", "description": "最重要的资产和能力"},
+    {"name": "关键业务", "description": "必须做的核心业务活动"},
+    {"name": "重要合作", "description": "谁是我们的关键合作伙伴"},
+    {"name": "成本结构", "description": "商业模式的所有成本"}
+  ],
+  "references": [
+    {"name": "商业模式画布", "source": "《商业模式新生态》- 奥斯特瓦尔德"},
+    {"name": "平台战略", "source": "《平台战略》- 陈威如"}
+  ]
+}

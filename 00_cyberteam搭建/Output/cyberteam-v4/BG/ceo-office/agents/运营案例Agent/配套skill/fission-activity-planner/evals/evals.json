@@ -1,0 +1,75 @@
+{
+  "skill_name": "fission-activity-planner",
+  "eval_version": "v1.0",
+  "evaluation_date": "2026-03-19",
+
+  "test_cases": [
+    {
+      "case_id": "eval-1",
+      "case_name": "策划知识付费产品老带新活动",
+      "difficulty": "medium",
+      "scenario": "用户需要为知识付费产品策划老带新裂变活动",
+      "input": {
+        "business_context": "知识付费APP，主要用户为25-35岁职场人群，目前有10万付费用户，希望通过老带新活动获取新用户",
+        "activity_goal": "新增付费用户5000人",
+        "time_constraint": "活动周期2周"
+      },
+      "expected_output": {
+        "活动主题": "符合好主题标准",
+        "裂变机制": "选择合理类型并完整设计",
+        "激励方案": "激励原则完整",
+        "传播节奏": "三阶段清晰",
+        "用户路径": "新老路径清晰",
+        "风险预案": "P0风险有预案"
+      },
+      "evaluation_criteria": [
+        "目标明确性: 目标是否SMART",
+        "机制有效性: 裂变机制是否有吸引力",
+        "路径合理性: 用户路径是否顺畅",
+        "风险完备性: P0风险是否有预案"
+      ],
+      "pass_threshold": {
+        "目标明确性": "3个以上SMART指标",
+        "机制有效性": "有话题性激励",
+        "路径合理性": "不超过5步",
+        "风险完备性": "P0级100%有预案"
+      }
+    },
+    {
+      "case_id": "eval-2",
+      "case_name": "分析拼多多天天领现金活动机制",
+      "difficulty": "simple",
+      "scenario": "用户想了解拼多多天天领现金活动的裂变机制设计",
+      "input": {
+        "user_request": "拆解拼多多天天领现金的裂变机制，我想学习怎么设计红包类裂变活动"
+      },
+      "expected_output": {
+        "裂变类型": "红包型",
+        "机制亮点": "阶梯奖励+损失厌恶",
+        "激励设计": "即时反馈设计",
+        "防薅机制": "识别和防范羊毛党"
+      },
+      "evaluation_criteria": [
+        "裂变类型判断准确",
+        "机制亮点识别完整",
+        "可复用经验提炼"
+      ],
+      "pass_threshold": {
+        "裂变类型": "判断准确",
+        "机制亮点": "3个以上",
+        "可复用经验": "2条以上"
+      }
+    }
+  ],
+
+  "difficulty_distribution": {
+    "simple": 1,
+    "medium": 1,
+    "complex": 0
+  },
+
+  "overall_pass_threshold": 0.8,
+  "version_history": [
+    {"version": "v1.0", "date": "2026-03-19", "note": "初始版本"}
+  ]
+}

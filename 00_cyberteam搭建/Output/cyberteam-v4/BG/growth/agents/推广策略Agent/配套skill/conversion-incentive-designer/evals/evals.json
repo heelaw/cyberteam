@@ -1,0 +1,86 @@
+{
+  "skill_name": "conversion-incentive-designer",
+  "测试案例": [
+    {
+      "id": "eval-1",
+      "难度": "medium",
+      "案例": "某在线理财课程，客单价2999元，需要设计转化诱因",
+      "输入": {
+        "product_info": "在线理财课程，教授基金/股票投资方法，客单价2999元",
+        "decision_cost": "高",
+        "user_persona": {
+          "age_range": "28-40岁",
+          "pain_points": ["不知道如何开始理财", "担心亏损", "缺乏系统知识"]
+        },
+        "conversion_stage": "落地页转化",
+        "competitive_incentives": ["限时优惠", "往期学员收益展示"]
+      },
+      "预期输出": {
+        "selected_incentives": [
+          {
+            "incentive_type": "公开承诺",
+            "description": "学员成果展示",
+            "implementation": "展示往期学员收益截图和评价"
+          },
+          {
+            "incentive_type": "媒体报道",
+            "description": "权威媒体报道",
+            "implementation": "展示被36Kr/虎嗅等媒体报道"
+          },
+          {
+            "incentive_type": "真人现身说法",
+            "description": "学员故事视频",
+            "implementation": "制作1-2位学员的真实转变故事"
+          }
+        ],
+        "scenario_matching": {
+          "scenario_type": "场景4：重决策+重场景",
+          "characteristics": ["客单价高", "用户需要充分了解", "决策周期长"],
+          "recommended_incentives": ["公开承诺", "媒体报道", "真人案例", "效果承诺"],
+          "rejected_incentives": ["纯折扣（破坏定价体系）", "虚假限量"]
+        }
+      }
+    },
+    {
+      "id": "eval-2",
+      "难度": "simple",
+      "案例": "某电商APP新用户下载，需要设计转化诱因",
+      "输入": {
+        "product_info": "电商APP，新用户首单优惠",
+        "decision_cost": "低",
+        "user_persona": {
+          "age_range": "20-35岁",
+          "online_habits": "淘宝/京东重度用户"
+        },
+        "conversion_stage": "信息流广告下载",
+        "competitive_incentives": ["新人专享价", "首单免运费"]
+      },
+      "预期输出": {
+        "selected_incentives": [
+          {
+            "incentive_type": "福利折扣",
+            "description": "新人专属优惠",
+            "implementation": "首单立减20元+免运费"
+          },
+          {
+            "incentive_type": "限量",
+            "description": "限时优惠",
+            "implementation": "今日有效，逾期不候"
+          }
+        ],
+        "scenario_matching": {
+          "scenario_type": "场景1：轻决策+轻场景",
+          "characteristics": ["客单价低", "用户刷信息流时看到", "时间短"],
+          "recommended_incentives": ["福利折扣", "限时优惠", "效果承诺"],
+          "rejected_incentives": ["媒体报道（太重）", "详细案例（太长）"]
+        }
+      }
+    }
+  ],
+  "评分标准": {
+    "场景判断": "是否正确判断了场景类型",
+    "诱因匹配": "诱因是否与场景匹配",
+    "价值感知": "用户是否能清晰感知诱因价值",
+    "可落地性": "诱因是否可执行"
+  }
+}

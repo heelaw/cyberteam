@@ -1,0 +1,237 @@
+{
+  "skill_name": "产品状态评估",
+  "version": "1.0.0",
+  "assess_date": "2026-03-19",
+  "assessor": "系统评估",
+  "quality_dimension": [
+    {
+      "dimension": "完整性",
+      "weight": 20,
+      "description": "评估产品状态评估维度的完整程度",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "五维度（渠道/功能/复购/活跃/趋势）评估完整，无遗漏"
+        },
+        "good": {
+          "score": 4,
+          "description": "五维度评估基本完整，有轻微遗漏"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "部分维度评估缺失，但核心维度完整"
+        },
+        "poor": {
+          "score": 1,
+          "description": "维度严重缺失，评估不完整"
+        }
+      },
+      "criteria": [
+        "渠道质量分析是否完整",
+        "功能使用分析是否完整",
+        "复购率分析是否完整",
+        "活跃度分析是否完整",
+        "数据趋势分析是否完整"
+      ]
+    },
+    {
+      "dimension": "实用性",
+      "weight": 20,
+      "description": "评估结论和建议对实际业务的指导价值",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "建议具体可执行，有明确优先级和预期效果"
+        },
+        "good": {
+          "score": 4,
+          "description": "建议较具体，有优先级"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "建议较模糊，但方向正确"
+        },
+        "poor": {
+          "score": 1,
+          "description": "建议空洞笼统，无法落地"
+        }
+      },
+      "criteria": [
+        "问题提炼是否准确",
+        "建议是否有明确优先级",
+        "建议是否有可量化的预期效果"
+      ]
+    },
+    {
+      "dimension": "专业性",
+      "weight": 20,
+      "description": "评估数据分析的专业程度和方法论正确性",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "综合评级计算准确，对标分析专业，结论有数据支撑"
+        },
+        "good": {
+          "score": 4,
+          "description": "评级计算基本准确，有对标分析"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "评级计算有小误差，对标分析较简单"
+        },
+        "poor": {
+          "score": 1,
+          "description": "评级计算错误，缺乏对标分析"
+        }
+      },
+      "criteria": [
+        "五维度权重设置是否合理",
+        "综合评级计算是否准确",
+        "行业对标是否合理"
+      ]
+    },
+    {
+      "dimension": "严谨性",
+      "weight": 20,
+      "description": "评估分析过程的逻辑严密性和客观性",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "分析逻辑严密，客观公正，现状与趋势结合紧密"
+        },
+        "good": {
+          "score": 4,
+          "description": "分析逻辑较严密，基本客观"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "分析逻辑有漏洞，但整体可接受"
+        },
+        "poor": {
+          "score": 1,
+          "description": "分析逻辑混乱，存在明显偏见"
+        }
+      },
+      "criteria": [
+        "是否既看现状又看趋势",
+        "是否客观呈现正负两面发现",
+        "评级是否基于加权计算"
+      ]
+    },
+    {
+      "dimension": "独特个性",
+      "weight": 10,
+      "description": "评估是否体现专业见解和独特视角",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "有独特见解，能发现隐藏的产品机会"
+        },
+        "good": {
+          "score": 4,
+          "description": "有部分独到见解"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "见解较常规但合理"
+        },
+        "poor": {
+          "score": 1,
+          "description": "缺乏独特见解"
+        }
+      },
+      "criteria": [
+        "是否能发现产品中的隐藏机会",
+        "是否有独特的分析视角"
+      ]
+    },
+    {
+      "dimension": "规范性",
+      "weight": 10,
+      "description": "评估输出格式和Critical Rules的规范性",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "格式规范，Critical Rules完整，Workflow Steps标准"
+        },
+        "good": {
+          "score": 4,
+          "description": "格式规范，Critical Rules较完整"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "格式基本规范，有部分缺失"
+        },
+        "poor": {
+          "score": 1,
+          "description": "格式混乱，Critical Rules严重缺失"
+        }
+      },
+      "criteria": [
+        "输出格式是否符合标准模板",
+        "Critical Rules是否≥5条必须遵守+≥5条禁止行为",
+        "Workflow Steps是否包含输入/处理/输出/成功标准"
+      ]
+    }
+  ],
+  "quality_score": {
+    "total_score": 100,
+    "pass_threshold": 85,
+    "excellent": [90, 100],
+    "good": [85, 89],
+    "acceptable": [70, 84],
+    "poor": [0, 69]
+  },
+  "critical_rules_check": {
+    "description": "Critical Rules检查清单",
+    "rules": [
+      {
+        "rule": "评估必须全面系统",
+        "check_item": "五维度是否都有完整分析",
+        "pass_condition": "五维度缺一不可"
+      },
+      {
+        "rule": "现状与趋势必须结合",
+        "check_item": "是否既看现状又看趋势",
+        "pass_condition": "趋势判断有数据依据"
+      },
+      {
+        "rule": "对标必须合理",
+        "check_item": "是否有自身对比和行业对标",
+        "pass_condition": "有参照系才有意义"
+      },
+      {
+        "rule": "结论必须数据化",
+        "check_item": "是否用数据说话，给出具体分数",
+        "pass_condition": "避免主观模糊评价"
+      },
+      {
+        "rule": "建议必须有优先级",
+        "check_item": "是否区分P0/P1/P2",
+        "pass_condition": "资源有限要分主次"
+      }
+    ]
+  },
+  "forbidden_check": {
+    "description": "禁止行为检查",
+    "items": [
+      "禁止只看现状不看趋势",
+      "禁止只看正向不看问题",
+      "禁止脱离行业对标",
+      "禁止模糊的主观评价",
+      "禁止眉毛胡子一把抓",
+      "禁止建议不落地"
+    ]
+  },
+  "output_standard": {
+    "must_include": [
+      "一、渠道质量评估",
+      "二、功能使用评估",
+      "三、复购率评估",
+      "四、活跃度评估",
+      "五、数据趋势评估",
+      "六、综合评级与建议"
+    ],
+    "format_requirement": "五维度评估必须完整，综合评级需加权计算"
+  }
+}

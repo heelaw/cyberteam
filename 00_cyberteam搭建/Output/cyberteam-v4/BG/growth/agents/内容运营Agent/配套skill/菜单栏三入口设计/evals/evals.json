@@ -1,0 +1,132 @@
+{
+  "skill_name": "菜单栏三入口设计",
+  "evals": [
+    {
+      "id": "eval-001",
+      "difficulty": "simple",
+      "scenario": "职场成长号菜单栏设计",
+      "input": {
+        "账号定位": "帮助职场人提升核心竞争力",
+        "目标用户": "25-35岁职场白领",
+        "核心功能": "职场技能课程/职业规划咨询/资料下载",
+        "转化目标": "课程购买/咨询转化"
+      },
+      "expected_output": {
+        "step1_function": {
+          "menu1": {
+            "name": "学习中心",
+            "submenus": ["新手入门", "精品课程", "学习路径"]
+          },
+          "menu2": {
+            "name": "职场干货",
+            "submenus": ["技能提升", "职业规划", "晋升指南"]
+          },
+          "menu3": {
+            "name": "领取福利",
+            "submenus": ["免费资料", "加入社群", "咨询客服"]
+          }
+        },
+        "step2_content": {
+          "categories": ["职场技能", "职业规划", "自我提升", "工具模板"],
+          "featured": ["本周热门:时间管理7课", "限时免费:简历模板套装"]
+        },
+        "step3_conversion": {
+          "low_barrier": "免费资料领取",
+          "medium_barrier": "精品课程学习",
+          "high_barrier": "职业规划咨询",
+          "contact": "菜单栏「咨询客服」或微信：xxx"
+        }
+      },
+      "evaluation_criteria": [
+        "三菜单功能定位清晰（学习/内容/转化）",
+        "命名简洁有力，不是模糊词汇",
+        "转化路径覆盖低/中/高门槛",
+        "有明确联系方式"
+      ]
+    },
+    {
+      "id": "eval-002",
+      "difficulty": "medium",
+      "scenario": "知识付费号菜单栏优化",
+      "input": {
+        "账号定位": "AI+职场技能在线教育",
+        "目标用户": "想提升AI应用能力的职场人",
+        "核心功能": "AI工具教程/职场效率课/会员社群",
+        "转化目标": "课程购买/会员转化"
+      },
+      "expected_output": {
+        "step1_function": {
+          "menu1": {
+            "name": "AI工具箱",
+            "submenus": ["AI工具教程", "提示词库", "效率模板"]
+          },
+          "menu2": {
+            "name": "课程中心",
+            "submenus": ["全部课程", "免费试听", "新课上线"]
+          },
+          "menu3": {
+            "name": "加入会员",
+            "submenus": ["会员权益", "立即加入", "联系客服"]
+          }
+        },
+        "step2_content": {
+          "categories": ["AI写作", "AI绘图", "AI数据分析", "AI办公"],
+          "featured": ["新课:ChatGPT职场应用10讲", "热门:AI绘图变现指南"]
+        },
+        "step3_conversion": {
+          "low_barrier": "免费试听课",
+          "medium_barrier": "单课购买/会员订阅",
+          "high_barrier": "企业培训/定制服务",
+          "contact": "菜单栏「联系客服」或 business@xxx.com"
+        }
+      },
+      "evaluation_criteria": [
+        "知识付费场景强调课程中心和会员转化",
+        "有免费试听作为低门槛转化",
+        "菜单命名体现AI特色和专业感"
+      ]
+    },
+    {
+      "id": "eval-003",
+      "difficulty": "medium",
+      "scenario": "电商带货号菜单栏设计",
+      "input": {
+        "账号定位": "推荐高性价比生活用品",
+        "目标用户": "25-40岁家庭采购者",
+        "核心功能": "产品测评/优惠信息/好物推荐",
+        "转化目标": "小程序商城下单"
+      },
+      "expected_output": {
+        "step1_function": {
+          "menu1": {
+            "name": "好物种草",
+            "submenus": ["最新测评", "品类导航", "回购榜单"]
+          },
+          "menu2": {
+            "name": "商城首页",
+            "submenus": ["全部好物", "今日特价", "新品上架"]
+          },
+          "menu3": {
+            "name": "领优惠",
+            "submenus": ["加入福利群", "领优惠券", "联系客服"]
+          }
+        },
+        "step2_content": {
+          "categories": ["家居好物", "美妆护肤", "母婴用品", "数码科技"],
+          "featured": ["本周热卖TOP10", "新人专享88折券"]"
+        },
+        "step3_conversion": {
+          "low_barrier": "加入福利群/领优惠券",
+          "medium_barrier": "好物推荐购买",
+          "high_barrier": "商务合作/品牌入驻",
+          "contact": "菜单栏「联系客服」或 business@xxx.com"
+        }
+      },
+      "evaluation_criteria": [
+        "电商场景强调商城和优惠入口",
+        "有即时可用的优惠作为转化诱饵",
+        "商城入口放在显眼位置"
+      ]
+    }
+  ]
+}

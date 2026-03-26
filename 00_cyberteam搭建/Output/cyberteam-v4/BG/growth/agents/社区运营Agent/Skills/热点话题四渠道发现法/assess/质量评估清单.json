@@ -1,0 +1,150 @@
+{
+  "skill_name": "热点话题四渠道发现法",
+  "version": "1.0",
+  "evaluation_type": "skill_quality",
+  "quality_dimensions": [
+    {
+      "dimension": "完整性",
+      "weight": "20%",
+      "description": "四渠道监测、筛选标准、执行方案、复盘机制是否完整",
+      "score_levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": ["包含四渠道完整监测（外部热点/内部热点/历史爆款/用户聚集地）", "有筛选评分标准", "有执行策划方案", "有复盘优化机制"]
+        },
+        "good": {
+          "score": 4,
+          "criteria": ["要素较齐全", "主要环节覆盖"]
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": ["部分完整", "关键环节缺失"]
+        },
+        "poor": {
+          "score": 1,
+          "criteria": ["不完整", "无法形成方法论"]
+        }
+      }
+    },
+    {
+      "dimension": "实用性",
+      "weight": "20%",
+      "description": "方案是否可直接落地执行，有无具体执行清单和监测指标",
+      "score_levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": ["可直接落地执行", "有具体执行清单", "有话题筛选评分表", "有效果监测指标"]
+        },
+        "good": {
+          "score": 4,
+          "criteria": ["方案较完整，可执行性较好"]
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": ["基本可用，但缺乏细节"]
+        },
+        "poor": {
+          "score": 1,
+          "criteria": ["理论多而落地难"]
+        }
+      }
+    },
+    {
+      "dimension": "专业性",
+      "weight": "20%",
+      "description": "话题运营专业知识深度、舆情监测专业度、内容策划专业度",
+      "score_levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": ["话题筛选标准专业", "舆情风险预判能力强", "对内容策划有独到见解"]
+        },
+        "good": {
+          "score": 4,
+          "criteria": ["专业性较好"]
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": ["存在少量专业问题"]
+        },
+        "poor": {
+          "score": 1,
+          "criteria": ["专业错误多"]
+        }
+      }
+    },
+    {
+      "dimension": "严谨性",
+      "weight": "20%",
+      "description": "Critical Rules完整度、禁止行为明确度、错误处理覆盖度",
+      "score_levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": ["必须遵守行为≥5条", "禁止行为≥5条", "错误处理覆盖常见问题", "触发场景描述具体"]
+        },
+        "good": {
+          "score": 4,
+          "criteria": ["Critical Rules完整"]
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": ["Critical Rules不足5条", "或错误处理不完整"]
+        },
+        "poor": {
+          "score": 1,
+          "criteria": ["Critical Rules缺失或不足3条"]
+        }
+      }
+    },
+    {
+      "dimension": "独特个性",
+      "weight": "10%",
+      "description": "是否体现话题发现专家的独特视角和专业风格",
+      "score_levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": ["有鲜明的专家人设（如全网雷达、关联思维大师、风险预判师）", "有独特方法论见解", "有专业风格体现"]
+        },
+        "good": {
+          "score": 4,
+          "criteria": ["有一定个性体现"]
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": ["个性不够鲜明"]
+        },
+        "poor": {
+          "score": 1,
+          "criteria": ["无独特个性"]
+        }
+      }
+    },
+    {
+      "dimension": "规范性",
+      "weight": "10%",
+      "description": "格式符合模板规范、字段完整、JSON格式正确",
+      "score_levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": ["完全符合SKILL.md模板规范", "输入输出JSON Schema完整", "格式统一"]
+        },
+        "good": {
+          "score": 4,
+          "criteria": ["基本符合规范"]
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": ["部分格式不规范"]
+        },
+        "poor": {
+          "score": 1,
+          "criteria": ["格式混乱", "JSON错误"]
+        }
+      }
+    }
+  ],
+  "pass_threshold": {
+    "total_score": "≥85分",
+    "calculation": "每维度满分5分，总分30分，85%为25.5分，取整≥26分",
+    "各维度最低要求": "每个维度至少3分"
+  }
+}

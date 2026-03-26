@@ -1,0 +1,174 @@
+{
+  "skill_name": "公众号起名避坑指南",
+  "version": "1.0",
+  "evaluation_type": "skill_quality",
+  "quality_dimensions": [
+    {
+      "dimension": "完整性",
+      "weight": "20%",
+      "score_levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": [
+            "避坑规则完整（7大常见错误全覆盖）",
+            "错误类型覆盖全面（生僻字、过长、中英混搭、抽象模糊等）",
+            "正面引导清晰（好名称特征）",
+            "工作流程完整"
+          ]
+        },
+        "good": {
+          "score": 4,
+          "criteria": ["规则较完整"]
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": ["规则基本覆盖"]
+        },
+        "poor": {
+          "score": 1,
+          "criteria": ["规则不完整"]
+        }
+      }
+    },
+    {
+      "dimension": "实用性",
+      "weight": "20%",
+      "score_levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": [
+            "可直接落地执行",
+            "有完整流程（5步工作流）",
+            "产出实用（候选名称+推荐+理由）",
+            "有可注册性检查"
+          ]
+        },
+        "good": {
+          "score": 4,
+          "criteria": ["较实用"]
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": ["基本可用"]
+        },
+        "poor": {
+          "score": 1,
+          "criteria": ["难以落地"]
+        }
+      }
+    },
+    {
+      "dimension": "专业性",
+      "weight": "20%",
+      "score_levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": [
+            "规则准确无误",
+            "示例正确典型",
+            "竞品分析方法专业",
+            "名称评分标准科学"
+          ]
+        },
+        "good": {
+          "score": 4,
+          "criteria": ["准确性较好"]
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": ["存在少量问题"]
+        },
+        "poor": {
+          "score": 1,
+          "criteria": ["错误多"]
+        }
+      }
+    },
+    {
+      "dimension": "严谨性",
+      "weight": "20%",
+      "score_levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": [
+            "Critical Rules完整（≥5条）",
+            "禁止行为明确（≥5条）",
+            "错误处理机制完善",
+            "触发场景描述具体"
+          ]
+        },
+        "good": {
+          "score": 4,
+          "criteria": ["Critical Rules完整"]
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": ["Critical Rules不足5条"]
+        },
+        "poor": {
+          "score": 1,
+          "criteria": ["Critical Rules缺失或不足3条"]
+        }
+      }
+    },
+    {
+      "dimension": "独特个性",
+      "weight": "10%",
+      "score_levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": [
+            "体现「起名避坑师」独特角色",
+            "先排雷再起名",
+            "用减法思维",
+            "站在用户视角",
+            "提供Plan B"
+          ]
+        },
+        "good": {
+          "score": 4,
+          "criteria": ["独特个性较鲜明"]
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": ["有一定独特性但不明显"]
+        },
+        "poor": {
+          "score": 1,
+          "criteria": ["缺乏独特个性"]
+        }
+      }
+    },
+    {
+      "dimension": "规范性",
+      "weight": "10%",
+      "score_levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": [
+            "完全符合模板规范",
+            "输入字段完整",
+            "输出格式统一",
+            "JSON结构规范"
+          ]
+        },
+        "good": {
+          "score": 4,
+          "criteria": ["基本符合规范"]
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": ["部分格式不规范"]
+        },
+        "poor": {
+          "score": 1,
+          "criteria": ["格式混乱"]
+        }
+      }
+    }
+  ],
+  "pass_threshold": {
+    "total_score": "≥85分",
+    "各维度最低要求": "每个维度至少3分"
+  }
+}
