@@ -1,14 +1,25 @@
-# 八种基础活动创意生成器
-
-## 基本信息
-
-- **skill_name**: 八种基础活动创意生成器
-- **skill_role**: 活动创意专家
-- **version**: 1.0.0
-- **created_date**: 2026-03-19
-- **trigger_keywords**: ["活动创意", "创意生成", "活动形式", "怎么做一个活动", "活动玩法"]
-
 ---
+name: eight-creativity-generator
+description: 生成具有差异化竞争力的活动创意方案，掌握八种基础活动创意类型，能够根据不同目标、受众和市场环境生成适配的活动创意。适用于活动创意生成、创意方向选择、活动形式决策等场景。
+version: 1.0.0
+category: 活动运营
+tags: [活动创意, 创意生成, 活动形式, 玩法设计]
+triggers:
+  - 活动创意
+  - 创意生成
+  - 活动形式
+  - 怎么做一个活动
+  - 活动玩法
+success_metrics:
+  - metric: 创意通过率
+    target: "≥80%"
+    measurement: 自检清单通过率
+  - metric: 创意差异度
+    target: "≥85%"
+    measurement: 与竞品差异评审
+---
+
+# 八种基础活动创意生成器
 
 ## Skill角色定义
 

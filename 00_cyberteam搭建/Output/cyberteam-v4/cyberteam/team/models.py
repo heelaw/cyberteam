@@ -13,8 +13,19 @@ from pydantic import BaseModel, Field
 
 
 def get_data_dir() -> Path:
-    """Return the data directory, respecting CLAWTEAM_DATA_DIR env var and config."""
-    custom = os.environ.get("CLAWTEAM_DATA_DIR")
+    """Return the data directory, respecting CYBERTEAM_DATA_DIR / CLAWTEAM_DATA_DIR env var and config.
+
+    Priority:
+    1. CYBERTEAM_DATA_DIR environment variable
+    2. CLAWTEAM_DATA_DIR environment variable (backward compatibility)
+    3. config.json data_dir field
+    4. ~/.cyberteam/ default
+    """
+    # Check CYBERTEAM_DATA_DIR first
+    custom = os.environ.get("CYBERTEAM_DATA_DIR")
+    if not custom:
+        # Fall back to CLAWTEAM_DATA_DIR for backward compatibility
+        custom = os.environ.get("CLAWTEAM_DATA_DIR")
     if not custom:
         from cyberteam.config import load_config
         custom = load_config().data_dir or None

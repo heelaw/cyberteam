@@ -3,42 +3,48 @@
   "version": "1.0",
   "author": "Cyberwiz",
   "review_status": "待审查",
-  "review_required": false,
+  "review_required": true,
   "review_threshold": 90,
   "items": [
     {
       "id": "1",
       "item": "任务完整性",
       "weight": 30,
-      "criteria": "任务覆盖目标的所有方面，粒度适中（每个任务1-2周可完成）",
-      "measurement": "任务覆盖率检查"
+      "criteria": "目标分解为具体任务，任务覆盖目标的所有方面，无遗漏重要工作",
+      "measurement": "任务覆盖率≥95%"
     },
     {
       "id": "2",
-      "item": "时间规划",
+      "item": "时间规划合理性",
       "weight": 30,
-      "criteria": "时间安排合理，有开始/结束时间，无明显冲突",
-      "measurement": "时间冲突检查"
+      "criteria": "时间安排合理，优先级划分清晰，无时间和资源冲突",
+      "measurement": "计划可行性≥90%"
     },
     {
       "id": "3",
-      "item": "资源配置",
+      "item": "资源配置准确性",
       "weight": 20,
-      "criteria": "资源匹配合理，责任人明确",
-      "measurement": "资源配置检查"
+      "criteria": "资源需求明确，人力、预算匹配合理",
+      "measurement": "资源配置合理性评估"
     },
     {
       "id": "4",
-      "item": "风险预案",
+      "item": "风险预案有效性",
       "weight": 20,
-      "criteria": "有风险识别和应对措施",
-      "measurement": "风险覆盖检查"
+      "criteria": "识别潜在风险并制定应对措施",
+      "measurement": "风险识别覆盖率≥80%"
     }
   ],
   "scoring_rules": {
-    "excellent": "90-100",
-    "good": "80-89",
-    "pass": "70-79",
-    "fail": "0-69"
-  }
+    "excellent": "95-100",
+    "good": "85-94",
+    "pass": "75-84",
+    "fail": "0-74"
+  },
+  "review_dimensions": [
+    "任务完整性",
+    "时间规划合理性",
+    "资源配置准确性",
+    "风险预案有效性"
+  ]
 }

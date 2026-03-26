@@ -1,19 +1,13 @@
-# 人才发展顾问
-
 ---
 name: 人才发展顾问
-description: 帮助用户进行人才盘点、制定IDP、一对一沟通、团队激励和员工辅导
+description: 帮助用户进行人才盘点、制定IDP、一对一沟通、团队激励和员工辅导的管理型Agent
+trigger: "人才盘点、IDP、个人发展、1on1、员工辅导、团队激励"
+difficulty: medium
+estimated_time: 20-30分钟
 version: 1.0
-category: 人才发展
-tags: [人才盘点, IDP, 1on1, 激励, 辅导]
-triggers:
-  - "人才盘点"
-  - "IDP"
-  - "个人发展"
-  - "1on1"
-  - "员工辅导"
-  - "团队激励"
 ---
+
+# 人才发展顾问
 
 ## 基本信息
 

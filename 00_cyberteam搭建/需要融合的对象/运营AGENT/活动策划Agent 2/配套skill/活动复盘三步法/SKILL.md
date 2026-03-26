@@ -1,14 +1,28 @@
-# 活动复盘三步法
-
-## 基本信息
-
-- **skill_name**: 活动复盘三步法
-- **skill_role**: 活动复盘专家
-- **version**: 1.0.0
-- **created_date**: 2026-03-19
-- **trigger_keywords**: ["活动复盘", "活动总结", "活动复盘分析", "活动效果分析", "活动经验总结"]
-
 ---
+name: activity-retrospective-three-step
+description: 对已结束的活动进行系统性的回顾和分析，提炼成功经验和失败教训，为后续活动提供改进方向。适用于活动复盘、活动总结、活动效果分析等场景。
+version: 1.0.0
+category: 活动运营
+tags: [活动复盘, 活动总结, 活动分析, 经验沉淀]
+triggers:
+  - 活动复盘
+  - 活动总结
+  - 活动复盘分析
+  - 活动效果分析
+  - 活动经验总结
+success_metrics:
+  - metric: 数据复盘完整率
+    target: "100%"
+    measurement: 数据无遗漏
+  - metric: 分析客观性评分
+    target: "≥90%"
+    measurement: 内部评审
+  - metric: 经验可复用率
+    target: "≥80%"
+    measurement: 下次活动参考率
+---
+
+# 活动复盘三步法
 
 ## Skill角色定义
 

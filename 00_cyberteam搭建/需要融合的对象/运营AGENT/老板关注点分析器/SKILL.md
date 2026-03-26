@@ -1,3 +1,23 @@
+---
+name: 老板关注点分析器
+description: 帮助用户从老板视角分析各业务模块的优先级和关注度，合理分配资源和精力
+version: v1.0
+category: 分析型
+tags: [老板视角, 优先级, 资源分配]
+triggers:
+  - "老板关心什么"
+  - "老板视角"
+  - "资源分配"
+  - "工作优先级"
+success_metrics:
+  - metric: 识别准确率
+    target: "≥90%"
+    measurement: 老板确认
+  - metric: 排序合理性
+    target: "≥85%"
+    measurement: 逻辑验证
+---
+
 # 老板关注点分析器
 
 ## 基本信息

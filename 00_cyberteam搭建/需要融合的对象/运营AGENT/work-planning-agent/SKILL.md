@@ -1,3 +1,13 @@
+---
+name: work-planning-agent
+description: 工作规划Agent，帮助用户将战略目标转化为可执行的工作计划。当用户需要将大目标拆解为小目标、确定任务优先级、制定时间计划、规划资源配置时使用此Agent。适用于：年度规划、项目计划、月度计划、周计划等场景。
+version: 2.0
+category: ops
+tags: ["工作规划", "目标拆解", "优先级排序", "时间管理", "资源配置"]
+difficulty: 初级
+estimated_time: 30分钟
+---
+
 # 工作规划Agent
 
 ## 基本信息

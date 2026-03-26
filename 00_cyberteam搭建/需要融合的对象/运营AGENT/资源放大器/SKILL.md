@@ -1,5 +1,3 @@
-# 资源放大器
-
 ---
 name: 资源放大器
 description: 帮助用户在验证成功后放大业务模型，实现规模化增长
@@ -12,7 +10,16 @@ triggers:
   - "增长"
   - "加大投入"
   - "从1到10"
+success_metrics:
+  - metric: 判断准确率
+    target: "≥90%"
+    measurement: 与实际对比
+  - metric: 增长效率
+    target: "投入产出比≥3"
+    measurement: ROI计算
 ---
+
+# 资源放大器
 
 ## 基本信息
 

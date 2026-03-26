@@ -1,38 +1,41 @@
-"""CyberTeam Skills 模块。
+"""CYBERTEAM Skills - CyberTeam Skills System.
 
-整合所有 Skill，包括写作、内容审核、增长等各种专业技能。
+提供增长相关的 Skills，包括：
+- 用户增长策略
+- 内容运营策略
+- 活动运营策略
+- 营销增长策略
+- 品牌营销策略
+- 效果营销策略
+- 团队管理策略
 """
 
-from cyberteam.skills.base import (
-    BaseSkill,
-    WritingSkill,
-    ContentReviewSkill,
-    SkillMetadata
-)
-from cyberteam.skills.registry import SkillRegistry, get_registry
-from cyberteam.skills.loader import (
-    SkillLoader,
-    get_loader,
-    list_skills,
-    get_skill,
-    invoke_skill
+from cyberteam.skills.growth import (
+    ReportingFrameworkSkill,
+    TimeManagementSkill,
+    ProgressTrackingSkill,
+    RetrospectiveSkill,
+    UserGrowthSkill,
+    ContentOperationsSkill,
+    ActivityOperationsSkill,
+    GrowthMarketingSkill,
+    BrandMarketingSkill,
+    PerformanceMarketingSkill,
+    TeamManagementSkill,
+    StrategyPlanningSkill,
 )
 
 __all__ = [
-    # 基类
-    "BaseSkill",
-    "WritingSkill",
-    "ContentReviewSkill",
-    "SkillMetadata",
-    # 注册表和加载器
-    "SkillRegistry",
-    "get_registry",
-    "SkillLoader",
-    "get_loader",
-    "list_skills",
-    "get_skill",
-    "invoke_skill",
+    "ReportingFrameworkSkill",
+    "TimeManagementSkill",
+    "ProgressTrackingSkill",
+    "RetrospectiveSkill",
+    "UserGrowthSkill",
+    "ContentOperationsSkill",
+    "ActivityOperationsSkill",
+    "GrowthMarketingSkill",
+    "BrandMarketingSkill",
+    "PerformanceMarketingSkill",
+    "TeamManagementSkill",
+    "StrategyPlanningSkill",
 ]
-
-# 版本信息
-__version__ = "4.0.0"

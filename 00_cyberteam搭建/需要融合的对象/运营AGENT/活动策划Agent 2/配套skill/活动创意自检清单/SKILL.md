@@ -1,14 +1,25 @@
-# 活动创意自检清单
-
-## 基本信息
-
-- **skill_name**: 活动创意自检清单
-- **skill_role**: 活动创意审核专家
-- **version**: 1.0.0
-- **created_date**: 2026-03-19
-- **trigger_keywords**: ["创意审核", "活动评估", "创意筛选", "活动检查", "方案审核"]
-
 ---
+name: creativity-audit-checklist
+description: 对活动创意进行全方位审核，确保每个活动创意都能达到上线标准，通过系统化的自检清单帮助团队发现创意中的问题，提升活动成功率。适用于创意审核、活动评估、方案审核等场景。
+version: 1.0.0
+category: 活动运营
+tags: [创意审核, 活动评估, 创意筛选, 方案审核]
+triggers:
+  - 创意审核
+  - 活动评估
+  - 创意筛选
+  - 活动检查
+  - 方案审核
+success_metrics:
+  - metric: 问题发现率
+    target: "≥95%"
+    measurement: 自检与实际问题的覆盖率
+  - metric: 方案通过率
+    target: "≥75%"
+    measurement: 自检后一次通过率
+---
+
+# 活动创意自检清单
 
 ## Skill角色定义
 

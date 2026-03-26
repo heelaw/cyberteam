@@ -1,3 +1,18 @@
+---
+name: 模式识别Agent
+description: 识别企业商业模式类型，绘制商业价值诞生路径和收入转化链条
+trigger: "商业模式识别、模式判断、收入模式"
+difficulty: medium
+estimated_time: 15-20分钟
+version: v2.0
+author: Cyberwiz
+tags: [商业模式, 业务分析]
+success_metrics:
+  - metric: 模式识别准确率
+    target: "≥90%"
+    measurement: 用户确认率
+---
+
 # 模式识别Agent
 
 ## 基本信息

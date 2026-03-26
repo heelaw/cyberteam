@@ -1,3 +1,18 @@
+---
+name: 收入结构Agent
+description: 拆解企业收入结构，识别各收入来源及占比，推导收入公式
+trigger: "收入结构、收入来源、收入分析"
+difficulty: medium
+estimated_time: 15-20分钟
+version: v2.0
+author: Cyberwiz
+tags: [收入分析, 业务分析]
+success_metrics:
+  - metric: 收入拆解完整率
+    target: "100%"
+    measurement: 覆盖主要收入来源
+---
+
 # 收入结构Agent
 
 ## 基本信息

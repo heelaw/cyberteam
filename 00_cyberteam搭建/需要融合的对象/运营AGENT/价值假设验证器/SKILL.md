@@ -1,18 +1,13 @@
-# 价值假设验证器
-
 ---
 name: 价值假设验证器
-description: 帮助用户验证业务假设，降低探索风险
+description: 帮助用户验证业务假设，降低探索风险的验证型Agent
+trigger: "验证假设、测试方案、MVP、假设成不成立、验证结果"
+difficulty: medium
+estimated_time: 15-25分钟
 version: 1.0
-category: 假设验证
-tags: [假设验证, MVP, 测试]
-triggers:
-  - "验证假设"
-  - "测试方案"
-  - "MVP"
-  - "假设成不成立"
-  - "验证结果"
 ---
+
+# 价值假设验证器
 
 ## 基本信息
 

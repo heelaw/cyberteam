@@ -1,3 +1,18 @@
+---
+name: content-topic-selector
+description: 策划内容选题，找到能吸引用户的8个常见选题方向
+trigger: "选题策划、内容选题、选题方向、热点选题、选题规划"
+difficulty: medium
+estimated_time: 15-20分钟
+version: v1.0
+author: Cyberwiz
+tags: [内容运营, 选题策划]
+success_metrics:
+  - metric: 选题命中率
+    target: "≥80%"
+    measurement: 内容表现反馈
+---
+
 # content-topic-selector
 
 ## 简介

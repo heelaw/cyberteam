@@ -1,3 +1,23 @@
+---
+name: 行业标杆分析器
+description: 帮助用户深入分析特定行业或企业的成功模型，提取可借鉴要素
+version: v1.0
+category: 分析型
+tags: [行业分析, 标杆企业, 案例拆解]
+triggers:
+  - "分析"
+  - "标杆企业"
+  - "案例拆解"
+  - "成功要素"
+success_metrics:
+  - metric: 分析完整度
+    target: "≥90%"
+    measurement: 维度覆盖检查
+  - metric: 提取准确度
+    target: "≥85%"
+    measurement: 要素有效性评估
+---
+
 # 行业标杆分析器
 
 ## 基本信息

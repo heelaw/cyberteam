@@ -17,4 +17,29 @@ def get_backend(name: str = "tmux") -> SpawnBackend:
         raise ValueError(f"Unknown spawn backend: {name}. Available: subprocess, tmux")
 
 
-__all__ = ["SpawnBackend", "get_backend"]
+# Spawn registry functions and classes
+from cyberteam.spawn.registry import (
+    register_agent,
+    get_registry,
+    is_agent_alive,
+    list_dead_agents,
+    stop_agent,
+    check_all_alive,
+    SpawnRegistryManager,
+)
+
+
+__all__ = [
+    # Base
+    "SpawnBackend",
+    "get_backend",
+    # Registry functions
+    "register_agent",
+    "get_registry",
+    "is_agent_alive",
+    "list_dead_agents",
+    "stop_agent",
+    "check_all_alive",
+    # Registry classes
+    "SpawnRegistryManager",
+]

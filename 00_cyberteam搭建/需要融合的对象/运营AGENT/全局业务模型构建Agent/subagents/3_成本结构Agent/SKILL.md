@@ -1,3 +1,18 @@
+---
+name: 成本结构Agent
+description: 分析企业成本结构，区分固定成本和变动成本，计算各成本项占比
+trigger: "成本结构、成本分析、费用分析"
+difficulty: medium
+estimated_time: 15-20分钟
+version: v2.0
+author: Cyberwiz
+tags: [成本分析, 业务分析]
+success_metrics:
+  - metric: 成本拆解完整率
+    target: "100%"
+    measurement: 覆盖主要成本项
+---
+
 # 成本结构Agent
 
 ## 基本信息

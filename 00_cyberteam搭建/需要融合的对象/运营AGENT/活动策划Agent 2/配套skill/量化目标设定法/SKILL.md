@@ -1,14 +1,25 @@
-# 量化目标设定法
-
-## 基本信息
-
-- **skill_name**: 量化目标设定法
-- **skill_role**: 目标设定专家
-- **version**: 1.0.0
-- **created_date**: 2026-03-19
-- **trigger_keywords**: ["量化目标", "KPI设定", "目标拆解", "活动指标", "目标设定"]
-
 ---
+name: quantified-target-setting
+description: 帮助企业将模糊的业务目标转化为可量化、可追踪、可达成的工作目标，通过SMART原则和专业的KPI设定方法论，确保每个活动目标都清晰明确。适用于量化目标、KPI设定、目标拆解等场景。
+version: 1.0.0
+category: 活动运营
+tags: [量化目标, KPI设定, 目标拆解, 活动指标]
+triggers:
+  - 量化目标
+  - KPI设定
+  - 目标拆解
+  - 活动指标
+  - 目标设定
+success_metrics:
+  - metric: SMART目标符合率
+    target: "≥90%"
+    measurement: 目标审核通过率
+  - metric: KPI量化率
+    target: "100%"
+    measurement: 所有目标都有量化指标
+---
+
+# 量化目标设定法
 
 ## Skill角色定义
 

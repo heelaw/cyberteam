@@ -20,10 +20,11 @@ from enum import Enum
 from pathlib import Path
 from typing import Dict, List, Optional, Callable, Any
 
-from spawn import TmuxBackend, SpawnRegistryManager, check_all_alive, AgentInfo
-from spawn.registry import is_agent_alive
-from workspace import WorkspaceManager, WorkspaceInfo
-from team import TaskStore, MailboxManager, TaskStatus, TaskItem, TeamMessage, MessageType
+from cyberteam.spawn import get_backend, SpawnRegistryManager, check_all_alive
+from cyberteam.spawn.registry import is_agent_alive
+from cyberteam.spawn.tmux_backend import TmuxBackend
+from cyberteam.workspace import WorkspaceManager, WorkspaceInfo
+from cyberteam.team import TaskStore, MailboxManager, TaskStatus, TaskItem, TeamMessage, MessageType
 
 
 class SwarmStatus(Enum):
@@ -111,10 +112,11 @@ Remember: You are part of a swarm. Coordinate with other agents via messages.
         self.team_name = team_name
         self.goal = goal
         self.repo_root = repo_root or Path.cwd()
+        self.spawn_backend_name = spawn_backend
 
-        # 核心组件
-        self.tmux = TmuxBackend(team_name)
-        self.workspace_manager = WorkspaceManager(team_name, repo_root=self.repo_root)
+        # 核心组件 - 使用正确的初始化方式
+        self.tmux = get_backend(spawn_backend)  # 使用工厂函数获取后端
+        self.workspace_manager = WorkspaceManager.try_create(self.repo_root)  # 使用 try_create 工厂方法
         self.task_store = TaskStore(team_name)
         self.mailbox = MailboxManager(team_name)
         self.registry = SpawnRegistryManager(team_name)
@@ -265,7 +267,7 @@ Remember: You are part of a swarm. Coordinate with other agents via messages.
             from_agent="leader",
             to=agent_name,
             content=f"New task assigned: {task}",
-            msg_type=MessageType.MESSAGE
+            msg_type=MessageType.message
         )
 
         return task_item
@@ -275,7 +277,7 @@ Remember: You are part of a swarm. Coordinate with other agents via messages.
         from_agent: str,
         to: str,
         content: str,
-        msg_type: MessageType = MessageType.MESSAGE
+        msg_type: MessageType = MessageType.message
     ) -> TeamMessage:
         """发送消息"""
         return self.mailbox.send(from_agent, to, content, msg_type)

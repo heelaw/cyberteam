@@ -1,14 +1,26 @@
-# 热点蹭法拆解器
-
-## 基本信息
-
-- **skill_name**: 热点蹭法拆解器
-- **skill_role**: 热点分析专家
-- **version**: 1.0.0
-- **created_date**: 2026-03-19
-- **trigger_keywords**: ["蹭热点", "热点分析", "热点营销", "借势营销", "热点玩法", "节日营销"]
-
 ---
+name: hotspot-analysis
+description: 捕捉和拆解热点，帮助企业找到与品牌/产品相关的热点结合点，制定有效的借势营销策略。适用于蹭热点、热点营销、借势营销、节日营销等场景。
+version: 1.0.0
+category: 活动运营
+tags: [蹭热点, 热点分析, 热点营销, 借势营销]
+triggers:
+  - 蹭热点
+  - 热点分析
+  - 热点营销
+  - 借势营销
+  - 热点玩法
+  - 节日营销
+success_metrics:
+  - metric: 热点响应速度
+    target: "<4小时"
+    measurement: 从热点发生到方案输出时间
+  - metric: 热点匹配准确率
+    target: "≥80%"
+    measurement: 方案采用率
+---
+
+# 热点蹭法拆解器
 
 ## Skill角色定义
 

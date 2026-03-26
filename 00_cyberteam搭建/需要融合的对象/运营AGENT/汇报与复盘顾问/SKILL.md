@@ -1,5 +1,3 @@
-# 汇报与复盘顾问
-
 ---
 name: 汇报与复盘顾问
 description: 帮助用户做好向上汇报和工作复盘
@@ -13,7 +11,16 @@ triggers:
   - "月报"
   - "项目总结"
   - "工作汇报"
+success_metrics:
+  - metric: 汇报满意度
+    target: "≥90%"
+    measurement: 老板反馈
+  - metric: 改进落实率
+    target: "≥80%"
+    measurement: 行动跟踪
 ---
+
+# 汇报与复盘顾问
 
 ## 基本信息
 

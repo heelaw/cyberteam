@@ -181,3 +181,67 @@ def _save(path: Path, data: dict) -> None:
     except BaseException:
         Path(tmp).unlink(missing_ok=True)
         raise
+
+
+# ============================================================================
+# 便捷类和函数（封装函数式 API）
+# ============================================================================
+
+def check_all_alive(team_name: str) -> Dict[str, bool | None]:
+    """Check all agents in a team for liveness.
+
+    Returns a dict mapping agent_name -> alive status (True/False/None).
+    """
+    registry = get_registry(team_name)
+    result = {}
+    for agent_name in registry.keys():
+        result[agent_name] = is_agent_alive(team_name, agent_name)
+    return result
+
+
+class SpawnRegistryManager:
+    """Spawn registry manager - encapsulates spawn registry functions as a class.
+
+    Provides a cleaner API for managing spawned agents.
+    """
+
+    def __init__(self, team_name: str):
+        self.team_name = team_name
+
+    def register(
+        self,
+        agent_name: str,
+        backend: str,
+        tmux_target: str = "",
+        pid: int = 0,
+        command: list[str] | None = None,
+    ) -> None:
+        """Register a spawned agent."""
+        register_agent(
+            team_name=self.team_name,
+            agent_name=agent_name,
+            backend=backend,
+            tmux_target=tmux_target,
+            pid=pid,
+            command=command,
+        )
+
+    def get_registry(self) -> Dict[str, dict]:
+        """Get the full spawn registry."""
+        return get_registry(self.team_name)
+
+    def is_alive(self, agent_name: str) -> bool | None:
+        """Check if an agent is alive."""
+        return is_agent_alive(self.team_name, agent_name)
+
+    def list_dead(self) -> list[str]:
+        """List all dead agents."""
+        return list_dead_agents(self.team_name)
+
+    def stop(self, agent_name: str, timeout_seconds: float = 3.0) -> bool | None:
+        """Stop an agent."""
+        return stop_agent(self.team_name, agent_name, timeout_seconds)
+
+    def check_all_alive(self) -> Dict[str, bool | None]:
+        """Check all agents for liveness."""
+        return check_all_alive(self.team_name)

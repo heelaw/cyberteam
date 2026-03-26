@@ -1,3 +1,23 @@
+---
+name: 跨界模型规划器
+description: 帮助用户使用跨界借鉴四步法找到并规划可迁移的业务模型
+version: v1.1
+category: 规划型
+tags: [跨界借鉴, 业务创新, 标杆案例]
+triggers:
+  - "跨界借鉴"
+  - "业务创新"
+  - "其他行业"
+  - "业务模型借鉴"
+success_metrics:
+  - metric: 借鉴维度清晰度
+    target: "≥90%"
+    measurement: 用户确认
+  - metric: 案例相关度
+    target: "≥85%"
+    measurement: 匹配度评估
+---
+
 # 跨界模型规划器
 
 ## 基本信息

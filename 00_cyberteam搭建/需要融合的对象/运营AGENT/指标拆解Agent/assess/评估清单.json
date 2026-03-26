@@ -1,0 +1,50 @@
+{
+  "dimension": "指标拆解",
+  "version": "1.0",
+  "author": "Cyberwiz",
+  "review_status": "待审查",
+  "review_required": true,
+  "review_threshold": 90,
+  "items": [
+    {
+      "id": "1",
+      "item": "拆解类型识别准确性",
+      "weight": 25,
+      "criteria": "能准确识别问题是乘法式指标还是并列式指标",
+      "measurement": "识别准确率≥95%"
+    },
+    {
+      "id": "2",
+      "item": "指标拆解完整性",
+      "weight": 30,
+      "criteria": "拆解结果逻辑完整，子指标齐全，因果关系清晰",
+      "measurement": "拆解完整度100%"
+    },
+    {
+      "id": "3",
+      "item": "指标量化清晰度",
+      "weight": 25,
+      "criteria": "将模糊目标转化为可衡量的具体指标，定义明确",
+      "measurement": "指标可测量率100%"
+    },
+    {
+      "id": "4",
+      "item": "执行建议有效性",
+      "weight": 20,
+      "criteria": "根据拆解结果输出可执行的行动建议",
+      "measurement": "建议采纳率≥70%"
+    }
+  ],
+  "scoring_rules": {
+    "excellent": "95-100",
+    "good": "85-94",
+    "pass": "75-84",
+    "fail": "0-74"
+  },
+  "review_dimensions": [
+    "拆解类型识别准确性",
+    "指标拆解完整性",
+    "指标量化清晰度",
+    "执行建议有效性"
+  ]
+}

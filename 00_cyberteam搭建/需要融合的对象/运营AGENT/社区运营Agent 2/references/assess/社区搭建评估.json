@@ -1,0 +1,23 @@
+{
+  "id": "assess_community_setup",
+  "name": "社区搭建评估",
+  "category": "assess",
+  "description": "评估UGC社区搭建完成度",
+  "metrics": [
+    {
+      "metric": "搭建完成率",
+      "target": "100%",
+      "measurement": "检查项完成率"
+    },
+    {
+      "metric": "社区定位清晰度",
+      "target": "明确差异化",
+      "measurement": "评审通过"
+    },
+    {
+      "metric": "板块结构合理性",
+      "target": "结构合理",
+      "measurement": "评审通过"
+    }
+  ]
+}

@@ -1,14 +1,25 @@
-# 不同目标-创意匹配表
-
-## 基本信息
-
-- **skill_name**: 不同目标-创意匹配表
-- **skill_role**: 活动策略规划师
-- **version**: 1.0.0
-- **created_date**: 2026-03-19
-- **trigger_keywords**: ["目标匹配", "活动策略", "创意方向", "活动类型选择", "做什么活动"]
-
 ---
+name: goal-creativity-matching
+description: 根据不同的活动目标推荐最适合的创意类型和策略方向，帮助团队快速找到最契合目标的活动创意路径。适用于目标匹配、创意方向选择、活动类型决策等场景。
+version: 1.0.0
+category: 活动运营
+tags: [目标匹配, 创意策略, 活动类型, 决策支持]
+triggers:
+  - 目标匹配
+  - 活动策略
+  - 创意方向
+  - 活动类型选择
+  - 做什么活动
+success_metrics:
+  - metric: 匹配准确率
+    target: "≥85%"
+    measurement: 方案通过率
+  - metric: 策略采用率
+    target: "≥70%"
+    measurement: 创意落地率
+---
+
+# 不同目标-创意匹配表
 
 ## Skill角色定义
 

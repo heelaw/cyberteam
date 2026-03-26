@@ -1,5 +1,3 @@
-# 指标监控器
-
 ---
 name: 指标监控器
 description: 实时监控业务指标变化，及时发现异常并预警
@@ -13,7 +11,12 @@ triggers:
   - "预警"
   - "指标下降"
   - "指标上升"
+scenario: 指标监控
+difficulty: medium
+created: 2026-03-19
 ---
+
+# 指标监控器
 
 ## 基本信息
 

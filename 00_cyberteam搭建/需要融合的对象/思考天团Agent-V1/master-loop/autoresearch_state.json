@@ -1,0 +1,18 @@
+{
+  "goal": "创建一个测试文件 /tmp/test.txt，内容是hello world",
+  "criteria": "文件存在且内容正确",
+  "current_attempt": 1,
+  "pressure_level": 0,
+  "attempts": [
+    {
+      "method": "直接创建",
+      "error": null,
+      "success": true,
+      "timestamp": "2026-03-21 01:05:05"
+    }
+  ],
+  "last_update": "2026-03-21 01:05:05",
+  "goal_achieved": true,
+  "achieved_at": "2026-03-21 01:05:07",
+  "total_attempts": 1
+}

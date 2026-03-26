@@ -1,14 +1,25 @@
-# 活动策划方案七要素模板
-
-## 基本信息
-
-- **skill_name**: 活动策划方案七要素模板
-- **skill_role**: 活动方案设计专家
-- **version**: 1.0.0
-- **created_date**: 2026-03-19
-- **trigger_keywords**: ["活动方案", "策划方案", "活动设计", "方案模板", "活动要素"]
-
 ---
+name: seven-element-plan-template
+description: 将经过验证的活动创意转化为完整、可执行的活动策划方案，通过七要素模板确保活动方案的完整性和专业性。适用于活动方案编写、策划方案设计、活动要素规划等场景。
+version: 1.0.0
+category: 活动运营
+tags: [活动方案, 策划方案, 活动设计, 方案模板]
+triggers:
+  - 活动方案
+  - 策划方案
+  - 活动设计
+  - 方案模板
+  - 活动要素
+success_metrics:
+  - metric: 方案完整率
+    target: "100%"
+    measurement: 七要素齐全率
+  - metric: 方案可执行率
+    target: "≥95%"
+    measurement: 执行验证通过率
+---
+
+# 活动策划方案七要素模板
 
 ## Skill角色定义
 

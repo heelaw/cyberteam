@@ -1,14 +1,25 @@
-# 活动目标定义四要素
-
-## 基本信息
-
-- **skill_name**: 活动目标定义四要素
-- **skill_role**: 活动目标分析器
-- **version**: 1.0.0
-- **created_date**: 2026-03-19
-- **trigger_keywords**: ["活动目标", "目标定义", "活动目的", "业务目标", "活动规划"]
-
 ---
+name: four-element-target-definition
+description: 将模糊的业务需求转化为清晰、可执行的活动目标，通过四要素法帮助企业精准定义活动目标，确保每个活动都服务于明确的业务目标。适用于活动目标定义、目标规划、业务目标分析等场景。
+version: 1.0.0
+category: 活动运营
+tags: [活动目标, 目标定义, 业务目标, 活动规划]
+triggers:
+  - 活动目标
+  - 目标定义
+  - 活动目的
+  - 业务目标
+  - 活动规划
+success_metrics:
+  - metric: 目标清晰度
+    target: "≥95%"
+    measurement: 团队理解一致率
+  - metric: 目标达成率
+    target: "≥80%"
+    measurement: 活动KPI达成率
+---
+
+# 活动目标定义四要素
 
 ## Skill角色定义
 

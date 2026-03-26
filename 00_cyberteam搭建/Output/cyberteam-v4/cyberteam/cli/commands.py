@@ -62,11 +62,15 @@ def main(
     _json_output = json_out
     if data_dir:
         import os
+        # 兼容：同时设置 CLAWTEAM_DATA_DIR 和 CYBERTEAM_DATA_DIR
         os.environ["CLAWTEAM_DATA_DIR"] = data_dir
+        os.environ["CYBERTEAM_DATA_DIR"] = data_dir
         _data_dir = data_dir
     if transport:
         import os
+        # 兼容：同时设置两个环境变量
         os.environ["CLAWTEAM_TRANSPORT"] = transport
+        os.environ["CYBERTEAM_TRANSPORT"] = transport
 
 
 def _dump(model) -> dict:

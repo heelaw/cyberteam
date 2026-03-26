@@ -1,0 +1,14 @@
+{
+  "goal": "创建一个测试文件 /tmp/test.txt，内容是hello world",
+  "criteria": "文件存在且内容正确",
+  "team_name": "autoresearch-team",
+  "stats": {
+    "iterations": 1,
+    "executor_restarts": 0,
+    "pressure_upgrades": 0,
+    "last_check_time": "2026-03-21 01:05:05",
+    "consecutive_inactive": 0
+  },
+  "pressure_level": 0,
+  "last_update": "2026-03-21 01:05:05"
+}

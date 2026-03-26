@@ -1,3 +1,18 @@
+---
+name: content-positioning-analyzer
+description: 确定内容的定位和调性，使内容型产品脱颖而出，持续获取用户注意力
+trigger: "内容定位、内容调性、价值主张、差异化、内容独特性"
+difficulty: medium
+estimated_time: 20-25分钟
+version: v1.0
+author: Cyberwiz
+tags: [内容运营, 定位分析]
+success_metrics:
+  - metric: 定位清晰度
+    target: "≥90%"
+    measurement: 用户理解率
+---
+
 # content-positioning-analyzer
 
 ## 简介
