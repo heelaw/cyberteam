@@ -343,8 +343,91 @@ class CEORouter:
         what_patterns = [
             r'(?:帮我?|请?|给我?)(.*?)(?:做|搞|完成|实现|开发|分析|策划|制定)',
             r'(?:需要|要|想要)(.*?)(?:做|搞|完成|实现|开发|分析)',
-            r'^(.*?)(?:方案|计划|策略|分析|报告)',
+            r'^(.*?)(?:方案|计划|策略|分析|报告)$',
         ]
+        for pattern in what_patterns:
+            match = re.search(pattern, text)
+            if match:
+                analysis["what"] = match.group(1).strip()
+                break
+        if not analysis["what"]:
+            analysis["what"] = text[:min(20, len(text))]
+
+        why_keywords = ["因为", "为了", "原因", "目的", "所以", "需要"]
+        for kw in why_keywords:
+            if kw in text:
+                idx = text.index(kw)
+                start = max(0, idx - 10)
+                end = min(len(text), idx + 20)
+                analysis["why"] = text[start:end].strip()
+                break
+
+        who_keywords = ["我来", "我们", "团队", "谁", "负责人", "张三", "李四", "王五"]
+        for kw in who_keywords:
+            if kw in text:
+                idx = text.index(kw)
+                start = max(0, idx - 5)
+                end = min(len(text), idx + 10)
+                analysis["who"] = text[start:end].strip()
+                break
+        if not analysis["who"]:
+            analysis["who"] = "COO → 相关部门总监"
+
+        when_patterns = [
+            r'(?:在|到|截止|完成|之前|以后)(.{1,20}?(?:日|天|周|月|年|点|时))',
+            r'(?:尽快|马上|立刻|立即)',
+            r'(?:紧急|加急)',
+            r'(?:本周|下周|本月|下月|今年|明年)',
+        ]
+        for pattern in when_patterns:
+            match = re.search(pattern, text)
+            if match:
+                analysis["when"] = match.group(0).strip()
+                break
+        if not analysis["when"]:
+            analysis["when"] = "尽快"
+
+        where_keywords = ["在", "到", "来自", "针对", "面向"]
+        for kw in where_keywords:
+            if kw in text:
+                idx = text.index(kw)
+                start = idx
+                end = min(len(text), idx + 30)
+                segment = text[start:end]
+                place_match = re.search(r'[在到]\s*([^\s,，,。]+)', segment)
+                if place_match:
+                    analysis["where"] = place_match.group(1).strip()
+                    break
+        if not analysis["where"]:
+            platforms = ["小红书", "抖音", "微信", "淘宝", "京东", "App", "Web", "网站"]
+            for p in platforms:
+                if p in text:
+                    analysis["where"] = p
+                    break
+
+        how_keywords = ["怎么", "如何", "怎样", "通过", "用"]
+        for kw in how_keywords:
+            if kw in text:
+                idx = text.index(kw)
+                start = max(0, idx - 3)
+                end = min(len(text), idx + 30)
+                analysis["how"] = text[start:end].strip()
+                break
+        if not analysis["how"]:
+            analysis["how"] = "组建专项团队执行"
+
+        yield_keywords = ["产出", "结果", "交付", "完成", "目标", "得到", "达到"]
+        for kw in yield_keywords:
+            if kw in text:
+                idx = text.index(kw)
+                start = max(0, idx - 5)
+                end = min(len(text), idx + 30)
+                analysis["yield"] = text[start:end].strip()
+                break
+        if not analysis["yield"]:
+            analysis["yield"] = "完整方案 + 执行报告"
+
+        return analysis
 
     def should_use_swarm(self, user_input: str, intent: Intent, complexity: Complexity) -> bool:
         """判断是否应该使用 Swarm 群体智能"""
