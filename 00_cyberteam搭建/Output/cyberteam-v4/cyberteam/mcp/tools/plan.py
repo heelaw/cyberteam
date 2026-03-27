@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from clawteam.mcp.helpers import plan_manager
+from ..helpers import plan_manager
 
 
 def plan_submit(

@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from clawteam.board.collector import BoardCollector
-from clawteam.mcp.helpers import to_payload
+from .helpers import to_payload
 
 
 def board_overview() -> list[dict]:

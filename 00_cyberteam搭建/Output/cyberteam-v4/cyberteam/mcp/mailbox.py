@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from clawteam.mcp.helpers import coerce_enum, team_mailbox, to_payload
+from .helpers import coerce_enum, team_mailbox, to_payload
 from clawteam.team.models import MessageType
 
 

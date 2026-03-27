@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from clawteam.mcp.helpers import coerce_enum, fail, task_store, to_payload, translate_error
+from .helpers import coerce_enum, fail, task_store, to_payload, translate_error
 from clawteam.team.models import TaskPriority, TaskStatus
 
 

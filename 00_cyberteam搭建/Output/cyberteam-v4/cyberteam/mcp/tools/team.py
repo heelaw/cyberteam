@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from clawteam.mcp.helpers import require_team, to_payload
+from ..helpers import require_team, to_payload
 from clawteam.team.manager import TeamManager
 
 

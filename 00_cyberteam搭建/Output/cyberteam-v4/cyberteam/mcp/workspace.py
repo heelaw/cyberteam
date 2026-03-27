@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 
-from clawteam.mcp.helpers import to_payload
+from .helpers import to_payload
 from clawteam.workspace.context import agent_diff, agent_summary, cross_branch_log, file_owners
 
 
