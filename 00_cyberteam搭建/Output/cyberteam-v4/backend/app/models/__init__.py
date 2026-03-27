@@ -170,3 +170,60 @@ class FinalReport(Base):
 
     # 时间戳
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+
+
+# ── TODO 应用模型 ──
+
+class TodoItemState(str, Enum):
+    """TODO 项状态枚举。"""
+    TODO = "todo"
+    IN_PROGRESS = "in_progress"
+    DONE = "done"
+
+
+class TodoItemPriority(str, Enum):
+    """TODO 项优先级枚举。"""
+    LOW = "low"
+    MEDIUM = "medium"
+    HIGH = "high"
+
+
+class TodoItem(Base):
+    """TODO 项表。"""
+    __tablename__ = "todo_items"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+
+    # 内容
+    title: Mapped[str] = mapped_column(String(500))
+    description: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+
+    # 状态与优先级
+    state: Mapped[TodoItemState] = mapped_column(SQLEnum(TodoItemState), default=TodoItemState.TODO)
+    priority: Mapped[TodoItemPriority] = mapped_column(SQLEnum(TodoItemPriority), default=TodoItemPriority.MEDIUM)
+
+    # 分类
+    category: Mapped[Optional[str]] = mapped_column(String(100), nullable=True)
+    tags: Mapped[str] = mapped_column(JSON, default=list)
+
+    # 时间戳
+    due_date: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True)
+    completed_at: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+    updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    def to_dict(self):
+        """转换为字典。"""
+        return {
+            "id": self.id,
+            "title": self.title,
+            "description": self.description,
+            "state": self.state.value,
+            "priority": self.priority.value,
+            "category": self.category,
+            "tags": self.tags if isinstance(self.tags, list) else [],
+            "due_date": self.due_date.isoformat() if self.due_date else None,
+            "completed_at": self.completed_at.isoformat() if self.completed_at else None,
+            "created_at": self.created_at.isoformat() if self.created_at else None,
+            "updated_at": self.updated_at.isoformat() if self.updated_at else None,
+        }

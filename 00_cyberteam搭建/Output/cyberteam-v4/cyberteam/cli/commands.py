@@ -57,16 +57,20 @@ def main(
         None, "--transport", help="Transport backend: file or p2p.",
     ),
 ):
-    """clawteam - Framework-agnostic multi-agent coordination CLI."""
+    """CyberTeam V4 - Enterprise AI Agent Swarm Intelligence System."""
     global _json_output, _data_dir
     _json_output = json_out
     if data_dir:
         import os
-        os.environ["CLAWTEAM_DATA_DIR"] = data_dir
-        _data_dir = data_dir
+        # 确保 data_dir 是字符串类型
+        data_dir_str = str(data_dir) if not isinstance(data_dir, str) else data_dir
+        os.environ["CLAWTEAM_DATA_DIR"] = data_dir_str
+        _data_dir = data_dir_str
     if transport:
         import os
-        os.environ["CLAWTEAM_TRANSPORT"] = transport
+        # 确保 transport 是字符串类型
+        transport_str = str(transport) if not isinstance(transport, str) else transport
+        os.environ["CLAWTEAM_TRANSPORT"] = transport_str
 
 
 def _dump(model) -> dict:

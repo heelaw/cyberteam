@@ -1,6 +1,6 @@
-"""Entry point for running clawteam as a module: python -m clawteam"""
+"""CyberTeam CLI 入口点。"""
 
-from cyberteam.cli.commands import app
+from cyberteam.cli.main import main
 
 if __name__ == "__main__":
-    app()
+    main()

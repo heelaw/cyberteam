@@ -1,27 +1,32 @@
-"""CyberTeam V4 - Enterprise AI Agent Swarm Intelligence System."""
+"""CyberTeam V4 - Enterprise AI Agent Swarm Intelligence System.
+
+Layer 0: 核心引擎层（CEO、PM、部门调度等）
+Layer 1: 底层能力层（融合 ClawTeam 的 Git Worktree、TMUX、消息传输等）
+"""
 
 __version__ = "4.0.0"
 
-# Layer 1 - CYBERTEAM (ClawTeam integration)
-from cyberteam.team.models import TaskPriority, TaskStatus
-from cyberteam.team.manager import TeamManager
-from cyberteam.team.tasks import TaskStore
-from cyberteam.board.collector import BoardCollector
+# 导入 Layer 0 核心引擎
+try:
+    from engine import CEO, PM, Department
+except ImportError:
+    pass
 
-# Layer 0 - Core MCP exports
-from .mcp import MCPClient, MCPServerManager, ToolRegistry
+# 导入 Layer 1 底层能力
+try:
+    from CYBERTEAM.team import TeamManager
+    from CYBERTEAM.board import BoardCollector
+    from CYBERTEAM.mcp import MCPClient, ToolRegistry
+except ImportError:
+    pass
 
 __all__ = [
-    # Version
     "__version__",
-    # CYBERTEAM (Layer 1)
-    "TaskPriority",
-    "TaskStatus",
-    "TaskStore",
+    "CEO",
+    "PM", 
+    "Department",
     "TeamManager",
     "BoardCollector",
-    # MCP (Layer 0)
     "MCPClient",
-    "MCPServerManager",
     "ToolRegistry",
 ]

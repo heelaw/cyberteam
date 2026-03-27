@@ -50,7 +50,7 @@ class TmuxBackend(SpawnBackend):
         if not shutil.which("tmux"):
             return "Error: tmux not installed"
 
-        session_name = f"clawteam-{team_name}"
+        session_name = f"cyberteam-{team_name}"
         clawteam_bin = resolve_clawteam_executable()
         env_vars = os.environ.copy()
         env_vars.update({
@@ -216,7 +216,7 @@ class TmuxBackend(SpawnBackend):
 
     @staticmethod
     def session_name(team_name: str) -> str:
-        return f"clawteam-{team_name}"
+        return f"cyberteam-{team_name}"
 
     @staticmethod
     def tile_panes(team_name: str) -> str:
@@ -484,7 +484,7 @@ def _inject_prompt_via_buffer(
     """
     buf_name = f"prompt-{agent_name}"
     with tempfile.NamedTemporaryFile(
-        mode="w", suffix=".txt", delete=False, prefix="clawteam-prompt-"
+        mode="w", suffix=".txt", delete=False, prefix="cyberteam-prompt-"
     ) as f:
         f.write(prompt)
         tmp_path = f.name
