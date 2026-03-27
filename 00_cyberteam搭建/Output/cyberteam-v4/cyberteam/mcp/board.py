@@ -1,4 +1,3 @@
-from typing import List
 """Board MCP tools."""
 
 from __future__ import annotations
@@ -7,7 +6,7 @@ from cyberteam.board.collector import BoardCollector
 from .helpers import to_payload
 
 
-def board_overview() -> List[dict]:
+def board_overview() -> list[dict]:
     """List lightweight board summaries for all teams."""
     return to_payload(BoardCollector().collect_overview())
 

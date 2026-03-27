@@ -1,4 +1,3 @@
-from typing import List
 """Data models for workspace management."""
 
 from __future__ import annotations
@@ -24,4 +23,4 @@ class WorkspaceRegistry(BaseModel):
 
     team_name: str
     repo_root: str
-    workspaces: List[WorkspaceInfo] = []
+    workspaces: list[WorkspaceInfo] = []

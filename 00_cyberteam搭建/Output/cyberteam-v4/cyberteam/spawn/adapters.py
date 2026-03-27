@@ -1,4 +1,3 @@
-from typing import List
 """Runtime adapters for agent-specific command preparation."""
 
 from __future__ import annotations
@@ -13,9 +12,9 @@ from cyberteam.spawn.command_validation import normalize_spawn_command
 class PreparedCommand:
     """Prepared native CLI command plus any post-launch prompt injection."""
 
-    normalized_command: List[str]
-    final_command: List[str]
-    post_launch_prompt: Optional[str] = None
+    normalized_command: list[str]
+    final_command: list[str]
+    post_launch_prompt: str | None = None
 
 
 class NativeCliAdapter:
@@ -23,13 +22,13 @@ class NativeCliAdapter:
 
     def prepare_command(
         self,
-        command: List[str],
+        command: list[str],
         *,
-        prompt: Optional[str] = None,
-        cwd: Optional[str] = None,
+        prompt: str | None = None,
+        cwd: str | None = None,
         skip_permissions: bool = False,
         interactive: bool = False,
-        agent_name: Optional[str] = None,
+        agent_name: str | None = None,
     ) -> PreparedCommand:
         normalized_command = normalize_spawn_command(command)
         final_command = list(normalized_command)
@@ -85,54 +84,54 @@ class NativeCliAdapter:
         )
 
 
-def command_basename(command: List[str]) -> str:
+def command_basename(command: list[str]) -> str:
     """Return the normalized executable basename for a command."""
     if not command:
         return ""
     return Path(command[0]).name.lower()
 
 
-def is_claude_command(command: List[str]) -> bool:
+def is_claude_command(command: list[str]) -> bool:
     """Check if the command is a Claude CLI invocation."""
     return command_basename(command) in ("claude", "claude-code")
 
 
-def is_codex_command(command: List[str]) -> bool:
+def is_codex_command(command: list[str]) -> bool:
     """Check if the command is a Codex CLI invocation."""
     return command_basename(command) in ("codex", "codex-cli")
 
 
-def is_nanobot_command(command: List[str]) -> bool:
+def is_nanobot_command(command: list[str]) -> bool:
     """Check if the command is a nanobot CLI invocation."""
     return command_basename(command) == "nanobot"
 
 
-def is_gemini_command(command: List[str]) -> bool:
+def is_gemini_command(command: list[str]) -> bool:
     """Check if the command is a Gemini CLI invocation."""
     return command_basename(command) == "gemini"
 
 
-def is_kimi_command(command: List[str]) -> bool:
+def is_kimi_command(command: list[str]) -> bool:
     """Check if the command is a Kimi CLI invocation."""
     return command_basename(command) == "kimi"
 
 
-def is_qwen_command(command: List[str]) -> bool:
+def is_qwen_command(command: list[str]) -> bool:
     """Check if the command is a Qwen Code CLI invocation."""
     return command_basename(command) in ("qwen", "qwen-code")
 
 
-def is_opencode_command(command: List[str]) -> bool:
+def is_opencode_command(command: list[str]) -> bool:
     """Check if the command is an OpenCode CLI invocation."""
     return command_basename(command) == "opencode"
 
 
-def is_openclaw_command(command: List[str]) -> bool:
+def is_openclaw_command(command: list[str]) -> bool:
     """Check if the command is an OpenClaw CLI invocation."""
     return command_basename(command) == "openclaw"
 
 
-def is_interactive_cli(command: List[str]) -> bool:
+def is_interactive_cli(command: list[str]) -> bool:
     """Check if the command is a known interactive AI coding CLI."""
     return (
         is_claude_command(command)
@@ -146,6 +145,6 @@ def is_interactive_cli(command: List[str]) -> bool:
     )
 
 
-def command_has_workspace_arg(command: List[str]) -> bool:
+def command_has_workspace_arg(command: list[str]) -> bool:
     """Return True when a command already specifies a workspace."""
     return "-w" in command or "--workspace" in command

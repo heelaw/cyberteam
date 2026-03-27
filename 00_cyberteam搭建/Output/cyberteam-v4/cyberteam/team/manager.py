@@ -8,7 +8,6 @@ from pathlib import Path
 
 from cyberteam.team.models import TeamConfig, TeamMember, get_data_dir
 from cyberteam.team.plan import referenced_legacy_plan_paths, team_plans_path
-from typing import Optional, Union, List
 
 
 def _teams_root() -> Path:
@@ -25,7 +24,7 @@ def _config_path(team_name: str) -> Path:
     return _team_dir(team_name) / "config.json"
 
 
-def _load_config(team_name: str) -> Union[TeamConfig, None]:
+def _load_config(team_name: str) -> TeamConfig | None:
     path = _config_path(team_name)
     if not path.exists():
         return None
@@ -54,7 +53,7 @@ class TeamManager:
         team_name: str,
         member_name: str,
         user: str = "",
-    ) -> Optional[TeamMember]:
+    ) -> TeamMember | None:
         """Return a member by logical name, optionally scoped by user."""
         config = _load_config(team_name)
         if not config:
@@ -103,7 +102,7 @@ class TeamManager:
         return config
 
     @staticmethod
-    def discover_teams() -> List[dict]:
+    def discover_teams() -> list[dict]:
         root = _teams_root()
         teams = []
         if not root.exists():
@@ -121,7 +120,7 @@ class TeamManager:
         return teams
 
     @staticmethod
-    def get_team(name: str) -> Union[TeamConfig, None]:
+    def get_team(name: str) -> TeamConfig | None:
         return _load_config(name)
 
     @staticmethod
@@ -164,7 +163,7 @@ class TeamManager:
         return False
 
     @staticmethod
-    def get_leader_name(team_name: str) -> Union[str, None]:
+    def get_leader_name(team_name: str) -> str | None:
         config = _load_config(team_name)
         if not config:
             return None
@@ -205,7 +204,7 @@ class TeamManager:
         return cleaned
 
     @staticmethod
-    def list_members(team_name: str) -> List[TeamMember]:
+    def list_members(team_name: str) -> list[TeamMember]:
         config = _load_config(team_name)
         return config.members if config else []
 
@@ -223,7 +222,7 @@ class TeamManager:
         return recipient
 
     @staticmethod
-    def get_leader_inbox(team_name: str) -> Union[str, None]:
+    def get_leader_inbox(team_name: str) -> str | None:
         """Return the inbox name for the team leader."""
         config = _load_config(team_name)
         if not config:

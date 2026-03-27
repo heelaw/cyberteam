@@ -6,7 +6,6 @@ import os
 from pathlib import Path
 
 from cyberteam.config import AgentProfile, load_config
-from typing import Optional, Union, List
 
 
 def load_profile(name: str) -> AgentProfile:
@@ -45,11 +44,11 @@ def list_profiles() -> dict[str, AgentProfile]:
 
 
 def apply_profile(
-    profile: Optional[AgentProfile],
+    profile: AgentProfile | None,
     *,
-    command: Union[List[str], None]=
+    command: list[str] | None = None,
     env: dict[str, str] | None = None,
-) -> tuple[List[str], dict[str, str], str]:
+) -> tuple[list[str], dict[str, str], str]:
     """Apply a profile to a command/env pair.
 
     Returns (resolved_command, resolved_env, resolved_agent_basename).
@@ -103,24 +102,24 @@ def apply_profile(
     return resolved_command, resolved_env, agent
 
 
-def command_basename(command: List[str]) -> str:
+def command_basename(command: list[str]) -> str:
     """Return the executable basename for a command."""
     if not command:
         return ""
     return Path(command[0]).name.lower()
 
 
-def _command_has_model_arg(command: List[str]) -> bool:
+def _command_has_model_arg(command: list[str]) -> bool:
     return "--model" in command or "-m" in command
 
 
-def _model_flag(agent: str) -> Union[str, None]:
+def _model_flag(agent: str) -> str | None:
     if agent in {"claude", "claude-code", "codex", "codex-cli", "gemini", "kimi"}:
         return "--model"
     return None
 
 
-def _base_url_env_var(agent: str) -> Union[str, None]:
+def _base_url_env_var(agent: str) -> str | None:
     if agent in {"claude", "claude-code"}:
         return "ANTHROPIC_BASE_URL"
     if agent in {"codex", "codex-cli"}:
@@ -132,7 +131,7 @@ def _base_url_env_var(agent: str) -> Union[str, None]:
     return None
 
 
-def _api_key_target_env(agent: str) -> Union[str, None]:
+def _api_key_target_env(agent: str) -> str | None:
     if agent in {"claude", "claude-code"}:
         return "ANTHROPIC_AUTH_TOKEN"
     if agent in {"codex", "codex-cli"}:

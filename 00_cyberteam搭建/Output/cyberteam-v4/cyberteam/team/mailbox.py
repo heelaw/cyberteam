@@ -9,7 +9,6 @@ import uuid
 from cyberteam.team.models import MessageType, TeamMessage, get_data_dir
 from cyberteam.transport.base import Transport
 from cyberteam.transport.claimed import ClaimedMessage
-from typing import Optional, Union, List
 
 
 def _default_transport(team_name: str) -> Transport:
@@ -38,7 +37,7 @@ class MailboxManager:
     Atomic writes (write tmp then rename) prevent partial reads.
     """
 
-    def __init__(self, team_name: str, transport: Optional[Transport] = None):
+    def __init__(self, team_name: str, transport: Transport | None = None):
         self.team_name = team_name
         self._transport = transport or _default_transport(team_name)
         self._events_dir = get_data_dir() / "teams" / team_name / "events"
@@ -56,7 +55,7 @@ class MailboxManager:
         )
         tmp.rename(path)
 
-    def get_event_log(self, limit: int = 100) -> List[TeamMessage]:
+    def get_event_log(self, limit: int = 100) -> list[TeamMessage]:
         """Read event log (newest first). Non-destructive."""
         files = sorted(self._events_dir.glob("evt-*.json"), reverse=True)[:limit]
         msgs = []
@@ -71,22 +70,22 @@ class MailboxManager:
         self,
         from_agent: str,
         to: str,
-        content: Optional[str] = None,
+        content: str | None = None,
         msg_type: MessageType = MessageType.message,
-        request_id: Optional[str] = None,
-        key: Optional[str] = None,
-        proposed_name: Optional[str] = None,
-        capabilities: Optional[str] = None,
-        feedback: Optional[str] = None,
-        reason: Optional[str] = None,
-        assigned_name: Optional[str] = None,
-        agent_id: Optional[str] = None,
-        team_name: Optional[str] = None,
-        plan_file: Optional[str] = None,
-        summary: Optional[str] = None,
-        plan: Optional[str] = None,
-        last_task: Optional[str] = None,
-        status: Optional[str] = None,
+        request_id: str | None = None,
+        key: str | None = None,
+        proposed_name: str | None = None,
+        capabilities: str | None = None,
+        feedback: str | None = None,
+        reason: str | None = None,
+        assigned_name: str | None = None,
+        agent_id: str | None = None,
+        team_name: str | None = None,
+        plan_file: str | None = None,
+        summary: str | None = None,
+        plan: str | None = None,
+        last_task: str | None = None,
+        status: str | None = None,
     ) -> TeamMessage:
         from cyberteam.team.manager import TeamManager
 
@@ -121,9 +120,9 @@ class MailboxManager:
         from_agent: str,
         content: str,
         msg_type: MessageType = MessageType.broadcast,
-        key: Optional[str] = None,
-        exclude: Optional[List[str]] = None,
-    ) -> List[TeamMessage]:
+        key: str | None = None,
+        exclude: list[str] | None = None,
+    ) -> list[TeamMessage]:
         from cyberteam.team.manager import TeamManager
 
         exclude_set = set(exclude or [])
@@ -151,8 +150,8 @@ class MailboxManager:
         return messages
 
     @staticmethod
-    def _parse_messages(raw: List[bytes]) -> List[TeamMessage]:
-        result: List[TeamMessage] = []
+    def _parse_messages(raw: list[bytes]) -> list[TeamMessage]:
+        result: list[TeamMessage] = []
         for item in raw:
             try:
                 result.append(TeamMessage.model_validate(json.loads(item)))
@@ -160,8 +159,8 @@ class MailboxManager:
                 continue
         return result
 
-    def _parse_claimed_messages(self, claimed: List[ClaimedMessage]) -> List[TeamMessage]:
-        result: List[TeamMessage] = []
+    def _parse_claimed_messages(self, claimed: list[ClaimedMessage]) -> list[TeamMessage]:
+        result: list[TeamMessage] = []
         for item in claimed:
             try:
                 message = TeamMessage.model_validate(json.loads(item.data))
@@ -172,7 +171,7 @@ class MailboxManager:
             result.append(message)
         return result
 
-    def receive(self, agent_name: str, limit: int = 10) -> List[TeamMessage]:
+    def receive(self, agent_name: str, limit: int = 10) -> list[TeamMessage]:
         """Receive parsed messages from an agent's inbox (FIFO).
 
         When a transport supports claimed messages, schema validation and
@@ -184,7 +183,7 @@ class MailboxManager:
         raw = self._transport.fetch(agent_name, limit=limit, consume=True)
         return self._parse_messages(raw)
 
-    def peek(self, agent_name: str) -> List[TeamMessage]:
+    def peek(self, agent_name: str) -> list[TeamMessage]:
         """Return pending messages without consuming them."""
         raw = self._transport.fetch(agent_name, consume=False)
         return self._parse_messages(raw)

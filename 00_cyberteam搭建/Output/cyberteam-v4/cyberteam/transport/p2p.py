@@ -15,7 +15,6 @@ from cyberteam.team.models import get_data_dir
 from cyberteam.transport.base import Transport
 from cyberteam.transport.claimed import ClaimedMessage
 from cyberteam.transport.file import FileTransport
-from typing import Optional, Union, List
 
 
 def _peers_dir(team_name: str) -> Path:
@@ -36,7 +35,7 @@ class P2PTransport(Transport):
     _peer_heartbeat_interval_s = 1.0
     _peer_lease_ms = 5000
 
-    def __init__(self, team_name: str, bind_agent: Optional[str] = None):
+    def __init__(self, team_name: str, bind_agent: str | None = None):
         self.team_name = team_name
         self._bind_agent = bind_agent
         self._file_fallback = FileTransport(team_name)
@@ -44,9 +43,9 @@ class P2PTransport(Transport):
         self._pull = None
         self._push_cache: dict[str, object] = {}
         self._peek_buffer: collections.deque = collections.deque()
-        self._port: Optional[int] = None
+        self._port: int | None = None
         self._heartbeat_stop = threading.Event()
-        self._heartbeat_thread: threading.Optional[Thread] = None
+        self._heartbeat_thread: threading.Thread | None = None
         if bind_agent:
             self._start_listener()
 
@@ -65,7 +64,7 @@ class P2PTransport(Transport):
         return int(time.time() * 1000)
 
     @staticmethod
-    def _as_int(value: object) -> Union[int, None]:
+    def _as_int(value: object) -> int | None:
         if isinstance(value, bool):
             return None
         try:
@@ -83,7 +82,7 @@ class P2PTransport(Transport):
             "::1",
         }
 
-    def _lease_is_fresh(self, info: dict[str, object]) -> Union[bool, None]:
+    def _lease_is_fresh(self, info: dict[str, object]) -> bool | None:
         lease_expires_at_ms = self._as_int(info.get("leaseExpiresAtMs"))
         if lease_expires_at_ms is not None:
             return lease_expires_at_ms >= self._now_ms()
@@ -143,7 +142,7 @@ class P2PTransport(Transport):
         except OSError:
             pass
 
-    def _get_peer_addr(self, recipient: str) -> Union[str, None]:
+    def _get_peer_addr(self, recipient: str) -> str | None:
         """Read peers/{recipient}.json and return tcp://host:port if alive."""
         peer_file = _peers_dir(self.team_name) / f"{recipient}.json"
         if not peer_file.exists():
@@ -218,8 +217,8 @@ class P2PTransport(Transport):
         # Peer unreachable — fall back to file
         self._file_fallback.deliver(recipient, data)
 
-    def claim_messages(self, agent_name: str, limit: int = 10) -> List[ClaimedMessage]:
-        claimed: List[ClaimedMessage] = []
+    def claim_messages(self, agent_name: str, limit: int = 10) -> list[ClaimedMessage]:
+        claimed: list[ClaimedMessage] = []
 
         while self._peek_buffer and len(claimed) < limit:
             data = self._peek_buffer.popleft()
@@ -262,15 +261,15 @@ class P2PTransport(Transport):
             claimed.extend(self._file_fallback.claim_messages(agent_name, remaining))
         return claimed
 
-    def fetch(self, agent_name: str, limit: int = 10, consume: bool = True) -> List[bytes]:
+    def fetch(self, agent_name: str, limit: int = 10, consume: bool = True) -> list[bytes]:
         if consume:
-            messages: List[bytes] = []
+            messages: list[bytes] = []
             for claimed in self.claim_messages(agent_name, limit):
                 messages.append(claimed.data)
                 claimed.ack()
             return messages
 
-        messages: List[bytes] = []
+        messages: list[bytes] = []
         # 1. Drain ZMQ PULL socket (non-blocking)
         if self._pull:
             import zmq
@@ -293,7 +292,7 @@ class P2PTransport(Transport):
         # ZMQ has no queue-depth query; return file count + peek buffer size
         return self._file_fallback.count(agent_name) + len(self._peek_buffer)
 
-    def list_recipients(self) -> List[str]:
+    def list_recipients(self) -> list[str]:
         # Union of peers/ directory and inboxes/ directory
         peers: set[str] = set()
         peers_dir = _peers_dir(self.team_name)

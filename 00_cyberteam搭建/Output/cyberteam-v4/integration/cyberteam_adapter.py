@@ -34,60 +34,16 @@ logger = logging.getLogger(__name__)
 #       必须使用 CYBERTEAM (大写) 作为导入路径以确保跨平台兼容。
 # ============================================================================
 
-# CYBERTEAM 底层模块导入 (使用适配器模式隔离)
-# 注意: CYBERTEAM/ 和 cyberteam/ 在 macOS APFS 上是同一目录(大小写不敏感)
-#       但在 Linux ext4 上是完全不同的两个目录。
-#       必须使用 CYBERTEAM (大写) 作为导入路径以确保跨平台兼容。
-#
-# 注意: 原 cyberteam_adapter 曾从 'cyberteam.team' 导入 TaskStatus/TaskItem，
-#       但这些类型实际位于 'CYBERTEAM.team.models'，这是原有 bug。
-
-CYBERTEAM_AVAILABLE = False
-TeamManager = None
-TaskStore = None
-MailboxManager = None
-TaskStatus = None
-TaskItem = None
-TeamMessage = None
-MessageType = None
-get_backend = None
-WorkspaceManager = None
-get_transport = None
-load_config = None
-
 try:
-    from CYBERTEAM.team import TeamManager, TaskStore, MailboxManager
-except ImportError as e:
-    logger.warning(f"CYBERTEAM.team 导入失败: {e}")
-
-try:
-    from CYBERTEAM.team.models import TaskStatus, TaskItem, TeamMessage, MessageType
-except ImportError as e:
-    logger.warning(f"CYBERTEAM.team.models 导入失败: {e}")
-
-try:
+    from CYBERTEAM.team import TeamManager, TaskStore, MailboxManager, TaskStatus, TaskItem, TeamMessage, MessageType
     from CYBERTEAM.spawn import get_backend
-except ImportError as e:
-    logger.warning(f"CYBERTEAM.spawn 导入失败: {e}")
-
-try:
-    from CYBERTEAM.workspace import WorkspaceManager
-except ImportError as e:
-    logger.warning(f"CYBERTEAM.workspace 导入失败: {e}")
-
-try:
+    from CYBERTEAM.workspace import WorkspaceManager, WorkspaceInfo
     from CYBERTEAM.transport import get_transport
-except ImportError as e:
-    logger.warning(f"CYBERTEAM.transport 导入失败: {e}")
-
-try:
     from CYBERTEAM.config import load_config
-except ImportError as e:
-    logger.warning(f"CYBERTEAM.config 导入失败: {e}")
-
-# 只有 MailboxManager 是此次任务的关键，如果它可用就标记为可用
-if MailboxManager is not None:
     CYBERTEAM_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"CYBERTEAM 底层模块导入失败: {e}")
+    CYBERTEAM_AVAILABLE = False
 
 
 # ============================================================================

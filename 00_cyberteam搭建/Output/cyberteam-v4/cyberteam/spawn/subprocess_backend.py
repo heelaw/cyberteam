@@ -10,7 +10,6 @@ from cyberteam.spawn.adapters import NativeCliAdapter
 from cyberteam.spawn.base import SpawnBackend
 from cyberteam.spawn.cli_env import build_spawn_path, resolve_clawteam_executable
 from cyberteam.spawn.command_validation import validate_spawn_command
-from typing import Optional, List
 
 
 class SubprocessBackend(SpawnBackend):
@@ -22,14 +21,14 @@ class SubprocessBackend(SpawnBackend):
 
     def spawn(
         self,
-        command: List[str],
+        command: list[str],
         agent_name: str,
         agent_id: str,
         agent_type: str,
         team_name: str,
-        prompt: Optional[str] = None,
+        prompt: str | None = None,
         env: dict[str, str] | None = None,
-        cwd: Optional[str] = None,
+        cwd: str | None = None,
         skip_permissions: bool = False,
     ) -> str:
         spawn_env = os.environ.copy()
@@ -105,7 +104,7 @@ class SubprocessBackend(SpawnBackend):
 
         return f"Agent '{agent_name}' spawned as subprocess (pid={process.pid})"
 
-    def list_running(self) -> List[dict[str, str]]:
+    def list_running(self) -> list[dict[str, str]]:
         result = []
         for name, proc in list(self._processes.items()):
             if proc.poll() is None:

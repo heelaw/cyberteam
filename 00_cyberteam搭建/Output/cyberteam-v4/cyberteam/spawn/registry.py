@@ -10,7 +10,6 @@ import time
 from pathlib import Path
 
 from cyberteam.team.models import get_data_dir
-from typing import Union, List
 
 
 def _registry_path(team_name: str) -> Path:
@@ -23,7 +22,7 @@ def register_agent(
     backend: str,
     tmux_target: str = "",
     pid: int = 0,
-    command: Union[List[str], None] = None,
+    command: list[str] | None = None,
 ) -> None:
     """Record spawn info for an agent (atomic write)."""
     path = _registry_path(team_name)
@@ -42,7 +41,7 @@ def get_registry(team_name: str) -> dict[str, dict]:
     return _load(_registry_path(team_name))
 
 
-def is_agent_alive(team_name: str, agent_name: str) -> Union[bool, None]:
+def is_agent_alive(team_name: str, agent_name: str) -> bool | None:
     """Check if a spawned agent process is still alive.
 
     Returns True if alive, False if dead, None if no spawn info found.
@@ -67,7 +66,7 @@ def is_agent_alive(team_name: str, agent_name: str) -> Union[bool, None]:
     return None
 
 
-def list_dead_agents(team_name: str) -> List[str]:
+def list_dead_agents(team_name: str) -> list[str]:
     """Return names of agents whose processes are no longer alive."""
     registry = get_registry(team_name)
     dead = []
@@ -78,7 +77,7 @@ def list_dead_agents(team_name: str) -> List[str]:
     return dead
 
 
-def stop_agent(team_name: str, agent_name: str, timeout_seconds: float = 3.0) -> Union[bool, None]:
+def stop_agent(team_name: str, agent_name: str, timeout_seconds: float = 3.0) -> bool | None:
     """Best-effort stop of a previously registered agent.
 
     Returns:

@@ -25,7 +25,7 @@ class AgentIdentity:
     agent_name: str = "agent"
     user: str = ""
     agent_type: str = "general-purpose"
-    team_name: Optional[str] = None
+    team_name: str | None = None
     is_leader: bool = False
     plan_mode_required: bool = False
 

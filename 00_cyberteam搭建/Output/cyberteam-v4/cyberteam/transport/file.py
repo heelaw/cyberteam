@@ -11,7 +11,6 @@ from pathlib import Path
 from cyberteam.team.models import get_data_dir
 from cyberteam.transport.base import Transport
 from cyberteam.transport.claimed import ClaimedMessage
-from typing import Union, List
 
 
 def _teams_root() -> Path:
@@ -30,7 +29,7 @@ def _dead_letter_dir(team_name: str, agent_name: str) -> Path:
     return d
 
 
-def _claimable_paths(inbox: Path) -> List[Path]:
+def _claimable_paths(inbox: Path) -> list[Path]:
     paths = list(inbox.glob("msg-*.json"))
     paths.extend(inbox.glob("msg-*.consumed"))
     return sorted(paths)
@@ -108,9 +107,9 @@ class FileTransport(Transport):
             tmp.unlink(missing_ok=True)
             raise
 
-    def claim_messages(self, agent_name: str, limit: int = 10) -> List[ClaimedMessage]:
+    def claim_messages(self, agent_name: str, limit: int = 10) -> list[ClaimedMessage]:
         inbox = _inbox_dir(self.team_name, agent_name)
-        claimed: List[ClaimedMessage] = []
+        claimed: list[ClaimedMessage] = []
         for path in _claimable_paths(inbox)[:limit]:
             consumed = path
             if path.suffix == ".json":
@@ -153,7 +152,7 @@ class FileTransport(Transport):
         data: bytes,
         error: str,
         source_name: str,
-        consumed_path: Union[Path, None] = None
+        consumed_path: Path | None = None,
     ) -> None:
         dead_dir = _dead_letter_dir(self.team_name, agent_name)
         raw_path = dead_dir / source_name
@@ -180,7 +179,7 @@ class FileTransport(Transport):
             encoding="utf-8",
         )
 
-    def fetch(self, agent_name: str, limit: int = 10, consume: bool = True) -> List[bytes]:
+    def fetch(self, agent_name: str, limit: int = 10, consume: bool = True) -> list[bytes]:
         inbox = _inbox_dir(self.team_name, agent_name)
         if consume:
             messages = []
@@ -190,7 +189,7 @@ class FileTransport(Transport):
             return messages
 
         files = _claimable_paths(inbox)
-        messages: List[bytes] = []
+        messages: list[bytes] = []
         for f in files[:limit]:
             if f.suffix == ".consumed" and _is_locked(f):
                 continue
@@ -208,7 +207,7 @@ class FileTransport(Transport):
             if path.suffix != ".consumed" or not _is_locked(path)
         )
 
-    def list_recipients(self) -> List[str]:
+    def list_recipients(self) -> list[str]:
         inboxes_dir = _teams_root() / self.team_name / "inboxes"
         if not inboxes_dir.exists():
             return []

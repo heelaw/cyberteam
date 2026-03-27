@@ -2245,7 +2245,7 @@ def task_wait(
         raise typer.Exit(1)
 
 
-def _print_incomplete_tasks(task_details: List[dict]):
+def _print_incomplete_tasks(task_details: list[dict]):
     """Print tasks that are not completed."""
     incomplete = [t for t in task_details if t["status"] != "completed"]
     if incomplete:
@@ -3585,7 +3585,7 @@ def launch_team(
 
     # 8. Spawn all agents (leader first, then workers)
     all_agents = [tmpl.leader] + list(tmpl.agents)
-    spawned: List[Dict[str, str]] = []
+    spawned: list[Dict[str, str]] = []
     resolved_profile = None
     if profile:
         try:

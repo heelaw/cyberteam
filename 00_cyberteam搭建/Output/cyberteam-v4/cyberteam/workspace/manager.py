@@ -9,7 +9,6 @@ from pathlib import Path
 
 from cyberteam.workspace import git
 from cyberteam.workspace.models import WorkspaceInfo, WorkspaceRegistry
-from typing import Optional, Union, List
 
 logger = logging.getLogger(__name__)
 
@@ -47,7 +46,7 @@ def _save_registry(registry: WorkspaceRegistry) -> None:
 class WorkspaceManager:
     """Manages git worktree-based isolated workspaces for agents."""
 
-    def __init__(self, repo_path: Optional[Path] = None):
+    def __init__(self, repo_path: Path | None = None):
         cwd = repo_path or Path.cwd()
         self.repo_root = git.repo_root(cwd)
         self.base_branch = git.current_branch(self.repo_root)
@@ -109,7 +108,7 @@ class WorkspaceManager:
         self,
         team_name: str,
         agent_name: str,
-        message: Optional[str] = None,
+        message: str | None = None,
     ) -> bool:
         info = self._find(team_name, agent_name)
         if info is None:
@@ -171,7 +170,7 @@ class WorkspaceManager:
         self,
         team_name: str,
         agent_name: str,
-        target_branch: Optional[str] = None,
+        target_branch: str | None = None,
         cleanup_after: bool = True,
     ) -> tuple[bool, str]:
         info = self._find(team_name, agent_name)
@@ -195,11 +194,11 @@ class WorkspaceManager:
     # Query
     # ------------------------------------------------------------------
 
-    def list_workspaces(self, team_name: str) -> List[WorkspaceInfo]:
+    def list_workspaces(self, team_name: str) -> list[WorkspaceInfo]:
         registry = _load_registry(team_name, str(self.repo_root))
         return registry.workspaces
 
-    def get_workspace(self, team_name: str, agent_name: str) -> Union[WorkspaceInfo, None]:
+    def get_workspace(self, team_name: str, agent_name: str) -> WorkspaceInfo | None:
         return self._find(team_name, agent_name)
 
     # ------------------------------------------------------------------
@@ -207,7 +206,7 @@ class WorkspaceManager:
     # ------------------------------------------------------------------
 
     @staticmethod
-    def try_create(repo_path: Optional[Path] = None) -> Union[WorkspaceManager, None]:
+    def try_create(repo_path: Path | None = None) -> WorkspaceManager | None:
         """Return a WorkspaceManager if inside a git repo, else None."""
         try:
             return WorkspaceManager(repo_path)
@@ -218,7 +217,7 @@ class WorkspaceManager:
     # Internal
     # ------------------------------------------------------------------
 
-    def _find(self, team_name: str, agent_name: str) -> Union[WorkspaceInfo, None]:
+    def _find(self, team_name: str, agent_name: str) -> WorkspaceInfo | None:
         registry = _load_registry(team_name, str(self.repo_root))
         for ws in registry.workspaces:
             if ws.agent_name == agent_name:

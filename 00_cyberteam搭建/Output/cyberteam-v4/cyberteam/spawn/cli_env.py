@@ -34,7 +34,7 @@ def resolve_clawteam_executable() -> str:
     return resolved or "clawteam"
 
 
-def build_spawn_path(base_path: Optional[str] = None) -> str:
+def build_spawn_path(base_path: str | None = None) -> str:
     """Ensure the current clawteam executable directory is on PATH."""
 
     path_value = base_path if base_path is not None else os.environ.get("PATH", "")

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Literal, List
+from typing import Literal
 
 from cyberteam.config import AgentPreset, AgentProfile, load_config
 
@@ -282,7 +282,7 @@ def generate_profile_from_preset(
     preset_name: str,
     client: str,
     *,
-    name: Optional[str] = None,
+    name: str | None = None,
 ) -> tuple[str, AgentProfile]:
     """Generate a client-scoped profile from a preset."""
     preset, _ = load_preset(preset_name)
@@ -310,7 +310,7 @@ def generate_profile_from_preset(
     return name or f"{normalized_client}-{preset_name}", profile
 
 
-def preset_clients(preset: AgentPreset) -> List[str]:
+def preset_clients(preset: AgentPreset) -> list[str]:
     """Return sorted client names configured by a preset."""
     return sorted(preset.client_overrides.keys())
 

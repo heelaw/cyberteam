@@ -13,20 +13,19 @@ from rich.table import Table
 from rich.text import Text
 
 from cyberteam.timefmt import format_timestamp
-from typing import Optional, List
 
 
 class BoardRenderer:
     """Renders board data using Rich."""
 
-    def __init__(self, console: Optional[Console] = None):
+    def __init__(self, console: Console | None = None):
         self.console = console or Console()
 
     def render_team_board(self, data: dict) -> None:
         """Render a full team board to the console."""
         self.console.print(self._build_team_board(data))
 
-    def render_overview(self, teams: List[dict]) -> None:
+    def render_overview(self, teams: list[dict]) -> None:
         """Render a multi-team overview table."""
         if not teams:
             self.console.print("[dim]No teams found[/dim]")
@@ -163,7 +162,7 @@ class BoardRenderer:
         high = conflicts.get("highSeverity", 0)
         medium = conflicts.get("mediumSeverity", 0)
 
-        lines: List[str] = []
+        lines: list[str] = []
         for o in overlaps:
             severity = o["severity"]
             style = "red bold" if severity == "high" else "yellow"

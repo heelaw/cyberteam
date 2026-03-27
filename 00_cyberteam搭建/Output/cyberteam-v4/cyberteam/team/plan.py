@@ -8,7 +8,6 @@ from pathlib import Path
 
 from cyberteam.team.mailbox import MailboxManager
 from cyberteam.team.models import MessageType, get_data_dir
-from typing import Union, List
 
 
 def _plans_root() -> Path:
@@ -39,7 +38,7 @@ def _legacy_plan_path(agent_name: str, plan_id: str) -> Path:
     return _plans_root_path() / _plan_filename(agent_name, plan_id)
 
 
-def _iter_plan_paths(team_name: str, agent_name: str, plan_id: str) -> List[Path]:
+def _iter_plan_paths(team_name: str, agent_name: str, plan_id: str) -> list[Path]:
     paths = []
     if team_name:
         paths.append(_team_plan_path(team_name, agent_name, plan_id))
@@ -152,7 +151,7 @@ class PlanManager:
         )
 
     @staticmethod
-    def get_plan(plan_id: str, agent_name: str, team_name: str = "") -> Union[str, None]:
+    def get_plan(plan_id: str, agent_name: str, team_name: str = "") -> str | None:
         for plan_path in _iter_plan_paths(team_name, agent_name, plan_id):
             if plan_path.exists():
                 return plan_path.read_text(encoding="utf-8")

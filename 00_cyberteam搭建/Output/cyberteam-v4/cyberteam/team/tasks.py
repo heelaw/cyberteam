@@ -9,7 +9,7 @@ import tempfile
 from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, List
+from typing import Any
 
 from cyberteam.team.models import TaskItem, TaskPriority, TaskStatus, get_data_dir
 
@@ -62,9 +62,9 @@ class TaskStore:
         subject: str,
         description: str = "",
         owner: str = "",
-        priority: Union[TaskPriority, None] = None,
-        blocks: Union[List[str], None] = None,
-        blocked_by: Union[List[str], None] = None,
+        priority: TaskPriority | None = None,
+        blocks: list[str] | None = None,
+        blocked_by: list[str] | None = None,
         metadata: dict[str, Any] | None = None,
     ) -> TaskItem:
         task = TaskItem(
@@ -82,10 +82,10 @@ class TaskStore:
             self._save_unlocked(task)
         return task
 
-    def get(self, task_id: str) -> Union[TaskItem, None]:
+    def get(self, task_id: str) -> TaskItem | None:
         return self._get_unlocked(task_id)
 
-    def _get_unlocked(self, task_id: str) -> Union[TaskItem, None]:
+    def _get_unlocked(self, task_id: str) -> TaskItem | None:
         path = _task_path(self.team_name, task_id)
         if not path.exists():
             return None
@@ -98,17 +98,17 @@ class TaskStore:
     def update(
         self,
         task_id: str,
-        status: Union[TaskStatus, None] = None,
-        owner: Optional[str] = None,
-        subject: Optional[str] = None,
-        description: Optional[str] = None,
-        priority: Union[TaskPriority, None] = None,
-        add_blocks: Union[List[str], None] = None,
-        add_blocked_by: Union[List[str], None] = None,
+        status: TaskStatus | None = None,
+        owner: str | None = None,
+        subject: str | None = None,
+        description: str | None = None,
+        priority: TaskPriority | None = None,
+        add_blocks: list[str] | None = None,
+        add_blocked_by: list[str] | None = None,
         metadata: dict[str, Any] | None = None,
         caller: str = "",
         force: bool = False,
-    ) -> Optional[TaskItem]:
+    ) -> TaskItem | None:
         with self._write_lock():
             task = self._get_unlocked(task_id)
             if not task:
@@ -180,7 +180,7 @@ class TaskStore:
         task.locked_by = caller or ""
         task.locked_at = _now_iso() if caller else ""
 
-    def release_stale_locks(self) -> List[str]:
+    def release_stale_locks(self) -> list[str]:
         """Scan all tasks and release locks held by dead agents.
 
         Returns list of task IDs whose locks were released.
@@ -203,11 +203,11 @@ class TaskStore:
 
     def list_tasks(
         self,
-        status: Union[TaskStatus, None] = None
-        owner: Optional[str] = None,
-        priority: Union[TaskPriority, None] = None
+        status: TaskStatus | None = None,
+        owner: str | None = None,
+        priority: TaskPriority | None = None,
         sort_by_priority: bool = False,
-    ) -> List[TaskItem]:
+    ) -> list[TaskItem]:
         return self._list_tasks_unlocked(
             status=status,
             owner=owner,
@@ -217,11 +217,11 @@ class TaskStore:
 
     def _list_tasks_unlocked(
         self,
-        status: Union[TaskStatus, None] = None
-        owner: Optional[str] = None,
-        priority: Union[TaskPriority, None] = None
+        status: TaskStatus | None = None,
+        owner: str | None = None,
+        priority: TaskPriority | None = None,
         sort_by_priority: bool = False,
-    ) -> List[TaskItem]:
+    ) -> list[TaskItem]:
         root = _tasks_root(self.team_name)
         tasks = []
         for f in sorted(root.glob("task-*.json")):

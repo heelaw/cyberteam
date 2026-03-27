@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from typing import List
-
 import json
 
 from cyberteam.team.mailbox import MailboxManager
@@ -17,7 +15,7 @@ class BoardCollector:
     @staticmethod
     def _member_alias_index(config) -> dict[str, dict]:
         """Map known member identifiers to a canonical display payload."""
-        unique_names: dict[str, List[dict]] = {}
+        unique_names: dict[str, list[dict]] = {}
         aliases: dict[str, dict] = {}
         for member in config.members:
             inbox_name = TeamManager.inbox_name_for(member)
@@ -95,7 +93,7 @@ class BoardCollector:
 
         # Tasks grouped by status
         all_tasks = store.list_tasks()
-        grouped: dict[str, List[dict]] = {
+        grouped: dict[str, list[dict]] = {
             "pending": [],
             "in_progress": [],
             "completed": [],
@@ -192,7 +190,7 @@ class BoardCollector:
             "conflicts": conflict_data,
         }
 
-    def collect_overview(self) -> List[dict]:
+    def collect_overview(self) -> list[dict]:
         """Collect summary data for all teams.
 
         Returns a list of dicts with keys: name, description, leader,

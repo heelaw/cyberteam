@@ -8,10 +8,9 @@ from pathlib import Path
 from cyberteam.team.models import get_data_dir
 from cyberteam.workspace import git
 from cyberteam.workspace.manager import WorkspaceManager, _load_registry
-from typing import Union, List
 
 
-def _registry_repo_root(team_name: str) -> Union[str, None]:
+def _registry_repo_root(team_name: str) -> str | None:
     path = get_data_dir() / "workspaces" / team_name / "workspace-registry.json"
     if not path.exists():
         return None
@@ -25,11 +24,11 @@ def _registry_repo_root(team_name: str) -> Union[str, None]:
     return repo_root
 
 
-def _resolve_repo_path(team_name: str, repo: Optional[str] = None) -> Union[str, None]:
+def _resolve_repo_path(team_name: str, repo: str | None = None) -> str | None:
     return repo or _registry_repo_root(team_name)
 
 
-def _ws_manager(team_name: str, repo: Optional[str] = None) -> WorkspaceManager:
+def _ws_manager(team_name: str, repo: str | None = None) -> WorkspaceManager:
     resolved_repo = _resolve_repo_path(team_name, repo)
     path = Path(resolved_repo) if resolved_repo else None
     mgr = WorkspaceManager.try_create(path)
@@ -51,7 +50,7 @@ def _base_branch(team_name: str, agent_name: str, mgr: WorkspaceManager) -> str:
 # agent_diff
 # ---------------------------------------------------------------------------
 
-def agent_diff(team_name: str, agent_name: str, repo: Optional[str] = None) -> dict:
+def agent_diff(team_name: str, agent_name: str, repo: str | None = None) -> dict:
     """Return diff statistics for an agent's branch vs. its base.
 
     Keys: files_changed, insertions, deletions, diff_stat, commit_count, summary
@@ -69,7 +68,7 @@ def agent_diff(team_name: str, agent_name: str, repo: Optional[str] = None) -> d
     except Exception:
         numstat_raw = ""
 
-    files_changed: List[str] = []
+    files_changed: list[str] = []
     insertions = 0
     deletions = 0
     for line in numstat_raw.splitlines():
@@ -117,11 +116,11 @@ def agent_diff(team_name: str, agent_name: str, repo: Optional[str] = None) -> d
 # file_owners
 # ---------------------------------------------------------------------------
 
-def file_owners(team_name: str, repo: Optional[str] = None) -> dict[str, List[str]]:
+def file_owners(team_name: str, repo: str | None = None) -> dict[str, list[str]]:
     """Map each modified file to the list of agents that touched it."""
     mgr = _ws_manager(team_name, repo)
     registry = _load_registry(team_name, str(mgr.repo_root))
-    owners: dict[str, List[str]] = {}
+    owners: dict[str, list[str]] = {}
 
     for ws in registry.workspaces:
         branch = ws.branch_name
@@ -149,12 +148,12 @@ def file_owners(team_name: str, repo: Optional[str] = None) -> dict[str, List[st
 # ---------------------------------------------------------------------------
 
 def cross_branch_log(
-    team_name: str, limit: int = 50, repo: Optional[str] = None,
-) -> List[dict]:
+    team_name: str, limit: int = 50, repo: str | None = None,
+) -> list[dict]:
     """Unified commit log across all agent branches, newest first."""
     mgr = _ws_manager(team_name, repo)
     registry = _load_registry(team_name, str(mgr.repo_root))
-    entries: List[dict] = []
+    entries: list[dict] = []
 
     for ws in registry.workspaces:
         branch = ws.branch_name
@@ -173,7 +172,7 @@ def cross_branch_log(
         except Exception:
             continue
 
-        current: Union[dict, None] = None
+        current: dict | None = None
         for line in log_raw.splitlines():
             if "|" in line and len(line.split("|")) >= 3:
                 if current is not None:
@@ -200,7 +199,7 @@ def cross_branch_log(
 # agent_summary
 # ---------------------------------------------------------------------------
 
-def agent_summary(team_name: str, agent_name: str, repo: Optional[str] = None) -> str:
+def agent_summary(team_name: str, agent_name: str, repo: str | None = None) -> str:
     """Human-readable summary of an agent's git activity."""
     diff = agent_diff(team_name, agent_name, repo)
     lines = [
@@ -222,7 +221,7 @@ def agent_summary(team_name: str, agent_name: str, repo: Optional[str] = None) -
 # ---------------------------------------------------------------------------
 
 def inject_context(
-    team_name: str, target_agent: str, repo: Optional[str] = None,
+    team_name: str, target_agent: str, repo: str | None = None,
 ) -> str:
     """Build a context block for injection into an agent's prompt.
 
@@ -235,11 +234,11 @@ def inject_context(
     target_diff = agent_diff(team_name, target_agent, repo)
     target_files = set(target_diff["files_changed"])
 
-    sections: List[str] = []
+    sections: list[str] = []
 
     # --- Section 1: Other agents' changes on overlapping files ---
     owners = file_owners(team_name, repo)
-    overlaps: dict[str, List[str]] = {}
+    overlaps: dict[str, list[str]] = {}
     for fname, agents in owners.items():
         if fname in target_files and len(agents) > 1:
             others = [a for a in agents if a != target_agent]
@@ -254,7 +253,7 @@ def inject_context(
 
     # --- Section 2: Recent changes from other agents on related files ---
     log = cross_branch_log(team_name, limit=20, repo=repo)
-    related: List[str] = []
+    related: list[str] = []
     for entry in log:
         if entry["agent"] == target_agent:
             continue

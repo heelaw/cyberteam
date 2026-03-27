@@ -6,7 +6,6 @@ import sys
 from pathlib import Path
 
 from pydantic import BaseModel
-from typing import Union, List
 
 # TOML support: built-in on 3.11+, conditional dependency on 3.10
 if sys.version_info >= (3, 11):
@@ -26,7 +25,7 @@ class AgentDef(BaseModel):
     name: str
     type: str = "general-purpose"
     task: str = ""
-    command: Union[List[str], None]=
+    command: list[str] | None = None
 
 
 class TaskDef(BaseModel):
@@ -38,11 +37,11 @@ class TaskDef(BaseModel):
 class TemplateDef(BaseModel):
     name: str
     description: str = ""
-    command: List[str] = ["claude"]
+    command: list[str] = ["claude"]
     backend: str = "tmux"
     leader: AgentDef
-    agents: List[AgentDef] = []
-    tasks: List[TaskDef] = []
+    agents: list[AgentDef] = []
+    tasks: list[TaskDef] = []
 
 
 # ---------------------------------------------------------------------------
@@ -125,7 +124,7 @@ def load_template(name: str) -> TemplateDef:
     )
 
 
-def list_templates() -> List[dict[str, str]]:
+def list_templates() -> list[dict[str, str]]:
     """List all available templates (user + builtin, user overrides builtin)."""
     seen: dict[str, dict[str, str]] = {}
 

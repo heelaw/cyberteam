@@ -16,7 +16,7 @@ import logging
 import os
 import shutil
 from pathlib import Path
-from typing import Optional, List
+from typing import Optional
 
 from pydantic import BaseModel, Field
 
@@ -235,7 +235,7 @@ class ConfigUnifier:
     # 配置验证
     # -------------------------------------------------------------------------
 
-    def validate(self, config: CyberTeamConfig) -> List[str]:
+    def validate(self, config: CyberTeamConfig) -> list[str]:
         """验证配置有效性
 
         Returns:

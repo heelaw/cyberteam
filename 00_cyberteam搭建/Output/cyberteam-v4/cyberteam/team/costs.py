@@ -10,7 +10,6 @@ from pathlib import Path
 from pydantic import BaseModel, Field
 
 from cyberteam.team.models import get_data_dir
-from typing import Optional, Union, List
 
 
 def _now_iso() -> str:
@@ -82,7 +81,7 @@ def _summary_cache_path(team_name: str) -> Path:
     return _costs_root(team_name) / "summary.json"
 
 
-def _read_event_file(path: Path) -> Union[CostEvent, None]:
+def _read_event_file(path: Path) -> CostEvent | None:
     try:
         data = json.loads(path.read_text(encoding="utf-8"))
         return CostEvent.model_validate(data)
@@ -94,7 +93,7 @@ def _empty_summary_cache(team_name: str) -> _CostSummaryCache:
     return _CostSummaryCache(team_name=team_name)
 
 
-def _load_summary_cache(team_name: str) -> Optional[_CostSummaryCache]:
+def _load_summary_cache(team_name: str) -> _CostSummaryCache | None:
     path = _summary_cache_path(team_name)
     if not path.exists():
         return None
@@ -257,7 +256,7 @@ class CostStore:
             pass
         return event
 
-    def list_events(self, agent_name: str = "") -> List[CostEvent]:
+    def list_events(self, agent_name: str = "") -> list[CostEvent]:
         root = _costs_root(self.team_name)
         events = []
         for f in sorted(root.glob("cost-*.json")):

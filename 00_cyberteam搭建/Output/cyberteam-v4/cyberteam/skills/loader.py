@@ -172,9 +172,8 @@ class SkillLoader:
 
     def _scan_skill_md_formats(self, skills_base: Path):
         """扫描SKILL.md格式的Skills - 从ops目录（已内部化）"""
-        # ops目录在 cyberteam/skills/ops/（不是skills/ops/）
-        # 因为Python Skills在 cyberteam/skills/growth/
-        ops_path = skills_base.parent / "cyberteam" / "skills" / "ops"
+        # ops目录在 cyberteam/skills/ops/
+        ops_path = skills_base / "ops"
 
         if not ops_path.exists():
             print(f"⚠️ OPS目录不存在: {ops_path}")
