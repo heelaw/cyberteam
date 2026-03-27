@@ -226,7 +226,7 @@ class TestTodoSchemas:
 class TestTodoAPI:
     """测试 TODO API 端点"""
 
-    @pytest.fixture
+    @pytest_asyncio.fixture
     async def client(self, test_engine):
         """创建测试客户端"""
         # 覆盖数据库配置
@@ -523,7 +523,7 @@ class TestTodoAPI:
 class TestTodoEdgeCases:
     """测试边界条件和错误处理"""
 
-    @pytest.fixture
+    @pytest_asyncio.fixture
     async def client(self, test_engine):
         """创建测试客户端"""
         from backend.app import db as db_module
