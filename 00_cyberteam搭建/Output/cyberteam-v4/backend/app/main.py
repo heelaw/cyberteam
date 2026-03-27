@@ -117,7 +117,7 @@ app.add_middleware(
 )
 
 # 注册路由
-from .api import tasks, agents, experts, debate, scoring, health
+from .api import tasks, agents, experts, debate, scoring, health, todos
 
 app.include_router(tasks.router, prefix="/api/tasks", tags=["tasks"])
 app.include_router(agents.router, prefix="/api/agents", tags=["agents"])
@@ -125,6 +125,7 @@ app.include_router(experts.router, prefix="/api/experts", tags=["experts"])
 app.include_router(debate.router, prefix="/api/debate", tags=["debate"])
 app.include_router(scoring.router, prefix="/api/scoring", tags=["scoring"])
 app.include_router(health.router, tags=["health"])
+app.include_router(todos.router, prefix="/api/todos", tags=["todos"])
 
 
 @app.get("/")
