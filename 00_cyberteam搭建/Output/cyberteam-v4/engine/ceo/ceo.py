@@ -343,7 +343,8 @@ class CEORouter:
         what_patterns = [
             r'(?:帮我?|请?|给我?)(.*?)(?:做|搞|完成|实现|开发|分析|策划|制定)',
             r'(?:需要|要|想要)(.*?)(?:做|搞|完成|实现|开发|分析)',
-            r'^(.*?)(?:方案|计划|策略|分析|报告)
+            r'^(.*?)(?:方案|计划|策略|分析|报告)',
+        ]
 
     def should_use_swarm(self, user_input: str, intent: Intent, complexity: Complexity) -> bool:
         """判断是否应该使用 Swarm 群体智能"""
