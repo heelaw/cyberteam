@@ -7,7 +7,7 @@ by the ClawTeam Skill, not duplicated here.
 from __future__ import annotations
 
 
-def _build_context_block(team_name: str, agent_name: str, repo: str | None = None) -> str:
+def _build_context_block(team_name: str, agent_name: str, repo: Optional[str] = None) -> str:
     """Build a context awareness block from the workspace context layer.
 
     Includes recent changes from teammates, file overlap warnings,
@@ -35,7 +35,7 @@ def build_agent_prompt(
     workspace_dir: str = "",
     workspace_branch: str = "",
     isolated_workspace: bool = False,
-    repo_path: str | None = None,
+    repo_path: Optional[str] = None,
 ) -> str:
     """Build agent prompt: identity + task + context + coordination."""
     lines = [

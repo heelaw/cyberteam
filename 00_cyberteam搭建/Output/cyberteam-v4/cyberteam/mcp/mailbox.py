@@ -4,28 +4,29 @@ from __future__ import annotations
 
 from .helpers import coerce_enum, team_mailbox, to_payload
 from cyberteam.team.models import MessageType
+from typing import Union, List
 
 
 def mailbox_send(
     team_name: str,
     from_agent: str,
     to: str,
-    content: str | None = None,
-    msg_type: str | None = None,
-    request_id: str | None = None,
-    key: str | None = None,
-    proposed_name: str | None = None,
-    capabilities: str | None = None,
-    feedback: str | None = None,
-    reason: str | None = None,
-    assigned_name: str | None = None,
-    agent_id: str | None = None,
-    message_team_name: str | None = None,
-    plan_file: str | None = None,
-    summary: str | None = None,
-    plan: str | None = None,
-    last_task: str | None = None,
-    status: str | None = None,
+    content: Optional[str] = None,
+    msg_type: Optional[str] = None,
+    request_id: Optional[str] = None,
+    key: Optional[str] = None,
+    proposed_name: Optional[str] = None,
+    capabilities: Optional[str] = None,
+    feedback: Optional[str] = None,
+    reason: Optional[str] = None,
+    assigned_name: Optional[str] = None,
+    agent_id: Optional[str] = None,
+    message_team_name: Optional[str] = None,
+    plan_file: Optional[str] = None,
+    summary: Optional[str] = None,
+    plan: Optional[str] = None,
+    last_task: Optional[str] = None,
+    status: Optional[str] = None,
 ) -> dict:
     """Send a message to a team member inbox."""
     return to_payload(
@@ -56,10 +57,10 @@ def mailbox_broadcast(
     team_name: str,
     from_agent: str,
     content: str,
-    msg_type: str | None = None,
-    key: str | None = None,
-    exclude: list[str] | None = None,
-) -> list[dict]:
+    msg_type: Optional[str] = None,
+    key: Optional[str] = None,
+    exclude: Union[List[str], None]=
+) -> List[dict]:
     """Broadcast a message to team inboxes."""
     return to_payload(
         team_mailbox(team_name).broadcast(
@@ -72,12 +73,12 @@ def mailbox_broadcast(
     )
 
 
-def mailbox_receive(team_name: str, agent_name: str, limit: int = 10) -> list[dict]:
+def mailbox_receive(team_name: str, agent_name: str, limit: int = 10) -> List[dict]:
     """Receive and consume pending inbox messages."""
     return to_payload(team_mailbox(team_name).receive(agent_name, limit=limit))
 
 
-def mailbox_peek(team_name: str, agent_name: str) -> list[dict]:
+def mailbox_peek(team_name: str, agent_name: str) -> List[dict]:
     """Preview pending inbox messages without consuming them."""
     return to_payload(team_mailbox(team_name).peek(agent_name))
 

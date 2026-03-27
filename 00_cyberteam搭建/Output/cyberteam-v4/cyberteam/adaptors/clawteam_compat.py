@@ -15,7 +15,7 @@ import logging
 import os
 import shutil
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any, Optional, List
 
 from cyberteam.config import CyberTeamConfig, load_config, save_config
 
@@ -196,21 +196,21 @@ class ClawTeamCompat:
     # 团队数据兼容
     # -------------------------------------------------------------------------
 
-    def list_clawteam_teams(self) -> list[str]:
+    def list_clawteam_teams(self) -> List[str]:
         """列出外部 ClawTeam 中的团队（可用于数据迁移）"""
         teams_dir = self.CLAWTEAM_DIR / "teams"
         if not teams_dir.exists():
             return []
         return [d.name for d in teams_dir.iterdir() if d.is_dir()]
 
-    def list_cyberteam_teams(self) -> list[str]:
+    def list_cyberteam_teams(self) -> List[str]:
         """列出 CyberTeam 中的团队"""
         teams_dir = self.CYBERTEAM_DIR / "teams"
         if not teams_dir.exists():
             return []
         return [d.name for d in teams_dir.iterdir() if d.is_dir()]
 
-    def get_all_teams(self) -> dict[str, list[str]]:
+    def get_all_teams(self) -> dict[str, List[str]]:
         """获取所有团队（包括迁移的和新的）"""
         return {
             "cyberteam": self.list_cyberteam_teams(),

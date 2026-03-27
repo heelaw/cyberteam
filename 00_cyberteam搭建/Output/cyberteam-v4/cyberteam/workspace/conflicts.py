@@ -6,13 +6,14 @@ from pathlib import Path
 
 from cyberteam.workspace import git
 from cyberteam.workspace.context import _agent_branch, _base_branch, _ws_manager, file_owners
+from typing import Optional, List
 
 # ---------------------------------------------------------------------------
 # detect_overlaps
 # ---------------------------------------------------------------------------
 
 
-def detect_overlaps(team_name: str, repo: str | None = None) -> list[dict]:
+def detect_overlaps(team_name: str, repo: Optional[str] = None) -> List[dict]:
     """Detect files modified by multiple agents.
 
     Returns list of dicts with keys: file, agents, severity.
@@ -24,7 +25,7 @@ def detect_overlaps(team_name: str, repo: str | None = None) -> list[dict]:
     owners = file_owners(team_name, repo)
     mgr = _ws_manager(team_name, repo)
 
-    overlaps: list[dict] = []
+    overlaps: List[dict] = []
     for fname, agents in owners.items():
         if len(agents) < 2:
             continue
@@ -82,7 +83,7 @@ def _changed_lines(
 
 def _compute_severity(
     fname: str,
-    agents: list[str],
+    agents: List[str],
     team_name: str,
     mgr,
 ) -> str:
@@ -106,8 +107,8 @@ def _compute_severity(
     agent_list = list(agent_lines.keys())
     for i in range(len(agent_list)):
         for j in range(i + 1, len(agent_list)):
-            a_lines = agent_lines[agent_list[i]]
-            b_lines = agent_lines[agent_list[j]]
+            a_lines = agent_lines[agent_List[i]]
+            b_lines = agent_lines[agent_List[j]]
             if a_lines & b_lines:
                 return "high"
 
@@ -123,8 +124,8 @@ def check_conflicts(
     team_name: str,
     agent_a: str,
     agent_b: str,
-    repo: str | None = None,
-) -> list[dict]:
+    repo: Optional[str] = None,
+) -> List[dict]:
     """Check for conflicts between two specific agents.
 
     Returns list of dicts with: file, conflict_markers (bool), details.
@@ -160,7 +161,7 @@ def check_conflicts(
     if not common_files:
         return []
 
-    results: list[dict] = []
+    results: List[dict] = []
     for fname in sorted(common_files):
         lines_a = _changed_lines(fname, branch_a, base_a, mgr.repo_root)
         lines_b = _changed_lines(fname, branch_b, base_b, mgr.repo_root)
@@ -186,7 +187,7 @@ def check_conflicts(
 # ---------------------------------------------------------------------------
 
 
-def auto_notify(team_name: str, mailbox_mgr, repo: str | None = None) -> int:
+def auto_notify(team_name: str, mailbox_mgr, repo: Optional[str] = None) -> int:
     """Scan for overlaps and send warning messages to affected agents.
 
     Returns number of warnings sent.
@@ -229,8 +230,8 @@ def auto_notify(team_name: str, mailbox_mgr, repo: str | None = None) -> int:
 def suggest_rebase(
     team_name: str,
     agent_name: str,
-    repo: str | None = None,
-) -> str | None:
+    repo: Optional[str] = None,
+) -> Optional[str]:
     """Suggest whether an agent should rebase onto the base branch.
 
     Returns a suggestion string, or None if no rebase is needed.

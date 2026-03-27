@@ -6,9 +6,10 @@ from datetime import datetime, timezone
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 from cyberteam.config import load_config
+from typing import Union
 
 
-def _parse_timestamp(value: str) -> datetime | None:
+def _parse_timestamp(value: str) -> Union[datetime, None]:
     text = (value or "").strip()
     if not text:
         return None
@@ -21,7 +22,7 @@ def _parse_timestamp(value: str) -> datetime | None:
     return dt
 
 
-def format_timestamp(value: str | None) -> str:
+def format_timestamp(value: Optional[str]) -> str:
     """Format an ISO timestamp using configured display timezone.
 
     Default behavior stays backward-compatible for UTC by returning the original

@@ -7,7 +7,7 @@ import uuid
 from datetime import datetime, timezone
 from enum import Enum
 from pathlib import Path
-from typing import Any
+from typing import Any, List
 
 from pydantic import BaseModel, Field
 
@@ -83,7 +83,7 @@ class TeamConfig(BaseModel):
     description: str = ""
     lead_agent_id: str = Field(default="", alias="leadAgentId")
     created_at: str = Field(default_factory=_now_iso, alias="createdAt")
-    members: list[TeamMember] = Field(default_factory=list)
+    members: List[TeamMember] = Field(default_factory=list)
     budget_cents: float = Field(default=0.0, alias="budgetCents")
 
 
@@ -97,28 +97,28 @@ class TeamMessage(BaseModel):
 
     type: MessageType = MessageType.message
     from_agent: str = Field(alias="from", serialization_alias="from")
-    to: str | None = None
-    content: str | None = None
-    request_id: str | None = Field(default=None, alias="requestId")
+    to: Optional[str] = None
+    content: Optional[str] = None
+    request_id: Optional[str] = Field(default=None, alias="requestId")
     timestamp: str = Field(default_factory=_now_iso)
-    key: str | None = None
+    key: Optional[str] = None
     # join_request fields
-    proposed_name: str | None = Field(default=None, alias="proposedName")
-    capabilities: str | None = None
+    proposed_name: Optional[str] = Field(default=None, alias="proposedName")
+    capabilities: Optional[str] = None
     # join_approved fields
-    assigned_name: str | None = Field(default=None, alias="assignedName")
-    agent_id: str | None = Field(default=None, alias="agentId")
-    team_name: str | None = Field(default=None, alias="teamName")
+    assigned_name: Optional[str] = Field(default=None, alias="assignedName")
+    agent_id: Optional[str] = Field(default=None, alias="agentId")
+    team_name: Optional[str] = Field(default=None, alias="teamName")
     # plan fields
-    plan_file: str | None = Field(default=None, alias="planFile")
-    summary: str | None = None
-    plan: str | None = None
+    plan_file: Optional[str] = Field(default=None, alias="planFile")
+    summary: Optional[str] = None
+    plan: Optional[str] = None
     # rejection/feedback
-    feedback: str | None = None
-    reason: str | None = None
+    feedback: Optional[str] = None
+    reason: Optional[str] = None
     # idle notification fields
-    last_task: str | None = Field(default=None, alias="lastTask")
-    status: str | None = None
+    last_task: Optional[str] = Field(default=None, alias="lastTask")
+    status: Optional[str] = None
 
 
 class TaskItem(BaseModel):
@@ -134,8 +134,8 @@ class TaskItem(BaseModel):
     owner: str = ""
     locked_by: str = Field(default="", alias="lockedBy")
     locked_at: str = Field(default="", alias="lockedAt")
-    blocks: list[str] = Field(default_factory=list)
-    blocked_by: list[str] = Field(default_factory=list, alias="blockedBy")
+    blocks: List[str] = Field(default_factory=list)
+    blocked_by: List[str] = Field(default_factory=list, alias="blockedBy")
     started_at: str = Field(default="", alias="startedAt")
     created_at: str = Field(default_factory=_now_iso, alias="createdAt")
     updated_at: str = Field(default_factory=_now_iso, alias="updatedAt")

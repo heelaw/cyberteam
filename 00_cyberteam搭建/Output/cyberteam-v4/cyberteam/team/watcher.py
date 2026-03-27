@@ -24,7 +24,7 @@ class InboxWatcher:
         mailbox: MailboxManager,
         poll_interval: float = 1.0,
         json_output: bool = False,
-        exec_cmd: str | None = None,
+        exec_cmd: Optional[str] = None,
     ):
         self.team_name = team_name
         self.agent_name = agent_name

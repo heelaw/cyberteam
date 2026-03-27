@@ -8,7 +8,7 @@ import re
 import shutil
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any
+from typing import Any, List
 
 from pydantic import BaseModel, Field
 
@@ -41,7 +41,7 @@ class SnapshotMeta(BaseModel):
     cost_event_count: int = Field(default=0, alias="costEventCount")
 
 
-def _read_json_dir(directory: Path, pattern: str) -> list[dict]:
+def _read_json_dir(directory: Path, pattern: str) -> List[dict]:
     if not directory.exists():
         return []
     items = []
@@ -53,7 +53,7 @@ def _read_json_dir(directory: Path, pattern: str) -> list[dict]:
     return items
 
 
-def _read_inbox_messages(directory: Path) -> list[dict]:
+def _read_inbox_messages(directory: Path) -> List[dict]:
     if not directory.exists():
         return []
     items = []
@@ -119,7 +119,7 @@ class SnapshotManager:
         costs = _read_json_dir(data_dir / "costs" / self.team_name, "cost-*.json")
 
         # pending inbox messages (not yet consumed)
-        inboxes: dict[str, list[dict]] = {}
+        inboxes: dict[str, List[dict]] = {}
         inbox_root = team_dir / "inboxes"
         if inbox_root.exists():
             for agent_dir in sorted(inbox_root.iterdir()):
@@ -160,10 +160,10 @@ class SnapshotManager:
         tmp.rename(path)
         return meta
 
-    def list_snapshots(self) -> list[SnapshotMeta]:
+    def list_snapshots(self) -> List[SnapshotMeta]:
         """List available snapshots, newest first."""
         root = _snapshots_root(self.team_name)
-        out: list[SnapshotMeta] = []
+        out: List[SnapshotMeta] = []
         for f in sorted(root.glob("snap-*.json"), reverse=True):
             try:
                 data = json.loads(f.read_text("utf-8"))

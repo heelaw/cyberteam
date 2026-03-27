@@ -5,11 +5,12 @@ from __future__ import annotations
 import signal
 import time
 from dataclasses import dataclass, field
-from typing import Callable
+from typing import Callable, List
 
 from cyberteam.team.mailbox import MailboxManager
 from cyberteam.team.models import TaskItem, TaskStatus, TeamMessage
 from cyberteam.team.tasks import TaskStore
+from typing import Optional, List
 
 
 @dataclass
@@ -24,7 +25,7 @@ class WaitResult:
     pending: int = 0
     blocked: int = 0
     messages_received: int = 0
-    task_details: list[dict] = field(default_factory=list)
+    task_details: List[dict] = field(default_factory=list)
 
 
 class TaskWaiter:
@@ -45,10 +46,10 @@ class TaskWaiter:
         mailbox: MailboxManager,
         task_store: TaskStore,
         poll_interval: float = 5.0,
-        timeout: float | None = None,
+        timeout: Union[float, None] = None
         on_message: Callable[[TeamMessage], None] | None = None,
         on_progress: Callable[[int, int, int, int, int], None] | None = None,
-        on_agent_dead: Callable[[str, list[TaskItem]], None] | None = None,
+        on_agent_dead: Callable[[str, List[TaskItem]], None] | None = None,
     ):
         self.team_name = team_name
         self.agent_name = agent_name

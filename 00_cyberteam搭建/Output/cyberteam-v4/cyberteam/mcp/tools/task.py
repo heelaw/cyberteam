@@ -4,15 +4,16 @@ from __future__ import annotations
 
 from ..helpers import coerce_enum, fail, task_store, to_payload, translate_error
 from cyberteam.team.models import TaskPriority, TaskStatus
+from typing import Union, List
 
 
 def task_list(
     team_name: str,
-    status: str | None = None,
-    owner: str | None = None,
-    priority: str | None = None,
+    status: Optional[str] = None,
+    owner: Optional[str] = None,
+    priority: Optional[str] = None,
     sort_by_priority: bool = False,
-) -> list[dict]:
+) -> List[dict]:
     """List tasks for a team with optional filters."""
     store = task_store(team_name)
     return to_payload(
@@ -43,10 +44,10 @@ def task_create(
     subject: str,
     description: str = "",
     owner: str = "",
-    priority: str | None = None,
-    blocks: list[str] | None = None,
-    blocked_by: list[str] | None = None,
-    metadata: dict | None = None,
+    priority: Optional[str] = None,
+    blocks: Union[List[str], None]=
+    blocked_by: Union[List[str], None]=
+    metadata: Union[dict, None] = None
 ) -> dict:
     """Create a task with optional owner, dependencies, and metadata."""
     return to_payload(
@@ -65,14 +66,14 @@ def task_create(
 def task_update(
     team_name: str,
     task_id: str,
-    status: str | None = None,
-    owner: str | None = None,
-    subject: str | None = None,
-    description: str | None = None,
-    priority: str | None = None,
-    add_blocks: list[str] | None = None,
-    add_blocked_by: list[str] | None = None,
-    metadata: dict | None = None,
+    status: Optional[str] = None,
+    owner: Optional[str] = None,
+    subject: Optional[str] = None,
+    description: Optional[str] = None,
+    priority: Optional[str] = None,
+    add_blocks: Union[List[str], None]=
+    add_blocked_by: Union[List[str], None]=
+    metadata: Union[dict, None] = None
     caller: str = "",
     force: bool = False,
 ) -> dict:

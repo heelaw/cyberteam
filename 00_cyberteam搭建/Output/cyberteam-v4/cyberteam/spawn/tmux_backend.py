@@ -22,6 +22,7 @@ from cyberteam.spawn.adapters import (
 from cyberteam.spawn.base import SpawnBackend
 from cyberteam.spawn.cli_env import build_spawn_path, resolve_clawteam_executable
 from cyberteam.spawn.command_validation import validate_spawn_command
+from typing import Optional, Union, List
 
 
 class TmuxBackend(SpawnBackend):
@@ -37,14 +38,14 @@ class TmuxBackend(SpawnBackend):
 
     def spawn(
         self,
-        command: list[str],
+        command: List[str],
         agent_name: str,
         agent_id: str,
         agent_type: str,
         team_name: str,
-        prompt: str | None = None,
+        prompt: Optional[str] = None,
         env: dict[str, str] | None = None,
-        cwd: str | None = None,
+        cwd: Optional[str] = None,
         skip_permissions: bool = False,
     ) -> str:
         if not shutil.which("tmux"):
@@ -208,7 +209,7 @@ class TmuxBackend(SpawnBackend):
 
         return f"Agent '{agent_name}' spawned in tmux ({target})"
 
-    def list_running(self) -> list[dict[str, str]]:
+    def list_running(self) -> List[dict[str, str]]:
         return [
             {"name": name, "target": target, "backend": "tmux"}
             for name, target in self._agents.items()
@@ -288,7 +289,7 @@ class TmuxBackend(SpawnBackend):
 
 def _confirm_workspace_trust_if_prompted(
     target: str,
-    command: list[str],
+    command: List[str],
     timeout_seconds: float = 5.0,
     poll_interval_seconds: float = 0.2,
 ) -> bool:
@@ -339,7 +340,7 @@ def _confirm_workspace_trust_if_prompted(
     return False
 
 
-def _startup_prompt_action(command: list[str], pane_text: str) -> str | None:
+def _startup_prompt_action(command: List[str], pane_text: str) -> Union[str, None]:
     """Return the key action needed to dismiss a startup confirmation prompt."""
     if _looks_like_claude_skip_permissions_prompt(command, pane_text):
         return "down-enter"
@@ -348,7 +349,7 @@ def _startup_prompt_action(command: list[str], pane_text: str) -> str | None:
     return None
 
 
-def _looks_like_workspace_trust_prompt(command: list[str], pane_text: str) -> bool:
+def _looks_like_workspace_trust_prompt(command: List[str], pane_text: str) -> bool:
     """Return True when the tmux pane is showing a trust confirmation dialog."""
     if not pane_text:
         return False
@@ -370,7 +371,7 @@ def _looks_like_workspace_trust_prompt(command: list[str], pane_text: str) -> bo
     return False
 
 
-def _looks_like_claude_skip_permissions_prompt(command: list[str], pane_text: str) -> bool:
+def _looks_like_claude_skip_permissions_prompt(command: List[str], pane_text: str) -> bool:
     """Return True when Claude is waiting for the dangerous-permissions confirmation."""
     if not pane_text or not is_claude_command(command):
         return False

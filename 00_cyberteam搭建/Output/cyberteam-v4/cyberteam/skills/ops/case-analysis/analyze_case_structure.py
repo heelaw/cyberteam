@@ -147,7 +147,7 @@ def main():
     for category, case_list in categories.items():
         if case_list:
             print(f"\n【{category}】({len(case_list)}个)")
-            for case in case_list[:5]:  # 只显示前5个
+            for case in case_List[:5]:  # 只显示前5个
                 info = extract_structure_from_filename(case["name"])
                 print(f"   {info['number'] or 'N/A'}. {info['brand'] or '未知品牌'} - {case['name'][:50]}...")
 

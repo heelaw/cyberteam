@@ -4,13 +4,14 @@ from __future__ import annotations
 
 import subprocess
 from pathlib import Path
+from typing import Optional, List
 
 
 class GitError(Exception):
     """Raised when a git command fails."""
 
 
-def _run(args: list[str], cwd: Path | None = None, check: bool = True) -> str:
+def _run(args: List[str], cwd: Optional[Path] = None, check: bool = True) -> str:
     """Run a git command and return stripped stdout."""
     result = subprocess.run(
         ["git"] + args,
@@ -104,10 +105,10 @@ def merge_branch(
         return False, str(e)
 
 
-def list_worktrees(repo: Path) -> list[dict[str, str]]:
+def list_worktrees(repo: Path) -> List[dict[str, str]]:
     """Return list of worktrees as dicts with 'path' and 'branch' keys."""
     raw = _run(["worktree", "list", "--porcelain"], cwd=repo)
-    worktrees: list[dict[str, str]] = []
+    worktrees: List[dict[str, str]] = []
     current: dict[str, str] = {}
     for line in raw.splitlines():
         if line.startswith("worktree "):

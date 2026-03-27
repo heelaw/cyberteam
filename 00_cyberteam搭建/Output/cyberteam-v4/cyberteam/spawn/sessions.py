@@ -5,11 +5,12 @@ from __future__ import annotations
 import json
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any
+from typing import Any, List
 
 from pydantic import BaseModel, Field
 
 from cyberteam.team.models import get_data_dir
+from typing import Optional, List
 
 
 def _now_iso() -> str:
@@ -67,7 +68,7 @@ class SessionStore:
         tmp.rename(path)
         return session
 
-    def load(self, agent_name: str) -> SessionState | None:
+    def load(self, agent_name: str) -> Union[SessionState, None]:
         path = _sessions_root(self.team_name) / f"{agent_name}.json"
         if not path.exists():
             return None
@@ -84,7 +85,7 @@ class SessionStore:
             return True
         return False
 
-    def list_sessions(self) -> list[SessionState]:
+    def list_sessions(self) -> List[SessionState]:
         root = _sessions_root(self.team_name)
         sessions = []
         for f in sorted(root.glob("*.json")):

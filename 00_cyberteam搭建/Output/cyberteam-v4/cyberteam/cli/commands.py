@@ -10,7 +10,7 @@ import sys
 import time
 import uuid
 from pathlib import Path
-from typing import Optional
+from typing import Optional, List
 
 import typer
 from rich.console import Console
@@ -32,7 +32,7 @@ console = Console()
 # ---------------------------------------------------------------------------
 
 _json_output: bool = False
-_data_dir: str | None = None
+_data_dir: Optional[str] = None
 
 
 def _version_callback(value: bool):
@@ -84,7 +84,7 @@ def _output(data: dict | list, human_fn=None):
         print(json.dumps(data, indent=2, ensure_ascii=False))
 
 
-def _parse_key_value_items(items: list[str], *, label: str) -> dict[str, str]:
+def _parse_key_value_items(items: List[str], *, label: str) -> dict[str, str]:
     """Parse repeated KEY=VALUE CLI options into a dict."""
     parsed: dict[str, str] = {}
     for item in items:
@@ -310,7 +310,7 @@ def preset_set(
     description: Optional[str] = typer.Option(None, "--description", help="Preset description"),
     auth_env: Optional[str] = typer.Option(None, "--auth-env", help="Default source env var holding provider auth"),
     base_url: Optional[str] = typer.Option(None, "--base-url", help="Default base URL shared by clients"),
-    env: list[str] = typer.Option(None, "--env", help="Shared env assignment KEY=VALUE"),
+    env: List[str] = typer.Option(None, "--env", help="Shared env assignment KEY=VALUE"),
 ):
     """Create or update a shared preset."""
     from cyberteam.spawn.presets import editable_preset, save_preset
@@ -344,9 +344,9 @@ def preset_set_client(
     base_url_env: Optional[str] = typer.Option(None, "--base-url-env", help="Destination env var for base URL injection"),
     api_key_env: Optional[str] = typer.Option(None, "--api-key-env", help="Client-specific source env var override"),
     api_key_target_env: Optional[str] = typer.Option(None, "--api-key-target-env", help="Destination env var receiving the resolved API key"),
-    env: list[str] = typer.Option(None, "--env", help="Static env assignment KEY=VALUE"),
-    env_map: list[str] = typer.Option(None, "--env-map", help="Runtime env mapping DEST=SOURCE_ENV"),
-    arg: list[str] = typer.Option(None, "--arg", help="Extra argument appended to the agent command"),
+    env: List[str] = typer.Option(None, "--env", help="Static env assignment KEY=VALUE"),
+    env_map: List[str] = typer.Option(None, "--env-map", help="Runtime env mapping DEST=SOURCE_ENV"),
+    arg: List[str] = typer.Option(None, "--arg", help="Extra argument appended to the agent command"),
 ):
     """Create or update a client override inside a preset."""
     from cyberteam.config import AgentProfile
@@ -494,7 +494,7 @@ def preset_generate_profile(
 @preset_app.command("bootstrap")
 def preset_bootstrap(
     preset_name: str = typer.Argument(..., help="Preset name"),
-    client: list[str] = typer.Option(None, "--client", help="Client to generate (repeatable). Defaults to all clients defined by the preset"),
+    client: List[str] = typer.Option(None, "--client", help="Client to generate (repeatable). Defaults to all clients defined by the preset"),
     force: bool = typer.Option(False, "--force", help="Overwrite existing profiles"),
 ):
     """Generate one profile per client from a preset."""
@@ -513,8 +513,8 @@ def preset_bootstrap(
         raise typer.Exit(1)
 
     existing_profiles = list_profiles()
-    generated: list[str] = []
-    skipped: list[str] = []
+    generated: List[str] = []
+    skipped: List[str] = []
 
     for item in clients:
         try:
@@ -630,9 +630,9 @@ def profile_set(
     base_url_env: Optional[str] = typer.Option(None, "--base-url-env", help="Destination env var for base URL injection"),
     api_key_env: Optional[str] = typer.Option(None, "--api-key-env", help="Source env var holding the API key"),
     api_key_target_env: Optional[str] = typer.Option(None, "--api-key-target-env", help="Destination env var receiving the resolved API key"),
-    env: list[str] = typer.Option(None, "--env", help="Static env assignment KEY=VALUE"),
-    env_map: list[str] = typer.Option(None, "--env-map", help="Runtime env mapping DEST=SOURCE_ENV"),
-    arg: list[str] = typer.Option(None, "--arg", help="Extra argument appended to the agent command"),
+    env: List[str] = typer.Option(None, "--env", help="Static env assignment KEY=VALUE"),
+    env_map: List[str] = typer.Option(None, "--env-map", help="Runtime env mapping DEST=SOURCE_ENV"),
+    arg: List[str] = typer.Option(None, "--arg", help="Extra argument appended to the agent command"),
 ):
     """Create or update a profile."""
     from cyberteam.config import AgentProfile
@@ -2245,7 +2245,7 @@ def task_wait(
         raise typer.Exit(1)
 
 
-def _print_incomplete_tasks(task_details: list[dict]):
+def _print_incomplete_tasks(task_details: List[dict]):
     """Print tasks that are not completed."""
     incomplete = [t for t in task_details if t["status"] != "completed"]
     if incomplete:
@@ -2611,7 +2611,7 @@ def lifecycle_on_exit(
 @app.command("spawn")
 def spawn_agent(
     backend: Optional[str] = typer.Argument(None, help="Backend: tmux (default) or subprocess"),
-    command: list[str] = typer.Argument(None, help="Command and arguments to run (default: claude)"),
+    command: List[str] = typer.Argument(None, help="Command and arguments to run (default: claude)"),
     team: Optional[str] = typer.Option(None, "--team", "-t", help="Team name"),
     agent_name: Optional[str] = typer.Option(None, "--agent-name", "-n", help="Agent name"),
     profile: Optional[str] = typer.Option(None, "--profile", help="Apply a named runtime profile"),
@@ -3502,7 +3502,7 @@ def launch_team(
     team_name: Optional[str] = typer.Option(None, "--team-name", "--team", "-t", help="Override team name"),
     workspace: bool = typer.Option(False, "--workspace/--no-workspace", "-w"),
     repo: Optional[str] = typer.Option(None, "--repo", help="Git repo path"),
-    command_override: Optional[list[str]] = typer.Option(None, "--command", help="Override agent command"),
+    command_override: Optional[List[str]] = typer.Option(None, "--command", help="Override agent command"),
 ):
     """Launch a full agent team from a template with one command."""
     import os as _os
@@ -3586,7 +3586,7 @@ def launch_team(
 
     # 8. Spawn all agents (leader first, then workers)
     all_agents = [tmpl.leader] + list(tmpl.agents)
-    spawned: list[dict[str, str]] = []
+    spawned: List[dict[str, str]] = []
     resolved_profile = None
     if profile:
         try:

@@ -61,7 +61,7 @@ def to_payload(data: Any) -> dict:
     return data
 
 
-def coerce_enum(enum_class: type[E], value: Any) -> E | None:
+def coerce_enum(enum_class: type[E], value: Any) -> Union[E, None]:
     """Coerce a value to an enum, returning None if invalid.
 
     Args:

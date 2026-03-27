@@ -1,3 +1,4 @@
+from typing import List
 """Team MCP tools."""
 
 from __future__ import annotations
@@ -6,7 +7,7 @@ from .helpers import require_team, to_payload
 from cyberteam.team.manager import TeamManager
 
 
-def team_list() -> list[dict]:
+def team_list() -> List[dict]:
     """List team summaries for overview views."""
     return to_payload(TeamManager.discover_teams())
 
@@ -16,7 +17,7 @@ def team_get(team_name: str) -> dict:
     return to_payload(require_team(team_name))
 
 
-def team_members_list(team_name: str) -> list[dict]:
+def team_members_list(team_name: str) -> List[dict]:
     """List the members registered in one team."""
     require_team(team_name)
     return to_payload(TeamManager.list_members(team_name))

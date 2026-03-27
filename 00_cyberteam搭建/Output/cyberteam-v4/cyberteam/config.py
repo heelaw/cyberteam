@@ -1,3 +1,4 @@
+from typing import List
 """Persistent configuration for ClawTeam."""
 
 from __future__ import annotations
@@ -14,7 +15,7 @@ class AgentProfile(BaseModel):
 
     description: str = ""
     agent: str = ""
-    command: list[str] = Field(default_factory=list)
+    command: List[str] = Field(default_factory=list)
     model: str = ""
     base_url: str = ""
     base_url_env: str = ""
@@ -22,7 +23,7 @@ class AgentProfile(BaseModel):
     api_key_target_env: str = ""
     env: dict[str, str] = Field(default_factory=dict)
     env_map: dict[str, str] = Field(default_factory=dict)
-    args: list[str] = Field(default_factory=list)
+    args: List[str] = Field(default_factory=list)
 
 
 class AgentPreset(BaseModel):
@@ -116,7 +117,7 @@ def get_effective(key: str) -> tuple[str, str]:
     return str(default_val), "default"
 
 
-def scalar_config_keys() -> list[str]:
+def scalar_config_keys() -> List[str]:
     """Return user-facing scalar config keys (excluding nested structures)."""
     return [
         key
