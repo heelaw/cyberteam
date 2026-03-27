@@ -1,15 +1,13 @@
-from __future__ import annotations
-from typing import Optional
-
 """Agent prompt builder — identity + task + context awareness.
 
-Coordination knowledge (how to use cyberteam CLI) is provided
-by the CyberTeam Skill, not duplicated here.
+Coordination knowledge (how to use clawteam CLI) is provided
+by the ClawTeam Skill, not duplicated here.
 """
 
+from __future__ import annotations
 
 
-def _build_context_block(team_name: str, agent_name: str, repo: Optional[str] = None) -> str:
+def _build_context_block(team_name: str, agent_name: str, repo: str | None = None) -> str:
     """Build a context awareness block from the workspace context layer.
 
     Includes recent changes from teammates, file overlap warnings,
@@ -36,7 +34,8 @@ def build_agent_prompt(
     user: str = "",
     workspace_dir: str = "",
     workspace_branch: str = "",
-    repo_path: Optional[str] = None,
+    isolated_workspace: bool = False,
+    repo_path: str | None = None,
 ) -> str:
     """Build agent prompt: identity + task + context + coordination."""
     lines = [
@@ -56,9 +55,14 @@ def build_agent_prompt(
             "",
             "## Workspace",
             f"- Working directory: {workspace_dir}",
-            f"- Branch: {workspace_branch}",
-            "- This is an isolated git worktree. Your changes do not affect the main branch.",
         ])
+        if isolated_workspace:
+            lines.extend([
+                f"- Branch: {workspace_branch}",
+                "- This is an isolated git worktree. Your changes do not affect the main branch.",
+            ])
+        else:
+            lines.append("- Work directly in this repository path unless told otherwise.")
 
     lines.extend([
         "",
@@ -78,17 +82,17 @@ def build_agent_prompt(
     lines.extend([
         "",
         "## Coordination Protocol\n",
-        f"- Use `cyberteam task list {team_name} --owner {agent_name}` to see your tasks.",
-        f"- Starting a task: `cyberteam task update {team_name} <task-id> --status in_progress`",
-        "- Before marking a task completed, commit your changes in this worktree with git.",
+        f"- Use `clawteam task list {team_name} --owner {agent_name}` to see your tasks.",
+        f"- Starting a task: `clawteam task update {team_name} <task-id> --status in_progress`",
+        "- Before marking a task completed, commit your changes in this repository with git.",
         '- Use a clear commit message, e.g. `git add -A && git commit -m "Implement <task summary>"`.',
-        f"- Finishing a task: `cyberteam task update {team_name} <task-id> --status completed`",
+        f"- Finishing a task: `clawteam task update {team_name} <task-id> --status completed`",
         "- When you finish all tasks, send a summary to the leader:",
-        f'  `cyberteam inbox send {team_name} {leader_name} "All tasks completed. <brief summary>"`',
+        f'  `clawteam inbox send {team_name} {leader_name} "All tasks completed. <brief summary>"`',
         "- If you are blocked or need help, message the leader:",
-        f'  `cyberteam inbox send {team_name} {leader_name} "Need help: <description>"`',
-        f"- After finishing work, report your costs: `cyberteam cost report {team_name} --input-tokens <N> --output-tokens <N> --cost-cents <N>`",
-        f"- Before finishing, save your session: `cyberteam session save {team_name} --session-id <id>`",
+        f'  `clawteam inbox send {team_name} {leader_name} "Need help: <description>"`',
+        f"- After finishing work, report your costs: `clawteam cost report {team_name} --input-tokens <N> --output-tokens <N> --cost-cents <N>`",
+        f"- Before finishing, save your session: `clawteam session save {team_name} --session-id <id>`",
         "",
     ])
     return "\n".join(lines)

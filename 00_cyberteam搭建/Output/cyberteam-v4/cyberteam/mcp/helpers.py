@@ -10,8 +10,8 @@ from __future__ import annotations
 from typing import Any, TypeVar
 from enum import Enum
 
-from clawteam.team.models import TaskPriority, TaskStatus
-from clawteam.team.tasks import TaskStore
+from cyberteam.team.models import TaskPriority, TaskStatus
+from cyberteam.team.tasks import TaskStore
 
 
 E = TypeVar("E", bound=Enum)

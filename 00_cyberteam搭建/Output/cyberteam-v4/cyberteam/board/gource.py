@@ -1,9 +1,6 @@
-from __future__ import annotations
-from typing import Dict, List, Optional
+"""Gource visualization integration for ClawTeam.
 
-"""Gource visualization integration for CyberTeam.
-
-Generates Gource custom log format from CyberTeam events and git history,
+Generates Gource custom log format from ClawTeam events and git history,
 and launches Gource visualizations of team activity.
 
 Gource custom log format: timestamp|username|type|path
@@ -13,6 +10,7 @@ Gource custom log format: timestamp|username|type|path
   - path: virtual file path representing the event
 """
 
+from __future__ import annotations
 
 import shutil
 import subprocess
@@ -47,7 +45,7 @@ def _agent_color(index: int) -> str:
 
 
 def _virtual_path(*parts: str) -> str:
-    components: List[str] = []
+    components: list[str] = []
     for part in parts:
         if not part:
             continue
@@ -61,7 +59,7 @@ def _virtual_path(*parts: str) -> str:
 
 
 # ---------------------------------------------------------------------------
-# CyberTeam event log → Gource custom log
+# ClawTeam event log → Gource custom log
 # ---------------------------------------------------------------------------
 
 
@@ -74,10 +72,10 @@ def _parse_iso(ts: str) -> int:
         return int(datetime.now(timezone.utc).timestamp())
 
 
-def generate_event_log(team_name: str) -> List[str]:
-    """Generate Gource custom log lines from CyberTeam events.
+def generate_event_log(team_name: str) -> list[str]:
+    """Generate Gource custom log lines from ClawTeam events.
 
-    Maps CyberTeam events to virtual paths:
+    Maps ClawTeam events to virtual paths:
       - Task status changes → /tasks/{status}/{task_subject}
       - Messages → /messages/{from_agent}/{to}
       - Member joins → /team/{agent_name}
@@ -90,8 +88,8 @@ def generate_event_log(team_name: str) -> List[str]:
     except ValueError:
         return []
 
-    lines: List[str] = []
-    inbox_aliases: Dict[str, str] = {}
+    lines: list[str] = []
+    inbox_aliases: dict[str, str] = {}
 
     # Member joins as additions
     for member in data.get("members", []):
@@ -149,7 +147,7 @@ def generate_event_log(team_name: str) -> List[str]:
 # ---------------------------------------------------------------------------
 
 
-def generate_git_log(team_name: str, repo_path: Optional[str] = None) -> List[str]:
+def generate_git_log(team_name: str, repo_path: str | None = None) -> list[str]:
     """Combine git logs from all agent branches into unified Gource log.
 
     Uses the context layer's cross_branch_log() and file_owners() instead
@@ -168,7 +166,7 @@ def generate_git_log(team_name: str, repo_path: Optional[str] = None) -> List[st
     except Exception:
         return []
 
-    lines: List[str] = []
+    lines: list[str] = []
     for entry in entries:
         agent = entry.get("agent", "unknown")
         ts_str = entry.get("timestamp", "")
@@ -195,8 +193,8 @@ def generate_git_log(team_name: str, repo_path: Optional[str] = None) -> List[st
     return lines
 
 
-def generate_combined_log(team_name: str, repo_path: Optional[str] = None) -> List[str]:
-    """Combine both CyberTeam event log and git history into one Gource log."""
+def generate_combined_log(team_name: str, repo_path: str | None = None) -> list[str]:
+    """Combine both ClawTeam event log and git history into one Gource log."""
     events = generate_event_log(team_name)
     git_lines = generate_git_log(team_name, repo_path)
     combined = events + git_lines
@@ -209,11 +207,11 @@ def collect_live_log_lines(
     team_name: str,
     *,
     combine_worktrees: bool = True,
-    repo_path: Optional[str] = None,
-) -> List[str]:
+    repo_path: str | None = None,
+) -> list[str]:
     """Return newly observed log lines for live streaming.
 
-    This is intentionally side-effect free with respect to CyberTeam state.
+    This is intentionally side-effect free with respect to ClawTeam state.
     It only polls current event/git views and de-duplicates against a local
     in-memory cursor owned by the `board gource --live` command.
     """
@@ -227,7 +225,7 @@ def collect_live_log_lines(
     return new_lines
 
 
-def append_log_lines(stream: TextIOBase, lines: List[str]) -> None:
+def append_log_lines(stream: TextIOBase, lines: list[str]) -> None:
     """Append custom-log lines to a live Gource input stream."""
     if not lines:
         return
@@ -240,7 +238,7 @@ def stream_gource_live(
     team_name: str,
     *,
     combine_worktrees: bool = True,
-    repo_path: Optional[str] = None,
+    repo_path: str | None = None,
     poll_interval: float = 2.0,
 ) -> None:
     """Feed Gource custom log lines to a running process via STDIN."""
@@ -278,7 +276,7 @@ def generate_user_colors(team_name: str) -> str:
     except ValueError:
         return ""
 
-    lines: List[str] = []
+    lines: list[str] = []
     for i, member in enumerate(data.get("members", [])):
         name = member["name"]
         color = _agent_color(i)
@@ -308,8 +306,8 @@ def launch_gource(
     title: str = "",
     resolution: str = "",
     seconds_per_day: float = 0,
-    extra_args: List[str] | None = None,
-    export_path: Optional[str] = None,
+    extra_args: list[str] | None = None,
+    export_path: str | None = None,
     live_stream: bool = False,
 ) -> subprocess.Popen | None:
     """Launch Gource with the given custom log file.
@@ -404,7 +402,7 @@ def launch_gource(
             gource_proc.stdout.close()
         return ffmpeg_proc
     else:
-        popen_kwargs: Dict[str, object] = {}
+        popen_kwargs: dict[str, object] = {}
         if live_stream:
             popen_kwargs.update({"stdin": subprocess.PIPE, "text": True})
         return subprocess.Popen(cmd, **popen_kwargs)

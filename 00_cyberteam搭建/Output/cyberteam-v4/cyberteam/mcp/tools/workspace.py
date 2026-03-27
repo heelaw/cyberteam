@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 
 from ..helpers import to_payload
-from clawteam.workspace.context import agent_diff, agent_summary, cross_branch_log, file_owners
+from cyberteam.workspace.context import agent_diff, agent_summary, cross_branch_log, file_owners
 
 
 def workspace_agent_diff(team_name: str, agent_name: str, repo: str | None = None) -> dict:

@@ -1,0 +1,30 @@
+{
+  "dimension": "汇报与复盘",
+  "version": "1.0",
+  "author": "Cyberwiz",
+  "review_status": "待审查",
+  "review_required": false,
+  "review_threshold": 90,
+  "items": [
+    {
+      "id": "1",
+      "item": "汇报效果",
+      "weight": 50,
+      "criteria": "汇报结构清晰，重点突出，老板满意",
+      "measurement": "汇报满意度≥90%"
+    },
+    {
+      "id": "2",
+      "item": "复盘质量",
+      "weight": 50,
+      "criteria": "复盘有分析，有改进行动，并跟踪落实",
+      "measurement": "改进落实率≥80%"
+    }
+  ],
+  "scoring_rules": {
+    "excellent": "90-100",
+    "good": "80-89",
+    "pass": "70-79",
+    "fail": "0-69"
+  }
+}

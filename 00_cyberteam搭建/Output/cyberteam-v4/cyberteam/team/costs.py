@@ -1,8 +1,6 @@
-from __future__ import annotations
-from typing import Dict
-
 """Cost tracking for multi-agent teams."""
 
+from __future__ import annotations
 
 import json
 import uuid
@@ -42,7 +40,7 @@ class CostSummary(BaseModel):
     total_cost_cents: float = Field(default=0.0, alias="totalCostCents")
     total_input_tokens: int = Field(default=0, alias="totalInputTokens")
     total_output_tokens: int = Field(default=0, alias="totalOutputTokens")
-    by_agent: Dict[str, float] = Field(default_factory=dict, alias="byAgent")
+    by_agent: dict[str, float] = Field(default_factory=dict, alias="byAgent")
     event_count: int = Field(default=0, alias="eventCount")
 
 
@@ -68,9 +66,9 @@ class _CostSummaryCache(BaseModel):
     total_cost_cents: float = Field(default=0.0, alias="totalCostCents")
     total_input_tokens: int = Field(default=0, alias="totalInputTokens")
     total_output_tokens: int = Field(default=0, alias="totalOutputTokens")
-    by_agent: Dict[str, float] = Field(default_factory=dict, alias="byAgent")
+    by_agent: dict[str, float] = Field(default_factory=dict, alias="byAgent")
     event_count: int = Field(default=0, alias="eventCount")
-    files: Dict[str, _CostCacheEntry] = Field(default_factory=dict)
+    files: dict[str, _CostCacheEntry] = Field(default_factory=dict)
 
 
 def _costs_root(team_name: str) -> Path:

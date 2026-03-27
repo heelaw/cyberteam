@@ -1,8 +1,6 @@
-from __future__ import annotations
-from typing import Dict, List
-
 """Team template loader — load TOML templates for one-command team launch."""
 
+from __future__ import annotations
 
 import sys
 from pathlib import Path
@@ -27,7 +25,7 @@ class AgentDef(BaseModel):
     name: str
     type: str = "general-purpose"
     task: str = ""
-    command: List[str] | None = None
+    command: list[str] | None = None
 
 
 class TaskDef(BaseModel):
@@ -39,7 +37,7 @@ class TaskDef(BaseModel):
 class TemplateDef(BaseModel):
     name: str
     description: str = ""
-    command: List[str] = ["claude"]
+    command: list[str] = ["claude"]
     backend: str = "tmux"
     leader: AgentDef
     agents: list[AgentDef] = []
@@ -51,7 +49,7 @@ class TemplateDef(BaseModel):
 # ---------------------------------------------------------------------------
 
 _BUILTIN_DIR = Path(__file__).parent
-_USER_DIR = Path.home() / ".cyberteam" / "templates"
+_USER_DIR = Path.home() / ".clawteam" / "templates"
 
 
 # ---------------------------------------------------------------------------
@@ -105,8 +103,8 @@ def _parse_toml(path: Path) -> TemplateDef:
 def load_template(name: str) -> TemplateDef:
     """Load a template by name.
 
-    Search order: user templates (~/.cyberteam/templates/) first,
-    then built-in templates (cyberteam/templates/).
+    Search order: user templates (~/.clawteam/templates/) first,
+    then built-in templates (clawteam/templates/).
     """
     filename = f"{name}.toml"
 
@@ -126,9 +124,9 @@ def load_template(name: str) -> TemplateDef:
     )
 
 
-def list_templates() -> list[Dict[str, str]]:
+def list_templates() -> list[dict[str, str]]:
     """List all available templates (user + builtin, user overrides builtin)."""
-    seen: Dict[str, Dict[str, str]] = {}
+    seen: dict[str, dict[str, str]] = {}
 
     # Built-in templates first (can be overridden)
     if _BUILTIN_DIR.is_dir():

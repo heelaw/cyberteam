@@ -1,6 +1,6 @@
-from __future__ import annotations
 """Data models for multi-agent team coordination (aligned with teammate-tool spec)."""
 
+from __future__ import annotations
 
 import os
 import uuid
@@ -13,23 +13,12 @@ from pydantic import BaseModel, Field
 
 
 def get_data_dir() -> Path:
-    """Return the data directory, respecting CYBERTEAM_DATA_DIR / CLAWTEAM_DATA_DIR env var and config.
-
-    Priority:
-    1. CYBERTEAM_DATA_DIR environment variable
-    2. CLAWTEAM_DATA_DIR environment variable (backward compatibility)
-    3. config.json data_dir field
-    4. ~/.cyberteam/ default
-    """
-    # Check CYBERTEAM_DATA_DIR first
-    custom = os.environ.get("CYBERTEAM_DATA_DIR")
-    if not custom:
-        # Fall back to CLAWTEAM_DATA_DIR for backward compatibility
-        custom = os.environ.get("CLAWTEAM_DATA_DIR")
+    """Return the data directory, respecting CLAWTEAM_DATA_DIR env var and config."""
+    custom = os.environ.get("CLAWTEAM_DATA_DIR")
     if not custom:
         from cyberteam.config import load_config
         custom = load_config().data_dir or None
-    p = Path(custom) if custom else Path.home() / ".cyberteam"
+    p = Path(custom) if custom else Path.home() / ".clawteam"
     p.mkdir(parents=True, exist_ok=True)
     return p
 
@@ -108,28 +97,28 @@ class TeamMessage(BaseModel):
 
     type: MessageType = MessageType.message
     from_agent: str = Field(alias="from", serialization_alias="from")
-    to: Optional[str] = None
-    content: Optional[str] = None
-    request_id: Optional[str] = Field(default=None, alias="requestId")
+    to: str | None = None
+    content: str | None = None
+    request_id: str | None = Field(default=None, alias="requestId")
     timestamp: str = Field(default_factory=_now_iso)
-    key: Optional[str] = None
+    key: str | None = None
     # join_request fields
-    proposed_name: Optional[str] = Field(default=None, alias="proposedName")
-    capabilities: Optional[str] = None
+    proposed_name: str | None = Field(default=None, alias="proposedName")
+    capabilities: str | None = None
     # join_approved fields
-    assigned_name: Optional[str] = Field(default=None, alias="assignedName")
-    agent_id: Optional[str] = Field(default=None, alias="agentId")
-    team_name: Optional[str] = Field(default=None, alias="teamName")
+    assigned_name: str | None = Field(default=None, alias="assignedName")
+    agent_id: str | None = Field(default=None, alias="agentId")
+    team_name: str | None = Field(default=None, alias="teamName")
     # plan fields
-    plan_file: Optional[str] = Field(default=None, alias="planFile")
-    summary: Optional[str] = None
-    plan: Optional[str] = None
+    plan_file: str | None = Field(default=None, alias="planFile")
+    summary: str | None = None
+    plan: str | None = None
     # rejection/feedback
-    feedback: Optional[str] = None
-    reason: Optional[str] = None
+    feedback: str | None = None
+    reason: str | None = None
     # idle notification fields
-    last_task: Optional[str] = Field(default=None, alias="lastTask")
-    status: Optional[str] = None
+    last_task: str | None = Field(default=None, alias="lastTask")
+    status: str | None = None
 
 
 class TaskItem(BaseModel):
@@ -145,9 +134,9 @@ class TaskItem(BaseModel):
     owner: str = ""
     locked_by: str = Field(default="", alias="lockedBy")
     locked_at: str = Field(default="", alias="lockedAt")
-    blocks: List[str] = Field(default_factory=list)
-    blocked_by: List[str] = Field(default_factory=list, alias="blockedBy")
+    blocks: list[str] = Field(default_factory=list)
+    blocked_by: list[str] = Field(default_factory=list, alias="blockedBy")
     started_at: str = Field(default="", alias="startedAt")
     created_at: str = Field(default_factory=_now_iso, alias="createdAt")
     updated_at: str = Field(default_factory=_now_iso, alias="updatedAt")
-    metadata: Dict[str, Any] = Field(default_factory=dict)
+    metadata: dict[str, Any] = Field(default_factory=dict)

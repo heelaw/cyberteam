@@ -1,0 +1,98 @@
+{
+  "version": "1.0",
+  "test_cases": [
+    {
+      "id": "1",
+      "scenario": "新业务方向探索",
+      "description": "一家传统企业想开拓企业服务市场，探索一个新的B2B SaaS业务方向",
+      "difficulty": "high",
+      "input": {
+        "background": "公司想开拓企业服务市场，年营收5000万",
+        "direction": "企业协作工具",
+        "constraints": {
+          "budget": "100万",
+          "team": "5人",
+          "timeline": "6个月"
+        }
+      },
+      "expected_output": {
+        "assumptions": [
+          "企业用户有协作需求",
+          "愿意为效率工具付费",
+          "现有方案无法满足"
+        ],
+        "verification_plan": {
+          "method": "用户访谈+MVP",
+          "timeline": "4周",
+          "success_criteria": "10家企业表示需要"
+        },
+        "hypothesis_chain": "完整"
+      },
+      "evaluation_points": [
+        "假设是否清晰具体",
+        "验证计划是否合理",
+        "资源使用是否最小化"
+      ]
+    },
+    {
+      "id": "2",
+      "scenario": "创新产品探索",
+      "description": "创业团队有一个创新的想法，需要从0到1验证",
+      "difficulty": "high",
+      "input": {
+        "background": "创业团队3人，有6个月现金流",
+        "idea": "面向95后的社交产品",
+        "constraints": {
+          "budget": "20万",
+          "team": "3人",
+          "runway": "6个月"
+        }
+      },
+      "expected_output": {
+        "value_assumptions": "清晰",
+        "key_hypothesis": "识别准确",
+        "verification": {
+          "method": "用户访谈为主",
+          "cost": "最小化"
+        },
+        "pivot_or_continue": "有判断标准"
+      },
+      "evaluation_points": [
+        "是否形成清晰的假设",
+        "是否识别关键假设",
+        "验证方法是否最小化",
+        "是否有明确的判断标准"
+      ]
+    },
+    {
+      "id": "3",
+      "scenario": "现有业务破局",
+      "description": "一家老牌电商需要突破增长瓶颈",
+      "difficulty": "medium",
+      "input": {
+        "background": "年营收5亿的电商公司，增长停滞",
+        "pain_point": "用户获取成本上涨30%",
+        "constraints": {
+          "budget": "200万",
+          "team": "10人"
+        }
+      },
+      "expected_output": {
+        "assumptions_identified": "准确",
+        "experiments_planned": "2-3个快速实验",
+        "success_criteria": "明确"
+      },
+      "evaluation_points": [
+        "问题定位是否准确",
+        "假设梳理是否完整",
+        "验证计划是否可行"
+      ]
+    }
+  ],
+  "evaluation_criteria": {
+    "assumption_quality": "假设清晰具体，能回答核心问题",
+    "verification_efficiency": "用最小成本验证核心假设",
+    "hypothesis_chain": "假设链条完整，能指导后续决策",
+    "decision_criteria": "有明确的成功/失败判断标准"
+  }
+}

@@ -14,16 +14,15 @@ from typing import Any, Dict, List, Optional
 
 from cyberteam.agent_runtime.base import SpecializedAgent, AgentMetadata
 
-# TODO: SKILLS/growth/ 目录为空，Skills 需要重新实现或移除
-# 暂时注释掉这些未实现的导入
-# from skills.third_party.growth import (
-#     ReportingFrameworkSkill,
-#     TimeManagementSkill,
-#     ProgressTrackingSkill,
-#     RetrospectiveSkill,
-#     StrategyPlanningSkill,
-#     TeamManagementSkill,
-# )
+# Skills 从 cyberteam.skills.growth 导入
+from cyberteam.skills.growth import (
+    ReportingFrameworkSkill,
+    TimeManagementSkill,
+    ProgressTrackingSkill,
+    RetrospectiveSkill,
+    StrategyPlanningSkill,
+    TeamManagementSkill,
+)
 
 
 class GrowthBGAgent(SpecializedAgent):

@@ -1,0 +1,79 @@
+{
+  "skill_name": "痛点反推卖点器",
+  "version": "1.0.0",
+  "assess_type": "quality",
+  "metrics": [
+    {
+      "id": "m1",
+      "name": "痛点挖掘深度",
+      "description": "是否挖掘到痛点的深层和本质",
+      "type": "count",
+      "threshold": 3,
+      "weight": 20
+    },
+    {
+      "id": "m2",
+      "name": "用户原声引用",
+      "description": "是否有用户原话作为支撑",
+      "type": "binary",
+      "threshold": true,
+      "weight": 15
+    },
+    {
+      "id": "m3",
+      "name": "情绪放大效果",
+      "description": "情绪共鸣点是否清晰",
+      "type": "binary",
+      "threshold": true,
+      "weight": 15
+    },
+    {
+      "id": "m4",
+      "name": "解决方案对应",
+      "description": "每个痛点是否有对应解决方案",
+      "type": "binary",
+      "threshold": true,
+      "weight": 15
+    },
+    {
+      "id": "m5",
+      "name": "卖点输出质量",
+      "description": "卖点是否有穿透力",
+      "type": "binary",
+      "threshold": true,
+      "weight": 15
+    },
+    {
+      "id": "m6",
+      "name": "Critical Rules",
+      "description": "是否有至少5条禁止行为",
+      "type": "count",
+      "threshold": 5,
+      "weight": 10
+    },
+    {
+      "id": "m7",
+      "name": "Success Metrics",
+      "description": "是否有量化指标",
+      "type": "binary",
+      "threshold": true,
+      "weight": 5
+    },
+    {
+      "id": "m8",
+      "name": "Skill协同",
+      "description": "是否有前后置Skill定义",
+      "type": "binary",
+      "threshold": true,
+      "weight": 5
+    }
+  ],
+  "pass_threshold": 0.85,
+  "version_history": [
+    {
+      "version": "1.0.0",
+      "created": "2026-03-18",
+      "notes": "初始版本"
+    }
+  ]
+}

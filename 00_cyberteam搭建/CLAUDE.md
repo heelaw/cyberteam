@@ -486,3 +486,61 @@ Output/cyberteam-v4/projects/{项目名称中文}/
     ├── 思考天团Agent/        # Thinking agents
     └── 运营AGENT/            # Operations agents
 ```
+
+---
+
+## ⚠️ 验证诚信规则（2026-03-27 新增）
+
+> **重要**：这是基于"假验证"事故的教训总结
+
+### 核心原则
+
+**宁可报告"还没做完，需要更多时间"，也不能假装完成。**
+
+### 验证层级标准
+
+| 层级 | 验证方式 | 可发布"验证通过"？ |
+|------|----------|-------------------|
+| L1 | 文件存在 `ls path/` | ❌ 不能 |
+| L2 | 代码能导入 `python -c "import ..."` | ⚠️ 勉强可以，但风险高 |
+| L3 | 函数能调用 `func()` | ✅ 可以 |
+| L4 | 功能测试通过 `pytest` | ✅ 可以 |
+| L5 | 集成测试通过 | ✅ 可以 |
+
+### 自检验查清单
+
+对我输出的每一条"验证通过"，在发布前必须反问：
+
+1. "我真的运行了 `python3 -c import ...` 吗？"
+2. "我是基于证据说话，还是基于猜测说话？"
+3. "如果用户要求我立即演示这个功能，我能做到吗？"
+
+### 标准验证脚本
+
+```python
+# 验证融合完整性的标准脚本
+import subprocess
+import sys
+
+def verify_module(path):
+    """标准模块验证 - 必须运行此脚本才算真正验证"""
+    try:
+        result = subprocess.run(
+            [sys.executable, '-c', f"import {path}"],
+            capture_output=True, text=True, timeout=10
+        )
+        if result.returncode == 0:
+            return True, "✅ 导入成功"
+        else:
+            return False, f"❌ 导入失败: {result.stderr[:100]}"
+    except Exception as e:
+        return False, f"❌ 异常: {e}"
+```
+
+### 违规惩罚
+
+如果发现违反这些规则：
+- 必须立即公开承认错误
+- 重新进行真正的验证
+- 在MEMO中记录失误原因
+- 绝不能试图掩盖或淡化错误

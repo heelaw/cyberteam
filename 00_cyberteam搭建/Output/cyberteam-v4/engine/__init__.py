@@ -3,6 +3,7 @@ CyberTeam V4 Engine - 核心引擎
 
 包含：
 - CEO 路由引擎
+- COO 协调引擎
 - 项目管理
 - 部门调度
 - 策略设计
@@ -15,6 +16,9 @@ CyberTeam V4 Engine - 核心引擎
 """
 
 from .ceo import CEORouter, Complexity, Intent, RoutingTarget, RoutingResult
+from .coo import COOCoordinator, DialogueLayer, DiscussionTopic, WorkflowState
+from .coo import ExpertInvitation, DiscussionSession, COOSummary
+from .coo import COOWorkflow
 from .pm import PMCoordinator
 from .department import DepartmentExecutor
 from .strategy import StrategyEngine
@@ -47,12 +51,22 @@ except ImportError:
     GOAL = None
 
 __all__ = [
-    # 原有模块
+    # CEO 路由引擎
     "CEORouter",
     "Complexity",
     "Intent",
     "RoutingTarget",
     "RoutingResult",
+    # COO 协调引擎
+    "COOCoordinator",
+    "DialogueLayer",
+    "DiscussionTopic",
+    "WorkflowState",
+    "ExpertInvitation",
+    "DiscussionSession",
+    "COOSummary",
+    "COOWorkflow",
+    # 其他引擎
     "PMCoordinator",
     "DepartmentExecutor",
     "StrategyEngine",

@@ -1,8 +1,6 @@
+"""Persistent configuration for ClawTeam."""
+
 from __future__ import annotations
-from typing import Dict, List
-
-"""Persistent configuration for CyberTeam."""
-
 
 import json
 import os
@@ -16,15 +14,15 @@ class AgentProfile(BaseModel):
 
     description: str = ""
     agent: str = ""
-    command: List[str] = Field(default_factory=list)
+    command: list[str] = Field(default_factory=list)
     model: str = ""
     base_url: str = ""
     base_url_env: str = ""
     api_key_env: str = ""
     api_key_target_env: str = ""
-    env: Dict[str, str] = Field(default_factory=dict)
-    env_map: Dict[str, str] = Field(default_factory=dict)
-    args: List[str] = Field(default_factory=list)
+    env: dict[str, str] = Field(default_factory=dict)
+    env_map: dict[str, str] = Field(default_factory=dict)
+    args: list[str] = Field(default_factory=list)
 
 
 class AgentPreset(BaseModel):
@@ -33,11 +31,11 @@ class AgentPreset(BaseModel):
     description: str = ""
     auth_env: str = ""
     base_url: str = ""
-    env: Dict[str, str] = Field(default_factory=dict)
-    client_overrides: Dict[str, AgentProfile] = Field(default_factory=dict)
+    env: dict[str, str] = Field(default_factory=dict)
+    client_overrides: dict[str, AgentProfile] = Field(default_factory=dict)
 
 
-class CyberTeamConfig(BaseModel):
+class ClawTeamConfig(BaseModel):
     data_dir: str = ""
     user: str = ""
     default_team: str = ""
@@ -49,30 +47,30 @@ class CyberTeamConfig(BaseModel):
     gource_path: str = ""  # custom path to gource binary (auto-detected if empty)
     gource_resolution: str = "1280x720"  # default viewport resolution
     gource_seconds_per_day: float = 0.5  # animation speed
-    profiles: Dict[str, AgentProfile] = Field(default_factory=dict)
-    presets: Dict[str, AgentPreset] = Field(default_factory=dict)
+    profiles: dict[str, AgentProfile] = Field(default_factory=dict)
+    presets: dict[str, AgentPreset] = Field(default_factory=dict)
     spawn_prompt_delay: float = 2.0  # fallback wait (seconds) if TUI ready-detection times out
     spawn_ready_timeout: float = 30.0  # max seconds to poll for TUI readiness before fallback
 
 
 def config_path() -> Path:
-    """Fixed config location: ~/.cyberteam/config.json (never affected by data_dir)."""
-    return Path.home() / ".cyberteam" / "config.json"
+    """Fixed config location: ~/.clawteam/config.json (never affected by data_dir)."""
+    return Path.home() / ".clawteam" / "config.json"
 
 
-def load_config() -> CyberTeamConfig:
+def load_config() -> ClawTeamConfig:
     """Load config from disk. Returns defaults if file doesn't exist."""
     p = config_path()
     if not p.exists():
-        return CyberTeamConfig()
+        return ClawTeamConfig()
     try:
         data = json.loads(p.read_text(encoding="utf-8"))
-        return CyberTeamConfig.model_validate(data)
+        return ClawTeamConfig.model_validate(data)
     except Exception:
-        return CyberTeamConfig()
+        return ClawTeamConfig()
 
 
-def save_config(cfg: CyberTeamConfig) -> None:
+def save_config(cfg: ClawTeamConfig) -> None:
     """Atomically write config to disk (tmp + rename)."""
     p = config_path()
     p.parent.mkdir(parents=True, exist_ok=True)
@@ -101,7 +99,7 @@ def get_effective(key: str) -> tuple[str, str]:
         "spawn_prompt_delay": "CLAWTEAM_SPAWN_PROMPT_DELAY",
         "spawn_ready_timeout": "CLAWTEAM_SPAWN_READY_TIMEOUT",
     }
-    defaults = CyberTeamConfig()
+    defaults = ClawTeamConfig()
     cfg = load_config()
 
     env_key = env_map.get(key)
@@ -118,10 +116,10 @@ def get_effective(key: str) -> tuple[str, str]:
     return str(default_val), "default"
 
 
-def scalar_config_keys() -> List[str]:
+def scalar_config_keys() -> list[str]:
     """Return user-facing scalar config keys (excluding nested structures)."""
     return [
         key
-        for key in CyberTeamConfig.model_fields.keys()
+        for key in ClawTeamConfig.model_fields.keys()
         if key not in {"profiles", "presets"}
     ]

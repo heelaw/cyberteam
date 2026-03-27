@@ -1,6 +1,6 @@
-from __future__ import annotations
 """Claimed-message helpers for transports that support post-claim ack/quarantine."""
 
+from __future__ import annotations
 
 from dataclasses import dataclass
 from typing import Callable

@@ -1,6 +1,6 @@
-from __future__ import annotations
 """Task store for shared team task management."""
 
+from __future__ import annotations
 
 import fcntl
 import json
@@ -63,9 +63,9 @@ class TaskStore:
         description: str = "",
         owner: str = "",
         priority: TaskPriority | None = None,
-        blocks: List[str] | None = None,
-        blocked_by: List[str] | None = None,
-        metadata: Dict[str, Any] | None = None,
+        blocks: list[str] | None = None,
+        blocked_by: list[str] | None = None,
+        metadata: dict[str, Any] | None = None,
     ) -> TaskItem:
         task = TaskItem(
             subject=subject,
@@ -99,13 +99,13 @@ class TaskStore:
         self,
         task_id: str,
         status: TaskStatus | None = None,
-        owner: Optional[str] = None,
-        subject: Optional[str] = None,
-        description: Optional[str] = None,
+        owner: str | None = None,
+        subject: str | None = None,
+        description: str | None = None,
         priority: TaskPriority | None = None,
-        add_blocks: List[str] | None = None,
-        add_blocked_by: List[str] | None = None,
-        metadata: Dict[str, Any] | None = None,
+        add_blocks: list[str] | None = None,
+        add_blocked_by: list[str] | None = None,
+        metadata: dict[str, Any] | None = None,
         caller: str = "",
         force: bool = False,
     ) -> TaskItem | None:
@@ -180,7 +180,7 @@ class TaskStore:
         task.locked_by = caller or ""
         task.locked_at = _now_iso() if caller else ""
 
-    def release_stale_locks(self) -> List[str]:
+    def release_stale_locks(self) -> list[str]:
         """Scan all tasks and release locks held by dead agents.
 
         Returns list of task IDs whose locks were released.
@@ -204,7 +204,7 @@ class TaskStore:
     def list_tasks(
         self,
         status: TaskStatus | None = None,
-        owner: Optional[str] = None,
+        owner: str | None = None,
         priority: TaskPriority | None = None,
         sort_by_priority: bool = False,
     ) -> list[TaskItem]:
@@ -218,7 +218,7 @@ class TaskStore:
     def _list_tasks_unlocked(
         self,
         status: TaskStatus | None = None,
-        owner: Optional[str] = None,
+        owner: str | None = None,
         priority: TaskPriority | None = None,
         sort_by_priority: bool = False,
     ) -> list[TaskItem]:
@@ -247,7 +247,7 @@ class TaskStore:
             tasks.sort(key=lambda task: (priority_order.get(task.priority, 2), task.created_at, task.id))
         return tasks
 
-    def get_stats(self) -> Dict[str, Any]:
+    def get_stats(self) -> dict[str, Any]:
         """Aggregate task timing stats for this team.
 
         Returns dict with total tasks, completed count, and avg duration

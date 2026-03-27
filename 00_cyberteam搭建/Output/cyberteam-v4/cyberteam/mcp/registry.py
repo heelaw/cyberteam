@@ -63,6 +63,18 @@ class ToolRegistry:
         self.register(code_execution.execute_python_tool)
         self.register(code_execution.execute_bash_tool)
 
+        # CDP 浏览器工具 (web-access skill 集成)
+        from cyberteam.mcp import cdp_browser
+        self.register(cdp_browser.cdp_check_deps_tool)
+        self.register(cdp_browser.cdp_list_targets_tool)
+        self.register(cdp_browser.cdp_new_tab_tool)
+        self.register(cdp_browser.cdp_eval_tool)
+        self.register(cdp_browser.cdp_click_tool)
+        self.register(cdp_browser.cdp_scroll_tool)
+        self.register(cdp_browser.cdp_screenshot_tool)
+        self.register(cdp_browser.cdp_close_tab_tool)
+        self.register(cdp_browser.cdp_navigate_tool)
+
     def register(self, tool: ToolDefinition) -> None:
         """注册工具
 

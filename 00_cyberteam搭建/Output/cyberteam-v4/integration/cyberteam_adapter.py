@@ -28,18 +28,21 @@ logger = logging.getLogger(__name__)
 
 
 # ============================================================================
-# 导入 cyberteam 底层模块（使用适配器模式隔离）
+# 导入 CYBERTEAM 底层模块（使用适配器模式隔离）
+# 注意: CYBERTEAM/ 和 cyberteam/ 在 macOS APFS 上是同一目录(大小写不敏感)
+#       但在 Linux ext4 上是完全不同的两个目录。
+#       必须使用 CYBERTEAM (大写) 作为导入路径以确保跨平台兼容。
 # ============================================================================
 
 try:
-    from cyberteam.team import TeamManager, TaskStore, MailboxManager, TaskStatus, TaskItem, TeamMessage, MessageType
-    from cyberteam.spawn import get_backend
-    from cyberteam.workspace import WorkspaceManager, WorkspaceInfo
-    from cyberteam.transport import get_transport
-    from cyberteam.config import load_config
+    from CYBERTEAM.team import TeamManager, TaskStore, MailboxManager, TaskStatus, TaskItem, TeamMessage, MessageType
+    from CYBERTEAM.spawn import get_backend
+    from CYBERTEAM.workspace import WorkspaceManager, WorkspaceInfo
+    from CYBERTEAM.transport import get_transport
+    from CYBERTEAM.config import load_config
     CYBERTEAM_AVAILABLE = True
 except ImportError as e:
-    logger.warning(f"cyberteam 底层模块导入失败: {e}")
+    logger.warning(f"CYBERTEAM 底层模块导入失败: {e}")
     CYBERTEAM_AVAILABLE = False
 
 
@@ -149,7 +152,7 @@ class CyberTeamAdapter:
             团队信息字典
         """
         if CYBERTEAM_AVAILABLE:
-            from cyberteam.team.models import get_data_dir
+            from CYBERTEAM.team.models import get_data_dir
 
             team_config = {
                 "name": team_name,
@@ -193,7 +196,7 @@ class CyberTeamAdapter:
     def list_teams(self) -> list[str]:
         """列出所有团队"""
         if CYBERTEAM_AVAILABLE:
-            from cyberteam.team.models import get_data_dir
+            from CYBERTEAM.team.models import get_data_dir
             teams_dir = get_data_dir() / "teams"
             if teams_dir.exists():
                 return [d.name for d in teams_dir.iterdir() if d.is_dir()]
@@ -268,7 +271,7 @@ class CyberTeamAdapter:
                 agent_info.tmux_target = tmux_target
 
                 # 注册 Agent
-                from cyberteam.spawn.registry import register_agent
+                from CYBERTEAM.spawn.registry import register_agent
                 register_agent(
                     team_name=team_name,
                     agent_name=agent_name,
@@ -320,7 +323,7 @@ class CyberTeamAdapter:
         """停止 Agent"""
         if CYBERTEAM_AVAILABLE:
             try:
-                from cyberteam.spawn.registry import stop_agent
+                from CYBERTEAM.spawn.registry import stop_agent
 
                 # 查找 agent 所属团队
                 agent_info = self._agents.get(agent_name)
@@ -341,7 +344,7 @@ class CyberTeamAdapter:
         """检查 Agent 是否存活"""
         if CYBERTEAM_AVAILABLE:
             try:
-                from cyberteam.spawn.registry import is_agent_alive
+                from CYBERTEAM.spawn.registry import is_agent_alive
 
                 agent_info = self._agents.get(agent_name)
                 if not agent_info:
@@ -459,7 +462,14 @@ class CyberTeamAdapter:
         """发送消息"""
         if CYBERTEAM_AVAILABLE:
             mailbox = MailboxManager(team_name)
-            return mailbox.send(from_agent, to_agent, content, message_type)
+            # 将字符串 message_type 转换为 MessageType 枚举
+            try:
+                msg_type = MessageType(message_type)
+            except ValueError:
+                msg_type = MessageType.message
+            # mailbox.send() 返回 TeamMessage，成功返回即表示发送成功
+            mailbox.send(from_agent, to_agent, content, msg_type)
+            return True
 
         # 模拟模式 - 简单存储
         msg_key = f"{to_agent}:{uuid.uuid4().hex[:8]}"
@@ -473,10 +483,14 @@ class CyberTeamAdapter:
         return True
 
     def get_messages(self, team_name: str, agent_name: str, limit: int = 10) -> list[dict]:
-        """获取消息"""
+        """获取消息 (非破坏性 peek)"""
         if CYBERTEAM_AVAILABLE:
             mailbox = MailboxManager(team_name)
-            return mailbox.get_messages(agent_name, limit)
+            # MailboxManager.receive() 是破坏性读取 (consume=True)
+            # MailboxManager.peek() 是非破坏性读取
+            # 我们使用 peek() 保持消息在队列中直到被明确消费
+            msgs = mailbox.peek(agent_name)
+            return [msg.model_dump(mode="json", exclude_none=True) for msg in msgs[:limit]]
 
         return []
 

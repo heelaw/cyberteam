@@ -1,8 +1,6 @@
-from __future__ import annotations
-from typing import List, Optional
-
 """Mailbox system for inter-agent communication, backed by pluggable Transport."""
 
+from __future__ import annotations
 
 import json
 import time
@@ -72,22 +70,22 @@ class MailboxManager:
         self,
         from_agent: str,
         to: str,
-        content: Optional[str] = None,
+        content: str | None = None,
         msg_type: MessageType = MessageType.message,
-        request_id: Optional[str] = None,
-        key: Optional[str] = None,
-        proposed_name: Optional[str] = None,
-        capabilities: Optional[str] = None,
-        feedback: Optional[str] = None,
-        reason: Optional[str] = None,
-        assigned_name: Optional[str] = None,
-        agent_id: Optional[str] = None,
-        team_name: Optional[str] = None,
-        plan_file: Optional[str] = None,
-        summary: Optional[str] = None,
-        plan: Optional[str] = None,
-        last_task: Optional[str] = None,
-        status: Optional[str] = None,
+        request_id: str | None = None,
+        key: str | None = None,
+        proposed_name: str | None = None,
+        capabilities: str | None = None,
+        feedback: str | None = None,
+        reason: str | None = None,
+        assigned_name: str | None = None,
+        agent_id: str | None = None,
+        team_name: str | None = None,
+        plan_file: str | None = None,
+        summary: str | None = None,
+        plan: str | None = None,
+        last_task: str | None = None,
+        status: str | None = None,
     ) -> TeamMessage:
         from cyberteam.team.manager import TeamManager
 
@@ -122,8 +120,8 @@ class MailboxManager:
         from_agent: str,
         content: str,
         msg_type: MessageType = MessageType.broadcast,
-        key: Optional[str] = None,
-        exclude: List[str] | None = None,
+        key: str | None = None,
+        exclude: list[str] | None = None,
     ) -> list[TeamMessage]:
         from cyberteam.team.manager import TeamManager
 

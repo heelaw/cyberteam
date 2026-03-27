@@ -1,1 +1,1 @@
-"""CLI module for cyberteam."""
+"""CLI module for clawteam."""

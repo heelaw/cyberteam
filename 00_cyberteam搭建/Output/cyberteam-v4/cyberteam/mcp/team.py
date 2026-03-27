@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from .helpers import require_team, to_payload
-from clawteam.team.manager import TeamManager
+from cyberteam.team.manager import TeamManager
 
 
 def team_list() -> list[dict]:

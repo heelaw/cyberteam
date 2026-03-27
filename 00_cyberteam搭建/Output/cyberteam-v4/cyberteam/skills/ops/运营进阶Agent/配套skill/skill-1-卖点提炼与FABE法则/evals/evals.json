@@ -1,0 +1,52 @@
+[
+  {
+    "id": "eval-001",
+    "name": "在线教育课程卖点提炼",
+    "difficulty": "medium",
+    "input": {
+      "product": "一款职场技能在线课程",
+      "product_features": "100节课程、导师1对1答疑、永久回放、真实企业案例",
+      "target_user": "工作1-3年的职场人，想提升运营能力"
+    },
+    "expected_output": {
+      "7_questions_answered": true,
+      "pain_point_mapping": true,
+      "fabe_cards": [
+        {
+          "feature": "100节系统性课程",
+          "advantage": "比碎片化学习更全面",
+          "benefit": "掌握100种运营技能",
+          "evidence": "已有30000+学员验证"
+        }
+      ],
+      "prioritized_list": true
+    },
+    "evaluation_criteria": [
+      "7个问题是否全部回答",
+      "痛点-卖点映射是否合理",
+      "FABE四要素是否完整",
+      "是否有差异化",
+      "优先级排序是否有依据"
+    ]
+  },
+  {
+    "id": "eval-002",
+    "name": "电商产品卖点提炼",
+    "difficulty": "simple",
+    "input": {
+      "product": "一款保温杯",
+      "product_features": "304不锈钢、500ml容量、12小时保温、500g重量",
+      "target_user": "都市白领上班族"
+    },
+    "expected_output": {
+      "7_questions_answered": true,
+      "top3卖点": true,
+      "fabe_completed": true
+    },
+    "evaluation_criteria": [
+      "卖点是否聚焦1-3个",
+      "是否用用户语言表达",
+      "是否有证据支撑"
+    ]
+  }
+]

@@ -1,8 +1,6 @@
-from __future__ import annotations
-from typing import Dict
-
 """Lightweight HTTP server for the Web UI dashboard (stdlib only)."""
 
+from __future__ import annotations
 
 import json
 import threading
@@ -21,7 +19,7 @@ class TeamSnapshotCache:
     """Tiny TTL cache for full team snapshots shared across HTTP handlers."""
 
     ttl_seconds: float
-    _entries: Dict[str, tuple[float, dict]] = field(default_factory=dict)
+    _entries: dict[str, tuple[float, dict]] = field(default_factory=dict)
     _lock: threading.Lock = field(default_factory=threading.Lock)
 
     def get(self, team_name: str, loader) -> dict:

@@ -1,6 +1,6 @@
-from __future__ import annotations
 """Lifecycle management for team agents (shutdown protocol)."""
 
+from __future__ import annotations
 
 import shutil
 

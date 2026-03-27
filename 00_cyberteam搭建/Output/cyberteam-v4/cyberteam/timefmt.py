@@ -1,8 +1,6 @@
-from __future__ import annotations
-from typing import Optional
-
 """Human-friendly timestamp formatting for CLI display."""
 
+from __future__ import annotations
 
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
@@ -23,7 +21,7 @@ def _parse_timestamp(value: str) -> datetime | None:
     return dt
 
 
-def format_timestamp(value: Optional[str]) -> str:
+def format_timestamp(value: str | None) -> str:
     """Format an ISO timestamp using configured display timezone.
 
     Default behavior stays backward-compatible for UTC by returning the original

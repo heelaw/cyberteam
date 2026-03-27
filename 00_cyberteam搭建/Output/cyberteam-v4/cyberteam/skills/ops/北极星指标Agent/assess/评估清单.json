@@ -1,0 +1,44 @@
+{
+  "dimension": "北极星指标制定",
+  "version": "1.0",
+  "author": "Cyberwiz",
+  "review_status": "待审查",
+  "review_required": false,
+  "review_threshold": 90,
+  "items": [
+    {
+      "id": "1",
+      "item": "业务理解",
+      "weight": 20,
+      "criteria": "准确把握业务本质、产品类型、发展阶段",
+      "measurement": "用户确认率"
+    },
+    {
+      "id": "2",
+      "item": "指标识别",
+      "weight": 30,
+      "criteria": "准确识别产品类型对应的北极星指标",
+      "measurement": "与业务目标对比"
+    },
+    {
+      "id": "3",
+      "item": "指标制定",
+      "weight": 25,
+      "criteria": "指标符合北极星标准：唯一性、可衡量、可执行、时效性",
+      "measurement": "四标准检查清单"
+    },
+    {
+      "id": "4",
+      "item": "拆解完整性",
+      "weight": 25,
+      "criteria": "子指标覆盖关键维度：数量、质量、效率",
+      "measurement": "覆盖率100%"
+    }
+  ],
+  "scoring_rules": {
+    "excellent": "90-100",
+    "good": "80-89",
+    "pass": "70-79",
+    "fail": "0-69"
+  }
+}

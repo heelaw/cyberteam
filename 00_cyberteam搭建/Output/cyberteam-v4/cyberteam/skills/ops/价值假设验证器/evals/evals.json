@@ -1,0 +1,48 @@
+{
+  "version": "1.0",
+  "test_cases": [
+    {
+      "id": "1",
+      "scenario": "用户需求验证",
+      "description": "验证目标用户是否有XX需求",
+      "difficulty": "medium",
+      "input": {
+        "hypothesis": "职场人有时间管理需求",
+        "budget": "5000元",
+        "timeline": "2周"
+      },
+      "expected_output": {
+        "method": "用户访谈+问卷",
+        "sample_size": "50人",
+        "conclusion": "假设成立/不成立",
+        "confidence": "85%"
+      },
+      "evaluation_points": [
+        "验证方案成本合理",
+        "判断标准明确"
+      ]
+    },
+    {
+      "id": "2",
+      "scenario": "付费意愿验证",
+      "description": "验证用户是否愿意为XX功能付费",
+      "difficulty": "simple",
+      "input": {
+        "hypothesis": "用户愿意为高级功能付费",
+        "budget": "3000元"
+      },
+      "expected_output": {
+        "method": "问卷调查",
+        "conclusion": "付费意愿≥20%"
+      },
+      "evaluation_points": [
+        "验证方法合适"
+      ]
+    }
+  ],
+  "evaluation_criteria": {
+    "design_efficiency": "验证方案高效",
+    "result_accuracy": "判断准确",
+    "decision_clarity": "决策建议明确"
+  }
+}

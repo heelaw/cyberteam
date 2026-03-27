@@ -31,9 +31,77 @@
 
 ## 安装
 
+### 前置要求
+
+| 依赖 | 版本 | 说明 |
+|------|------|------|
+| Python | 3.10+ | 运行时 |
+| Node.js | 22+ | CDP Proxy 必需 |
+| Chrome/Chromium | 最新 | 浏览器自动化 |
+
+### 基本安装
+
 ```bash
 pip install -e .
 ```
+
+### CDP 浏览器配置 (可选但推荐)
+
+web-access skill 提供完整浏览器自动化能力，支持登录态访问、动态页面抓取。
+
+#### 1. 验证 web-access skill 已集成
+
+web-access skill 已通过符号链接集成在 `SKILLS/third-party/web-access`：
+
+```bash
+ls -la SKILLS/third-party/web-access  # 确认符号链接有效
+```
+
+如符号链接失效（断链），重新创建：
+```bash
+ln -s ~/.claude/skills/web-access SKILLS/third-party/web-access
+```
+
+#### 2. Chrome 开启远程调试
+
+1. Chrome 地址栏打开 `chrome://inspect/#remote-debugging`
+2. 勾选 **Allow remote debugging for this browser instance**
+3. 重启 Chrome（如需要）
+
+#### 3. 验证依赖
+
+```bash
+bash SKILLS/third-party/web-access/scripts/check-deps.sh
+```
+
+预期输出：
+```
+node: ok (v22.x.x)
+chrome: ok (port 9222)
+proxy: ready
+```
+
+#### 4. 启动 CDP Proxy (如未自动启动)
+
+```bash
+node ~/.claude/skills/web-access/scripts/cdp-proxy.mjs &
+```
+
+#### 可用工具
+
+| 工具 | 功能 |
+|------|------|
+| `cdp_check_deps` | 检查依赖状态 |
+| `cdp_list_targets` | 列出打开的标签页 |
+| `cdp_new_tab` | 创建新标签页 |
+| `cdp_eval` | 执行 JavaScript |
+| `cdp_click` | 点击元素 |
+| `cdp_scroll` | 滚动页面 |
+| `cdp_screenshot` | 页面截图 |
+| `cdp_navigate` | 导航 |
+| `cdp_close_tab` | 关闭标签页 |
+
+详细文档：[docs/web-access-integration.md](./docs/web-access-integration.md)
 
 ## 快速开始
 

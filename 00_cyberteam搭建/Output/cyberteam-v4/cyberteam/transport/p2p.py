@@ -1,8 +1,6 @@
-from __future__ import annotations
-from typing import Dict, List, Optional
-
 """ZeroMQ PUSH/PULL transport with file-based fallback for offline agents."""
 
+from __future__ import annotations
 
 import collections
 import json
@@ -37,15 +35,15 @@ class P2PTransport(Transport):
     _peer_heartbeat_interval_s = 1.0
     _peer_lease_ms = 5000
 
-    def __init__(self, team_name: str, bind_agent: Optional[str] = None):
+    def __init__(self, team_name: str, bind_agent: str | None = None):
         self.team_name = team_name
         self._bind_agent = bind_agent
         self._file_fallback = FileTransport(team_name)
         self._ctx = None
         self._pull = None
-        self._push_cache: Dict[str, object] = {}
+        self._push_cache: dict[str, object] = {}
         self._peek_buffer: collections.deque = collections.deque()
-        self._port: Optional[int] = None
+        self._port: int | None = None
         self._heartbeat_stop = threading.Event()
         self._heartbeat_thread: threading.Thread | None = None
         if bind_agent:
@@ -84,7 +82,7 @@ class P2PTransport(Transport):
             "::1",
         }
 
-    def _lease_is_fresh(self, info: Dict[str, object]) -> bool | None:
+    def _lease_is_fresh(self, info: dict[str, object]) -> bool | None:
         lease_expires_at_ms = self._as_int(info.get("leaseExpiresAtMs"))
         if lease_expires_at_ms is not None:
             return lease_expires_at_ms >= self._now_ms()
@@ -95,7 +93,7 @@ class P2PTransport(Transport):
             return None
         return heartbeat_at_ms + lease_duration_ms >= self._now_ms()
 
-    def _peer_info(self) -> Dict[str, object]:
+    def _peer_info(self) -> dict[str, object]:
         now_ms = self._now_ms()
         return {
             "host": socket.gethostname(),
@@ -112,7 +110,7 @@ class P2PTransport(Transport):
         self._heartbeat_stop.clear()
         self._heartbeat_thread = threading.Thread(
             target=self._heartbeat_loop,
-            name=f"cyberteam-p2p-heartbeat-{self.team_name}-{self._bind_agent}",
+            name=f"clawteam-p2p-heartbeat-{self.team_name}-{self._bind_agent}",
             daemon=True,
         )
         self._heartbeat_thread.start()
@@ -294,7 +292,7 @@ class P2PTransport(Transport):
         # ZMQ has no queue-depth query; return file count + peek buffer size
         return self._file_fallback.count(agent_name) + len(self._peek_buffer)
 
-    def list_recipients(self) -> List[str]:
+    def list_recipients(self) -> list[str]:
         # Union of peers/ directory and inboxes/ directory
         peers: set[str] = set()
         peers_dir = _peers_dir(self.team_name)

@@ -1,8 +1,6 @@
-from __future__ import annotations
-from typing import Optional
-
 """WorkspaceManager — creates / checkpoints / merges / cleans up git worktrees."""
 
+from __future__ import annotations
 
 import json
 import logging
@@ -63,7 +61,7 @@ class WorkspaceManager:
         agent_name: str,
         agent_id: str,
     ) -> WorkspaceInfo:
-        branch = f"cyberteam/{team_name}/{agent_name}"
+        branch = f"clawteam/{team_name}/{agent_name}"
         wt_path = _workspaces_root() / team_name / agent_name
 
         # Crash recovery: if worktree already exists, clean it up first
@@ -110,13 +108,13 @@ class WorkspaceManager:
         self,
         team_name: str,
         agent_name: str,
-        message: Optional[str] = None,
+        message: str | None = None,
     ) -> bool:
         info = self._find(team_name, agent_name)
         if info is None:
             return False
         ts = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
-        msg = message or f"[cyberteam] checkpoint: {agent_name} @ {ts}"
+        msg = message or f"[clawteam] checkpoint: {agent_name} @ {ts}"
         return git.commit_all(Path(info.worktree_path), msg)
 
     # ------------------------------------------------------------------
@@ -135,7 +133,7 @@ class WorkspaceManager:
 
         if auto_checkpoint:
             try:
-                self.checkpoint(team_name, agent_name, f"[cyberteam] final checkpoint: {agent_name}")
+                self.checkpoint(team_name, agent_name, f"[clawteam] final checkpoint: {agent_name}")
             except Exception:
                 pass
 
@@ -172,7 +170,7 @@ class WorkspaceManager:
         self,
         team_name: str,
         agent_name: str,
-        target_branch: Optional[str] = None,
+        target_branch: str | None = None,
         cleanup_after: bool = True,
     ) -> tuple[bool, str]:
         info = self._find(team_name, agent_name)
@@ -180,7 +178,7 @@ class WorkspaceManager:
             return False, f"No workspace found for {agent_name}"
 
         # Checkpoint before merge
-        self.checkpoint(team_name, agent_name, f"[cyberteam] pre-merge checkpoint: {agent_name}")
+        self.checkpoint(team_name, agent_name, f"[clawteam] pre-merge checkpoint: {agent_name}")
 
         target = target_branch or info.base_branch
         success, output = git.merge_branch(

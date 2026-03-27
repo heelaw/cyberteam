@@ -1,0 +1,72 @@
+{
+  "skill_name": "founder-ip-builder",
+  "eval_version": "v1.0",
+  "evaluation_date": "2026-03-19",
+
+  "test_cases": [
+    {
+      "case_id": "eval-1",
+      "case_name": "分析雷军IP成功因素",
+      "difficulty": "medium",
+      "scenario": "用户想学习创始人IP分析方法",
+      "input": {
+        "user_request": "分析一下雷军IP为什么能成功，他做对了什么"
+      },
+      "expected_output": {
+        "IP定位": "亲民型，牛仔裤CEO",
+        "内容策略": "五类内容分布",
+        "表达风格": "口语化+自黑+真诚",
+        "可借鉴经验": "3条以上"
+      },
+      "evaluation_criteria": [
+        "定位分析准确",
+        "策略分析完整",
+        "风格识别到位",
+        "经验可复用"
+      ],
+      "pass_threshold": {
+        "定位分析": "准确",
+        "策略分析": "完整",
+        "风格识别": "到位",
+        "经验可复用": "2条以上"
+      }
+    },
+    {
+      "case_id": "eval-2",
+      "case_name": "为科技公司CEO规划IP打造",
+      "difficulty": "medium",
+      "scenario": "用户想为自己的公司CEO规划IP",
+      "input": {
+        "founder_background": "某AI创业公司CEO，技术背景深厚，希望打造行业影响力",
+        "target_users": "投资人、潜在员工、行业同仁"
+      },
+      "expected_output": {
+        "IP定位": "核心标签+人设类型",
+        "内容策略": "内容类型分布",
+        "平台选择": "适合的平台",
+        "风险边界": "可以做/避免清单"
+      },
+      "evaluation_criteria": [
+        "定位符合背景",
+        "策略切实可行",
+        "边界意识清晰"
+      ],
+      "pass_threshold": {
+        "定位": "符合背景",
+        "策略": "可行",
+        "边界": "清晰"
+      }
+    }
+  ],
+
+  "difficulty_distribution": {
+    "simple": 0,
+    "medium": 2,
+    "complex": 0
+  },
+
+  "overall_pass_threshold": 0.8,
+  "version_history": [
+    {"version": "v1.0", "date": "2026-03-19", "note": "初始版本"}
+  ]
+}

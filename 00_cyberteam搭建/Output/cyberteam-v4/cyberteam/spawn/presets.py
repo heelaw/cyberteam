@@ -1,6 +1,6 @@
-from __future__ import annotations
 """Shared preset helpers for generating client-scoped runtime profiles."""
 
+from __future__ import annotations
 
 from typing import Literal
 
@@ -9,7 +9,7 @@ from cyberteam.config import AgentPreset, AgentProfile, load_config
 PresetSource = Literal["builtin", "local"]
 
 
-def builtin_presets() -> Dict[str, AgentPreset]:
+def builtin_presets() -> dict[str, AgentPreset]:
     """Return built-in preset catalog."""
     def claude_compatible_preset(
         description: str,
@@ -17,7 +17,7 @@ def builtin_presets() -> Dict[str, AgentPreset]:
         base_url: str,
         model: str,
         *,
-        extra_env: Dict[str, str] | None = None,
+        extra_env: dict[str, str] | None = None,
     ) -> AgentPreset:
         env = {
             "ANTHROPIC_MODEL": model,
@@ -196,7 +196,7 @@ def builtin_presets() -> Dict[str, AgentPreset]:
     }
 
 
-def list_presets() -> Dict[str, tuple[AgentPreset, PresetSource]]:
+def list_presets() -> dict[str, tuple[AgentPreset, PresetSource]]:
     """Return combined preset catalog with source annotations."""
     combined = {name: (preset, "builtin") for name, preset in builtin_presets().items()}
     for name, preset in load_config().presets.items():
@@ -282,7 +282,7 @@ def generate_profile_from_preset(
     preset_name: str,
     client: str,
     *,
-    name: Optional[str] = None,
+    name: str | None = None,
 ) -> tuple[str, AgentProfile]:
     """Generate a client-scoped profile from a preset."""
     preset, _ = load_preset(preset_name)
@@ -310,7 +310,7 @@ def generate_profile_from_preset(
     return name or f"{normalized_client}-{preset_name}", profile
 
 
-def preset_clients(preset: AgentPreset) -> List[str]:
+def preset_clients(preset: AgentPreset) -> list[str]:
     """Return sorted client names configured by a preset."""
     return sorted(preset.client_overrides.keys())
 

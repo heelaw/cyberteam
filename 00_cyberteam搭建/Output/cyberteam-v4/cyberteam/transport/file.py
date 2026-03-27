@@ -1,8 +1,6 @@
-from __future__ import annotations
-from typing import List
-
 """File-based transport: messages stored as JSON files in inbox directories."""
 
+from __future__ import annotations
 
 import fcntl
 import json
@@ -209,7 +207,7 @@ class FileTransport(Transport):
             if path.suffix != ".consumed" or not _is_locked(path)
         )
 
-    def list_recipients(self) -> List[str]:
+    def list_recipients(self) -> list[str]:
         inboxes_dir = _teams_root() / self.team_name / "inboxes"
         if not inboxes_dir.exists():
             return []

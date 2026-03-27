@@ -1,0 +1,118 @@
+{
+  "skill_name": "user-needs-mining",
+  "version": "1.0.1",
+  "evals": [
+    {
+      "id": 1,
+      "name": "美妆产品需求挖掘-简单",
+      "difficulty": "简单",
+      "prompt": "请使用6大渠道挖掘以下产品的用户需求：\n\n## 产品信息\n- 产品类型：国产美妆品牌\n- 产品阶段：新品上市前\n- 目标：了解目标用户需求\n\n请使用6大渠道进行分析",
+      "expected_output": "6个渠道全覆盖，产出需求清单",
+      "files": [],
+      "assertions": [
+        {
+          "type": "contains",
+          "field": "渠道",
+          "expected": "社交媒体"
+        },
+        {
+          "type": "contains",
+          "field": "渠道",
+          "expected": "竞品评论"
+        },
+        {
+          "type": "contains",
+          "field": "输出",
+          "expected": "需求清单"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "B2B SaaS需求挖掘-中等",
+      "difficulty": "中等",
+      "prompt": "请使用6大渠道挖掘企业服务产品的用户需求：\n\n## 产品信息\n- 产品类型：B2B SaaS（在线协作文档）\n- 产品阶段：成长期（DAU 10万）\n- 目标：产品迭代需求\n- 背景：用户增长放缓，需要寻找新的增长点\n\n请输出需求清单和优先级排序，并给出下一步建议",
+      "expected_output": "需求清单和优先级排序",
+      "files": [],
+      "assertions": [
+        {
+          "type": "contains",
+          "field": "输出",
+          "expected": "需求"
+        },
+        {
+          "type": "contains",
+          "field": "输出",
+          "expected": "优先级"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "跨境电商平台需求挖掘-复杂",
+      "difficulty": "复杂",
+      "prompt": "请使用6大渠道挖掘以下产品的用户需求：\n\n## 产品信息\n- 产品类型：跨境电商平台（B2C，主营北美3C数码）\n- 产品阶段：早期（注册用户5万，DAU 5000）\n- 问题：增长停滞，CAC $25偏高，D7留存仅15%\n- 目标：6个月内DAU增长3倍\n- 资源限制：预算$50,000，团队4人\n\n## 特殊约束\n1. 需要同时考虑中美两地用户需求差异\n2. 竞品分析需要覆盖Amazon、eBay等平台\n3. 深度访谈需要克服时差和语言障碍\n4. 行业报告需要获取北美市场数据\n\n请输出完整的需求挖掘报告，包括：\n- 各渠道发现（带数据支撑）\n- 需求整合与优先级排序（P0/P1/P2）\n- 对北极星指标的支撑分析",
+      "expected_output": "完整需求挖掘报告，带数据支撑和优先级排序",
+      "files": [],
+      "assertions": [
+        {
+          "type": "contains",
+          "field": "输出",
+          "expected": "6大渠道"
+        },
+        {
+          "type": "contains",
+          "field": "输出",
+          "expected": "优先级"
+        },
+        {
+          "type": "contains",
+          "field": "输出",
+          "expected": "P0"
+        },
+        {
+          "type": "contains",
+          "field": "约束处理",
+          "expected": "跨境"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "医疗健康App需求挖掘-歧义",
+      "difficulty": "复杂",
+      "prompt": "请使用6大渠道挖掘以下产品的用户需求：\n\n## 产品信息\n- 产品类型：医疗健康App（在线问诊+健康管理）\n- 产品阶段：早期，尚未PMF验证\n- 问题：团队对产品方向存在分歧\n  - CEO认为应该做\"医疗搜索入口\"\n  - 产品VP认为应该做\"健康管理工具\"\n  - 技术负责人认为应该做\"AI问诊机器人\"\n\n## 信息歧义\n1. 竞品评论显示用户对\"在线问诊\"有需求，但付费意愿存疑\n2. 深度访谈中用户提到\"想要一个能看懂体检报告的工具\"，但团队不确定这是核心需求还是痒点\n3. 行业报告显示在线医疗市场增长快，但政策风险不确定\n4. 搜索趋势显示\"AI医生\"搜索量上升，但实际转化率未知\n\n请进行需求挖掘，重点：\n1. 验证三个方向的假设\n2. 识别真正的用户痛点\n3. 给出产品方向建议",
+      "expected_output": "带产品方向建议的需求报告",
+      "files": [],
+      "assertions": [
+        {
+          "type": "contains",
+          "field": "输出",
+          "expected": "需求"
+        },
+        {
+          "type": "contains",
+          "field": "分析",
+          "expected": "产品方向"
+        },
+        {
+          "type": "contains",
+          "field": "验证",
+          "expected": "假设"
+        }
+      ]
+    }
+  ],
+  "version_history": [
+    {
+      "version": "1.0.0",
+      "created": "2026-03-17",
+      "notes": "初始版本"
+    },
+    {
+      "version": "1.0.1",
+      "created": "2026-03-18",
+      "notes": "补充复杂案例和歧义案例"
+    }
+  ]
+}

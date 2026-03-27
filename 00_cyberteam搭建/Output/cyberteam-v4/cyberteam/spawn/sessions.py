@@ -1,6 +1,6 @@
-from __future__ import annotations
 """Session persistence for agent resume."""
 
+from __future__ import annotations
 
 import json
 from datetime import datetime, timezone
@@ -26,7 +26,7 @@ class SessionState(BaseModel):
     session_id: str = Field(default="", alias="sessionId")
     last_task_id: str = Field(default="", alias="lastTaskId")
     saved_at: str = Field(default_factory=_now_iso, alias="savedAt")
-    state: Dict[str, Any] = Field(default_factory=dict)
+    state: dict[str, Any] = Field(default_factory=dict)
 
 
 def _sessions_root(team_name: str) -> Path:
@@ -50,7 +50,7 @@ class SessionStore:
         agent_name: str,
         session_id: str = "",
         last_task_id: str = "",
-        state: Dict[str, Any] | None = None,
+        state: dict[str, Any] | None = None,
     ) -> SessionState:
         session = SessionState(
             agent_name=agent_name,

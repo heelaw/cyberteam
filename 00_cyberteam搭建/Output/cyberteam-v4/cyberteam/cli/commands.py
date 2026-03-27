@@ -1,6 +1,6 @@
-from __future__ import annotations
-"""CLI commands for cyberteam - framework-agnostic multi-agent coordination."""
+"""CLI commands for CyberTeam V4 - Enterprise AI Agent Swarm Intelligence System."""
 
+from __future__ import annotations
 
 import json
 import os
@@ -17,11 +17,11 @@ from rich.console import Console
 from rich.table import Table
 
 from cyberteam import __version__
-from cyberteam.timefmt import format_timestamp
+from CYBERTEAM.timefmt import format_timestamp
 
 app = typer.Typer(
     name="cyberteam",
-    help="Framework-agnostic multi-agent coordination CLI",
+    help="CyberTeam V4 - Enterprise AI Agent Swarm Intelligence System",
     no_args_is_help=True,
 )
 console = Console()
@@ -32,12 +32,12 @@ console = Console()
 # ---------------------------------------------------------------------------
 
 _json_output: bool = False
-_data_dir: Optional[str] = None
+_data_dir: str | None = None
 
 
 def _version_callback(value: bool):
     if value:
-        console.print(f"cyberteam v{__version__}")
+        console.print(f"CyberTeam v{__version__}")
         raise typer.Exit()
 
 
@@ -51,26 +51,22 @@ def main(
         False, "--json", help="Output JSON instead of human-readable text.",
     ),
     data_dir: Optional[str] = typer.Option(
-        None, "--data-dir", help="Override data directory (default: ~/.cyberteam).",
+        None, "--data-dir", help="Override data directory (default: ~/.clawteam).",
     ),
     transport: Optional[str] = typer.Option(
         None, "--transport", help="Transport backend: file or p2p.",
     ),
 ):
-    """cyberteam - Framework-agnostic multi-agent coordination CLI."""
+    """clawteam - Framework-agnostic multi-agent coordination CLI."""
     global _json_output, _data_dir
     _json_output = json_out
     if data_dir:
         import os
-        # 兼容：同时设置 CLAWTEAM_DATA_DIR 和 CYBERTEAM_DATA_DIR
         os.environ["CLAWTEAM_DATA_DIR"] = data_dir
-        os.environ["CYBERTEAM_DATA_DIR"] = data_dir
         _data_dir = data_dir
     if transport:
         import os
-        # 兼容：同时设置两个环境变量
         os.environ["CLAWTEAM_TRANSPORT"] = transport
-        os.environ["CYBERTEAM_TRANSPORT"] = transport
 
 
 def _dump(model) -> dict:
@@ -109,8 +105,8 @@ def _load_questionary():
         import questionary
     except ImportError as exc:  # pragma: no cover - import error path is trivial
         console.print(
-            "[red]Questionary is not installed. Reinstall CyberTeam with its default "
-            "dependencies to use `cyberteam profile wizard`.[/red]"
+            "[red]Questionary is not installed. Reinstall ClawTeam with its default "
+            "dependencies to use `clawteam profile wizard`.[/red]"
         )
         raise typer.Exit(1) from exc
     return questionary
@@ -179,7 +175,7 @@ def config_set(
     value: str = typer.Argument(..., help="Config value"),
 ):
     """Persistently set a configuration value."""
-    from cyberteam.config import CyberTeamConfig, load_config, save_config, scalar_config_keys
+    from cyberteam.config import ClawTeamConfig, load_config, save_config, scalar_config_keys
 
     valid_keys = set(scalar_config_keys())
     if key not in valid_keys:
@@ -187,7 +183,7 @@ def config_set(
         raise typer.Exit(1)
 
     cfg = load_config()
-    field_info = CyberTeamConfig.model_fields[key]
+    field_info = ClawTeamConfig.model_fields[key]
     if field_info.annotation is bool:
         setattr(cfg, key, value.lower() in ("true", "1", "yes"))
     else:
@@ -780,7 +776,7 @@ def profile_wizard():
     ]
     preset_catalog = list_presets()
 
-    console.print("[bold cyan]CyberTeam Profile Wizard[/bold cyan]")
+    console.print("[bold cyan]ClawTeam Profile Wizard[/bold cyan]")
     setup_mode = _questionary_safe_ask(
         questionary.select(
             "Choose a setup mode",
@@ -983,7 +979,7 @@ def profile_wizard():
     if normalized_client in {"claude", "claude-code"}:
         if _questionary_safe_ask(
             questionary.confirm(
-                "Run `cyberteam profile doctor claude` now to suppress first-run onboarding?",
+                "Run `clawteam profile doctor claude` now to suppress first-run onboarding?",
                 default=True,
                 style=style,
             )
@@ -1017,7 +1013,7 @@ def profile_doctor(
 
     claude_state_path = Path.home() / ".claude.json"
     before_exists = claude_state_path.exists()
-    data: Dict[str, object]
+    data: dict[str, object]
     if before_exists:
         try:
             data = json.loads(claude_state_path.read_text(encoding="utf-8"))
@@ -2741,7 +2737,7 @@ def spawn_agent(
             name=_team,
             leader_name=_name,
             leader_id=_id,
-            description="Auto-created by cyberteam spawn",
+            description="Auto-created by clawteam spawn",
             user=user_name,
             leader_agent_type=agent_type,
         )
@@ -2760,7 +2756,7 @@ def spawn_agent(
     except ValueError:
         pass  # already a member, ignore
 
-    # Build prompt: identity + task + cyberteam coordination guide
+    # Build prompt: identity + task + clawteam coordination guide
     prompt = None
     if task:
         from cyberteam.spawn.prompt import build_agent_prompt
@@ -2776,6 +2772,7 @@ def spawn_agent(
             user=user_name,
             workspace_dir=cwd or "",
             workspace_branch=ws_branch,
+            isolated_workspace=bool(workspace and cwd),
             repo_path=repo,
         )
 
@@ -2888,7 +2885,7 @@ def identity_set(
     else:
         console.print("Run the following to set your identity:\n")
         console.print(output)
-        console.print(f"\nOr use: eval $(cyberteam identity set {' '.join(sys.argv[3:])})")
+        console.print(f"\nOr use: eval $(clawteam identity set {' '.join(sys.argv[3:])})")
 
 
 # ============================================================================
@@ -3003,7 +3000,7 @@ def board_gource(
 ):
     """Launch Gource visualization of team activity.
 
-    Visualizes CyberTeam events (task changes, messages, agent joins) and
+    Visualizes ClawTeam events (task changes, messages, agent joins) and
     optionally combines git history from all agent worktrees into a unified
     Gource animation showing parallel collaboration.
     """
@@ -3055,12 +3052,12 @@ def board_gource(
         raise typer.Exit(1)
 
     # Write log to temp file
-    with tempfile.NamedTemporaryFile(mode="w", suffix=".log", delete=False, prefix="cyberteam-gource-") as f:
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".log", delete=False, prefix="clawteam-gource-") as f:
         f.write("\n".join(lines) + "\n")
         log_path = Path(f.name)
 
     try:
-        title = f"CyberTeam: {team}"
+        title = f"ClawTeam: {team}"
         proc = launch_gource(
             log_file=None if live else log_path,
             title=title,
@@ -3635,6 +3632,7 @@ def launch_team(
             user=_os.environ.get("CLAWTEAM_USER", ""),
             workspace_dir=cwd or "",
             workspace_branch=ws_branch,
+            isolated_workspace=bool(cwd),
         )
 
         result = be.spawn(
@@ -3670,9 +3668,9 @@ def launch_team(
         console.print(table)
         console.print()
         if be_name == "tmux":
-            console.print(f"[bold]Attach:[/bold] tmux attach -t cyberteam-{t_name}")
-        console.print(f"[bold]Board:[/bold]  cyberteam board show {t_name}")
-        console.print(f"[bold]Inbox:[/bold]  cyberteam inbox peek {t_name} --agent <name>")
+            console.print(f"[bold]Attach:[/bold] tmux attach -t clawteam-{t_name}")
+        console.print(f"[bold]Board:[/bold]  clawteam board show {t_name}")
+        console.print(f"[bold]Inbox:[/bold]  clawteam inbox peek {t_name} --agent <name>")
 
     _output(out, _human)
 

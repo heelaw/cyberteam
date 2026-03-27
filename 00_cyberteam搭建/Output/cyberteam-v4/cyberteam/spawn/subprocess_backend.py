@@ -1,8 +1,6 @@
-from __future__ import annotations
-from typing import Dict, List, Optional
-
 """Subprocess spawn backend - launches agents as separate processes."""
 
+from __future__ import annotations
 
 import os
 import shlex
@@ -10,7 +8,7 @@ import subprocess
 
 from cyberteam.spawn.adapters import NativeCliAdapter
 from cyberteam.spawn.base import SpawnBackend
-from cyberteam.spawn.cli_env import build_spawn_path, resolve_cyberteam_executable
+from cyberteam.spawn.cli_env import build_spawn_path, resolve_clawteam_executable
 from cyberteam.spawn.command_validation import validate_spawn_command
 
 
@@ -18,23 +16,23 @@ class SubprocessBackend(SpawnBackend):
     """Spawn agents as independent subprocesses running any command."""
 
     def __init__(self):
-        self._processes: Dict[str, subprocess.Popen] = {}
+        self._processes: dict[str, subprocess.Popen] = {}
         self._adapter = NativeCliAdapter()
 
     def spawn(
         self,
-        command: List[str],
+        command: list[str],
         agent_name: str,
         agent_id: str,
         agent_type: str,
         team_name: str,
-        prompt: Optional[str] = None,
-        env: Dict[str, str] | None = None,
-        cwd: Optional[str] = None,
+        prompt: str | None = None,
+        env: dict[str, str] | None = None,
+        cwd: str | None = None,
         skip_permissions: bool = False,
     ) -> str:
         spawn_env = os.environ.copy()
-        cyberteam_bin = resolve_cyberteam_executable()
+        clawteam_bin = resolve_clawteam_executable()
         spawn_env.update({
             "CLAWTEAM_AGENT_ID": agent_id,
             "CLAWTEAM_AGENT_NAME": agent_name,
@@ -55,8 +53,8 @@ class SubprocessBackend(SpawnBackend):
         if env:
             spawn_env.update(env)
         spawn_env["PATH"] = build_spawn_path(spawn_env.get("PATH"))
-        if os.path.isabs(cyberteam_bin):
-            spawn_env.setdefault("CLAWTEAM_BIN", cyberteam_bin)
+        if os.path.isabs(clawteam_bin):
+            spawn_env.setdefault("CLAWTEAM_BIN", clawteam_bin)
 
         prepared = self._adapter.prepare_command(
             command,
@@ -76,7 +74,7 @@ class SubprocessBackend(SpawnBackend):
 
         # Wrap with on-exit hook so task status updates immediately on exit
         cmd_str = " ".join(shlex.quote(c) for c in final_command)
-        exit_cmd = shlex.quote(cyberteam_bin) if os.path.isabs(cyberteam_bin) else "cyberteam"
+        exit_cmd = shlex.quote(clawteam_bin) if os.path.isabs(clawteam_bin) else "clawteam"
         exit_hook = (
             f"{exit_cmd} lifecycle on-exit --team {shlex.quote(team_name)} "
             f"--agent {shlex.quote(agent_name)}"
@@ -106,7 +104,7 @@ class SubprocessBackend(SpawnBackend):
 
         return f"Agent '{agent_name}' spawned as subprocess (pid={process.pid})"
 
-    def list_running(self) -> list[Dict[str, str]]:
+    def list_running(self) -> list[dict[str, str]]:
         result = []
         for name, proc in list(self._processes.items()):
             if proc.poll() is None:

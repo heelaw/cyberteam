@@ -1,6 +1,6 @@
-from __future__ import annotations
 """Task waiter - blocks until all tasks in a team are completed."""
 
+from __future__ import annotations
 
 import signal
 import time

@@ -1,6 +1,6 @@
-from __future__ import annotations
 """Team state snapshots for checkpoint/restore."""
 
+from __future__ import annotations
 
 import fcntl
 import json
@@ -119,7 +119,7 @@ class SnapshotManager:
         costs = _read_json_dir(data_dir / "costs" / self.team_name, "cost-*.json")
 
         # pending inbox messages (not yet consumed)
-        inboxes: Dict[str, list[dict]] = {}
+        inboxes: dict[str, list[dict]] = {}
         inbox_root = team_dir / "inboxes"
         if inbox_root.exists():
             for agent_dir in sorted(inbox_root.iterdir()):
@@ -172,21 +172,21 @@ class SnapshotManager:
                 continue
         return out
 
-    def load_bundle(self, snapshot_id: str) -> Dict[str, Any]:
+    def load_bundle(self, snapshot_id: str) -> dict[str, Any]:
         """Load a snapshot bundle from disk."""
         path = _snapshots_root(self.team_name) / f"snap-{snapshot_id}.json"
         if not path.exists():
             raise ValueError(f"Snapshot '{snapshot_id}' not found")
         return json.loads(path.read_text("utf-8"))
 
-    def restore(self, snapshot_id: str, dry_run: bool = False) -> Dict[str, Any]:
+    def restore(self, snapshot_id: str, dry_run: bool = False) -> dict[str, Any]:
         """Restore team state from a snapshot.
 
         Returns a summary dict. With dry_run=True nothing is written.
         """
         bundle = self.load_bundle(snapshot_id)
 
-        summary: Dict[str, Any] = {
+        summary: dict[str, Any] = {
             "snapshot_id": snapshot_id,
             "dry_run": dry_run,
             "config": bool(bundle.get("config")),

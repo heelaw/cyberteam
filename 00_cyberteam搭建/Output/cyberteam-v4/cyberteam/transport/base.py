@@ -1,8 +1,6 @@
-from __future__ import annotations
-from typing import List
-
 """Abstract base class for message transport."""
 
+from __future__ import annotations
 
 from abc import ABC, abstractmethod
 
@@ -29,7 +27,7 @@ class Transport(ABC):
         """Return the number of pending messages."""
 
     @abstractmethod
-    def list_recipients(self) -> List[str]:
+    def list_recipients(self) -> list[str]:
         """List all known recipient names (for broadcast)."""
 
     def close(self) -> None:

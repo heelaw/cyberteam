@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from .helpers import coerce_enum, team_mailbox, to_payload
-from clawteam.team.models import MessageType
+from cyberteam.team.models import MessageType
 
 
 def mailbox_send(

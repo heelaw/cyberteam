@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from clawteam.board.collector import BoardCollector
+from cyberteam.board.collector import BoardCollector
 from ..helpers import to_payload
 
 

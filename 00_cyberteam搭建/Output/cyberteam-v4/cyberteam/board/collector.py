@@ -1,8 +1,6 @@
-from __future__ import annotations
-from typing import Dict
-
 """Aggregates team/task/inbox data into plain dicts for rendering."""
 
+from __future__ import annotations
 
 import json
 
@@ -15,10 +13,10 @@ class BoardCollector:
     """Aggregates team/task/inbox data into plain dicts."""
 
     @staticmethod
-    def _member_alias_index(config) -> Dict[str, dict]:
+    def _member_alias_index(config) -> dict[str, dict]:
         """Map known member identifiers to a canonical display payload."""
-        unique_names: Dict[str, list[dict]] = {}
-        aliases: Dict[str, dict] = {}
+        unique_names: dict[str, list[dict]] = {}
+        aliases: dict[str, dict] = {}
         for member in config.members:
             inbox_name = TeamManager.inbox_name_for(member)
             entry = {
@@ -95,7 +93,7 @@ class BoardCollector:
 
         # Tasks grouped by status
         all_tasks = store.list_tasks()
-        grouped: Dict[str, list[dict]] = {
+        grouped: dict[str, list[dict]] = {
             "pending": [],
             "in_progress": [],
             "completed": [],

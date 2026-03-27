@@ -1,0 +1,147 @@
+{
+  "skill_name": "整体业务模型梳理",
+  "version": "1.0",
+  "assess_type": "6维度评分",
+  "pass_threshold": 85,
+  "评估维度": [
+    {
+      "dimension": "完整性",
+      "weight": "20%",
+      "description": "整体业务模型梳理框架的完整程度",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": "完整包含：四个问题框架+三思考框架+四步流程+输入输出模板+案例≥3个"
+        },
+        "good": {
+          "score": 4,
+          "criteria": "包含四个问题框架+三思考框架+流程，缺少部分案例"
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": "框架基本完整但流程或模板有缺失"
+        },
+        "poor": {
+          "score": 1,
+          "criteria": "核心框架严重缺失"
+        }
+      }
+    },
+    {
+      "dimension": "实用性",
+      "weight": "20%",
+      "description": "对实际业务梳理工作的指导价值",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": "提供可直接使用的四问模板+三框架工具+完整案例+实操 Checklist"
+        },
+        "good": {
+          "score": 4,
+          "criteria": "提供模板和工具，案例或 Checklist 不完整"
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": "有框架但缺少实操模板"
+        },
+        "poor": {
+          "score": 1,
+          "criteria": "纯理论，无实操价值"
+        }
+      }
+    },
+    {
+      "dimension": "专业性",
+      "weight": "20%",
+      "description": "业务模型专业框架的准确性",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": "四问框架完整准确，三思考框架（商业画布/三问/健康度）专业，术语规范"
+        },
+        "good": {
+          "score": 4,
+          "criteria": "框架准确，有少量创新解读"
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": "框架基本准确，但有遗漏"
+        },
+        "poor": {
+          "score": 1,
+          "criteria": "框架错误或混乱"
+        }
+      }
+    },
+    {
+      "dimension": "严谨性",
+      "weight": "20%",
+      "description": "逻辑严密性和案例真实性",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": "逻辑推演严密，四问框架递进清晰，案例数据真实，有边界说明"
+        },
+        "good": {
+          "score": 4,
+          "criteria": "逻辑清晰，案例真实，边界说明略不足"
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": "部分逻辑跳跃，案例泛化"
+        },
+        "poor": {
+          "score": 1,
+          "criteria": "逻辑混乱，案例虚构"
+        }
+      }
+    },
+    {
+      "dimension": "独特个性",
+      "weight": "10%",
+      "description": "差异化视角和独特见解",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": "有独特的四问框架+原创分析视角+行业深度洞察"
+        },
+        "good": {
+          "score": 4,
+          "criteria": "有少量独特见解"
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": "以复用经典为主"
+        },
+        "poor": {
+          "score": 1,
+          "criteria": "完全照搬，无独特性"
+        }
+      }
+    },
+    {
+      "dimension": "规范性",
+      "weight": "10%",
+      "description": "格式规范和Critical Rules完整性",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": "格式完全规范+Critical Rules≥5条+Workflow Steps完整"
+        },
+        "good": {
+          "score": 4,
+          "criteria": "格式规范，Critical Rules≥3条"
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": "格式基本规范，Critical Rules不足"
+        },
+        "poor": {
+          "score": 1,
+          "criteria": "格式混乱，Critical Rules缺失"
+        }
+      }
+    }
+  ],
+  "评分说明": "总分=各维度得分×权重之和，满分100分。≥85分为通过（excellent/good级别）"
+}

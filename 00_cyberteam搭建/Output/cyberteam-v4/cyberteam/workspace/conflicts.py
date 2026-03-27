@@ -1,8 +1,6 @@
-from __future__ import annotations
-from typing import Dict, List, Optional
-
 """Conflict detection and overlap warnings for multi-agent git workspaces."""
 
+from __future__ import annotations
 
 from pathlib import Path
 
@@ -14,7 +12,7 @@ from cyberteam.workspace.context import _agent_branch, _base_branch, _ws_manager
 # ---------------------------------------------------------------------------
 
 
-def detect_overlaps(team_name: str, repo: Optional[str] = None) -> list[dict]:
+def detect_overlaps(team_name: str, repo: str | None = None) -> list[dict]:
     """Detect files modified by multiple agents.
 
     Returns list of dicts with keys: file, agents, severity.
@@ -24,7 +22,7 @@ def detect_overlaps(team_name: str, repo: Optional[str] = None) -> list[dict]:
       - low: agents changed files in the same directory
     """
     owners = file_owners(team_name, repo)
-    mgr = _ws_manager(repo)
+    mgr = _ws_manager(team_name, repo)
 
     overlaps: list[dict] = []
     for fname, agents in owners.items():
@@ -84,13 +82,13 @@ def _changed_lines(
 
 def _compute_severity(
     fname: str,
-    agents: List[str],
+    agents: list[str],
     team_name: str,
     mgr,
 ) -> str:
     """Compute overlap severity for a file touched by multiple agents."""
     # Collect changed lines per agent
-    agent_lines: Dict[str, set[int]] = {}
+    agent_lines: dict[str, set[int]] = {}
     for agent_name in agents:
         ws = mgr.get_workspace(team_name, agent_name)
         if ws is None:
@@ -125,13 +123,13 @@ def check_conflicts(
     team_name: str,
     agent_a: str,
     agent_b: str,
-    repo: Optional[str] = None,
+    repo: str | None = None,
 ) -> list[dict]:
     """Check for conflicts between two specific agents.
 
     Returns list of dicts with: file, conflict_markers (bool), details.
     """
-    mgr = _ws_manager(repo)
+    mgr = _ws_manager(team_name, repo)
     branch_a = _agent_branch(team_name, agent_a)
     branch_b = _agent_branch(team_name, agent_b)
     base_a = _base_branch(team_name, agent_a, mgr)
@@ -188,7 +186,7 @@ def check_conflicts(
 # ---------------------------------------------------------------------------
 
 
-def auto_notify(team_name: str, mailbox_mgr, repo: Optional[str] = None) -> int:
+def auto_notify(team_name: str, mailbox_mgr, repo: str | None = None) -> int:
     """Scan for overlaps and send warning messages to affected agents.
 
     Returns number of warnings sent.
@@ -231,13 +229,13 @@ def auto_notify(team_name: str, mailbox_mgr, repo: Optional[str] = None) -> int:
 def suggest_rebase(
     team_name: str,
     agent_name: str,
-    repo: Optional[str] = None,
+    repo: str | None = None,
 ) -> str | None:
     """Suggest whether an agent should rebase onto the base branch.
 
     Returns a suggestion string, or None if no rebase is needed.
     """
-    mgr = _ws_manager(repo)
+    mgr = _ws_manager(team_name, repo)
     branch = _agent_branch(team_name, agent_name)
     base = _base_branch(team_name, agent_name, mgr)
 

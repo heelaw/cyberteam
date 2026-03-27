@@ -1,8 +1,6 @@
-from __future__ import annotations
-from typing import Dict, List, Optional
-
 """Tmux spawn backend - launches agents in tmux windows for visual monitoring."""
 
+from __future__ import annotations
 
 import os
 import shlex
@@ -22,38 +20,38 @@ from cyberteam.spawn.adapters import (
     is_qwen_command,
 )
 from cyberteam.spawn.base import SpawnBackend
-from cyberteam.spawn.cli_env import build_spawn_path, resolve_cyberteam_executable
+from cyberteam.spawn.cli_env import build_spawn_path, resolve_clawteam_executable
 from cyberteam.spawn.command_validation import validate_spawn_command
 
 
 class TmuxBackend(SpawnBackend):
     """Spawn agents in tmux windows for visual monitoring.
 
-    Each agent gets its own tmux window in a session named ``cyberteam-{team}``.
+    Each agent gets its own tmux window in a session named ``clawteam-{team}``.
     Agents run in interactive mode so their work is visible in the tmux pane.
     """
 
     def __init__(self):
-        self._agents: Dict[str, str] = {}  # agent_name -> tmux target
+        self._agents: dict[str, str] = {}  # agent_name -> tmux target
         self._adapter = NativeCliAdapter()
 
     def spawn(
         self,
-        command: List[str],
+        command: list[str],
         agent_name: str,
         agent_id: str,
         agent_type: str,
         team_name: str,
-        prompt: Optional[str] = None,
-        env: Dict[str, str] | None = None,
-        cwd: Optional[str] = None,
+        prompt: str | None = None,
+        env: dict[str, str] | None = None,
+        cwd: str | None = None,
         skip_permissions: bool = False,
     ) -> str:
         if not shutil.which("tmux"):
             return "Error: tmux not installed"
 
-        session_name = f"cyberteam-{team_name}"
-        cyberteam_bin = resolve_cyberteam_executable()
+        session_name = f"clawteam-{team_name}"
+        clawteam_bin = resolve_clawteam_executable()
         env_vars = os.environ.copy()
         env_vars.update({
             "CLAWTEAM_AGENT_ID": agent_id,
@@ -69,8 +67,8 @@ class TmuxBackend(SpawnBackend):
         if env:
             env_vars.update(env)
         env_vars["PATH"] = build_spawn_path(env_vars.get("PATH", os.environ.get("PATH")))
-        if os.path.isabs(cyberteam_bin):
-            env_vars.setdefault("CLAWTEAM_BIN", cyberteam_bin)
+        if os.path.isabs(clawteam_bin):
+            env_vars.setdefault("CLAWTEAM_BIN", clawteam_bin)
 
         prepared = self._adapter.prepare_command(
             command,
@@ -93,7 +91,7 @@ class TmuxBackend(SpawnBackend):
 
         cmd_str = " ".join(shlex.quote(c) for c in final_command)
         # Append on-exit hook: runs immediately when agent process exits
-        exit_cmd = shlex.quote(cyberteam_bin) if os.path.isabs(cyberteam_bin) else "cyberteam"
+        exit_cmd = shlex.quote(clawteam_bin) if os.path.isabs(clawteam_bin) else "clawteam"
         exit_hook = (
             f"{exit_cmd} lifecycle on-exit --team {shlex.quote(team_name)} "
             f"--agent {shlex.quote(agent_name)}"
@@ -142,7 +140,7 @@ class TmuxBackend(SpawnBackend):
         if pane_check.returncode != 0 or not pane_check.stdout.strip():
             return (
                 f"Error: agent command '{normalized_command[0]}' exited immediately after launch. "
-                "Verify the CLI works standalone before using it with cyberteam spawn."
+                "Verify the CLI works standalone before using it with clawteam spawn."
             )
 
         from cyberteam.config import load_config
@@ -210,7 +208,7 @@ class TmuxBackend(SpawnBackend):
 
         return f"Agent '{agent_name}' spawned in tmux ({target})"
 
-    def list_running(self) -> list[Dict[str, str]]:
+    def list_running(self) -> list[dict[str, str]]:
         return [
             {"name": name, "target": target, "backend": "tmux"}
             for name, target in self._agents.items()
@@ -218,7 +216,7 @@ class TmuxBackend(SpawnBackend):
 
     @staticmethod
     def session_name(team_name: str) -> str:
-        return f"cyberteam-{team_name}"
+        return f"clawteam-{team_name}"
 
     @staticmethod
     def tile_panes(team_name: str) -> str:
@@ -290,16 +288,16 @@ class TmuxBackend(SpawnBackend):
 
 def _confirm_workspace_trust_if_prompted(
     target: str,
-    command: List[str],
+    command: list[str],
     timeout_seconds: float = 5.0,
     poll_interval_seconds: float = 0.2,
 ) -> bool:
-    """Acknowledge first-run workspace trust prompts for interactive CLIs.
+    """Acknowledge startup confirmation prompts for interactive CLIs.
 
     Claude Code and Codex can stop at a directory trust prompt when launched in
-    a fresh git worktree. Detect that specific screen before any prompt
-    injection and accept it with a single Enter so the interactive TUI remains
-    intact.
+    a fresh git worktree. Claude can also pause on a confirmation dialog when
+    `--dangerously-skip-permissions` is enabled. Detect these screens before
+    any prompt injection so the interactive TUI remains intact.
     """
     if not (is_claude_command(command) or is_codex_command(command) or is_gemini_command(command)):
         return False
@@ -312,7 +310,22 @@ def _confirm_workspace_trust_if_prompted(
             text=True,
         )
         pane_text = pane.stdout.lower() if pane.returncode == 0 else ""
-        if _looks_like_workspace_trust_prompt(command, pane_text):
+        action = _startup_prompt_action(command, pane_text)
+        if action == "enter":
+            subprocess.run(
+                ["tmux", "send-keys", "-t", target, "Enter"],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+            )
+            time.sleep(0.5)
+            return True
+        if action == "down-enter":
+            subprocess.run(
+                ["tmux", "send-keys", "-t", target, "-l", "\x1b[B"],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+            )
+            time.sleep(0.2)
             subprocess.run(
                 ["tmux", "send-keys", "-t", target, "Enter"],
                 stdout=subprocess.PIPE,
@@ -326,7 +339,16 @@ def _confirm_workspace_trust_if_prompted(
     return False
 
 
-def _looks_like_workspace_trust_prompt(command: List[str], pane_text: str) -> bool:
+def _startup_prompt_action(command: list[str], pane_text: str) -> str | None:
+    """Return the key action needed to dismiss a startup confirmation prompt."""
+    if _looks_like_claude_skip_permissions_prompt(command, pane_text):
+        return "down-enter"
+    if _looks_like_workspace_trust_prompt(command, pane_text):
+        return "enter"
+    return None
+
+
+def _looks_like_workspace_trust_prompt(command: list[str], pane_text: str) -> bool:
     """Return True when the tmux pane is showing a trust confirmation dialog."""
     if not pane_text:
         return False
@@ -346,6 +368,21 @@ def _looks_like_workspace_trust_prompt(command: List[str], pane_text: str) -> bo
         return "trust folder" in pane_text or "trust parent folder" in pane_text
 
     return False
+
+
+def _looks_like_claude_skip_permissions_prompt(command: list[str], pane_text: str) -> bool:
+    """Return True when Claude is waiting for the dangerous-permissions confirmation."""
+    if not pane_text or not is_claude_command(command):
+        return False
+
+    has_accept_choice = "yes, i accept" in pane_text
+    has_permissions_warning = (
+        "dangerously-skip-permissions" in pane_text
+        or "skip permissions" in pane_text
+        or "permission" in pane_text
+        or "approval" in pane_text
+    )
+    return has_accept_choice and has_permissions_warning
 
 
 def _wait_for_cli_ready(
@@ -447,7 +484,7 @@ def _inject_prompt_via_buffer(
     """
     buf_name = f"prompt-{agent_name}"
     with tempfile.NamedTemporaryFile(
-        mode="w", suffix=".txt", delete=False, prefix="cyberteam-prompt-"
+        mode="w", suffix=".txt", delete=False, prefix="clawteam-prompt-"
     ) as f:
         f.write(prompt)
         tmp_path = f.name

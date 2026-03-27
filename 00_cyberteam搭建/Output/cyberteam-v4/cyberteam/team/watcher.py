@@ -1,8 +1,6 @@
-from __future__ import annotations
-from typing import Optional
-
 """Inbox watcher - synchronous file polling for CLI watch mode."""
 
+from __future__ import annotations
 
 import signal
 import subprocess
@@ -26,7 +24,7 @@ class InboxWatcher:
         mailbox: MailboxManager,
         poll_interval: float = 1.0,
         json_output: bool = False,
-        exec_cmd: Optional[str] = None,
+        exec_cmd: str | None = None,
     ):
         self.team_name = team_name
         self.agent_name = agent_name

@@ -1,0 +1,74 @@
+{
+  "dimension": "增长业务模型规划",
+  "version": "1.1",
+  "author": "Cyberwiz",
+  "review_status": "已修复，等待复审",
+  "review_required": true,
+  "review_threshold": 95,
+  "items": [
+    {
+      "id": "1",
+      "item": "增长假设清晰度",
+      "weight": 20,
+      "criteria": "假设明确、可验证、有优先级，每个假设必须包含：假设内容、证据、验证方法、投资金额、预期回报",
+      "measurement": "假设结构完整性评估"
+    },
+    {
+      "id": "2",
+      "item": "增长路径可行性",
+      "weight": 20,
+      "criteria": "路径清晰、分阶段、与资源匹配，每阶段有明确的时间节点和关键动作",
+      "measurement": "路径可行性评分"
+    },
+    {
+      "id": "3",
+      "item": "模型评估准确性",
+      "weight": 20,
+      "criteria": "准确识别增长天花板、风险点、瓶颈环节，评估维度全面（天花板/可持续性/盈利能力/竞争壁垒/风险）",
+      "measurement": "评估准确性对比"
+    },
+    {
+      "id": "4",
+      "item": "策略有效性",
+      "weight": 20,
+      "criteria": "策略组合有效，ROI可计算，必须包含单位经济模型分析（LTV/CAC）",
+      "measurement": "策略有效性评估"
+    },
+    {
+      "id": "5",
+      "item": "输入输出规范性",
+      "weight": 10,
+      "criteria": "schema完整、格式规范，包含所有必填字段",
+      "measurement": "schema完整性检查"
+    },
+    {
+      "id": "6",
+      "item": "调用机制完整性",
+      "weight": 10,
+      "criteria": "触发条件明确、调用示例完整，包含入口场景和出口场景定义",
+      "measurement": "调用机制完整性评估"
+    }
+  ],
+  "scoring_rules": {
+    "excellent": "95-100",
+    "good": "85-94",
+    "pass": "75-84",
+    "fail": "0-74"
+  },
+  "review_dimensions": [
+    "方法论完整性",
+    "实战可执行性",
+    "与课程原意一致性",
+    "调用机制完整性",
+    "编排集成完整性"
+  ],
+  "fixes_applied": [
+    "添加了完整的调用机制（触发关键词、调用示例、schema）",
+    "添加了Handoff协议（入口场景、出口场景）",
+    "添加了编排集成（与其他Agent的关系、工作流程）",
+    "补充了3个不同场景的测试用例",
+    "完善了输入输出schema",
+    "扩展了Communication Style",
+    "强化了Agent独特性（增长战略军师角色）"
+  ]
+}

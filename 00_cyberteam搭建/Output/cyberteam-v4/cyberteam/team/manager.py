@@ -1,6 +1,6 @@
-from __future__ import annotations
 """Team manager for creating and managing teams."""
 
+from __future__ import annotations
 
 import json
 import shutil

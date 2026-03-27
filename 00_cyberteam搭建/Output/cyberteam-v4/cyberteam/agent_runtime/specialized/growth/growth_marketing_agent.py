@@ -13,7 +13,7 @@
 from typing import Any, Dict, List, Optional
 
 from cyberteam.agent_runtime.base import SpecializedAgent, AgentMetadata
-from skills.third_party.growth import GrowthMarketingSkill
+from cyberteam.skills.growth import GrowthMarketingSkill
 
 
 class GrowthMarketingAgent(SpecializedAgent):

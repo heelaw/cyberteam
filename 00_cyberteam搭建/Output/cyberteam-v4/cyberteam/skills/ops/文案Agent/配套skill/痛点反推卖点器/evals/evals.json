@@ -1,0 +1,53 @@
+{
+  "skill_name": "痛点反推卖点器",
+  "version": "1.0.0",
+  "evals": [
+    {
+      "id": 1,
+      "difficulty": "simple",
+      "name": "在线文档协作痛点分析",
+      "prompt": "请使用痛点反推卖点法分析以下产品：\n\n## 产品信息\n- 产品类型：在线文档协作工具\n- 目标用户：企业团队\n- 痛点背景：用户反馈\"多人协作时版本混乱，不知道谁改了什么\"\n\n请挖掘痛点、放大情绪、对应方案、输出卖点",
+      "expected_output": "包含痛点挖掘、情绪放大、解决方案对应、卖点输出",
+      "files": [],
+      "assertions": [
+        {
+          "type": "contains",
+          "field": "痛点挖掘",
+          "expected": "表面/深层/本质"
+        },
+        {
+          "type": "contains",
+          "field": "卖点输出",
+          "expected": "卖点文案"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "difficulty": "medium",
+      "name": "项目管理软件痛点分析",
+      "prompt": "请使用痛点反推卖点法分析以下产品：\n\n## 产品信息\n- 产品类型：团队任务管理工具\n- 目标用户：项目经理和团队成员\n- 痛点背景：用户反馈\"任务太多总是漏掉，被领导批评\"\n\n请进行完整的痛点反推分析",
+      "expected_output": "包含4个步骤的完整分析和卖点文案",
+      "files": [],
+      "assertions": [
+        {
+          "type": "contains",
+          "field": "情绪放大",
+          "expected": "情绪"
+        },
+        {
+          "type": "contains",
+          "field": "卖点输出",
+          "expected": "卖点"
+        }
+      ]
+    }
+  ],
+  "version_history": [
+    {
+      "version": "1.0.0",
+      "created": "2026-03-18",
+      "notes": "初始版本"
+    }
+  ]
+}

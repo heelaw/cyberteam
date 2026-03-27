@@ -1,8 +1,6 @@
-from __future__ import annotations
-from typing import List
-
 """Renders board data using Rich tables, panels, and columns."""
 
+from __future__ import annotations
 
 import signal
 import time
@@ -164,7 +162,7 @@ class BoardRenderer:
         high = conflicts.get("highSeverity", 0)
         medium = conflicts.get("mediumSeverity", 0)
 
-        lines: List[str] = []
+        lines: list[str] = []
         for o in overlaps:
             severity = o["severity"]
             style = "red bold" if severity == "high" else "yellow"

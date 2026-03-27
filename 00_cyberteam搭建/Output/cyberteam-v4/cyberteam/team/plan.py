@@ -1,6 +1,6 @@
-from __future__ import annotations
 """Plan approval workflow for team agents."""
 
+from __future__ import annotations
 
 import json
 import uuid

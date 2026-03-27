@@ -89,27 +89,30 @@ class SkillLoader:
 
     def __init__(self, base_path: Optional[str] = None):
         if base_path is None:
-            # 默认路径：项目根目录
-            self.base_path = Path(__file__).parent.parent.parent
+            # 默认路径：cyberteam包所在目录
+            self.base_path = Path(__file__).parent.parent
         else:
             self.base_path = Path(base_path)
 
         self._skills: Dict[str, BaseSkill] = {}
         self._skill_paths: Dict[str, str] = {}
 
-    def scan_skills(self, skills_dir: str = "skills") -> Dict[str, BaseSkill]:
-        """扫描并加载Skills"""
-        skills_path = self.base_path / skills_dir
+    def scan_skills(self) -> Dict[str, BaseSkill]:
+        """扫描并加载Skills - 统一从cyberteam/skills/扫描"""
+        # Python Skills在 cyberteam/skills/growth/
+        python_skills_path = self.base_path / "skills" / "growth"
+        # SKILL.md格式在 cyberteam/skills/ops/
+        skill_md_path = self.base_path / "skills"
 
-        if not skills_path.exists():
-            print(f"⚠️ Skills目录不存在: {skills_path}")
+        if not python_skills_path.exists():
+            print(f"⚠️ Python Skills目录不存在: {python_skills_path}")
             return {}
 
         # 1. 扫描Python Skill类
-        self._scan_python_skills(skills_path / "growth")
+        self._scan_python_skills(python_skills_path)
 
         # 2. 扫描SKILL.md格式
-        self._scan_skill_md_formats(skills_path)
+        self._scan_skill_md_formats(skill_md_path)
 
         return self._skills
 
@@ -129,7 +132,7 @@ class SkillLoader:
                 if skill_path_str not in sys.path:
                     sys.path.insert(0, skill_path_str)
 
-                from skills.growth import (
+                from cyberteam.skills.growth import (
                     ReportingFrameworkSkill,
                     TimeManagementSkill,
                     ProgressTrackingSkill,
@@ -168,44 +171,37 @@ class SkillLoader:
             print(f"⚠️ 导入Python Skill失败: {e}")
 
     def _scan_skill_md_formats(self, skills_base: Path):
-        """扫描SKILL.md格式的Skills - 从v3运营Agent融合"""
-        # 扫描"需要融合的对象/运营AGENT"下的SKILL.md
-        fusion_source = self.base_path.parent / "需要融合的对象" / "运营AGENT"
+        """扫描SKILL.md格式的Skills - 从ops目录（已内部化）"""
+        # ops目录在 cyberteam/skills/ops/（不是skills/ops/）
+        # 因为Python Skills在 cyberteam/skills/growth/
+        ops_path = skills_base.parent / "cyberteam" / "skills" / "ops"
 
-        if not fusion_source.exists():
-            print(f"⚠️ 融合源目录不存在: {fusion_source}")
+        if not ops_path.exists():
+            print(f"⚠️ OPS目录不存在: {ops_path}")
             return
 
-        # 遍历所有运营Agent
-        for agent_dir in fusion_source.iterdir():
+        # 遍历ops下的所有Agent目录（每个Agent是一个技能目录）
+        for agent_dir in ops_path.iterdir():
             if not agent_dir.is_dir():
                 continue
 
-            skill配套_dir = agent_dir / "配套skill"
-            if not skill配套_dir.exists():
+            # 检查是否有SKILL.md（直接在Agent目录下）
+            skill_md = agent_dir / "SKILL.md"
+            if not skill_md.exists():
                 continue
 
-            # 遍历配套skill
-            for skill_dir in skill配套_dir.iterdir():
-                if not skill_dir.is_dir():
-                    continue
+            try:
+                # 解析SKILL.md
+                metadata = self._parse_skill_md(skill_md)
+                if metadata:
+                    # 创建SKILL包装器
+                    skill_instance = SKILLSkill(metadata, str(agent_dir))
+                    self._skills[metadata.name] = skill_instance
+                    self._skill_paths[metadata.name] = str(agent_dir)
+                    print(f"✅ SKILL.md加载: {metadata.name} (from ops/{agent_dir.name})")
 
-                skill_md = skill_dir / "SKILL.md"
-                if not skill_md.exists():
-                    continue
-
-                try:
-                    # 解析SKILL.md
-                    metadata = self._parse_skill_md(skill_md)
-                    if metadata:
-                        # 创建SKILL包装器
-                        skill_instance = SKILLSkill(metadata, str(skill_dir))
-                        self._skills[metadata.name] = skill_instance
-                        self._skill_paths[metadata.name] = str(skill_dir)
-                        print(f"✅ SKILL.md加载: {metadata.name} (from {agent_dir.name})")
-
-                except Exception as e:
-                    print(f"⚠️ 加载SKILL失败 {skill_dir.name}: {e}")
+            except Exception as e:
+                print(f"⚠️ 加载SKILL失败 {agent_dir.name}: {e}")
 
     def _parse_skill_md(self, skill_md_path: Path) -> Optional[SkillMetadata]:
         """解析SKILL.md的frontmatter"""

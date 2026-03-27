@@ -1,4 +1,4 @@
-"""Entry point for running cyberteam as a module: python -m cyberteam"""
+"""Entry point for running clawteam as a module: python -m clawteam"""
 
 from cyberteam.cli.commands import app
 

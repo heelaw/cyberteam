@@ -1,8 +1,6 @@
-from __future__ import annotations
-from typing import List
-
 """Data models for workspace management."""
 
+from __future__ import annotations
 
 from pydantic import BaseModel
 
@@ -13,7 +11,7 @@ class WorkspaceInfo(BaseModel):
     agent_name: str
     agent_id: str
     team_name: str
-    branch_name: str        # "cyberteam/{team}/{agent}"
+    branch_name: str        # "clawteam/{team}/{agent}"
     worktree_path: str      # "{data_dir}/workspaces/{team}/{agent}"
     repo_root: str
     base_branch: str        # branch from which the worktree was created

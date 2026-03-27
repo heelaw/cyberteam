@@ -1,21 +1,19 @@
-from __future__ import annotations
-from typing import Dict, Optional
-
 """Agent identity for team context with dual-prefix environment variable support."""
 
+from __future__ import annotations
 
 import os
 import uuid
 from dataclasses import dataclass, field
 
 
-def _env(cyberteam_key: str, claude_code_key: str, default: str = "") -> str:
+def _env(clawteam_key: str, claude_code_key: str, default: str = "") -> str:
     """Read from CLAWTEAM_* first, fall back to CLAUDE_CODE_*."""
-    return os.environ.get(cyberteam_key) or os.environ.get(claude_code_key) or default
+    return os.environ.get(clawteam_key) or os.environ.get(claude_code_key) or default
 
 
-def _env_bool(cyberteam_key: str, claude_code_key: str) -> bool:
-    val = _env(cyberteam_key, claude_code_key)
+def _env_bool(clawteam_key: str, claude_code_key: str) -> bool:
+    val = _env(clawteam_key, claude_code_key)
     return val.lower() in ("1", "true", "yes")
 
 
@@ -27,7 +25,7 @@ class AgentIdentity:
     agent_name: str = "agent"
     user: str = ""
     agent_type: str = "general-purpose"
-    team_name: Optional[str] = None
+    team_name: str | None = None
     is_leader: bool = False
     plan_mode_required: bool = False
 
@@ -54,7 +52,7 @@ class AgentIdentity:
             ),
         )
 
-    def to_env(self) -> Dict[str, str]:
+    def to_env(self) -> dict[str, str]:
         """Export identity as environment variables (for spawning sub-agents)."""
         env = {
             "CLAWTEAM_AGENT_ID": self.agent_id,

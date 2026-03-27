@@ -1,8 +1,6 @@
-from __future__ import annotations
-from typing import Dict, List
-
 """Profile resolution helpers for agent commands and runtime environments."""
 
+from __future__ import annotations
 
 import os
 from pathlib import Path
@@ -40,7 +38,7 @@ def remove_profile(name: str) -> bool:
     return True
 
 
-def list_profiles() -> Dict[str, AgentProfile]:
+def list_profiles() -> dict[str, AgentProfile]:
     """Return all configured profiles."""
     return load_config().profiles
 
@@ -48,9 +46,9 @@ def list_profiles() -> Dict[str, AgentProfile]:
 def apply_profile(
     profile: AgentProfile | None,
     *,
-    command: List[str] | None = None,
-    env: Dict[str, str] | None = None,
-) -> tuple[List[str], Dict[str, str], str]:
+    command: list[str] | None = None,
+    env: dict[str, str] | None = None,
+) -> tuple[list[str], dict[str, str], str]:
     """Apply a profile to a command/env pair.
 
     Returns (resolved_command, resolved_env, resolved_agent_basename).
@@ -104,14 +102,14 @@ def apply_profile(
     return resolved_command, resolved_env, agent
 
 
-def command_basename(command: List[str]) -> str:
+def command_basename(command: list[str]) -> str:
     """Return the executable basename for a command."""
     if not command:
         return ""
     return Path(command[0]).name.lower()
 
 
-def _command_has_model_arg(command: List[str]) -> bool:
+def _command_has_model_arg(command: list[str]) -> bool:
     return "--model" in command or "-m" in command
 
 

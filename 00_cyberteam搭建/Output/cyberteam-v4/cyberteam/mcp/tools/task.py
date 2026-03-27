@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from ..helpers import coerce_enum, fail, task_store, to_payload, translate_error
-from clawteam.team.models import TaskPriority, TaskStatus
+from cyberteam.team.models import TaskPriority, TaskStatus
 
 
 def task_list(

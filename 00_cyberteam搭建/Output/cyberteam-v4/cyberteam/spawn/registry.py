@@ -1,8 +1,6 @@
-from __future__ import annotations
-from typing import Dict, List
-
 """Spawn registry - persists agent process info for liveness checking."""
 
+from __future__ import annotations
 
 import json
 import os
@@ -24,7 +22,7 @@ def register_agent(
     backend: str,
     tmux_target: str = "",
     pid: int = 0,
-    command: List[str] | None = None,
+    command: list[str] | None = None,
 ) -> None:
     """Record spawn info for an agent (atomic write)."""
     path = _registry_path(team_name)
@@ -38,7 +36,7 @@ def register_agent(
     _save(path, registry)
 
 
-def get_registry(team_name: str) -> Dict[str, dict]:
+def get_registry(team_name: str) -> dict[str, dict]:
     """Return the full spawn registry for a team."""
     return _load(_registry_path(team_name))
 
@@ -68,7 +66,7 @@ def is_agent_alive(team_name: str, agent_name: str) -> bool | None:
     return None
 
 
-def list_dead_agents(team_name: str) -> List[str]:
+def list_dead_agents(team_name: str) -> list[str]:
     """Return names of agents whose processes are no longer alive."""
     registry = get_registry(team_name)
     dead = []
@@ -181,67 +179,3 @@ def _save(path: Path, data: dict) -> None:
     except BaseException:
         Path(tmp).unlink(missing_ok=True)
         raise
-
-
-# ============================================================================
-# 便捷类和函数（封装函数式 API）
-# ============================================================================
-
-def check_all_alive(team_name: str) -> Dict[str, bool | None]:
-    """Check all agents in a team for liveness.
-
-    Returns a dict mapping agent_name -> alive status (True/False/None).
-    """
-    registry = get_registry(team_name)
-    result = {}
-    for agent_name in registry.keys():
-        result[agent_name] = is_agent_alive(team_name, agent_name)
-    return result
-
-
-class SpawnRegistryManager:
-    """Spawn registry manager - encapsulates spawn registry functions as a class.
-
-    Provides a cleaner API for managing spawned agents.
-    """
-
-    def __init__(self, team_name: str):
-        self.team_name = team_name
-
-    def register(
-        self,
-        agent_name: str,
-        backend: str,
-        tmux_target: str = "",
-        pid: int = 0,
-        command: list[str] | None = None,
-    ) -> None:
-        """Register a spawned agent."""
-        register_agent(
-            team_name=self.team_name,
-            agent_name=agent_name,
-            backend=backend,
-            tmux_target=tmux_target,
-            pid=pid,
-            command=command,
-        )
-
-    def get_registry(self) -> Dict[str, dict]:
-        """Get the full spawn registry."""
-        return get_registry(self.team_name)
-
-    def is_alive(self, agent_name: str) -> bool | None:
-        """Check if an agent is alive."""
-        return is_agent_alive(self.team_name, agent_name)
-
-    def list_dead(self) -> list[str]:
-        """List all dead agents."""
-        return list_dead_agents(self.team_name)
-
-    def stop(self, agent_name: str, timeout_seconds: float = 3.0) -> bool | None:
-        """Stop an agent."""
-        return stop_agent(self.team_name, agent_name, timeout_seconds)
-
-    def check_all_alive(self) -> Dict[str, bool | None]:
-        """Check all agents for liveness."""
-        return check_all_alive(self.team_name)
