@@ -27,9 +27,10 @@ if str(_project_root) not in sys.path:
     sys.path.insert(0, str(_project_root))
 
 # Mailbox 集成
+# 注意: 必须使用 CYBERTEAM (大写) 以确保跨平台兼容 (Linux ext4 大小写敏感)
 try:
-    from cyberteam.team.mailbox import MailboxManager
-    from cyberteam.team.models import MessageType
+    from CYBERTEAM.team.mailbox import MailboxManager
+    from CYBERTEAM.team.models import MessageType
     MAILBOX_AVAILABLE = True
 except ImportError:
     MAILBOX_AVAILABLE = False

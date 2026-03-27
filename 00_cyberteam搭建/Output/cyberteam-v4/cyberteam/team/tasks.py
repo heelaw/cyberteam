@@ -62,9 +62,9 @@ class TaskStore:
         subject: str,
         description: str = "",
         owner: str = "",
-        priority: Union[TaskPriority, None] = None
-        blocks: Union[List[str], None]=
-        blocked_by: Union[List[str], None]=
+        priority: Union[TaskPriority, None] = None,
+        blocks: Union[List[str], None] = None,
+        blocked_by: Union[List[str], None] = None,
         metadata: dict[str, Any] | None = None,
     ) -> TaskItem:
         task = TaskItem(
@@ -98,13 +98,13 @@ class TaskStore:
     def update(
         self,
         task_id: str,
-        status: Union[TaskStatus, None] = None
+        status: Union[TaskStatus, None] = None,
         owner: Optional[str] = None,
         subject: Optional[str] = None,
         description: Optional[str] = None,
-        priority: Union[TaskPriority, None] = None
-        add_blocks: Union[List[str], None]=
-        add_blocked_by: Union[List[str], None]=
+        priority: Union[TaskPriority, None] = None,
+        add_blocks: Union[List[str], None] = None,
+        add_blocked_by: Union[List[str], None] = None,
         metadata: dict[str, Any] | None = None,
         caller: str = "",
         force: bool = False,

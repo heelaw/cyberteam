@@ -1,7 +1,8 @@
-from typing import List
 """Aggregates team/task/inbox data into plain dicts for rendering."""
 
 from __future__ import annotations
+
+from typing import List
 
 import json
 
