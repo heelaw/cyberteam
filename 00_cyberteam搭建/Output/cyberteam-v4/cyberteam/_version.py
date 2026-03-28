@@ -3,7 +3,7 @@
 CyberTeam V4 - Enterprise AI Agent Swarm Intelligence System
 """
 
-__version__ = "4.0.0"
+__version__ = "4.1.0"
 __author__ = "CyberTeam"
 __license__ = "MIT"
 __description__ = "CyberTeam V4 - Enterprise AI Agent Swarm Intelligence System"
