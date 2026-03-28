@@ -50,6 +50,59 @@ except ImportError:
     GoalTracker = None
     GOAL = None
 
+# 状态机模块
+try:
+    from .state_machine import (
+        EdictState,
+        CyberTeamNode,
+        TransitionReason,
+        StateTransition,
+        TaskState,
+        StateMachine,
+        StateMachineError,
+        InvalidTransitionError,
+        create_task_state,
+        create_state_machine,
+        STATE_TRANSITIONS,
+        STATE_METADATA,
+        EDICT_TO_CYBERTEAM_NODE_MAP,
+        CYBERTEAM_NODE_ORDER,
+    )
+except ImportError as e:
+    StateMachine = None
+    EdictState = None
+    CyberTeamNode = None
+    StateTransition = None
+    TaskState = None
+    StateMachineError = None
+    InvalidTransitionError = None
+    create_task_state = None
+    create_state_machine = None
+    STATE_TRANSITIONS = {}
+    STATE_METADATA = {}
+    EDICT_TO_CYBERTEAM_NODE_MAP = {}
+    CYBERTEAM_NODE_ORDER = []
+
+# RBAC 权限矩阵模块 (基于 Edict allowAgents)
+try:
+    from .rbac import (
+        RBACMatrix,
+        AgentLayer,
+        AgentInfo,
+        PermissionResult,
+        check_permission,
+        check_dispatch,
+        get_rbac,
+    )
+except ImportError:
+    RBACMatrix = None
+    AgentLayer = None
+    AgentInfo = None
+    PermissionResult = None
+    check_permission = None
+    check_dispatch = None
+    get_rbac = None
+
 __all__ = [
     # CEO 路由引擎
     "CEORouter",
@@ -83,4 +136,27 @@ __all__ = [
     "CONTEXT",
     "GoalTracker",
     "GOAL",
+    # 状态机
+    "EdictState",
+    "CyberTeamNode",
+    "TransitionReason",
+    "StateTransition",
+    "TaskState",
+    "StateMachine",
+    "StateMachineError",
+    "InvalidTransitionError",
+    "create_task_state",
+    "create_state_machine",
+    "STATE_TRANSITIONS",
+    "STATE_METADATA",
+    "EDICT_TO_CYBERTEAM_NODE_MAP",
+    "CYBERTEAM_NODE_ORDER",
+    # RBAC 权限矩阵
+    "RBACMatrix",
+    "AgentLayer",
+    "AgentInfo",
+    "PermissionResult",
+    "check_permission",
+    "check_dispatch",
+    "get_rbac",
 ]
