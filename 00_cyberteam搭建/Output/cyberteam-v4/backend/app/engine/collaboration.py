@@ -147,15 +147,256 @@ class DesignAgentExecutor(AgentExecutor):
         )
 
 
+class HRAgentExecutor(AgentExecutor):
+    """人力部Agent执行器。"""
+
+    def __init__(self):
+        super().__init__("hr")
+
+    async def execute(self, task: str, context: Dict[str, Any]) -> ExecutionResult:
+        integrated = context.get("previous_results", {})
+        # 解析HR任务类型
+        task_lower = task.lower()
+        if any(k in task_lower for k in ["招聘", "JD", "猎头", "人才"]):
+            output = {
+                "task": task,
+                "hr_type": "recruitment",
+                "jd_content": "职位描述和任职资格",
+                "candidate_profile": "理想候选人画像",
+                "interview_plan": "面试流程设计",
+                "sourcing_strategy": "招聘渠道策略",
+                "integrated_from": integrated.get("department_id") if integrated else None,
+            }
+        elif any(k in task_lower for k in ["培训", "学习", "课程"]):
+            output = {
+                "task": task,
+                "hr_type": "training",
+                "training_plan": "培训计划",
+                "course_outline": "课程大纲",
+                "learning_path": "学习路径设计",
+                "integrated_from": integrated.get("department_id") if integrated else None,
+            }
+        elif any(k in task_lower for k in ["绩效", "KPI", "OKR", "考核"]):
+            output = {
+                "task": task,
+                "hr_type": "performance",
+                "kpi_framework": "KPI体系设计",
+                "evaluation_criteria": "评估标准",
+                "feedback_mechanism": "反馈机制",
+                "integrated_from": integrated.get("department_id") if integrated else None,
+            }
+        else:
+            output = {
+                "task": task,
+                "hr_type": "general_hr",
+                "hr_solution": "综合人力资源解决方案",
+                "team_building": "团队建设方案",
+                "culture_design": "文化建设方案",
+                "integrated_from": integrated.get("department_id") if integrated else None,
+            }
+        return ExecutionResult(
+            department_id=self.department_id,
+            output=output,
+            status="success",
+            metrics={"confidence": 0.85, "hr_task_type": output.get("hr_type", "unknown")},
+        )
+
+
+class FinanceAgentExecutor(AgentExecutor):
+    """财务部Agent执行器。"""
+
+    def __init__(self):
+        super().__init__("finance")
+
+    async def execute(self, task: str, context: Dict[str, Any]) -> ExecutionResult:
+        integrated = context.get("previous_results", {})
+        task_lower = task.lower()
+        if any(k in task_lower for k in ["预算", "成本", "支出", "花费"]):
+            output = {
+                "task": task,
+                "finance_type": "budget_cost",
+                "budget_plan": "预算方案",
+                "cost_structure": "成本结构分析",
+                "cost_optimization": "成本优化建议",
+                "integrated_from": integrated.get("department_id") if integrated else None,
+            }
+        elif any(k in task_lower for k in ["投资", "融资", "估值", "回报"]):
+            output = {
+                "task": task,
+                "finance_type": "investment",
+                "investment_analysis": "投资分析报告",
+                "roi_projection": "ROI预测",
+                "risk_assessment": "风险评估",
+                "integrated_from": integrated.get("department_id") if integrated else None,
+            }
+        elif any(k in task_lower for k in ["盈利", "收入", "利润", "亏损", "财务"]):
+            output = {
+                "task": task,
+                "finance_type": "financial_analysis",
+                "profit_analysis": "盈利分析",
+                "financial_statements": "财务报表分析",
+                "cashflow_forecast": "现金流预测",
+                "integrated_from": integrated.get("department_id") if integrated else None,
+            }
+        else:
+            output = {
+                "task": task,
+                "finance_type": "general_finance",
+                "financial_plan": "财务规划方案",
+                "resource_allocation": "资源配置建议",
+                "integrated_from": integrated.get("department_id") if integrated else None,
+            }
+        return ExecutionResult(
+            department_id=self.department_id,
+            output=output,
+            status="success",
+            metrics={"confidence": 0.87, "finance_type": output.get("finance_type", "unknown")},
+        )
+
+
+class ProductAgentExecutor(AgentExecutor):
+    """产品部Agent执行器。"""
+
+    def __init__(self):
+        super().__init__("product")
+
+    async def execute(self, task: str, context: Dict[str, Any]) -> ExecutionResult:
+        integrated = context.get("previous_results", {})
+        task_lower = task.lower()
+        if any(k in task_lower for k in ["需求", "PRD", "需求文档", "功能"]):
+            output = {
+                "task": task,
+                "product_type": "requirement",
+                "prd_document": "PRD文档",
+                "requirement_spec": "需求规格说明",
+                "user_stories": "用户故事",
+                "acceptance_criteria": "验收标准",
+                "integrated_from": integrated.get("department_id") if integrated else None,
+            }
+        elif any(k in task_lower for k in ["原型", "设计稿", "交互", "流程图", "产品设计"]):
+            output = {
+                "task": task,
+                "product_type": "prototype",
+                "prototype_link": "原型链接",
+                "flow_chart": "流程图",
+                "information_architecture": "信息架构",
+                "wireframes": "线框图",
+                "integrated_from": integrated.get("department_id") if integrated else None,
+            }
+        elif any(k in task_lower for k in ["用户研究", "调研", "访谈", "问卷", "用户洞察"]):
+            output = {
+                "task": task,
+                "product_type": "user_research",
+                "user_persona": "用户画像",
+                "research_report": "用户研究报告",
+                "insight_summary": "洞察总结",
+                "integrated_from": integrated.get("department_id") if integrated else None,
+            }
+        elif any(k in task_lower for k in ["竞品分析", "产品对比", "功能对比"]):
+            output = {
+                "task": task,
+                "product_type": "competitive_analysis",
+                "competitor_analysis": "竞品分析报告",
+                "feature_comparison": "功能对比表",
+                "market_positioning": "市场定位",
+                "integrated_from": integrated.get("department_id") if integrated else None,
+            }
+        else:
+            output = {
+                "task": task,
+                "product_type": "general_product",
+                "product_plan": "产品规划方案",
+                "roadmap": "产品路线图",
+                "integrated_from": integrated.get("department_id") if integrated else None,
+            }
+        return ExecutionResult(
+            department_id=self.department_id,
+            output=output,
+            status="success",
+            metrics={"confidence": 0.86, "product_type": output.get("product_type", "unknown")},
+        )
+
+
+class EngineeringAgentExecutor(AgentExecutor):
+    """技术部Agent执行器。"""
+
+    def __init__(self):
+        super().__init__("engineering")
+
+    async def execute(self, task: str, context: Dict[str, Any]) -> ExecutionResult:
+        integrated = context.get("previous_results", {})
+        task_lower = task.lower()
+        if any(k in task_lower for k in ["架构", "系统设计", "技术选型"]):
+            output = {
+                "task": task,
+                "engineering_type": "architecture",
+                "system_architecture": "系统架构设计",
+                "tech_stack": "技术栈选型",
+                "component_diagram": "组件图",
+                "integration_points": "集成点设计",
+                "integrated_from": integrated.get("department_id") if integrated else None,
+            }
+        elif any(k in task_lower for k in ["前端", "React", "Vue", "页面", "UI"]):
+            output = {
+                "task": task,
+                "engineering_type": "frontend",
+                "component_design": "组件设计",
+                "tech_stack": "前端技术栈",
+                "api_contract": "API契约",
+                "integrated_from": integrated.get("department_id") if integrated else None,
+            }
+        elif any(k in task_lower for k in ["后端", "API", "数据库", "服务", "登录", "认证"]):
+            output = {
+                "task": task,
+                "engineering_type": "backend",
+                "api_design": "API设计",
+                "database_schema": "数据库Schema",
+                "service_design": "服务设计",
+                "integrated_from": integrated.get("department_id") if integrated else None,
+            }
+        elif any(k in task_lower for k in ["测试", "UT", "集成测试", "e2e"]):
+            output = {
+                "task": task,
+                "engineering_type": "testing",
+                "test_plan": "测试计划",
+                "test_cases": "测试用例",
+                "coverage_target": "覆盖率目标",
+                "integrated_from": integrated.get("department_id") if integrated else None,
+            }
+        elif any(k in task_lower for k in ["部署", "CI/CD", "Docker", "K8s", "运维"]):
+            output = {
+                "task": task,
+                "engineering_type": "devops",
+                "deployment_plan": "部署方案",
+                "cicd_pipeline": "CI/CD流水线",
+                "monitoring_setup": "监控告警配置",
+                "integrated_from": integrated.get("department_id") if integrated else None,
+            }
+        else:
+            output = {
+                "task": task,
+                "engineering_type": "general_engineering",
+                "technical_solution": "技术解决方案",
+                "implementation_plan": "实施计划",
+                "integrated_from": integrated.get("department_id") if integrated else None,
+            }
+        return ExecutionResult(
+            department_id=self.department_id,
+            output=output,
+            status="success",
+            metrics={"confidence": 0.89, "engineering_type": output.get("engineering_type", "unknown")},
+        )
+
+
 # 部门执行器注册表
 DEPARTMENT_EXECUTORS: Dict[str, type] = {
     "marketing": MarketingAgentExecutor,
     "operations": OperationsAgentExecutor,
     "design": DesignAgentExecutor,
-    "product": AgentExecutor,  # 占位，后续实现
-    "engineering": AgentExecutor,
-    "hr": AgentExecutor,
-    "finance": AgentExecutor,
+    "hr": HRAgentExecutor,
+    "finance": FinanceAgentExecutor,
+    "product": ProductAgentExecutor,
+    "engineering": EngineeringAgentExecutor,
     "ceo": AgentExecutor,
 }
 
