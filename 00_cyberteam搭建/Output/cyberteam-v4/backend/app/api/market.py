@@ -16,7 +16,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, func, and_
 
 from ..db import get_db
-from ..models import Department, ExpertOutput, DepartmentOutput, Agent
+from ..db.models import Department  # Department from legacy db models
+from ..models import ExpertOutput, DepartmentOutput
 
 log = logging.getLogger("cyberteam.api.market")
 router = APIRouter()
@@ -142,9 +143,9 @@ async def _get_department_stats(db: AsyncSession, department_id: str) -> tuple:
              DepartmentOutput.status == "completed"))
     total_tasks = (await db.execute(stmt2)).scalar_one_or_none() or 0
 
-    # 专家数量
-    stmt3 = select(func.count(Agent.id)).filter(
-        and_(Agent.department_id == department_id, Agent.status == "active"))
+    # 专家数量：使用 ExpertOutput 中该部门的唯一 expert_id 数量估算
+    stmt3 = select(func.count(func.distinct(ExpertOutput.expert_id))).filter(
+        ExpertOutput.expert_id == department_id)
     expert_count = (await db.execute(stmt3)).scalar_one_or_none() or 0
 
     return avg_rating, total_tasks, expert_count

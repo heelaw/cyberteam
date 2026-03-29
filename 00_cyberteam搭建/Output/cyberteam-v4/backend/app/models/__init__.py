@@ -5,7 +5,7 @@ from datetime import datetime
 from enum import Enum
 from typing import Optional
 
-from sqlalchemy import Column, String, Text, DateTime, Date, Float, Integer, Enum as SQLEnum
+from sqlalchemy import Column, String, Text, DateTime, Date, Float, Integer, Boolean, Enum as SQLEnum
 from sqlalchemy.dialects.sqlite import JSON
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
@@ -616,4 +616,133 @@ class CollaborationTask(Base):
             "completed_at": self.completed_at.isoformat() if self.completed_at else None,
             "creator": self.creator,
             "tags": self.tags if isinstance(self.tags, list) else [],
+        }
+
+
+# ── 审核模型 ──
+
+
+class ReviewStatus(str, Enum):
+    """审核状态枚举。"""
+    PENDING = "pending"
+    APPROVED = "approved"
+    REJECTED = "rejected"
+    REVISION = "revision"
+
+
+class Department(Base):
+    """部门表 - 三省六部架构。"""
+    __tablename__ = "departments"
+
+    id: Mapped[str] = mapped_column(String(64), primary_key=True, default=lambda: str(uuid.uuid4()))
+    name: Mapped[str] = mapped_column(String(64), nullable=False)
+    code: Mapped[str] = mapped_column(String(32), unique=True, nullable=False, index=True)
+    description: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    is_active: Mapped[bool] = mapped_column(Boolean, default=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+    updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+
+class Agent(Base):
+    """Agent表。"""
+    __tablename__ = "agents"
+
+    id: Mapped[str] = mapped_column(String(64), primary_key=True, default=lambda: str(uuid.uuid4()))
+    name: Mapped[str] = mapped_column(String(64), nullable=False)
+    agent_type: Mapped[str] = mapped_column(String(32), nullable=False, default="executor")
+    status: Mapped[str] = mapped_column(String(32), default="active")
+    description: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    config: Mapped[dict] = mapped_column(JSON, default=dict)
+    is_active: Mapped[bool] = mapped_column(Boolean, default=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+    updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+
+class Company(Base):
+    """公司表。"""
+    __tablename__ = "companies"
+
+    id: Mapped[str] = mapped_column(String(64), primary_key=True, default=lambda: str(uuid.uuid4()))
+    name: Mapped[str] = mapped_column(String(128), nullable=False)
+    status: Mapped[str] = mapped_column(String(32), default="active")
+    config: Mapped[dict] = mapped_column(JSON, default=dict)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+    updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+
+class CompanyDepartment(Base):
+    """公司部门表。"""
+    __tablename__ = "company_departments"
+
+    id: Mapped[str] = mapped_column(String(64), primary_key=True, default=lambda: str(uuid.uuid4()))
+    company_id: Mapped[str] = mapped_column(String(64), nullable=False, index=True)
+    department_id: Mapped[str] = mapped_column(String(64), nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+
+
+class CompanyAgent(Base):
+    """公司Agent关联表。"""
+    __tablename__ = "company_agents"
+
+    id: Mapped[str] = mapped_column(String(64), primary_key=True, default=lambda: str(uuid.uuid4()))
+    company_id: Mapped[str] = mapped_column(String(64), nullable=False, index=True)
+    agent_id: Mapped[str] = mapped_column(String(64), nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+
+
+class CompanySkill(Base):
+    """公司Skill关联表。"""
+    __tablename__ = "company_skills"
+
+    id: Mapped[str] = mapped_column(String(64), primary_key=True, default=lambda: str(uuid.uuid4()))
+    company_id: Mapped[str] = mapped_column(String(64), nullable=False, index=True)
+    skill_id: Mapped[str] = mapped_column(String(64), nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+
+
+class Subscription(Base):
+    """订阅表。"""
+    __tablename__ = "subscriptions"
+
+    id: Mapped[str] = mapped_column(String(64), primary_key=True, default=lambda: str(uuid.uuid4()))
+    company_id: Mapped[str] = mapped_column(String(64), nullable=False, index=True)
+    plan: Mapped[str] = mapped_column(String(32), default="free")
+    expires_at: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+    updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+
+class SealRejection(Base):
+    """审核记录表 - 内容审核（含自动合规检查）。"""
+    __tablename__ = "seal_rejections"
+
+    id: Mapped[str] = mapped_column(String(64), primary_key=True, default=lambda: str(uuid.uuid4()))
+    task_id: Mapped[Optional[str]] = mapped_column(String(64), nullable=True, index=True)
+    content: Mapped[str] = mapped_column(Text)
+    reviewer_agent: Mapped[str] = mapped_column(String(50), default="auto")
+    check_keywords: Mapped[list] = mapped_column(JSON, default=list)
+    min_length: Mapped[int] = mapped_column(Integer, default=0)
+    max_length: Mapped[int] = mapped_column(Integer, default=0)
+    auto_passed: Mapped[bool] = mapped_column(Boolean, default=False)
+    violations: Mapped[list] = mapped_column(JSON, default=list)
+    status: Mapped[ReviewStatus] = mapped_column(SQLEnum(ReviewStatus), default=ReviewStatus.PENDING)
+    notes: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+    updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "task_id": self.task_id,
+            "content": self.content,
+            "reviewer_agent": self.reviewer_agent,
+            "check_keywords": self.check_keywords,
+            "min_length": self.min_length,
+            "max_length": self.max_length,
+            "auto_passed": self.auto_passed,
+            "violations": self.violations,
+            "status": self.status.value if isinstance(self.status, ReviewStatus) else self.status,
+            "notes": self.notes,
+            "created_at": self.created_at.isoformat() if self.created_at else None,
+            "updated_at": self.updated_at.isoformat() if self.updated_at else None,
         }

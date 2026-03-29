@@ -191,7 +191,7 @@ app.add_middleware(
 # ── 注册路由 ──
 
 # 原有 API 路由
-from .api import tasks, agents, experts, debate, scoring, health, todos, departments, teams, skills, state_machine, rbac_config, reports, review, market, company
+from .api import tasks, agents, experts, debate, scoring, health, todos, departments, teams, skills, state_machine, rbac_config, reports, review  # market, company excluded: missing models
 
 app.include_router(tasks.router, prefix="/api/tasks", tags=["tasks"])
 app.include_router(agents.router, prefix="/api/agents", tags=["agents"])
@@ -207,8 +207,8 @@ app.include_router(state_machine.router, prefix="/api/config/state-machine", tag
 app.include_router(rbac_config.router, prefix="/api/config/rbac", tags=["rbac"])
 app.include_router(reports.router, prefix="/api/reports", tags=["reports"])
 app.include_router(review.router, prefix="/api/review", tags=["review"])
-app.include_router(market.router, prefix="/api/market", tags=["market"])
-app.include_router(company.router, prefix="/api/company", tags=["company"])
+# app.include_router(market.router, prefix="/api/market", tags=["market"])  # excluded: missing Department/Agent models
+# app.include_router(company.router, prefix="/api/company", tags=["company"])  # excluded: missing Company/CompanyDepartment models
 
 # 新增：WebSocket 和 SSE 路由
 from .api import websocket as ws_api, sse as sse_api
