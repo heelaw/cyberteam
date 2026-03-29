@@ -1,3 +1,0 @@
-# API 密钥配置
-
-API_KEY=sk-W2TDV0jeOtMF8Iq2Z9ru2RghitEiQzYJ8ugYcUg2V2bi8yUF

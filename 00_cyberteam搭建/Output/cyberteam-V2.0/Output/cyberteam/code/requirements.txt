@@ -1,5 +1,0 @@
-# CyberTeam MVP Dependencies
-# Python 3.10+
-
-# No external dependencies - uses only standard library
-# Add dependencies as needed for future expansion
