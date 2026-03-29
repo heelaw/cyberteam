@@ -33,7 +33,7 @@ npm-debug.log*
 .agents/
 .obsidian/
 .omc/
-.stignore/
+.stignore
 .codepilot-uploads/
 
 # External projects (should be in their own repos)
