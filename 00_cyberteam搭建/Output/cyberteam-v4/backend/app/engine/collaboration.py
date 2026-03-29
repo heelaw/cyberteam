@@ -1,12 +1,13 @@
 """跨部门协作链路引擎 - 部门间任务流转与结果汇总。
 
-CEO智能路由 + 多部门协作 + Handoff协议 + 结果汇总
+CEO智能路由 + 多部门协作 + Handoff协议 + 结果汇总 + 执行器抽象
 """
 
-from typing import Dict, List, Optional, Any
+from typing import Dict, List, Optional, Any, Callable
 from dataclasses import dataclass, field
 from enum import Enum
 from datetime import datetime
+from abc import ABC, abstractmethod
 
 from .ceo_metadata import CEORouter, DEPARTMENT_METADATA
 
@@ -30,6 +31,48 @@ class HandoffStatus(str, Enum):
     ACCEPTED = "accepted"        # 已接收
     REJECTED = "rejected"        # 已拒绝
     COMPLETED = "completed"      # 协作完成
+
+
+@dataclass
+class ExecutionResult:
+    """标准化执行结果 - 所有部门执行后统一格式。"""
+    department_id: str
+    output: Any                   # 执行产出
+    status: str                  # success/failed
+    metrics: Dict[str, Any] = field(default_factory=dict)  # 指标
+    artifacts: List[str] = field(default_factory=list)     # 产出物
+    suggestions: List[str] = field(default_factory=list)   # 建议
+    metadata: Dict[str, Any] = field(default_factory=dict)
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "department_id": self.department_id,
+            "output": self.output,
+            "status": self.status,
+            "metrics": self.metrics,
+            "artifacts": self.artifacts,
+            "suggestions": self.suggestions,
+            "metadata": self.metadata,
+        }
+
+
+class AgentExecutor(ABC):
+    """Agent执行器抽象 - 各部门执行器的基类。"""
+
+    def __init__(self, department_id: str):
+        self.department_id = department_id
+
+    @abstractmethod
+    async def execute(self, task: str, context: Dict[str, Any]) -> ExecutionResult:
+        """执行任务。"""
+        pass
+
+    def get_supported_skills(self) -> List[str]:
+        """获取支持的技能列表。"""
+        metadata = DEPARTMENT_METADATA.get(self.department_id)
+        if metadata:
+            return [s.name for s in metadata.skills]
+        return []
 
 
 @dataclass
@@ -305,6 +348,116 @@ class CollaborationEngine:
             "execution_progress": f"{len([h for h in task.execution_chain if h.status == HandoffStatus.ACCEPTED])}/{len(task.execution_chain)}",
             "created_at": task.created_at.isoformat(),
         }
+
+    def simulate_execution(self, task_id: str) -> Dict[str, Any]:
+        """模拟执行完整协作链路 - 用于演示和测试。
+
+        各部门执行结果通过HandoffRecord流转，最终汇总。
+        """
+        task = self.active_tasks.get(task_id)
+        if not task:
+            raise ValueError(f"Task {task_id} not found")
+
+        # 模拟执行链路
+        for i, handoff in enumerate(task.execution_chain):
+            # 模拟部门执行
+            dept_result = self._simulate_department_execution(
+                handoff.to_department,
+                task.original_task,
+                handoff.context.get("previous_results"),
+            )
+
+            # 执行handoff
+            handoff.status = HandoffStatus.ACCEPTED
+            handoff.result = dept_result.to_dict()
+            handoff.updated_at = datetime.utcnow()
+
+            # 更新task结果
+            task.results[handoff.to_department] = dept_result.to_dict()
+
+            # 更新下一handoff状态
+            if i + 1 < len(task.execution_chain):
+                task.status = TaskStatus.COLLABORATING
+                task.execution_chain[i + 1].status = HandoffStatus.IN_PROGRESS
+                task.execution_chain[i + 1].context["previous_results"] = dept_result.to_dict()
+
+        # 最终汇总
+        task.status = TaskStatus.COMPLETED
+        return self.aggregate_results(task_id)
+
+    def _simulate_department_execution(
+        self,
+        department_id: str,
+        task: str,
+        previous_results: Optional[Dict[str, Any]],
+    ) -> ExecutionResult:
+        """模拟部门执行 - 生成标准化执行结果。"""
+        metadata = DEPARTMENT_METADATA.get(department_id)
+
+        # 模拟产出
+        output = {
+            "analysis": f"{metadata.name}对任务的分析" if metadata else "分析结果",
+            "recommendations": [
+                f"基于{metadata.responsibility if metadata else '专业判断'}的建议"
+            ] if metadata else ["建议1", "建议2"],
+            "contribution": f"{department_id}部门的专业产出",
+        }
+
+        # 如果有前置结果，整合
+        if previous_results and isinstance(previous_results, dict):
+            # previous_results可能是ExecutionResult.to_dict()或HandoffRecord.result
+            if "department_id" in previous_results:
+                output["integrated_from"] = [previous_results["department_id"]]
+            elif "to_department" in previous_results:
+                output["integrated_from"] = [previous_results["to_department"]]
+
+        return ExecutionResult(
+            department_id=department_id,
+            output=output,
+            status="success",
+            metrics={
+                "execution_time_ms": 100,
+                "confidence": 0.85,
+            },
+            artifacts=[],
+            suggestions=[
+                f"建议{metadata.name if metadata else '该部门'}重点关注输出质量" if metadata else "建议关注质量"
+            ],
+            metadata={
+                "executed_at": datetime.utcnow().isoformat(),
+                "task": task,
+            },
+        )
+
+    def execute_full_collaboration(self, task: str, context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        """一键执行完整协作链路 - 规划+执行+汇总。"""
+        # Step 1: 规划
+        collab_task = self.plan_collaboration(task, context)
+
+        # Step 2: 执行
+        if collab_task.execution_chain:
+            return self.simulate_execution(collab_task.task_id)
+        else:
+            # 单一部门直接执行
+            result = self._simulate_department_execution(
+                collab_task.primary_department, task, None
+            )
+            return {
+                "task_id": collab_task.task_id,
+                "original_task": task,
+                "collaboration_summary": {
+                    "departments_involved": [collab_task.primary_department],
+                    "total_departments": 1,
+                    "results_count": 1,
+                },
+                "execution_chain": [{
+                    "department": collab_task.primary_department,
+                    "output": result.to_dict(),
+                    "timestamp": datetime.utcnow().isoformat(),
+                }],
+                "primary_department": collab_task.primary_department,
+                "final_recommendation": "基于单一部门产出给出建议",
+            }
 
 
 # 全局协作引擎实例
