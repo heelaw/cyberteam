@@ -1193,3 +1193,51 @@ async def get_collaboration_result(task_id: str):
         return {"status": "pending", "message": "Results not yet aggregated"}
 
     return task.final_output
+
+
+@router.get("/collaboration/dashboard")
+async def collaboration_dashboard():
+    """协作链路仪表盘 - 查看所有活跃任务状态。"""
+    from ..engine.collaboration import collaboration_engine, TaskStatus
+
+    tasks = collaboration_engine.active_tasks
+
+    # 按状态分组
+    by_status = {status.value: [] for status in TaskStatus}
+    for task in tasks.values():
+        by_status[task.status.value].append({
+            "task_id": task.task_id,
+            "original_task": task.original_task,
+            "primary_department": task.primary_department,
+            "departments_count": len(task.execution_chain) if task.execution_chain else 1,
+            "created_at": task.created_at.isoformat(),
+        })
+
+    # 统计
+    total = len(tasks)
+    completed = len([t for t in tasks.values() if t.status == TaskStatus.COMPLETED])
+    in_progress = len([t for t in tasks.values() if t.status == TaskStatus.COLLABORATING])
+
+    return {
+        "total_tasks": total,
+        "completed": completed,
+        "in_progress": in_progress,
+        "by_status": {k: v for k, v in by_status.items() if v},
+    }
+
+
+@router.post("/collaboration/execute")
+async def execute_collaboration(request: CollaborationPlanRequest):
+    """一键执行协作链路 - 规划+执行+汇总。"""
+    from ..engine.collaboration import collaboration_engine
+
+    result = collaboration_engine.execute_full_collaboration(request.task, request.context)
+
+    return {
+        "task_id": result["task_id"],
+        "status": "completed",
+        "primary_department": result["primary_department"],
+        "collaboration_summary": result["collaboration_summary"],
+        "final_recommendation": result["final_recommendation"],
+        "departments_participated": result["collaboration_summary"]["departments_involved"],
+    }
