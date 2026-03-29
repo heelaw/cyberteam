@@ -388,6 +388,71 @@ class EngineeringAgentExecutor(AgentExecutor):
         )
 
 
+class CEOAgentExecutor(AgentExecutor):
+    """CEO Agent执行器 - 任务协调与决策，而非直接执行。"""
+
+    def __init__(self):
+        super().__init__("ceo")
+        self.router = CEORouter()
+
+    async def execute(self, task: str, context: Dict[str, Any]) -> ExecutionResult:
+        """CEO执行：分析任务，协调部门，汇总决策。
+
+        CEO不直接产出内容，而是：
+        1. 分析任务复杂度
+        2. 确定涉及哪些部门
+        3. 提供决策框架
+        4. 汇总各部门产出
+        """
+        integrated = context.get("previous_results", {})
+
+        # 路由分析
+        route_result = self.router.route(task, context or {})
+        primary_dept = route_result["target_department"]
+        alternatives = route_result.get("alternative_departments", [])
+        match_score = route_result.get("match_score", 0.0)
+
+        # 判断是否需要多部门协作
+        needs_collaboration = match_score < 0.8 or len(alternatives) > 0
+
+        output = {
+            "task": task,
+            "ceo_role": "协调决策",
+            "primary_department": primary_dept,
+            "collaboration_needed": needs_collaboration,
+            "departments_involved": [primary_dept] + [a["department_id"] for a in alternatives[:2]],
+            "decision_framework": {
+                "strategic_analysis": "战略分析结论",
+                "resource_allocation": "资源分配建议",
+                "risk_assessment": "风险评估",
+                "timeline": "执行时间框架",
+            },
+            "coordination_notes": {
+                "handoff_sequence": "部门交接顺序",
+                "integration_points": "集成点说明",
+                "success_criteria": "成功标准定义",
+            },
+            "integrated_from": integrated.get("department_id") if integrated else None,
+        }
+
+        return ExecutionResult(
+            department_id=self.department_id,
+            output=output,
+            status="success",
+            metrics={
+                "confidence": 0.95,
+                "departments_coordinated": len(output["departments_involved"]),
+                "collaboration_complexity": "high" if needs_collaboration else "low",
+            },
+            artifacts=["决策框架", "协调计划", "资源分配"],
+            suggestions=[
+                f"建议由 {primary_dept} 主导执行",
+                f"相关部门 {'协同'.join(output['departments_involved'][1:])} 参与评审",
+                "执行后进行复盘与优化",
+            ],
+        )
+
+
 # 部门执行器注册表
 DEPARTMENT_EXECUTORS: Dict[str, type] = {
     "marketing": MarketingAgentExecutor,
@@ -397,7 +462,7 @@ DEPARTMENT_EXECUTORS: Dict[str, type] = {
     "finance": FinanceAgentExecutor,
     "product": ProductAgentExecutor,
     "engineering": EngineeringAgentExecutor,
-    "ceo": AgentExecutor,
+    "ceo": CEOAgentExecutor,
 }
 
 
