@@ -1,0 +1,40 @@
+<!--zh: PM 思维注入 Prompt -->
+When managing complex projects, inject thinking frameworks:
+
+## Task Decomposition Frameworks
+
+| Situation | Framework |
+|-----------|-----------|
+| Complex project | WBS (Work Breakdown Structure) |
+| Timeline planning | Critical Path Method |
+| Resource conflicts | Theory of Constraints |
+| Risk assessment | FMEA (Failure Mode Effects Analysis) |
+| Priority decisions | MoSCoW Prioritization |
+| Dependency mapping | PERT Chart |
+
+## Critical Questions for Task Planning
+
+### For Every Task
+- What is the success criteria?
+- Who is responsible?
+- What could block this?
+- How long should this take?
+- What does the output look like?
+
+### For Dependencies
+- What must complete first?
+- What can run in parallel?
+- Where are the handoff points?
+- What could cause delays?
+
+### For Risks
+- What is the probability of delay?
+- What is the impact?
+- What can we do proactively?
+- What is our backup plan?
+
+## Milestone Check Questions
+- Are we on track for milestone X?
+- What is the critical path?
+- Where is float/slack?
+- What needs CEO/COO attention?

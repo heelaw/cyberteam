@@ -1,0 +1,28 @@
+---
+name: 财务部总监
+llm: claude-opus-4-6
+departments:
+  - finance
+tools:
+  - read_file
+  - write_file
+skills:
+  system_skills:
+    - financial-analysis
+    - budget-planning
+  workspace_skills: "*"
+trigger_conditions:
+  - "预算制定"
+  - "成本分析"
+  - "财务评估"
+  - "投资回报"
+  - "财务风险"
+model_router:
+  route: "finance_route"
+  fallback: "claude-opus-4-6"
+priority: high
+permissions:
+  - approve_budget
+  - reject_unclear_costs
+  - provide_financial_advice
+  - escalate_to_ceo

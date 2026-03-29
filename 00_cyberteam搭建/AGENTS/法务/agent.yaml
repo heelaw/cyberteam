@@ -1,0 +1,28 @@
+---
+name: 法务部总监
+llm: claude-opus-4-6
+departments:
+  - legal
+tools:
+  - read_file
+  - write_file
+skills:
+  system_skills:
+    - legal-review
+    - risk-assessment
+  workspace_skills: "*"
+trigger_conditions:
+  - "合同审核"
+  - "法律咨询"
+  - "合规审查"
+  - "知识产权"
+  - "法律风险"
+model_router:
+  route: "legal_route"
+  fallback: "claude-opus-4-6"
+priority: high
+permissions:
+  - approve_contracts
+  - reject_legal_risks
+  - provide_legal_advice
+  - escalate_to_ceo
