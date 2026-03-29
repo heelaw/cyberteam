@@ -1,0 +1,26 @@
+name: 用户研究
+department: product
+layer: execution
+model: main_llm
+daily_budget: 8.0
+tools:
+- web_search
+- write_file
+- read_file
+skills:
+- 用户访谈
+- 问卷调查
+- 可用性测试
+- 数据分析
+subordinates: []
+triggers:
+  keywords:
+  - 用户研究
+  - 用户调研
+  - 访谈
+  - 可用性
+  - 用户体验
+  task_types:
+  - user_research
+  - usability_testing
+approval_required: []

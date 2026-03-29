@@ -1,0 +1,107 @@
+{
+  "skill_name": "用户洞察Agent",
+  "version": "1.0",
+  "evals": [
+    {
+      "id": "eval-001",
+      "name": "用户流失分析任务",
+      "description": "分析用户流失问题，识别关键流失原因并给出行动建议",
+      "difficulty": "medium",
+      "test_cases": [
+        {
+          "input": "用户流失严重，怎么分析？",
+          "expected_skills": ["5W1H分析法", "同理心地图"],
+          "expected_outputs": [
+            "5W1H六要素完整分析",
+            "关键洞察（30天内流失问题）",
+            "优先级行动建议"
+          ],
+          "evaluation_criteria": [
+            "问题识别准确",
+            "分析方法选择合理",
+            "洞察有深度",
+            "建议可落地"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "eval-002",
+      "name": "转化率优化任务",
+      "description": "分析用户下单转化率低的问题，绘制用户旅程图",
+      "difficulty": "medium",
+      "test_cases": [
+        {
+          "input": "用户下单转化率低，怎么优化？",
+          "expected_skills": ["用户旅程图", "价值努力矩阵"],
+          "expected_outputs": [
+            "完整的用户旅程图（阶段、行为、思考、情绪、接触点、痛点）",
+            "优化建议带优先级"
+          ],
+          "evaluation_criteria": [
+            "旅程阶段划分合理",
+            "痛点识别准确",
+            "优先级排序合理"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "eval-003",
+      "name": "需求优先级任务",
+      "description": "对收集到的用户需求进行分类和优先级排序",
+      "difficulty": "easy",
+      "test_cases": [
+        {
+          "input": "用户反馈了很多需求，怎么排优先级？",
+          "expected_skills": ["KANO模型", "价值努力矩阵"],
+          "expected_outputs": [
+            "需求分类（必备/期望/兴奋/无差异/反向）",
+            "优先级排序（P0/P1/P2）"
+          ],
+          "evaluation_criteria": [
+            "分类准确",
+            "优先级合理",
+            "有数据支撑"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "eval-004",
+      "name": "同理心构建任务",
+      "description": "深度理解特定用户群体的感受和动机",
+      "difficulty": "hard",
+      "test_cases": [
+        {
+          "input": "老年用户觉得我们的App太难用了，分析一下？",
+          "expected_skills": ["同理心地图", "用户旅程图"],
+          "expected_outputs": [
+            "同理心地图（四象限完整）",
+            "老年用户痛点洞察",
+            "改进建议"
+          ],
+          "evaluation_criteria": [
+            "同理心表达真实",
+            "痛点识别深入",
+            "建议有针对性"
+          ]
+        }
+      ]
+    }
+  ],
+  "benchmark_metrics": {
+    "response_time": {
+      "target": "<30秒",
+      "description": "单次分析任务响应时间"
+    },
+    "accuracy": {
+      "target": "≥90%",
+      "description": "问题识别准确率"
+    },
+    "user_satisfaction": {
+      "target": "≥4.5/5",
+      "description": "用户反馈满意度评分"
+    }
+  }
+}

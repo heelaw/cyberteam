@@ -1,0 +1,92 @@
+{
+  "skill_name": "社群三门槛分类法",
+  "version": "1.0",
+  "eval_type": "skill_functional",
+  "test_cases": [
+    {
+      "id": 1,
+      "difficulty": "simple",
+      "category": "免费地域社群",
+      "input": {
+        "scenario": "免费健身打卡社群，北京地区，社群价值包括每日打卡监督、周末线下活动、健身知识分享"
+      },
+      "expected_output": {
+        "must_include": [
+          "高门槛：线下活动参与要求",
+          "中门槛：时间投入/打卡要求",
+          "低门槛：地域+基础画像",
+          "执行方案"
+        ],
+        "output_structure": "三层门槛+执行方案",
+        "min_score": 3
+      },
+      "evaluation_criteria": {
+        "feasibility": "方案是否可行",
+        "clarity": "输出是否清晰",
+        "completeness": "三层门槛是否完整"
+      }
+    },
+    {
+      "id": 2,
+      "difficulty": "medium",
+      "category": "付费学习社群",
+      "input": {
+        "scenario": "产品经理进阶社群0-3岁，社群价值每周分享、每月案例分析、日常答疑，年费299元"
+      },
+      "expected_output": {
+        "must_include": [
+          "高门槛：身份认同/学习成果",
+          "中门槛：付费299元/年",
+          "低门槛：用户画像",
+          "三层门槛组合",
+          "执行流程"
+        ],
+        "output_structure": "完整三门槛+执行方案",
+        "min_score": 3
+      },
+      "evaluation_criteria": {
+        "completeness": "是否覆盖三层",
+        "matching": "门槛与价值是否匹配",
+        "feasibility": "是否可执行",
+        "differentiation": "付费与免费门槛差异是否体现"
+      }
+    },
+    {
+      "id": 3,
+      "difficulty": "hard",
+      "category": "高端复杂社群",
+      "input": {
+        "scenario": "企业CEO高端社群，需要区分CEO、CXO、VP等不同级别用户，设计差异化门槛，入群费用从1万到10万不等"
+      },
+      "expected_output": {
+        "must_include": [
+          "多级别用户分层",
+          "差异化门槛设计",
+          "权益体系",
+          "升降级机制"
+        ],
+        "output_structure": "完整分级方案",
+        "min_score": 3
+      },
+      "evaluation_criteria": {
+        "differentiation": "级别区分是否清晰",
+        "completeness": "是否覆盖所有级别",
+        "feasibility": "方案是否可行",
+        "professionalism": "是否体现高端感"
+      }
+    }
+  ],
+  "evaluation_methodology": {
+    "scoring": "每个维度1-5分，5分制评分",
+    "pass_criteria": "总分≥15分（满分25分），且每个维度≥3分",
+    "process": "1.确定社群定位 2.设计高门槛 3.设计中门槛 4.设计低门槛 5.组合并执行"
+  },
+  "coverage": {
+    "场景覆盖": ["免费社群", "付费社群", "高端社群"],
+    "难度分布": {
+      "simple": 1,
+      "medium": 1,
+      "hard": 1
+    }
+  }
+}

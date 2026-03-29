@@ -1,0 +1,27 @@
+name: 财务管理
+department: finance
+layer: coordination
+model: main_llm
+daily_budget: 8.0
+tools:
+- web_search
+- write_file
+- read_file
+skills:
+- 财务尽职调查法
+- 定价策略
+- 收入预测模型
+subordinates: []
+triggers:
+  keywords:
+  - 财务
+  - 预算
+  - 成本
+  - 定价
+  - ROI
+  - 利润
+  task_types:
+  - finance_analysis
+  - budget_planning
+approval_required:
+- budget_exceed_10usd

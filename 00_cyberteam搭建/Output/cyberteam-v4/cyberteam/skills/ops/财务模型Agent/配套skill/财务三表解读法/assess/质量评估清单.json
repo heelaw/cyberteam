@@ -1,0 +1,226 @@
+{
+  "skill_name": "财务三表解读法",
+  "version": "1.0",
+  "evaluation_type": "skill_quality",
+  "quality_dimensions": [
+    {
+      "dimension": "完整性",
+      "weight": "20%",
+      "description": "Skill是否覆盖三表解读的完整要素",
+      "score_levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": [
+            "包含资产负债表解读（资产=负债+净资产）",
+            "包含利润表解读（收入-成本-费用=利润）",
+            "包含现金流量表解读（经营/投资/筹资）",
+            "包含三表关系联动分析",
+            "包含运营关注重点"
+          ]
+        },
+        "good": {
+          "score": 4,
+          "criteria": [
+            "四要素齐全但部分内容简略"
+          ]
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": [
+            "仅覆盖3个表"
+          ]
+        },
+        "poor": {
+          "score": 1,
+          "criteria": [
+            "要素不完整"
+          ]
+        }
+      }
+    },
+    {
+      "dimension": "实用性",
+      "weight": "20%",
+      "description": "Skill产出是否可直接用于业务决策",
+      "score_levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": [
+            "运营人员能看懂",
+            "有具体案例",
+            "有核心指标清单",
+            "关注重点明确",
+            "有可执行的运营建议"
+          ]
+        },
+        "good": {
+          "score": 4,
+          "criteria": [
+            "较易懂"
+          ]
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": [
+            "专业性过强"
+          ]
+        },
+        "poor": {
+          "score": 1,
+          "criteria": [
+            "难以理解"
+          ]
+        }
+      }
+    },
+    {
+      "dimension": "专业性",
+      "weight": "20%",
+      "description": "三表解读和指标计算的准确性",
+      "score_levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": [
+            "三表核心公式完全正确",
+            "指标定义准确",
+            "三表关系说明正确",
+            "流动比率、资产负债率等关键比率计算正确",
+            "能正确解读数字背后的业务含义"
+          ]
+        },
+        "good": {
+          "score": 4,
+          "criteria": [
+            "公式较正确"
+          ]
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": [
+            "存在少量问题"
+          ]
+        },
+        "poor": {
+          "score": 1,
+          "criteria": [
+            "错误多"
+          ]
+        }
+      }
+    },
+    {
+      "dimension": "严谨性",
+      "weight": "20%",
+      "description": "Critical Rules和风险提示的完整性",
+      "score_levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": [
+            "必须遵守规则≥5条",
+            "禁止行为规则≥5条",
+            "触发场景描述具体明确",
+            "有完整的数据校验逻辑",
+            "有错误处理和异常检测"
+          ]
+        },
+        "good": {
+          "score": 4,
+          "criteria": [
+            "Critical Rules完整"
+          ]
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": [
+            "Critical Rules不足5条"
+          ]
+        },
+        "poor": {
+          "score": 1,
+          "criteria": [
+            "Critical Rules缺失或不足3条"
+          ]
+        }
+      }
+    },
+    {
+      "dimension": "独特个性",
+      "weight": "10%",
+      "description": "Skill是否具有独特的分析视角和表达风格",
+      "score_levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": [
+            "有独特的解读视角（如\"私人导游\"的比喻）",
+            "有三表故事化解读能力",
+            "有数字翻译成故事的独特风格",
+            "有三表联动找真相的分析",
+            "有角色定制解读能力"
+          ]
+        },
+        "good": {
+          "score": 4,
+          "criteria": [
+            "有一定独特性"
+          ]
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": [
+            "个性特点不明显"
+          ]
+        },
+        "poor": {
+          "score": 1,
+          "criteria": [
+            "与其他同类Skill无明显差异"
+          ]
+        }
+      }
+    },
+    {
+      "dimension": "规范性",
+      "weight": "10%",
+      "description": "文件格式和结构的规范性",
+      "score_levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": [
+            "完全符合Skill模板规范",
+            "输入输出JSON格式完整",
+            "字段定义清晰准确",
+            "章节结构完整统一"
+          ]
+        },
+        "good": {
+          "score": 4,
+          "criteria": [
+            "基本符合规范"
+          ]
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": [
+            "部分格式不规范"
+          ]
+        },
+        "poor": {
+          "score": 1,
+          "criteria": [
+            "格式混乱"
+          ]
+        }
+      }
+    }
+  ],
+  "pass_threshold": {
+    "total_score": "≥85分",
+    "calculation": "每个维度满分5分，加权后满分100分",
+    "minimum_requirements": "每个维度至少3分"
+  },
+  "evaluation_notes": {
+    "权重说明": "完整性20% + 实用性20% + 专业性20% + 严谨性20% + 独特个性10% + 规范性10% = 100%",
+    "评分标准": "excellent=5分, good=4分, acceptable=3分, poor=1分",
+    "通过标准": "总分≥85分（相当于加权后85%）且每个维度≥3分"
+  }
+}

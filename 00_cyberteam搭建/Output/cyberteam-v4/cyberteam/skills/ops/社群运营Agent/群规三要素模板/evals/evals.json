@@ -1,0 +1,89 @@
+{
+  "skill_name": "群规三要素模板",
+  "version": "1.0",
+  "eval_type": "skill_functional",
+  "test_cases": [
+    {
+      "id": 1,
+      "difficulty": "simple",
+      "category": "免费交流社群",
+      "input": {
+        "scenario": "用户需要为一个免费的北京创业者交流群设计群规，社群主要组织线下活动和经验交流"
+      },
+      "expected_output": {
+        "must_include": [
+          "群定位声明",
+          "鼓励行为清单",
+          "禁止行为和处理方式"
+        ],
+        "output_structure": "完整群规三要素",
+        "min_score": 3
+      },
+      "evaluation_criteria": {
+        "feasibility": "是否可执行",
+        "clarity": "规则是否清晰",
+        "atmosphere": "氛围是否轻松"
+      }
+    },
+    {
+      "id": 2,
+      "difficulty": "medium",
+      "category": "付费学习社群",
+      "input": {
+        "scenario": "用户需要为一个面向产品经理的付费学习社群设计群规，社群提供每周直播、答疑服务，入群费用299元/年"
+      },
+      "expected_output": {
+        "must_include": [
+          "群定位声明",
+          "鼓励行为清单",
+          "禁止行为和处理方式",
+          "违规梯度处理"
+        ],
+        "output_structure": "完整群规三要素+梯度处理",
+        "min_score": 3
+      },
+      "evaluation_criteria": {
+        "completeness": "三要素是否完整",
+        "professionalism": "是否体现付费社群专业感",
+        "value_emphasis": "是否强调付费价值"
+      }
+    },
+    {
+      "id": 3,
+      "difficulty": "hard",
+      "category": "高端私密社群",
+      "input": {
+        "scenario": "用户需要为一个企业CEO高端社群设计群规，成员是企业创始人或CXO，社群提供高端人脉和资源对接"
+      },
+      "expected_output": {
+        "must_include": [
+          "高端定位声明",
+          "鼓励行为（体现高端价值）",
+          "禁止行为（严格）",
+          "隐私保护条款",
+          "违规处理方式"
+        ],
+        "output_structure": "高端群规完整方案",
+        "min_score": 3
+      },
+      "evaluation_criteria": {
+        "professionalism": "是否体现高端专业感",
+        "completeness": "要素是否完整",
+        "privacy": "是否包含隐私保护"
+      }
+    }
+  ],
+  "evaluation_methodology": {
+    "scoring": "每个维度1-5分，5分制评分",
+    "pass_criteria": "总分≥15分（满分25分），且每个维度≥3分",
+    "process": "1.确定社群定位 2.设计鼓励行为 3.设计禁止行为 4.设计处理方式 5.整合成文档"
+  },
+  "coverage": {
+    "场景覆盖": ["免费社群", "付费社群", "高端社群"],
+    "难度分布": {
+      "simple": 1,
+      "medium": 1,
+      "hard": 1
+    }
+  }
+}

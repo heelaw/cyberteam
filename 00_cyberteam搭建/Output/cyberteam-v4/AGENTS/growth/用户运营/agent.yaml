@@ -1,0 +1,25 @@
+name: 用户运营
+department: growth
+layer: execution
+model: main_llm
+daily_budget: 8.0
+tools:
+- web_search
+- write_file
+- read_file
+skills:
+- 用户留存诊断
+- 用户生命周期管理
+- 用户分层运营
+subordinates: []
+triggers:
+  keywords:
+  - 用户
+  - 留存
+  - 活跃
+  - 生命周期
+  - 用户画像
+  task_types:
+  - user_retention
+  - user_engagement
+approval_required: []

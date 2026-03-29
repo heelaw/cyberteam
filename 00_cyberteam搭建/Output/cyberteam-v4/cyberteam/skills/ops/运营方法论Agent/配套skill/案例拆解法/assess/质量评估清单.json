@@ -1,0 +1,232 @@
+{
+  "skill_name": "案例拆解法",
+  "version": "v1.0",
+  "assess_date": "2026-03-19",
+  "assessor": "系统评估",
+  "quality_dimension": [
+    {
+      "dimension": "完整性",
+      "weight": 20,
+      "description": "评估拆解框架和案例覆盖的完整程度",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "四维度/五维度分析完整，案例材料齐全"
+        },
+        "good": {
+          "score": 4,
+          "description": "框架基本完整"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "部分维度缺失"
+        },
+        "poor": {
+          "score": 1,
+          "description": "框架严重缺失"
+        }
+      },
+      "criteria": [
+        "案例选择是否匹配学习目的",
+        "拆解维度是否完整",
+        "案例材料是否齐全"
+      ]
+    },
+    {
+      "dimension": "实用性",
+      "weight": 20,
+      "description": "评估方法论提炼和实践计划的实用性",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "方法论具体可操作，有明确的应用边界和实践计划"
+        },
+        "good": {
+          "score": 4,
+          "description": "有方法论和实践计划"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "方法论较空泛"
+        },
+        "poor": {
+          "score": 1,
+          "description": "缺乏可执行的计划"
+        }
+      },
+      "criteria": [
+        "方法论是否具体可操作",
+        "是否有应用边界",
+        "是否有实践计划"
+      ]
+    },
+    {
+      "dimension": "专业性",
+      "weight": 20,
+      "description": "评估拆解深度的专业性",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "深入到原理层面，能区分可复制因素和特定条件"
+        },
+        "good": {
+          "score": 4,
+          "description": "分析较深入"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "分析表面化"
+        },
+        "poor": {
+          "score": 1,
+          "description": "只描述现象"
+        }
+      },
+      "criteria": [
+        "是否深入到原理层面",
+        "是否区分可复制因素和特定条件",
+        "关键成功因素是否提炼"
+      ]
+    },
+    {
+      "dimension": "严谨性",
+      "weight": 20,
+      "description": "评估分析过程的逻辑严密性",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "逻辑严密，因果关系清晰"
+        },
+        "good": {
+          "score": 4,
+          "description": "逻辑较严密"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "逻辑有漏洞"
+        },
+        "poor": {
+          "score": 1,
+          "description": "逻辑混乱"
+        }
+      },
+      "criteria": [
+        "因果关系是否清晰",
+        "分析是否客观"
+      ]
+    },
+    {
+      "dimension": "独特个性",
+      "weight": 10,
+      "description": "评估是否体现独特分析视角",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "能识别独特的可迁移要素"
+        },
+        "good": {
+          "score": 4,
+          "description": "有部分独特见解"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "见解较常规"
+        },
+        "poor": {
+          "score": 1,
+          "description": "缺乏独特见解"
+        }
+      },
+      "criteria": [
+        "是否能识别独特可迁移要素"
+      ]
+    },
+    {
+      "dimension": "规范性",
+      "weight": 10,
+      "description": "评估输出格式和Critical Rules的规范性",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "格式规范，Critical Rules完整，Workflow Steps标准"
+        },
+        "good": {
+          "score": 4,
+          "description": "格式规范，Critical Rules较完整"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "格式基本规范"
+        },
+        "poor": {
+          "score": 1,
+          "description": "格式混乱"
+        }
+      },
+      "criteria": [
+        "输出格式是否符合标准模板",
+        "Critical Rules是否≥5条必须遵守+≥5条禁止行为",
+        "Workflow Steps是否完整"
+      ]
+    }
+  ],
+  "quality_score": {
+    "total_score": 100,
+    "pass_threshold": 85,
+    "excellent": [90, 100],
+    "good": [85, 89],
+    "acceptable": [70, 84],
+    "poor": [0, 69]
+  },
+  "critical_rules_check": {
+    "description": "Critical Rules检查清单",
+    "rules": [
+      {
+        "rule": "学习目的必须聚焦",
+        "check_item": "用户是否能明确回答'要从案例中学到什么'",
+        "pass_condition": "不能泛泛而学"
+      },
+      {
+        "rule": "案例必须与目的匹配",
+        "check_item": "选择的案例是否能回答用户的问题",
+        "pass_condition": "不能偏离"
+      },
+      {
+        "rule": "必须区分可复制因素和特定条件",
+        "check_item": "是否明确什么可以学、什么不能照搬",
+        "pass_condition": "避免照搬"
+      },
+      {
+        "rule": "必须有实践计划",
+        "check_item": "拆解后是否有应用的行动计划",
+        "pass_condition": "不能只学不用"
+      },
+      {
+        "rule": "方法论必须具体可操作",
+        "check_item": "能否指导实践",
+        "pass_condition": "不能是空泛道理"
+      }
+    ]
+  },
+  "forbidden_check": {
+    "description": "禁止行为检查",
+    "items": [
+      "禁止目的不明确就拆解",
+      "禁止只学表面形式",
+      "禁止照搬策略",
+      "禁止方法论过于抽象",
+      "禁止没有实践计划",
+      "禁止忽视特定条件"
+    ]
+  },
+  "output_standard": {
+    "must_include": [
+      "明确的学习目的",
+      "匹配的案例材料",
+      "四维度/五维度完整分析",
+      "可迁移的方法论（含应用边界）",
+      "具体的实践计划"
+    ],
+    "format_requirement": "目的明确，拆解深入，方法论可迁移"
+  }
+}

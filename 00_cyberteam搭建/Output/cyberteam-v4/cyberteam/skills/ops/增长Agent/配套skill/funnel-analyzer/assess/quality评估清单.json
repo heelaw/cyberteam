@@ -1,0 +1,71 @@
+{
+  "skill_name": "funnel-analyzer",
+  "version": "1.0.0",
+  "assess_type": "quality",
+  "metrics": [
+    {
+      "id": "m1",
+      "name": "漏斗步骤覆盖率",
+      "description": "是否覆盖漏斗所有步骤",
+      "type": "binary",
+      "threshold": true,
+      "weight": 15
+    },
+    {
+      "id": "m2",
+      "name": "转化率计算",
+      "description": "是否计算每步的转化率和流失率",
+      "type": "binary",
+      "threshold": true,
+      "weight": 15
+    },
+    {
+      "id": "m3",
+      "name": "瓶颈识别准确度",
+      "description": "是否正确识别最大流失点",
+      "type": "binary",
+      "threshold": true,
+      "weight": 20
+    },
+    {
+      "id": "m4",
+      "name": "原因分析深度",
+      "description": "是否给出2个以上可能的流失原因",
+      "type": "count",
+      "threshold": 2,
+      "weight": 15
+    },
+    {
+      "id": "m5",
+      "name": "优化方案数量",
+      "description": "是否为每个瓶颈提供2个以上优化方案",
+      "type": "count",
+      "threshold": 2,
+      "weight": 15
+    },
+    {
+      "id": "m6",
+      "name": "A/B测试设计",
+      "description": "是否设计可验证的A/B测试",
+      "type": "binary",
+      "threshold": true,
+      "weight": 10
+    },
+    {
+      "id": "m7",
+      "name": "行业基准对比",
+      "description": "是否对比行业基准数据",
+      "type": "binary",
+      "threshold": true,
+      "weight": 10
+    }
+  ],
+  "pass_threshold": 0.85,
+  "version_history": [
+    {
+      "version": "1.0.0",
+      "created": "2026-03-17",
+      "notes": "初始版本"
+    }
+  ]
+}

@@ -1,0 +1,1717 @@
+{
+  "booking_rate": {
+    "value": 1.0,
+    "type": "rate",
+    "locations": [
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "收入模式（全款预售模式）",
+        "line": 58
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "收入模式（全款预售模式）",
+        "line": 59
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "收入模式（全款预售模式）",
+        "line": 60
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "利润模型",
+        "line": 100
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "现金流与融资",
+        "line": 103
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "现金流与融资",
+        "line": 104
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.2 优化后的8步转化漏斗（一步付款模式）",
+        "line": 245
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.2 优化后的8步转化漏斗（一步付款模式）",
+        "line": 245
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.2 优化后的8步转化漏斗（一步付款模式）",
+        "line": 254
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.3 关键节点转化关系（一步付款模式）",
+        "line": 270
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.3 关键节点转化关系（一步付款模式）",
+        "line": 270
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "兴趣→网站选配：50%（新增环节）",
+        "line": 310
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "兴趣→网站选配：50%（新增环节）",
+        "line": 310
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "付款→上门扫描：96",
+        "line": 331
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.5 潜在流失点与优化策略（一步付款模式）",
+        "line": 390
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.5 潜在流失点与优化策略（一步付款模式）",
+        "line": 391
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.5 潜在流失点与优化策略（全款预售模式）",
+        "line": 451
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.5 潜在流失点与优化策略（全款预售模式）",
+        "line": 452
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.5 潜在流失点与优化策略（全款预售模式）",
+        "line": 471
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "M3预热期成功标准",
+        "line": 712
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "核心计算倒推（采用一步付款转化率）",
+        "line": 780
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "启动期（M1-M4，纽约）",
+        "line": 1006
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.3 底层指标（一步付款模式）",
+        "line": 1109
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.3 底层指标（一步付款模式）",
+        "line": 1109
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.3 底层指标（一步付款模式）",
+        "line": 1109
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.3 底层指标（一步付款模式）",
+        "line": 1110
+      }
+    ],
+    "depends_on": [],
+    "formula": null
+  },
+  "visit_rate": {
+    "value": 0.7,
+    "type": "rate",
+    "locations": [
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "渠道策略",
+        "line": 71
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "渠道策略",
+        "line": 72
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "收入模式（一步付款模式）",
+        "line": 87
+      }
+    ],
+    "depends_on": [],
+    "formula": null
+  },
+  "payment_rate": {
+    "value": 1.0,
+    "type": "rate",
+    "locations": [
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "核心业务流程（一步付款模式）",
+        "line": 120
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.2 优化后的8步转化漏斗（一步付款模式）",
+        "line": 246
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.2 优化后的8步转化漏斗（一步付款模式）",
+        "line": 254
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.2 优化后的8步转化漏斗（一步付款模式）",
+        "line": 260
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.2 优化后的8步转化漏斗（一步付款模式）",
+        "line": 260
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.2 优化后的8步转化漏斗（一步付款模式）",
+        "line": 260
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.3 关键节点转化关系（一步付款模式）",
+        "line": 271
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.3 关键节点转化关系（一步付款模式）",
+        "line": 271
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.3 关键节点转化关系（一步付款模式）",
+        "line": 274
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.3 关键节点转化关系（一步付款模式）",
+        "line": 274
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.3 关键节点转化关系（一步付款模式）",
+        "line": 275
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.3 关键节点转化关系（一步付款模式）",
+        "line": 275
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.3 关键节点转化关系（一步付款模式）",
+        "line": 275
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.3 关键节点转化关系（一步付款模式）",
+        "line": 275
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.3 关键节点转化关系（一步付款模式）",
+        "line": 275
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.3 关键节点转化关系（一步付款模式）",
+        "line": 277
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.3 关键节点转化关系（一步付款模式）",
+        "line": 277
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.3 关键节点转化关系（一步付款模式）",
+        "line": 278
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "网站选配→付款并预约：5%（关键转化点）",
+        "line": 326
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "网站选配→付款并预约：5%（关键转化点）",
+        "line": 327
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "网站选配→付款并预约：5%（关键转化点）",
+        "line": 327
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "网站选配→付款并预约：5%（关键转化点）",
+        "line": 329
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "网站选配→付款并预约：5%（关键转化点）",
+        "line": 329
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "扫描→制作与邮寄：100%（已付全款，零流失）",
+        "line": 356
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.5 潜在流失点与优化策略（一步付款模式）",
+        "line": 389
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.5 潜在流失点与优化策略（一步付款模式）",
+        "line": 392
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.5 潜在流失点与优化策略（一步付款模式）",
+        "line": 393
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.5 潜在流失点与优化策略（一步付款模式）",
+        "line": 410
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.5 潜在流失点与优化策略（一步付款模式）",
+        "line": 410
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.5 潜在流失点与优化策略（一步付款模式）",
+        "line": 415
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.5 潜在流失点与优化策略（一步付款模式）",
+        "line": 415
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.6 病毒式传播引擎分析（一步付款模式）",
+        "line": 426
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.6 病毒式传播引擎分析（一步付款模式）",
+        "line": 434
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.5 潜在流失点与优化策略（全款预售模式）",
+        "line": 454
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "核心计算倒推（采用一步付款转化率）",
+        "line": 786
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "核心计算倒推（采用一步付款转化率）",
+        "line": 786
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "核心计算倒推（采用一步付款转化率）",
+        "line": 796
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "重复触达调整",
+        "line": 812
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "流量渠道流量分配（一步付款模式）",
+        "line": 833
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "流量渠道流量分配（一步付款模式）",
+        "line": 833
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "流量渠道流量分配（一步付款模式）",
+        "line": 836
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "流量渠道流量分配（一步付款模式）",
+        "line": 837
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "6.3 流量渠道汇总表（M1-M12全年）",
+        "line": 972
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "6.3 流量渠道汇总表（M1-M12全年）",
+        "line": 972
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "6.3 流量渠道汇总表（M1-M12全年）",
+        "line": 983
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "启动期（M1-M4，纽约）",
+        "line": 1007
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "扩展期（M5-M12，纽约+东海岸）",
+        "line": 1023
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "扩展期（M5-M12，纽约+东海岸）",
+        "line": 1023
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "扩展期（M5-M12，纽约+东海岸）",
+        "line": 1025
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "扩展期（M5-M12，纽约+东海岸）",
+        "line": 1025
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "扩展期（M5-M12，纽约+东海岸）",
+        "line": 1027
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "扩展期（M5-M12，纽约+东海岸）",
+        "line": 1029
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.1 顶层指标（一步付款模式）",
+        "line": 1066
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.2 中层指标（一步付款模式）",
+        "line": 1076
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.2 中层指标（一步付款模式）",
+        "line": 1082
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.2 中层指标（一步付款模式）",
+        "line": 1083
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.2 中层指标（一步付款模式）",
+        "line": 1083
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.3 底层指标（一步付款模式）",
+        "line": 1110
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.3 底层指标（一步付款模式）",
+        "line": 1110
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.3 底层指标（一步付款模式）",
+        "line": 1112
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.3 底层指标（一步付款模式）",
+        "line": 1112
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.3 底层指标（一步付款模式）",
+        "line": 1112
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.3 底层指标（一步付款模式）",
+        "line": 1113
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.3 底层指标（一步付款模式）",
+        "line": 1116
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.3 底层指标（一步付款模式）",
+        "line": 1117
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.3 底层指标（一步付款模式）",
+        "line": 1117
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.3 启动期核心监控指标（一步付款模式）",
+        "line": 1132
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.3 启动期核心监控指标（一步付款模式）",
+        "line": 1134
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.3 启动期核心监控指标（一步付款模式）",
+        "line": 1135
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.3 启动期核心监控指标（一步付款模式）",
+        "line": 1137
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.3 启动期核心监控指标（一步付款模式）",
+        "line": 1137
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.3 启动期核心监控指标（一步付款模式）",
+        "line": 1138
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.3 启动期核心监控指标（一步付款模式）",
+        "line": 1138
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.3 启动期核心监控指标（一步付款模式）",
+        "line": 1140
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.4 扩展期优化重点（M5-M12）",
+        "line": 1147
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.4 扩展期优化重点（M5-M12）",
+        "line": 1147
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.4 扩展期优化重点（M5-M12）",
+        "line": 1156
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.4 扩展期优化重点（M5-M12）",
+        "line": 1157
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.4 扩展期优化重点（M5-M12）",
+        "line": 1159
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.4 扩展期优化重点（M5-M12）",
+        "line": 1161
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.4 扩展期优化重点（M5-M12）",
+        "line": 1163
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.4 扩展期优化重点（M5-M12）",
+        "line": 1163
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "8.1 核心瓶颈识别（一步付款模式）",
+        "line": 1205
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "8.1 核心瓶颈识别（一步付款模式）",
+        "line": 1206
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "8.1 核心瓶颈识别（一步付款模式）",
+        "line": 1206
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "8.1 核心瓶颈识别（一步付款模式）",
+        "line": 1207
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "8.1 核心瓶颈识别（一步付款模式）",
+        "line": 1209
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "8.1 核心瓶颈识别（一步付款模式）",
+        "line": 1211
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "8.1 核心瓶颈识别（一步付款模式）",
+        "line": 1212
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "8.1 核心瓶颈识别（一步付款模式）",
+        "line": 1216
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "8.1 核心瓶颈识别（一步付款模式）",
+        "line": 1216
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "8.1 核心瓶颈识别（一步付款模式）",
+        "line": 1218
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "8.1 核心瓶颈识别（一步付款模式）",
+        "line": 1218
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "8.2.1 启动期策略回顾（M1-M4·已完成）",
+        "line": 1234
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "8.2.1 启动期策略回顾（M1-M4·已完成）",
+        "line": 1236
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "8.2.1 启动期策略回顾（M1-M4·已完成）",
+        "line": 1236
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "8.2.1 启动期策略回顾（M1-M4·已完成）",
+        "line": 1239
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "8.2.2 扩展期策略（M5-M12·区域扩张）",
+        "line": 1248
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "8.2.2 扩展期策略（M5-M12·区域扩张）",
+        "line": 1249
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "8.2.2 扩展期策略（M5-M12·区域扩张）",
+        "line": 1249
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "8.2.2 扩展期策略（M5-M12·区域扩张）",
+        "line": 1254
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "8.2.2 扩展期策略（M5-M12·区域扩张）",
+        "line": 1255
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "8.2.2 扩展期策略（M5-M12·区域扩张）",
+        "line": 1255
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "8.2.2 扩展期策略（M5-M12·区域扩张）",
+        "line": 1257
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "8.2.2 扩展期策略（M5-M12·区域扩张）",
+        "line": 1258
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "8.2.2 扩展期策略（M5-M12·区域扩张）",
+        "line": 1258
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "10.2 关键建议（修正版v4）",
+        "line": 1363
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "10.2 关键建议（修正版v4）",
+        "line": 1363
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "A. 核心数据一览（一步付款模式）",
+        "line": 1399
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "A. 核心数据一览（一步付款模式）",
+        "line": 1401
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "A. 核心数据一览（一步付款模式）",
+        "line": 1418
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "A. 核心数据一览（一步付款模式）",
+        "line": 1419
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "A. 核心数据一览（一步付款模式）",
+        "line": 1420
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "A. 核心数据一览（一步付款模式）",
+        "line": 1429
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "A. 核心数据一览（一步付款模式）",
+        "line": 1429
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "A. 核心数据一览（一步付款模式）",
+        "line": 1430
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "A. 核心数据一览（一步付款模式）",
+        "line": 1430
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "E. 修正历史对比",
+        "line": 1467
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "E. 修正历史对比",
+        "line": 1467
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "E. 修正历史对比",
+        "line": 1468
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "E. 修正历史对比",
+        "line": 1468
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "E. 修正历史对比",
+        "line": 1468
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "E. 修正历史对比",
+        "line": 1484
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "E. 修正历史对比",
+        "line": 1484
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "E. 修正历史对比",
+        "line": 1494
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "E. 修正历史对比",
+        "line": 1495
+      }
+    ],
+    "depends_on": [],
+    "formula": null
+  },
+  "conversion_rate": {
+    "value": 0.08,
+    "type": "rate",
+    "locations": [
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "3.3 变量关系与敏感度分析",
+        "line": 215
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "3.3 变量关系与敏感度分析",
+        "line": 216
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "3.3 变量关系与敏感度分析",
+        "line": 216
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "3.3 变量关系与敏感度分析",
+        "line": 216
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "3.3 变量关系与敏感度分析",
+        "line": 221
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "3.3 变量关系与敏感度分析",
+        "line": 222
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "3.3 变量关系与敏感度分析",
+        "line": 222
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.2 优化后的8步转化漏斗（一步付款模式）",
+        "line": 255
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.2 优化后的8步转化漏斗（一步付款模式）",
+        "line": 257
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.2 优化后的8步转化漏斗（一步付款模式）",
+        "line": 257
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.2 优化后的8步转化漏斗（一步付款模式）",
+        "line": 257
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.2 优化后的8步转化漏斗（一步付款模式）",
+        "line": 257
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.2 优化后的8步转化漏斗（一步付款模式）",
+        "line": 257
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.2 优化后的8步转化漏斗（一步付款模式）",
+        "line": 257
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.3 关键节点转化关系（一步付款模式）",
+        "line": 273
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.3 关键节点转化关系（一步付款模式）",
+        "line": 273
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "网站选配→付款并预约：5%（关键转化点）",
+        "line": 315
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.5 潜在流失点与优化策略（一步付款模式）",
+        "line": 399
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.5 潜在流失点与优化策略（一步付款模式）",
+        "line": 399
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.5 潜在流失点与优化策略（一步付款模式）",
+        "line": 405
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.5 潜在流失点与优化策略（一步付款模式）",
+        "line": 405
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.5 潜在流失点与优化策略（全款预售模式）",
+        "line": 460
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.5 潜在流失点与优化策略（全款预售模式）",
+        "line": 460
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.5 潜在流失点与优化策略（全款预售模式）",
+        "line": 460
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.5 潜在流失点与优化策略（全款预售模式）",
+        "line": 467
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.5 潜在流失点与优化策略（全款预售模式）",
+        "line": 476
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "M2筹备期（第2个月）",
+        "line": 561
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "M2筹备期（第2个月）",
+        "line": 564
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "潜在风险与应对措施",
+        "line": 745
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "潜在风险与应对措施",
+        "line": 746
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "6.3 流量渠道汇总表（M1-M12全年）",
+        "line": 980
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "6.3 流量渠道汇总表（M1-M12全年）",
+        "line": 981
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.2 中层指标（一步付款模式）",
+        "line": 1075
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.2 中层指标（一步付款模式）",
+        "line": 1075
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.3 启动期核心监控指标（一步付款模式）",
+        "line": 1139
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "8.2.2 扩展期策略（M5-M12·区域扩张）",
+        "line": 1252
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "8.2.2 扩展期策略（M5-M12·区域扩张）",
+        "line": 1253
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "9.3 三年战略里程碑（修正版v4）",
+        "line": 1335
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "9.3 三年战略里程碑（修正版v4）",
+        "line": 1341
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "9.3 三年战略里程碑（修正版v4）",
+        "line": 1342
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "10.1 核心发现（修正版v4 - 基于M1-M4启动期）",
+        "line": 1355
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "10.1 核心发现（修正版v4 - 基于M1-M4启动期）",
+        "line": 1356
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "A. 核心数据一览（一步付款模式）",
+        "line": 1424
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "A. 核心数据一览（一步付款模式）",
+        "line": 1425
+      }
+    ],
+    "depends_on": [],
+    "formula": null
+  },
+  "completion_rate": {
+    "value": 0.47,
+    "type": "rate",
+    "locations": [
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.2 优化后的8步转化漏斗（一步付款模式）",
+        "line": 246
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.2 优化后的8步转化漏斗（一步付款模式）",
+        "line": 246
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.2 优化后的8步转化漏斗（一步付款模式）",
+        "line": 246
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.2 优化后的8步转化漏斗（一步付款模式）",
+        "line": 249
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.2 优化后的8步转化漏斗（一步付款模式）",
+        "line": 250
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.2 优化后的8步转化漏斗（一步付款模式）",
+        "line": 250
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.2 优化后的8步转化漏斗（一步付款模式）",
+        "line": 251
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.3 关键节点转化关系（一步付款模式）",
+        "line": 266
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.3 关键节点转化关系（一步付款模式）",
+        "line": 266
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.3 关键节点转化关系（一步付款模式）",
+        "line": 267
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.3 关键节点转化关系（一步付款模式）",
+        "line": 267
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.3 关键节点转化关系（一步付款模式）",
+        "line": 280
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.3 关键节点转化关系（一步付款模式）",
+        "line": 281
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "触达→完播：30%",
+        "line": 286
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "触达→完播：30%",
+        "line": 287
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "触达→完播：30%",
+        "line": 288
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "完播→兴趣：8%",
+        "line": 293
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "完播→兴趣：8%",
+        "line": 293
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "完播→兴趣：8%",
+        "line": 297
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "曝光",
+        "line": 297
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "曝光→兴趣：2.",
+        "line": 297
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "曝光→兴趣：2.4%（综合",
+        "line": 297
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "曝光→兴趣：2.4%（综合转化率）",
+        "line": 300
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.5 潜在流失点与优化策略（一步付款模式）",
+        "line": 386
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.5 潜在流失点与优化策略（一步付款模式）",
+        "line": 387
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.5 潜在流失点与优化策略（一步付款模式）",
+        "line": 386
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.5 潜在流失点与优化策略（全款预售模式）",
+        "line": 448
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "核心计算倒推（采用一步付款转化率）",
+        "line": 776
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "核心计算倒推（采用一步付款转化率）",
+        "line": 776
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "核心计算倒推（采用一步付款转化率）",
+        "line": 776
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "核心计算倒推（采用一步付款转化率）",
+        "line": 778
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "核心计算倒推（采用一步付款转化率）",
+        "line": 780
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "核心计算倒推（采用一步付款转化率）",
+        "line": 788
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "核心计算倒推（采用一步付款转化率）",
+        "line": 789
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "核心计算倒推（采用一步付款转化率）",
+        "line": 789
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.2 中层指标（一步付款模式）",
+        "line": 1076
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.2 中层指标（一步付款模式）",
+        "line": 1077
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.2 中层指标（一步付款模式）",
+        "line": 1077
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.2 中层指标（一步付款模式）",
+        "line": 1079
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.2 中层指标（一步付款模式）",
+        "line": 1080
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.3 底层指标（一步付款模式）",
+        "line": 1094
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.3 底层指标（一步付款模式）",
+        "line": 1094
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.3 底层指标（一步付款模式）",
+        "line": 1095
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.3 底层指标（一步付款模式）",
+        "line": 1095
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.3 底层指标（一步付款模式）",
+        "line": 1097
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.3 底层指标（一步付款模式）",
+        "line": 1097
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.3 底层指标（一步付款模式）",
+        "line": 1098
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.3 底层指标（一步付款模式）",
+        "line": 1098
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.3 底层指标（一步付款模式）",
+        "line": 1099
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.3 底层指标（一步付款模式）",
+        "line": 1099
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.3 底层指标（一步付款模式）",
+        "line": 1105
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.3 底层指标（一步付款模式）",
+        "line": 1105
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.3 底层指标（一步付款模式）",
+        "line": 1105
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.3 底层指标（一步付款模式）",
+        "line": 1106
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.3 底层指标（一步付款模式）",
+        "line": 1106
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.3 底层指标（一步付款模式）",
+        "line": 1106
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "8.2.1 启动期策略回顾（M1-M4·已完成）",
+        "line": 1230
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "8.2.1 启动期策略回顾（M1-M4·已完成）",
+        "line": 1230
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "8.2.1 启动期策略回顾（M1-M4·已完成）",
+        "line": 1231
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.4 关键成功因素（CSF）（修正版v3）",
+        "line": 1284
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.4 关键成功因素（CSF）（修正版v3）",
+        "line": 1284
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.4 关键成功因素（CSF）（修正版v3）",
+        "line": 1284
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "A. 核心数据一览（一步付款模式）",
+        "line": 1414
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "A. 核心数据一览（一步付款模式）",
+        "line": 1414
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "A. 核心数据一览（一步付款模式）",
+        "line": 1415
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "E. 修正历史对比",
+        "line": 1481
+      }
+    ],
+    "depends_on": [],
+    "formula": null
+  },
+  "interest_rate": {
+    "value": 0.5,
+    "type": "rate",
+    "locations": [
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.2 优化后的8步转化漏斗（一步付款模式）",
+        "line": 252
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.2 优化后的8步转化漏斗（一步付款模式）",
+        "line": 252
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.3 关键节点转化关系（一步付款模式）",
+        "line": 268
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.3 关键节点转化关系（一步付款模式）",
+        "line": 268
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.3 关键节点转化关系（一步付款模式）",
+        "line": 269
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.3 关键节点转化关系（一步付款模式）",
+        "line": 269
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.5 潜在流失点与优化策略（一步付款模式）",
+        "line": 388
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "4.5 潜在流失点与优化策略（全款预售模式）",
+        "line": 449
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "核心计算倒推（采用一步付款转化率）",
+        "line": 780
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "核心计算倒推（采用一步付款转化率）",
+        "line": 787
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "核心计算倒推（采用一步付款转化率）",
+        "line": 787
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "核心计算倒推（采用一步付款转化率）",
+        "line": 788
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "核心计算倒推（采用一步付款转化率）",
+        "line": 794
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "核心计算倒推（采用一步付款转化率）",
+        "line": 794
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "核心计算倒推（采用一步付款转化率）",
+        "line": 795
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "核心计算倒推（采用一步付款转化率）",
+        "line": 795
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "核心计算倒推（采用一步付款转化率）",
+        "line": 796
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "启动期（M1-M4，纽约）",
+        "line": 1002
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "启动期（M1-M4，纽约）",
+        "line": 1002
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "启动期（M1-M4，纽约）",
+        "line": 1005
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.3 底层指标（一步付款模式）",
+        "line": 1096
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.3 底层指标（一步付款模式）",
+        "line": 1096
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.3 底层指标（一步付款模式）",
+        "line": 1107
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.3 底层指标（一步付款模式）",
+        "line": 1107
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.3 底层指标（一步付款模式）",
+        "line": 1107
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.3 底层指标（一步付款模式）",
+        "line": 1108
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.3 底层指标（一步付款模式）",
+        "line": 1108
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "7.2.3 底层指标（一步付款模式）",
+        "line": 1108
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "8.2.1 启动期策略回顾（M1-M4·已完成）",
+        "line": 1232
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "8.2.1 启动期策略回顾（M1-M4·已完成）",
+        "line": 1233
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "A. 核心数据一览（一步付款模式）",
+        "line": 1417
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "E. 修正历史对比",
+        "line": 1464
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "E. 修正历史对比",
+        "line": 1465
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "E. 修正历史对比",
+        "line": 1465
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "E. 修正历史对比",
+        "line": 1466
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "E. 修正历史对比",
+        "line": 1466
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "E. 修正历史对比",
+        "line": 1466
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "E. 修正历史对比",
+        "line": 1466
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "E. 修正历史对比",
+        "line": 1466
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "E. 修正历史对比",
+        "line": 1466
+      }
+    ],
+    "depends_on": [],
+    "formula": null
+  },
+  "click_through_rate": {
+    "value": 0.5,
+    "type": "rate",
+    "locations": [
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "曝光→兴趣：2.4%（综合转化率）",
+        "line": 301
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "曝光→兴趣：2.4%（综合转化率）",
+        "line": 302
+      }
+    ],
+    "depends_on": [],
+    "formula": null
+  },
+  "CAC": {
+    "value": 175.0,
+    "type": "metric",
+    "locations": [
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "6.3 流量渠道汇总表（M1-M12全年）",
+        "line": 973
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "6.3 流量渠道汇总表（M1-M12全年）",
+        "line": 976
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "已完成（M1-M4）",
+        "line": 1308
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "9.3 三年战略里程碑（修正版v4）",
+        "line": 1334
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "9.3 三年战略里程碑（修正版v4）",
+        "line": 1335
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "10.1 核心发现（修正版v4 - 基于M1-M4启动期）",
+        "line": 1354
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "10.1 核心发现（修正版v4 - 基于M1-M4启动期）",
+        "line": 1355
+      },
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "D. 投资亮点（修正版v3）",
+        "line": 1451
+      }
+    ],
+    "depends_on": [],
+    "formula": null
+  },
+  "ROI": {
+    "value": 5.7,
+    "type": "ratio",
+    "locations": [
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "6.3 流量渠道汇总表（M1-M12全年）",
+        "line": 974
+      }
+    ],
+    "depends_on": [],
+    "formula": null
+  },
+  "overall_conversion_rate": {
+    "value": 1.2573791999999996e-10,
+    "type": "rate",
+    "locations": [
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "Unknown",
+        "line": 0
+      }
+    ],
+    "depends_on": [],
+    "formula": "0.7000 × 0.0700 × 0.0600 × 0.0550 × 0.0600 × 0.0600 × 0.0600 × 0.0600 × 0.0600"
+  },
+  "conversion_funnel": {
+    "value": [
+      {
+        "name": "付流程**：30%定金预约",
+        "rate": 0.7
+      },
+      {
+        "name": "预期提升转化率：5%",
+        "rate": 0.07
+      },
+      {
+        "name": "预期提升转化率：5%",
+        "rate": 0.06
+      },
+      {
+        "name": "预期提升转化率：5%",
+        "rate": 0.055
+      },
+      {
+        "name": "付款转化率：5%",
+        "rate": 0.06
+      },
+      {
+        "name": "付款转化率优化（5%",
+        "rate": 0.06
+      },
+      {
+        "name": "付款转化率需提升：5%",
+        "rate": 0.06
+      },
+      {
+        "name": "付款优化** | 95%流失率 | BNPL分期+信任背书+UX优化+快速响应 | 5%",
+        "rate": 0.06
+      },
+      {
+        "name": "付款优化**：5%",
+        "rate": 0.06
+      }
+    ],
+    "type": "structure",
+    "locations": [
+      {
+        "file": "workflow/06-final-report/lacecode-业务模型分析-20250114.md",
+        "section": "Unknown",
+        "line": 0
+      }
+    ],
+    "depends_on": [],
+    "formula": null
+  }
+}

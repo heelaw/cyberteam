@@ -1,0 +1,63 @@
+{
+  "skill_name": "4P文案结构器",
+  "version": "1.0.0",
+  "evals": [
+    {
+      "id": 1,
+      "difficulty": "medium",
+      "name": "护肤品牌4P文案撰写",
+      "prompt": "请使用4P模型为以下品牌撰写文案：\n\n## 品牌信息\n- 产品类型：抗衰老精华液\n- 目标用户：30-40岁职场女性\n- 核心承诺：28天法令纹淡化\n- 品牌调性：专业、温暖、真实\n\n请按照4P结构撰写完整品牌故事文案",
+      "expected_output": "包含Picture/Promise/Prove/Push四个阶段的完整文案",
+      "files": [],
+      "assertions": [
+        {
+          "type": "contains",
+          "field": "Picture",
+          "expected": "场景"
+        },
+        {
+          "type": "contains",
+          "field": "Promise",
+          "expected": "承诺"
+        },
+        {
+          "type": "contains",
+          "field": "Prove",
+          "expected": "证明"
+        },
+        {
+          "type": "contains",
+          "field": "Push",
+          "expected": "推进"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "difficulty": "medium",
+      "name": "在线教育品牌故事文案",
+      "prompt": "请使用4P模型为以下课程撰写品牌故事：\n\n## 课程信息\n- 课程类型：职业转型训练营\n- 目标用户：想转行的在职人员\n- 核心承诺：帮助学员成功转型，获得更高薪资\n- 品牌调性：励志、专业、陪伴\n\n请按照4P结构撰写完整品牌故事",
+      "expected_output": "包含画面感、承诺、证明、推进的完整故事型文案",
+      "files": [],
+      "assertions": [
+        {
+          "type": "contains",
+          "field": "Picture",
+          "expected": "人物"
+        },
+        {
+          "type": "contains",
+          "field": "Prove",
+          "expected": "数据"
+        }
+      ]
+    }
+  ],
+  "version_history": [
+    {
+      "version": "1.0.0",
+      "created": "2026-03-18",
+      "notes": "初始版本"
+    }
+  ]
+}

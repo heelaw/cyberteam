@@ -1,0 +1,148 @@
+{
+  "skill_name": "投资人评估框架法",
+  "version": "1.0",
+  "evaluation_type": "skill_quality",
+  "quality_dimensions": [
+    {
+      "dimension": "完整性",
+      "weight": "20%",
+      "score_levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": ["完整覆盖市场、产品、团队、财务四大维度", "包含输入输出格式JSON Schema", "包含使用示例≥2个"]
+        },
+        "good": {
+          "score": 4,
+          "criteria": ["覆盖四大维度中的3个", "包含输入输出格式", "包含1个使用示例"]
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": ["覆盖四大维度中的2个", "输入输出格式不完整"]
+        },
+        "poor": {
+          "score": 1,
+          "criteria": ["维度覆盖不足2个", "缺少输入输出定义"]
+        }
+      }
+    },
+    {
+      "dimension": "实用性",
+      "weight": "20%",
+      "score_levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": ["框架可直接操作使用", "输出模板完整清晰", "错误处理覆盖≥3种场景"]
+        },
+        "good": {
+          "score": 4,
+          "criteria": ["框架可操作", "输出模板基本完整", "错误处理≥2种"]
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": ["框架可用但需补充", "输出模板不完整"]
+        },
+        "poor": {
+          "score": 1,
+          "criteria": ["无法直接使用", "缺少输出模板"]
+        }
+      }
+    },
+    {
+      "dimension": "专业性",
+      "weight": "20%",
+      "score_levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": ["术语准确无误", "逻辑清晰完整", "方法论有理论依据"]
+        },
+        "good": {
+          "score": 4,
+          "criteria": ["术语基本准确", "逻辑基本清晰"]
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": ["存在少量术语错误", "逻辑有轻微问题"]
+        },
+        "poor": {
+          "score": 1,
+          "criteria": ["术语大量错误", "逻辑混乱"]
+        }
+      }
+    },
+    {
+      "dimension": "严谨性",
+      "weight": "20%",
+      "score_levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": ["Critical Rules≥5条必须遵守+≥5条禁止行为", "Workflow步骤完整", "每步有明确输入/处理/输出"]
+        },
+        "good": {
+          "score": 4,
+          "criteria": ["Critical Rules≥3条必须遵守+≥3条禁止行为", "Workflow步骤完整"]
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": ["Critical Rules不足", "Workflow步骤不完整"]
+        },
+        "poor": {
+          "score": 1,
+          "criteria": ["缺少Critical Rules", "缺少Workflow"]
+        }
+      }
+    },
+    {
+      "dimension": "独特个性",
+      "weight": "10%",
+      "score_levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": ["独特个性描述去模板化", "有明确的人设/风格/沟通方式", "与同类Skill有明显差异化"]
+        },
+        "good": {
+          "score": 4,
+          "criteria": ["独特个性有一定特色", "基本避免模板化"]
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": ["独特个性模板化", "与其他Skill相似"]
+        },
+        "poor": {
+          "score": 1,
+          "criteria": ["完全模板化描述", "无差异化"]
+        }
+      }
+    },
+    {
+      "dimension": "规范性",
+      "weight": "10%",
+      "score_levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": ["Frontmatter完整(name/description/trigger/difficulty等)", "目录结构规范(assess/evals/references)", "格式统一"]
+        },
+        "good": {
+          "score": 4,
+          "criteria": ["Frontmatter基本完整", "目录结构规范"]
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": ["Frontmatter不完整", "目录结构有缺失"]
+        },
+        "poor": {
+          "score": 1,
+          "criteria": ["缺少Frontmatter", "目录结构混乱"]
+        }
+      }
+    }
+  ],
+  "pass_threshold": {
+    "total_score": "≥85分(满分100)",
+    "各维度最低要求": "每个维度至少达到acceptable(3分)"
+  },
+  "evaluation_notes": [
+    "评估时优先检查各维度的score_levels对应情况",
+    "总分=各维度权重×得分之和",
+    "任何维度得1分视为不通过"
+  ]
+}

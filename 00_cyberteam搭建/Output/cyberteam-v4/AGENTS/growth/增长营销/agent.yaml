@@ -1,0 +1,28 @@
+name: 增长营销
+department: growth
+layer: execution
+model: main_llm
+daily_budget: 8.0
+tools:
+- web_search
+- write_file
+- read_file
+- call_subagent
+skills:
+- 增长逻辑梳理法
+- 漏斗分析法
+- A/B测试设计
+subordinates: []
+triggers:
+  keywords:
+  - 增长
+  - 拉新
+  - 获客
+  - 增长黑客
+  - 增长策略
+  task_types:
+  - growth_strategy
+  - user_acquisition
+approval_required:
+- publish_content
+- budget_exceed_5usd

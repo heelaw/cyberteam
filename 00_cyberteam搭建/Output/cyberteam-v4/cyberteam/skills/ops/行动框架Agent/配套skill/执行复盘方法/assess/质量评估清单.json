@@ -1,0 +1,219 @@
+{
+  "skill_name": "执行复盘方法",
+  "version": "1.0",
+  "created": "2026-03-20",
+  "updated": "2026-03-20",
+  "assessment_dimensions": [
+    {
+      "dimension": "完整性",
+      "weight": 0.20,
+      "description": "复盘是否覆盖所有必要环节",
+      "criteria": [
+        {
+          "id": "C1",
+          "description": "目标回顾完整",
+          "levels": {
+            "excellent": "准确还原原始目标和实际结果，数据清晰",
+            "good": "目标回顾基本完整",
+            "acceptable": "目标回顾有缺失",
+            "poor": "没有目标回顾"
+          }
+        },
+        {
+          "id": "C2",
+          "description": "过程分析全面",
+          "levels": {
+            "excellent": "覆盖执行全过程，关键节点无遗漏",
+            "good": "过程分析基本完整",
+            "acceptable": "过程分析有缺失",
+            "poor": "缺少过程分析"
+          }
+        },
+        {
+          "id": "C3",
+          "description": "改进计划具体",
+          "levels": {
+            "excellent": "有具体的下次改进行动和负责人",
+            "good": "有基本改进计划",
+            "acceptable": "改进计划较为笼统",
+            "poor": "没有改进计划"
+          }
+        }
+      ]
+    },
+    {
+      "dimension": "实用性",
+      "weight": 0.20,
+      "description": "复盘结果是否能指导后续行动",
+      "criteria": [
+        {
+          "id": "P1",
+          "description": "失败原因分析深入",
+          "levels": {
+            "excellent": "能深入分析执行过程中的关键问题，找到根因",
+            "good": "原因分析较为深入",
+            "acceptable": "原因分析较为表面",
+            "poor": "原因分析浮于表面"
+          }
+        },
+        {
+          "id": "P2",
+          "description": "可复用规律提炼",
+          "levels": {
+            "excellent": "能提炼出可复用的失败教训或成功规律",
+            "good": "有一定规律提炼",
+            "acceptable": "规律提炼有限",
+            "poor": "没有规律提炼"
+          }
+        },
+        {
+          "id": "P3",
+          "description": "区分内因外因",
+          "levels": {
+            "excellent": "能区分内因和外因的贡献度",
+            "good": "基本区分内因外因",
+            "acceptable": "区分不够清晰",
+            "poor": "没有区分"
+          }
+        }
+      ]
+    },
+    {
+      "dimension": "专业性",
+      "weight": 0.20,
+      "description": "复盘方法是否专业系统",
+      "criteria": [
+        {
+          "id": "S1",
+          "description": "成功/失败因素识别准确",
+          "levels": {
+            "excellent": "能识别出真正的关键成功/失败因素",
+            "good": "因素识别基本准确",
+            "acceptable": "因素识别有偏差",
+            "poor": "因素识别错误"
+          }
+        },
+        {
+          "id": "S2",
+          "description": "区分实力和运气",
+          "levels": {
+            "excellent": "能区分运气成分和实力成分",
+            "good": "基本能区分",
+            "acceptable": "区分不够清晰",
+            "poor": "没有区分"
+          }
+        },
+        {
+          "id": "S3",
+          "description": "数据支撑分析",
+          "levels": {
+            "excellent": "用数据说话，分析有据可依",
+            "good": "有一定数据支撑",
+            "acceptable": "数据支撑较弱",
+            "poor": "缺乏数据支撑"
+          }
+        }
+      ]
+    },
+    {
+      "dimension": "严谨性",
+      "weight": 0.20,
+      "description": "复盘过程是否严谨",
+      "criteria": [
+        {
+          "id": "R1",
+          "description": "客观还原事实",
+          "levels": {
+            "excellent": "客观还原事实，不带主观臆断",
+            "good": "基本客观",
+            "acceptable": "存在主观偏差",
+            "poor": "严重主观臆断"
+          }
+        },
+        {
+          "id": "R2",
+          "description": "避免归因错误",
+          "levels": {
+            "excellent": "避免基本归因错误，如把运气当能力",
+            "good": "基本避免归因错误",
+            "acceptable": "存在轻微归因错误",
+            "poor": "归因错误严重"
+          }
+        },
+        {
+          "id": "R3",
+          "description": "复盘结论可验证",
+          "levels": {
+            "excellent": "复盘结论可通过后续实践验证",
+            "good": "结论基本可验证",
+            "acceptable": "验证性较弱",
+            "poor": "无法验证"
+          }
+        }
+      ]
+    },
+    {
+      "dimension": "独特个性",
+      "weight": 0.10,
+      "description": "是否有独特价值",
+      "criteria": [
+        {
+          "id": "U1",
+          "description": "找到改进方向",
+          "levels": {
+            "excellent": "能找到具体可执行的改进方向",
+            "good": "有改进方向",
+            "acceptable": "改进方向模糊",
+            "poor": "没有改进方向"
+          }
+        },
+        {
+          "id": "U2",
+          "description": "有放大成功计划",
+          "levels": {
+            "excellent": "对成功案例有明确的放大计划",
+            "good": "有基本放大计划",
+            "acceptable": "放大计划较弱",
+            "poor": "没有放大计划"
+          }
+        }
+      ]
+    },
+    {
+      "dimension": "规范性",
+      "weight": 0.10,
+      "description": "输出格式是否规范",
+      "criteria": [
+        {
+          "id": "N1",
+          "description": "使用标准复盘模板",
+          "levels": {
+            "excellent": "完全按照复盘模板格式输出",
+            "good": "基本按照模板格式",
+            "acceptable": "格式基本规范",
+            "poor": "格式混乱"
+          }
+        },
+        {
+          "id": "N2",
+          "description": "结构清晰可读",
+          "levels": {
+            "excellent": "结构层次分明，易读性强",
+            "good": "结构较为清晰",
+            "acceptable": "结构基本可读",
+            "poor": "结构混乱"
+          }
+        }
+      ]
+    }
+  ],
+  "scoring_guide": {
+    "excellent": 5,
+    "good": 4,
+    "acceptable": 3,
+    "poor": 1
+  },
+  "pass_threshold": 85,
+  "max_score": 100,
+  "calculation_method": "各维度得分乘以权重后累加，满分100分"
+}

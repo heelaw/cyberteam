@@ -1,1 +1,0 @@
-"""CyberTeam Backend Application."""

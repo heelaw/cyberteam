@@ -1,0 +1,235 @@
+{
+  "skill_name": "产品问题诊断",
+  "version": "1.0.0",
+  "assess_date": "2026-03-19",
+  "assessor": "系统评估",
+  "quality_dimension": [
+    {
+      "dimension": "完整性",
+      "weight": 20,
+      "description": "评估问题诊断框架的完整程度",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "五步诊断法完整，问题定义清晰，多维度拆分全面"
+        },
+        "good": {
+          "score": 4,
+          "description": "五步诊断法基本完整，有轻微遗漏"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "部分步骤缺失，但核心框架完整"
+        },
+        "poor": {
+          "score": 1,
+          "description": "诊断框架严重缺失"
+        }
+      },
+      "criteria": [
+        "是否包含问题定义（现象/范围/严重程度）",
+        "是否有多维度拆分（时间/渠道/用户/功能）",
+        "是否有定位问题和提出假设",
+        "是否有验证和解决方案"
+      ]
+    },
+    {
+      "dimension": "实用性",
+      "weight": 20,
+      "description": "评估解决方案的可执行性和落地价值",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "方案具体可执行，有明确优先级和时间预期"
+        },
+        "good": {
+          "score": 4,
+          "description": "方案较具体，有优先级"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "方案方向正确但较模糊"
+        },
+        "poor": {
+          "score": 1,
+          "description": "方案空洞无法落地"
+        }
+      },
+      "criteria": [
+        "每个问题是否有对应的解决方案",
+        "方案是否有明确优先级（P0/P1/P2）",
+        "方案是否有可量化的预期效果"
+      ]
+    },
+    {
+      "dimension": "专业性",
+      "weight": 20,
+      "description": "评估归因分析的准确性和专业性",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "归因逻辑严密，多维度分析，根因验证方案完整"
+        },
+        "good": {
+          "score": 4,
+          "description": "归因逻辑较清晰，有一定分析深度"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "归因有偏差但基本合理"
+        },
+        "poor": {
+          "score": 1,
+          "description": "归因简单粗暴，逻辑混乱"
+        }
+      },
+      "criteria": [
+        "假设是否有数据支撑",
+        "归因是否避免单一化",
+        "是否有根因验证方案"
+      ]
+    },
+    {
+      "dimension": "严谨性",
+      "weight": 20,
+      "description": "评估分析过程的逻辑严密性和客观性",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "分析逻辑严密，客观公正，能识别排除因素"
+        },
+        "good": {
+          "score": 4,
+          "description": "分析逻辑较严密，基本客观"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "分析逻辑有漏洞但整体可接受"
+        },
+        "poor": {
+          "score": 1,
+          "description": "分析逻辑混乱，存在明显偏见"
+        }
+      },
+      "criteria": [
+        "是否识别并排除干扰因素",
+        "问题严重程度判断是否准确",
+        "是否避免问题扩大化"
+      ]
+    },
+    {
+      "dimension": "独特个性",
+      "weight": 10,
+      "description": "评估是否体现诊断专业见解",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "有独特见解，能发现隐藏的根本原因"
+        },
+        "good": {
+          "score": 4,
+          "description": "有部分独到见解"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "见解较常规但合理"
+        },
+        "poor": {
+          "score": 1,
+          "description": "缺乏独特见解"
+        }
+      },
+      "criteria": [
+        "是否能发现常规分析忽略的问题",
+        "是否有独特的分析视角"
+      ]
+    },
+    {
+      "dimension": "规范性",
+      "weight": 10,
+      "description": "评估输出格式和Critical Rules的规范性",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "格式规范，Critical Rules完整，Workflow Steps标准"
+        },
+        "good": {
+          "score": 4,
+          "description": "格式规范，Critical Rules较完整"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "格式基本规范，有部分缺失"
+        },
+        "poor": {
+          "score": 1,
+          "description": "格式混乱，Critical Rules严重缺失"
+        }
+      },
+      "criteria": [
+        "输出格式是否符合标准模板",
+        "Critical Rules是否≥5条必须遵守+≥5条禁止行为",
+        "Workflow Steps是否包含输入/处理/输出/成功标准"
+      ]
+    }
+  ],
+  "quality_score": {
+    "total_score": 100,
+    "pass_threshold": 85,
+    "excellent": [90, 100],
+    "good": [85, 89],
+    "acceptable": [70, 84],
+    "poor": [0, 69]
+  },
+  "critical_rules_check": {
+    "description": "Critical Rules检查清单",
+    "rules": [
+      {
+        "rule": "先明确定义问题",
+        "check_item": "问题边界、影响范围、严重程度是否清晰",
+        "pass_condition": "三要素齐全"
+      },
+      {
+        "rule": "必须多维度拆分",
+        "check_item": "时间/渠道/用户/功能四维度是否都有分析",
+        "pass_condition": "四维度缺一不可"
+      },
+      {
+        "rule": "假设必须有数据支撑",
+        "check_item": "每个假设是否有数据依据",
+        "pass_condition": "数据说话"
+      },
+      {
+        "rule": "结论必须可验证",
+        "check_item": "是否有验证方案和监控指标",
+        "pass_condition": "可追踪"
+      },
+      {
+        "rule": "归因不能单一化",
+        "check_item": "是否考虑了多重因素",
+        "pass_condition": "避免简单归因"
+      }
+    ]
+  },
+  "forbidden_check": {
+    "description": "禁止行为检查",
+    "items": [
+      "禁止简单归因于单一因素",
+      "禁止不验证假设就下结论",
+      "禁止忽视外部因素",
+      "禁止只看负面不看正向",
+      "禁止问题扩大化",
+      "禁止建议空泛不具体"
+    ]
+  },
+  "output_standard": {
+    "must_include": [
+      "一、明确现象（数据表现/影响范围/时间范围）",
+      "二、拆分维度（时间/渠道/用户/功能四维度）",
+      "三、定位问题（问题类型/焦点/排除因素）",
+      "四、提出假设（假设清单/验证方案）",
+      "五、验证解决（根因确认/解决方案/监控指标）"
+    ],
+    "format_requirement": "五步诊断法必须完整，归因必须有数据支撑"
+  }
+}

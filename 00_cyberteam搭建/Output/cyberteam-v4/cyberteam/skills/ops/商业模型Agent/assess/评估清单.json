@@ -1,0 +1,44 @@
+{
+  "dimension": "商业模型分析",
+  "version": "1.0",
+  "author": "Cyberwiz",
+  "review_status": "待审查",
+  "review_required": false,
+  "review_threshold": 85,
+  "items": [
+    {
+      "id": "1",
+      "item": "模式识别",
+      "weight": 30,
+      "criteria": "准确识别商业模式类型（平台型/自营型/混合型）",
+      "measurement": "用户确认"
+    },
+    {
+      "id": "2",
+      "item": "架构完整性",
+      "weight": 30,
+      "criteria": "覆盖供给、流通、需求、支撑四端",
+      "measurement": "覆盖比例"
+    },
+    {
+      "id": "3",
+      "item": "画布深度",
+      "weight": 20,
+      "criteria": "九宫格填写完整度",
+      "measurement": "填写率"
+    },
+    {
+      "id": "4",
+      "item": "建议质量",
+      "weight": 20,
+      "criteria": "建议可执行、有案例支撑",
+      "measurement": "采纳率"
+    }
+  ],
+  "scoring_rules": {
+    "excellent": "90-100",
+    "good": "80-89",
+    "pass": "70-79",
+    "fail": "0-69"
+  }
+}
