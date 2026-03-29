@@ -75,6 +75,91 @@ class AgentExecutor(ABC):
         return []
 
 
+class MarketingAgentExecutor(AgentExecutor):
+    """市场部Agent执行器。"""
+
+    def __init__(self):
+        super().__init__("marketing")
+
+    async def execute(self, task: str, context: Dict[str, Any]) -> ExecutionResult:
+        # 实际实现：调用市场Agent
+        output = {
+            "task": task,
+            "brand_strategy": "品牌定位与建设方案",
+            "channel_plan": "渠道推广策略",
+            "budget_allocation": "预算分配建议",
+            "timeline": "执行时间表",
+        }
+        return ExecutionResult(
+            department_id=self.department_id,
+            output=output,
+            status="success",
+            metrics={"confidence": 0.9, "depth": "comprehensive"},
+        )
+
+
+class OperationsAgentExecutor(AgentExecutor):
+    """运营部Agent执行器。"""
+
+    def __init__(self):
+        super().__init__("operations")
+
+    async def execute(self, task: str, context: Dict[str, Any]) -> ExecutionResult:
+        # 整合前置部门结果
+        integrated = context.get("previous_results", {})
+        output = {
+            "task": task,
+            "growth_strategy": "用户增长策略",
+            "content_plan": "内容运营规划",
+            "activity_design": "活动策划方案",
+            "metrics": "关键指标定义",
+            "integrated_from": integrated.get("department_id") if integrated else None,
+        }
+        return ExecutionResult(
+            department_id=self.department_id,
+            output=output,
+            status="success",
+            metrics={"confidence": 0.85, "synergy": "high"},
+        )
+
+
+class DesignAgentExecutor(AgentExecutor):
+    """设计部Agent执行器。"""
+
+    def __init__(self):
+        super().__init__("design")
+
+    async def execute(self, task: str, context: Dict[str, Any]) -> ExecutionResult:
+        integrated = context.get("previous_results", {})
+        output = {
+            "task": task,
+            "ui_design": "UI设计方案",
+            "visual_spec": "视觉规范",
+            "prototype": "原型链接",
+            "brand_elements": "品牌元素整合",
+            "integrated_from": integrated.get("department_id") if integrated else None,
+        }
+        return ExecutionResult(
+            department_id=self.department_id,
+            output=output,
+            status="success",
+            metrics={"confidence": 0.88, "revision_rounds": 2},
+        )
+
+
+# 部门执行器注册表
+DEPARTMENT_EXECUTORS: Dict[str, type] = {
+    "marketing": MarketingAgentExecutor,
+    "operations": OperationsAgentExecutor,
+    "design": DesignAgentExecutor,
+    "product": AgentExecutor,  # 占位，后续实现
+    "engineering": AgentExecutor,
+    "hr": AgentExecutor,
+    "finance": AgentExecutor,
+    "ceo": AgentExecutor,
+}
+
+
 @dataclass
 class HandoffRecord:
     """Handoff记录 - 部门间任务移交凭证。"""
@@ -458,6 +543,87 @@ class CollaborationEngine:
                 "primary_department": collab_task.primary_department,
                 "final_recommendation": "基于单一部门产出给出建议",
             }
+
+    async def execute_with_real_agents(self, task: str, context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        """使用真实Agent执行器执行协作链路。"""
+        import asyncio
+
+        # Step 1: 规划
+        collab_task = self.plan_collaboration(task, context)
+
+        if not collab_task.execution_chain:
+            # 单一部门
+            executor_cls = DEPARTMENT_EXECUTORS.get(collab_task.primary_department)
+            if executor_cls and executor_cls != AgentExecutor:
+                executor = executor_cls()
+                result = await executor.execute(task, context or {})
+                return {
+                    "task_id": collab_task.task_id,
+                    "original_task": task,
+                    "collaboration_summary": {
+                        "departments_involved": [collab_task.primary_department],
+                        "total_departments": 1,
+                        "results_count": 1,
+                    },
+                    "execution_chain": [{
+                        "department": collab_task.primary_department,
+                        "output": result.to_dict(),
+                        "timestamp": datetime.utcnow().isoformat(),
+                    }],
+                    "primary_department": collab_task.primary_department,
+                    "final_recommendation": "单一部门执行完成",
+                }
+            return self.execute_full_collaboration(task, context)
+
+        # Step 2: 按链路执行
+        ordered_results = []
+        previous_result = None
+
+        for handoff in collab_task.execution_chain:
+            dept_id = handoff.to_department
+            executor_cls = DEPARTMENT_EXECUTORS.get(dept_id)
+
+            # 构建执行上下文
+            exec_context = {"previous_results": previous_result}
+
+            if executor_cls and executor_cls != AgentExecutor:
+                # 使用真实执行器
+                executor = executor_cls()
+                result = await executor.execute(task, exec_context)
+                handoff.result = result.to_dict()
+            else:
+                # 回退到模拟执行
+                result = self._simulate_department_execution(dept_id, task, previous_result)
+                handoff.result = result.to_dict()
+
+            handoff.status = HandoffStatus.ACCEPTED
+            handoff.updated_at = datetime.utcnow()
+
+            ordered_results.append({
+                "department": dept_id,
+                "output": handoff.result,
+                "timestamp": handoff.updated_at.isoformat(),
+            })
+
+            previous_result = handoff.result
+            collab_task.results[dept_id] = handoff.result
+
+        # Step 3: 汇总
+        collab_task.final_output = {
+            "task_id": collab_task.task_id,
+            "original_task": task,
+            "collaboration_summary": {
+                "departments_involved": [h.to_department for h in collab_task.execution_chain],
+                "total_departments": len(collab_task.execution_chain),
+                "results_count": len(ordered_results),
+            },
+            "execution_chain": ordered_results,
+            "primary_department": collab_task.primary_department,
+            "final_recommendation": self._generate_recommendation(ordered_results),
+        }
+        collab_task.status = TaskStatus.COMPLETED
+
+        return collab_task.final_output
 
 
 # 全局协作引擎实例

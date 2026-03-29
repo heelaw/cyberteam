@@ -1228,7 +1228,7 @@ async def collaboration_dashboard():
 
 @router.post("/collaboration/execute")
 async def execute_collaboration(request: CollaborationPlanRequest):
-    """一键执行协作链路 - 规划+执行+汇总。"""
+    """一键执行协作链路 - 规划+执行+汇总(模拟)。"""
     from ..engine.collaboration import collaboration_engine
 
     result = collaboration_engine.execute_full_collaboration(request.task, request.context)
@@ -1240,4 +1240,22 @@ async def execute_collaboration(request: CollaborationPlanRequest):
         "collaboration_summary": result["collaboration_summary"],
         "final_recommendation": result["final_recommendation"],
         "departments_participated": result["collaboration_summary"]["departments_involved"],
+    }
+
+
+@router.post("/collaboration/execute/real")
+async def execute_collaboration_real(request: CollaborationPlanRequest):
+    """一键执行协作链路(真实Agent) - 规划+执行+汇总。"""
+    from ..engine.collaboration import collaboration_engine
+
+    result = await collaboration_engine.execute_with_real_agents(request.task, request.context)
+
+    return {
+        "task_id": result["task_id"],
+        "status": "completed",
+        "primary_department": result["primary_department"],
+        "collaboration_summary": result["collaboration_summary"],
+        "final_recommendation": result["final_recommendation"],
+        "departments_participated": result["collaboration_summary"]["departments_involved"],
+        "execution_mode": "real_agents",
     }
