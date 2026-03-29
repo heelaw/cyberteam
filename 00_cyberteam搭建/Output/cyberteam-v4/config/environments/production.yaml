@@ -1,0 +1,91 @@
+# CyberTeam V4 - Production Environment Configuration
+
+environment:
+  name: production
+  type: production
+  debug: false
+
+# Application Settings
+app:
+  name: cyberteam
+  version: "4.0.0"
+  log_level: INFO
+  workers: 4
+
+# Server Configuration
+server:
+  host: 0.0.0.0
+  port: 8000
+  reload: false
+  access_log: true
+
+# Database Settings
+database:
+  type: postgresql  # Use PostgreSQL in production
+  host: ${DB_HOST}
+  port: 5432
+  name: ${DB_NAME}
+  user: ${DB_USER}
+  password: ${DB_PASSWORD}
+  pool_size: 20
+  max_overflow: 40
+  ssl_mode: require
+
+# Redis Cache
+redis:
+  enabled: true
+  host: ${REDIS_HOST}
+  port: 6379
+  password: ${REDIS_PASSWORD}
+  db: 0
+  tls: true
+
+# Agent Configuration
+agents:
+  max_concurrent: 50
+  timeout: 600
+  retry_attempts: 3
+
+# Security Settings
+security:
+  secret_key: ${SECRET_KEY}
+  cors_origins:
+    - https://cyberteam.example.com
+  rate_limit:
+    enabled: true
+    requests_per_minute: 60
+    burst: 100
+  api_key_required: true
+
+# Monitoring & Logging
+monitoring:
+  enabled: true
+  metrics_port: 9090
+  health_check_interval: 15
+  tracing:
+    enabled: true
+    sampling_rate: 0.05
+  alerts:
+    enabled: true
+    webhook: ${ALERT_WEBHOOK}
+
+# Feature Flags
+features:
+  experimental_agents: false
+  debug_mode: false
+  verbose_logging: false
+  performance_monitoring: true
+
+# Backup & Recovery
+backup:
+  enabled: true
+  schedule: "0 2 * * *"  # Daily at 2 AM
+  retention_days: 30
+
+# Scaling
+autoscaling:
+  enabled: true
+  min_replicas: 2
+  max_replicas: 10
+  target_cpu_percent: 70
+  target_memory_percent: 80

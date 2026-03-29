@@ -1,0 +1,67 @@
+# CyberTeam V4 - Staging Environment Configuration
+
+environment:
+  name: staging
+  type: development
+  debug: true
+
+# Application Settings
+app:
+  name: cyberteam-staging
+  version: "4.0.0"
+  log_level: DEBUG
+  workers: 2
+
+# Server Configuration
+server:
+  host: 0.0.0.0
+  port: 8000
+  reload: true
+  access_log: true
+
+# Database Settings
+database:
+  type: sqlite
+  path: /app/data/cyberteam-staging.db
+  pool_size: 5
+  max_overflow: 10
+
+# Redis Cache (optional)
+redis:
+  enabled: false
+  host: localhost
+  port: 6379
+  db: 0
+
+# Agent Configuration
+agents:
+  max_concurrent: 10
+  timeout: 300
+  retry_attempts: 3
+
+# Security Settings
+security:
+  secret_key: ${STAGING_SECRET_KEY}
+  cors_origins:
+    - http://localhost:3000
+    - http://localhost:8000
+    - https://staging.cyberteam.example.com
+  rate_limit:
+    enabled: true
+    requests_per_minute: 100
+
+# Monitoring & Logging
+monitoring:
+  enabled: true
+  metrics_port: 9090
+  health_check_interval: 30
+  tracing:
+    enabled: false
+    sampling_rate: 0.1
+
+# Feature Flags
+features:
+  experimental_agents: true
+  debug_mode: true
+  verbose_logging: true
+  performance_monitoring: true

@@ -1,0 +1,22 @@
+# CyberTeam V4 Configuration
+
+## Environment
+environment: development
+
+## Deployment
+deployment:
+  target: local
+  auto_deploy: false
+
+## Pipeline
+pipeline:
+  validate: true
+  lint: true
+  test: true
+  build: false
+  deploy: false
+
+## Monitoring
+monitoring:
+  enabled: false
+  logging_level: INFO
