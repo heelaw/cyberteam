@@ -26,6 +26,12 @@ from .tools.workspace import (
     workspace_cross_branch_log,
     workspace_file_owners,
 )
+from .tools.sessions import (
+    sessions_spawn,
+    sessions_send,
+    sessions_list,
+    sessions_stop,
+)
 
 # 导出 Tool 类
 from .client import MCPClient
@@ -59,6 +65,10 @@ TOOL_FUNCTIONS = [
     workspace_file_owners,
     workspace_cross_branch_log,
     workspace_agent_summary,
+    sessions_spawn,
+    sessions_send,
+    sessions_list,
+    sessions_stop,
 ]
 
 __all__ = ["TOOL_FUNCTIONS", "MCPClient", "MCPServerManager", "ToolRegistry"]
