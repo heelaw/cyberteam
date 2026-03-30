@@ -10,6 +10,7 @@ from pydantic import BaseModel, Field
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from ..db import get_db
+from ..auth.dependencies import get_current_user, get_optional_user
 
 log = logging.getLogger("cyberteam.api.agents")
 router = APIRouter()
@@ -349,7 +350,10 @@ _custom_agents: Dict[str, dict] = {}
 
 
 @router.post("", status_code=201)
-async def create_agent(agent: AgentCreate):
+async def create_agent(
+    agent: AgentCreate,
+    current_user: dict = Depends(get_current_user),
+):
     """创建新 Agent"""
     # 检查是否已存在
     if agent.agent_id in EXPERT_FRAMEWORKS or agent.agent_id in DEPARTMENTS:
@@ -373,7 +377,11 @@ async def create_agent(agent: AgentCreate):
 
 
 @router.put("/{agent_id}")
-async def update_agent(agent_id: str, agent: AgentUpdate):
+async def update_agent(
+    agent_id: str,
+    agent: AgentUpdate,
+    current_user: dict = Depends(get_current_user),
+):
     """更新指定 Agent"""
     # 检查是否为系统 Agent（不允许修改）
     if agent_id in EXPERT_FRAMEWORKS or agent_id in DEPARTMENTS:
@@ -394,7 +402,10 @@ async def update_agent(agent_id: str, agent: AgentUpdate):
 
 
 @router.delete("/{agent_id}", status_code=204)
-async def delete_agent(agent_id: str):
+async def delete_agent(
+    agent_id: str,
+    current_user: dict = Depends(get_current_user),
+):
     """删除指定 Agent"""
     # 检查是否为系统 Agent（不允许删除）
     if agent_id in EXPERT_FRAMEWORKS or agent_id in DEPARTMENTS:

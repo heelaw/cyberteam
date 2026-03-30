@@ -755,6 +755,31 @@ class Subscription(Base):
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
 
+class AgentSkill(Base):
+    """Agent-Skill 关联表（持久化）。"""
+    __tablename__ = "agent_skills"
+    __table_args__ = (
+        Index("ix_agent_skill_agent", "agent_code"),
+        Index("ix_agent_skill_skill", "skill_code"),
+    )
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    agent_code: Mapped[str] = mapped_column(String(100), nullable=False)
+    skill_code: Mapped[str] = mapped_column(String(100), nullable=False)
+    company_id: Mapped[Optional[str]] = mapped_column(String(100), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+
+    def to_dict(self):
+        """转换为字典。"""
+        return {
+            "id": self.id,
+            "agent_code": self.agent_code,
+            "skill_code": self.skill_code,
+            "company_id": self.company_id,
+            "created_at": self.created_at.isoformat() if self.created_at else None,
+        }
+
+
 class SealRejection(Base):
     """审核记录表 - 内容审核（含自动合规检查）。"""
     __tablename__ = "seal_rejections"
@@ -788,4 +813,38 @@ class SealRejection(Base):
             "notes": self.notes,
             "created_at": self.created_at.isoformat() if self.created_at else None,
             "updated_at": self.updated_at.isoformat() if self.updated_at else None,
+        }
+
+
+# ── 审计日志 ──
+
+
+class AuditLog(Base):
+    """审计日志表。"""
+    __tablename__ = "audit_logs"
+
+    id: Mapped[str] = mapped_column(String(64), primary_key=True, default=lambda: str(uuid.uuid4()))
+    company_id: Mapped[Optional[str]] = mapped_column(String(100), nullable=True, index=True)
+    user_id: Mapped[Optional[str]] = mapped_column(String(100), nullable=True, index=True)
+    action: Mapped[str] = mapped_column(String(50))  # CREATE/UPDATE/DELETE/BIND/UNBIND
+    resource_type: Mapped[str] = mapped_column(String(50))  # company/department/agent/skill/team
+    resource_id: Mapped[str] = mapped_column(String(100), index=True)
+    resource_name: Mapped[Optional[str]] = mapped_column(String(200), nullable=True)
+    detail: Mapped[Optional[str]] = mapped_column(Text, nullable=True)  # JSON详情
+    ip_address: Mapped[Optional[str]] = mapped_column(String(50), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+
+    def to_dict(self):
+        """转换为字典。"""
+        return {
+            "id": self.id,
+            "company_id": self.company_id,
+            "user_id": self.user_id,
+            "action": self.action,
+            "resource_type": self.resource_type,
+            "resource_id": self.resource_id,
+            "resource_name": self.resource_name,
+            "detail": self.detail,
+            "ip_address": self.ip_address,
+            "created_at": self.created_at.isoformat() if self.created_at else None,
         }

@@ -100,6 +100,44 @@ class ExecuteSkillResponse(BaseModel):
     result: dict
 
 
+# === Agent-Skill 绑定内存索引 ===
+# agent_code -> list of skill_codes
+_agent_skill_records: dict[str, list[str]] = {}
+# skill_code -> list of agent_codes
+_skill_agent_records: dict[str, list[str]] = {}
+
+
+def _sync_skill_agent_records(agent_code: str, skill_codes: list[str]) -> None:
+    """同步 skill-agent 记录到内存索引。"""
+    _agent_skill_records[agent_code] = list(skill_codes)
+    for skill_code in skill_codes:
+        if skill_code not in _skill_agent_records:
+            _skill_agent_records[skill_code] = []
+        if agent_code not in _skill_agent_records[skill_code]:
+            _skill_agent_records[skill_code].append(agent_code)
+
+
+def _add_binding(agent_code: str, skill_code: str) -> None:
+    """添加单个绑定到内存索引。"""
+    if agent_code not in _agent_skill_records:
+        _agent_skill_records[agent_code] = []
+    if skill_code not in _agent_skill_records[agent_code]:
+        _agent_skill_records[agent_code].append(skill_code)
+
+    if skill_code not in _skill_agent_records:
+        _skill_agent_records[skill_code] = []
+    if agent_code not in _skill_agent_records[skill_code]:
+        _skill_agent_records[skill_code].append(agent_code)
+
+
+def _remove_binding(agent_code: str, skill_code: str) -> None:
+    """从内存索引移除绑定。"""
+    if agent_code in _agent_skill_records and skill_code in _agent_skill_records[agent_code]:
+        _agent_skill_records[agent_code].remove(skill_code)
+    if skill_code in _skill_agent_records and agent_code in _skill_agent_records[skill_code]:
+        _skill_agent_records[skill_code].remove(agent_code)
+
+
 # === Routes ===
 
 @router.get("", response_model=List[SkillOut])
@@ -255,7 +293,25 @@ async def get_skill_agents(skill_code: str):
             detail=f"Skill {skill_code} 不存在",
         )
 
-    # 获取使用此 Skill 的所有 Agent
+    # 优先从内存索引获取，其次从 agent_store 遍历
+    if skill_code in _skill_agent_records:
+        agent_codes = _skill_agent_records[skill_code]
+        matching_agents = []
+        for agent_code in agent_codes:
+            agent = agent_store.get_agent(agent_code)
+            if agent:
+                matching_agents.append(
+                    AgentBriefOut(
+                        id=agent["id"],
+                        code=agent["code"],
+                        name=agent["name"],
+                        agent_type=agent.get("agent_type", "custom"),
+                        is_active=agent.get("is_active", True),
+                    )
+                )
+        return matching_agents
+
+    # 回退：从 agent_store 遍历
     all_agents = agent_store.list_agents()
     matching_agents = [
         AgentBriefOut(
@@ -270,6 +326,99 @@ async def get_skill_agents(skill_code: str):
     ]
 
     return matching_agents
+
+
+@router.post("/{skill_code}/agents/{agent_code}", status_code=status.HTTP_201_CREATED)
+async def bind_skill_to_agent(skill_code: str, agent_code: str):
+    """绑定 Skill 到 Agent（持久化到内存索引）"""
+    store = get_skill_store()
+    agent_store = get_agent_store()
+
+    # 验证 Skill 存在
+    skill = store.get_skill(skill_code)
+    if not skill:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Skill {skill_code} 不存在",
+        )
+
+    # 验证 Agent 存在
+    agent = agent_store.get_agent(agent_code)
+    if not agent:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Agent {agent_code} 不存在",
+        )
+
+    # 添加绑定到 AgentStore
+    updated_agent = agent_store.add_skill(agent_code, skill_code)
+    if not updated_agent:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="绑定失败",
+        )
+
+    # 同步到内存索引
+    _add_binding(agent_code, skill_code)
+
+    return {
+        "skill_code": skill_code,
+        "agent_code": agent_code,
+        "status": "bound",
+    }
+
+
+@router.delete("/{skill_code}/agents/{agent_code}")
+async def unbind_skill_from_agent(skill_code: str, agent_code: str):
+    """从 Agent 解绑 Skill"""
+    agent_store = get_agent_store()
+
+    # 验证 Agent 存在
+    agent = agent_store.get_agent(agent_code)
+    if not agent:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Agent {agent_code} 不存在",
+        )
+
+    # 从 AgentStore 移除绑定
+    updated_agent = agent_store.remove_skill(agent_code, skill_code)
+    if not updated_agent:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="解绑失败",
+        )
+
+    # 从内存索引移除
+    _remove_binding(agent_code, skill_code)
+
+    return {
+        "skill_code": skill_code,
+        "agent_code": agent_code,
+        "status": "unbound",
+    }
+
+
+@router.get("/agents/{agent_code}/skills")
+async def get_agent_skills(agent_code: str):
+    """获取 Agent 绑定的所有 Skill"""
+    agent_store = get_agent_store()
+
+    # 验证 Agent 存在
+    agent = agent_store.get_agent(agent_code)
+    if not agent:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Agent {agent_code} 不存在",
+        )
+
+    # 从内存索引获取，或从 agent_store 获取
+    skills = _agent_skill_records.get(agent_code, agent.get("skills", []))
+    return {
+        "agent_code": agent_code,
+        "skills": skills,
+        "count": len(skills),
+    }
 
 
 @router.post("/{skill_code}/execute", response_model=ExecuteSkillResponse)

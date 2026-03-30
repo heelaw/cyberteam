@@ -13,6 +13,7 @@ from sqlalchemy import select
 
 from ..db import get_db
 from ..models import Skill
+from ..auth.dependencies import get_current_user, get_optional_user
 
 log = logging.getLogger("cyberteam.api.skills")
 router = APIRouter()
@@ -123,11 +124,24 @@ async def get_skill(skill_id: str, db: AsyncSession = Depends(get_db)) -> SkillO
 
 
 @router.post("")
-async def create_skill(skill: SkillCreate, db: AsyncSession = Depends(get_db)) -> SkillOut:
+async def create_skill(
+    skill: SkillCreate,
+    current_user: dict = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+) -> SkillOut:
     """创建新技能。"""
     import uuid
     skill_id = skill.id or str(uuid.uuid4())
-    
+
+    # Fix6: Skill ID 唯一性验证
+    result = await db.execute(select(Skill).filter(Skill.id == skill_id))
+    existing = result.scalar_one_or_none()
+    if existing:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="Skill编码已存在"
+        )
+
     db_skill = Skill(
         id=skill_id,
         name=skill.name,
@@ -166,7 +180,12 @@ async def create_skill(skill: SkillCreate, db: AsyncSession = Depends(get_db)) -
 
 
 @router.put("/{skill_id}")
-async def update_skill(skill_id: str, skill: SkillUpdate, db: AsyncSession = Depends(get_db)) -> SkillOut:
+async def update_skill(
+    skill_id: str,
+    skill: SkillUpdate,
+    current_user: dict = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+) -> SkillOut:
     """更新技能信息。"""
     result = await db.execute(select(Skill).filter(Skill.id == skill_id))
     db_skill = result.scalar_one_or_none()
@@ -212,7 +231,11 @@ async def update_skill(skill_id: str, skill: SkillUpdate, db: AsyncSession = Dep
 
 
 @router.delete("/{skill_id}")
-async def delete_skill(skill_id: str, db: AsyncSession = Depends(get_db)) -> dict:
+async def delete_skill(
+    skill_id: str,
+    current_user: dict = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+) -> dict:
     """删除技能。"""
     result = await db.execute(select(Skill).filter(Skill.id == skill_id))
     skill = result.scalar_one_or_none()

@@ -22,6 +22,7 @@ from sqlalchemy import select, func, and_
 
 from ..db import get_db
 from ..models import Company, CompanyDepartment, CompanyAgent, CompanySkill, Subscription, Agent, Department
+from ..auth.dependencies import get_current_user, get_optional_user
 
 log = logging.getLogger("cyberteam.api.company")
 router = APIRouter()
@@ -388,6 +389,18 @@ async def create_company(body: CompanyCreate, db: AsyncSession = Depends(get_db)
     if existing:
         raise HTTPException(status_code=400, detail=f"Company already exists: {body.company_id}")
 
+    # Fix6: 公司名称唯一性验证
+    stmt = select(Company).filter(
+        and_(Company.name == body.name, Company.status == "active")
+    )
+    result = await db.execute(stmt)
+    existing_by_name = result.scalar_one_or_none()
+    if existing_by_name:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="公司名称已存在，请使用其他名称"
+        )
+
     company = Company(
         id=str(uuid.uuid4()),
         company_id=body.company_id,
@@ -407,7 +420,11 @@ async def create_company(body: CompanyCreate, db: AsyncSession = Depends(get_db)
 
 
 @router.get("/companies/{company_id}", response_model=CompanyOut)
-async def get_company(company_id: str, db: AsyncSession = Depends(get_db)):
+async def get_company(
+    company_id: str,
+    current_user: Optional[dict] = Depends(get_optional_user),
+    db: AsyncSession = Depends(get_db),
+):
     """获取公司详情。"""
     stmt = select(Company).filter(Company.company_id == company_id)
     result = await db.execute(stmt)
@@ -416,6 +433,11 @@ async def get_company(company_id: str, db: AsyncSession = Depends(get_db)):
     if not company:
         raise HTTPException(status_code=404, detail=f"Company not found: {company_id}")
 
+    # Fix5: 租户隔离 - 用户只能查看自己的公司
+    if current_user and current_user.get("company_id"):
+        if company.company_id != current_user["company_id"]:
+            raise HTTPException(status_code=403, detail="无权访问该公司")
+
     return CompanyOut(**company.to_dict())
 
 
@@ -423,9 +445,14 @@ async def get_company(company_id: str, db: AsyncSession = Depends(get_db)):
 async def update_company(
     company_id: str,
     body: CompanyUpdate,
+    current_user: dict = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
     """更新公司信息。"""
+    # Fix5: 租户隔离 - 验证用户所属公司
+    if current_user.get("company_id") and company_id != current_user["company_id"]:
+        raise HTTPException(status_code=403, detail="无权修改该公司")
+
     stmt = select(Company).filter(Company.company_id == company_id)
     result = await db.execute(stmt)
     company = result.scalar_one_or_none()
@@ -445,8 +472,16 @@ async def update_company(
 
 
 @router.delete("/companies/{company_id}", status_code=status.HTTP_204_NO_CONTENT)
-async def delete_company(company_id: str, db: AsyncSession = Depends(get_db)):
+async def delete_company(
+    company_id: str,
+    current_user: dict = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
     """删除公司 (软删除)。"""
+    # Fix5: 租户隔离 - 验证用户所属公司
+    if current_user.get("company_id") and company_id != current_user["company_id"]:
+        raise HTTPException(status_code=403, detail="无权删除该公司")
+
     stmt = select(Company).filter(Company.company_id == company_id)
     result = await db.execute(stmt)
     company = result.scalar_one_or_none()
@@ -497,7 +532,11 @@ async def get_org_chart(company_id: str, db: AsyncSession = Depends(get_db)):
 
 
 @router.post("/departments", status_code=status.HTTP_201_CREATED, response_model=CompanyDepartmentOut)
-async def subscribe_department(body: CompanyDepartmentCreate, db: AsyncSession = Depends(get_db)):
+async def subscribe_department(
+    body: CompanyDepartmentCreate,
+    current_user: dict = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
     """订阅部门市场中的部门。
 
     订阅后:
@@ -586,7 +625,11 @@ async def get_department_metadata_by_id(department_id: str):
 # ── 公司部门CRUD ──
 
 @router.get("/departments/{department_id}", response_model=CompanyDepartmentOut)
-async def get_company_department(department_id: str, db: AsyncSession = Depends(get_db)):
+async def get_company_department(
+    department_id: str,
+    current_user: Optional[dict] = Depends(get_optional_user),
+    db: AsyncSession = Depends(get_db),
+):
     """获取公司部门详情。"""
     stmt = select(CompanyDepartment).filter(CompanyDepartment.department_id == department_id)
     result = await db.execute(stmt)
@@ -602,6 +645,7 @@ async def get_company_department(department_id: str, db: AsyncSession = Depends(
 async def update_company_department(
     department_id: str,
     body: CompanyDepartmentUpdate,
+    current_user: dict = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
     """更新公司部门。"""
@@ -611,6 +655,10 @@ async def update_company_department(
 
     if not dept:
         raise HTTPException(status_code=404, detail=f"Department not found: {department_id}")
+
+    # Fix5: 租户隔离 - 验证部门所属公司
+    if current_user.get("company_id") and dept.company_id != current_user["company_id"]:
+        raise HTTPException(status_code=403, detail="无权修改该部门")
 
     update_data = body.model_dump(exclude_unset=True)
     for field, value in update_data.items():
@@ -624,7 +672,11 @@ async def update_company_department(
 
 
 @router.delete("/departments/{department_id}", status_code=status.HTTP_204_NO_CONTENT)
-async def unsubscribe_department(department_id: str, db: AsyncSession = Depends(get_db)):
+async def unsubscribe_department(
+    department_id: str,
+    current_user: dict = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
     """取消订阅部门 (软删除)。"""
     stmt = select(CompanyDepartment).filter(CompanyDepartment.department_id == department_id)
     result = await db.execute(stmt)
@@ -632,6 +684,10 @@ async def unsubscribe_department(department_id: str, db: AsyncSession = Depends(
 
     if not dept:
         raise HTTPException(status_code=404, detail=f"Department not found: {department_id}")
+
+    # Fix5: 租户隔离 - 验证部门所属公司
+    if current_user.get("company_id") and dept.company_id != current_user["company_id"]:
+        raise HTTPException(status_code=403, detail="无权删除该部门")
 
     dept.status = "inactive"
 
@@ -649,7 +705,11 @@ async def unsubscribe_department(department_id: str, db: AsyncSession = Depends(
 
 
 @router.post("/agents", status_code=status.HTTP_201_CREATED, response_model=CompanyAgentOut)
-async def create_company_agent(body: CompanyAgentCreate, db: AsyncSession = Depends(get_db)):
+async def create_company_agent(
+    body: CompanyAgentCreate,
+    current_user: dict = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
     """为公司的部门分配Agent。
 
     从Agent市场选择Agent，分配到公司部门。
@@ -700,9 +760,15 @@ async def create_company_agent(body: CompanyAgentCreate, db: AsyncSession = Depe
 async def list_company_agents(
     company_id: str,
     department_id: Optional[str] = Query(None, description="按部门过滤"),
+    current_user: Optional[dict] = Depends(get_optional_user),
     db: AsyncSession = Depends(get_db),
 ):
     """获取公司的所有Agent。"""
+    # Fix5: 租户隔离
+    if current_user and current_user.get("company_id"):
+        if company_id != current_user["company_id"]:
+            raise HTTPException(status_code=403, detail="无权访问该公司")
+
     stmt = select(CompanyAgent).filter(
         and_(CompanyAgent.company_id == company_id, CompanyAgent.status == "active")
     )
@@ -714,7 +780,11 @@ async def list_company_agents(
 
 
 @router.get("/agents/{agent_id}", response_model=CompanyAgentOut)
-async def get_company_agent(agent_id: str, db: AsyncSession = Depends(get_db)):
+async def get_company_agent(
+    agent_id: str,
+    current_user: Optional[dict] = Depends(get_optional_user),
+    db: AsyncSession = Depends(get_db),
+):
     """获取Agent详情。"""
     stmt = select(CompanyAgent).filter(CompanyAgent.agent_id == agent_id)
     result = await db.execute(stmt)
@@ -730,6 +800,7 @@ async def get_company_agent(agent_id: str, db: AsyncSession = Depends(get_db)):
 async def update_company_agent(
     agent_id: str,
     body: CompanyAgentUpdate,
+    current_user: dict = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
     """更新Agent信息。"""
@@ -739,6 +810,10 @@ async def update_company_agent(
 
     if not agent:
         raise HTTPException(status_code=404, detail=f"Agent not found: {agent_id}")
+
+    # Fix5: 租户隔离 - 验证Agent所属公司
+    if current_user.get("company_id") and agent.company_id != current_user["company_id"]:
+        raise HTTPException(status_code=403, detail="无权修改该Agent")
 
     update_data = body.model_dump(exclude_unset=True)
 
@@ -766,7 +841,11 @@ async def update_company_agent(
 
 
 @router.delete("/agents/{agent_id}", status_code=status.HTTP_204_NO_CONTENT)
-async def delete_company_agent(agent_id: str, db: AsyncSession = Depends(get_db)):
+async def delete_company_agent(
+    agent_id: str,
+    current_user: dict = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
     """删除Agent (软删除)。"""
     stmt = select(CompanyAgent).filter(CompanyAgent.agent_id == agent_id)
     result = await db.execute(stmt)
@@ -774,6 +853,10 @@ async def delete_company_agent(agent_id: str, db: AsyncSession = Depends(get_db)
 
     if not agent:
         raise HTTPException(status_code=404, detail=f"Agent not found: {agent_id}")
+
+    # Fix5: 租户隔离 - 验证Agent所属公司
+    if current_user.get("company_id") and agent.company_id != current_user["company_id"]:
+        raise HTTPException(status_code=403, detail="无权删除该Agent")
 
     agent.status = "inactive"
     await db.commit()
@@ -998,7 +1081,11 @@ async def test_ceo_route(body: RouteTestRequest):
 
 
 @router.post("/subscriptions", status_code=status.HTTP_201_CREATED, response_model=SubscriptionOut)
-async def create_subscription(body: SubscriptionCreate, db: AsyncSession = Depends(get_db)):
+async def create_subscription(
+    body: SubscriptionCreate,
+    current_user: dict = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
     """创建订阅记录。
 
     记录用户对部门/Agent/技能的订阅。
@@ -1061,7 +1148,11 @@ async def list_subscriptions(
 
 
 @router.delete("/subscriptions/{subscription_id}", status_code=status.HTTP_204_NO_CONTENT)
-async def cancel_subscription(subscription_id: str, db: AsyncSession = Depends(get_db)):
+async def cancel_subscription(
+    subscription_id: str,
+    current_user: dict = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
     """取消订阅。"""
     stmt = select(Subscription).filter(Subscription.id == subscription_id)
     result = await db.execute(stmt)
@@ -1069,6 +1160,10 @@ async def cancel_subscription(subscription_id: str, db: AsyncSession = Depends(g
 
     if not sub:
         raise HTTPException(status_code=404, detail="Subscription not found")
+
+    # Fix5: 租户隔离 - 验证订阅所属公司
+    if current_user.get("company_id") and sub.company_id != current_user["company_id"]:
+        raise HTTPException(status_code=403, detail="无权取消该订阅")
 
     sub.status = "cancelled"
     sub.cancelled_at = datetime.utcnow()

@@ -39,6 +39,7 @@ class AgentStore:
     def list_agents(
         self,
         company_id: Optional[str] = None,
+        department_id: Optional[str] = None,
         skill_ids: Optional[List[str]] = None,
     ) -> List[dict]:
         """列出 Agent（支持过滤）"""
@@ -48,6 +49,8 @@ class AgentStore:
                 if agent.get("is_deleted"):
                     continue
                 if company_id and agent.get("company_id") != company_id:
+                    continue
+                if department_id and agent.get("department_id") != department_id:
                     continue
                 if skill_ids:
                     agent_skill_ids = set(agent.get("skills", []))
@@ -78,6 +81,7 @@ class AgentStore:
                 "agent_type": data.get("agent_type", "custom"),
                 "description": data.get("description"),
                 "company_id": data.get("company_id"),
+                "department_id": data.get("department_id"),
                 "skills": data.get("skills", []),
                 "config": data.get("config", {}),
                 "is_active": True,
@@ -95,7 +99,7 @@ class AgentStore:
             agent = self._agents.get(code)
             if not agent or agent.get("is_deleted"):
                 return None
-            for key in ["name", "description", "skills", "config", "is_active"]:
+            for key in ["name", "description", "skills", "config", "is_active", "department_id"]:
                 if key in data and data[key] is not None:
                     agent[key] = data[key]
             agent["updated_at"] = datetime.utcnow()
@@ -122,6 +126,8 @@ class AgentStore:
                 skills.append(skill_id)
                 agent["skills"] = skills
                 agent["updated_at"] = datetime.utcnow()
+            # 同步到 skills.py 的内存索引
+            _sync_add_binding(agent_code, skill_id)
             return self._format_agent(agent_code, agent)
 
     def remove_skill(self, agent_code: str, skill_id: str) -> Optional[dict]:
@@ -135,6 +141,8 @@ class AgentStore:
                 skills.remove(skill_id)
                 agent["skills"] = skills
                 agent["updated_at"] = datetime.utcnow()
+            # 同步到 skills.py 的内存索引
+            _sync_remove_binding(agent_code, skill_id)
             return self._format_agent(agent_code, agent)
 
     def get_executions(self, agent_code: str, limit: int = 50, offset: int = 0) -> List[dict]:
@@ -161,6 +169,7 @@ class AgentStore:
             "agent_type": agent.get("agent_type", "custom"),
             "description": agent.get("description"),
             "company_id": agent.get("company_id"),
+            "department_id": agent.get("department_id"),
             "skills": agent.get("skills", []),
             "skill_count": len(agent.get("skills", [])),
             "status": "active" if agent.get("is_active") else "inactive",
@@ -289,6 +298,7 @@ class AgentCreate(BaseModel):
     agent_type: str = "custom"
     description: Optional[str] = None
     company_id: Optional[str] = None
+    department_id: Optional[str] = None
     skills: List[str] = []
     config: Optional[dict] = {}
 
@@ -300,6 +310,7 @@ class AgentUpdate(BaseModel):
     skills: Optional[List[str]] = None
     config: Optional[dict] = None
     is_active: Optional[bool] = None
+    department_id: Optional[str] = None
 
 
 class AgentOut(BaseModel):
@@ -310,6 +321,7 @@ class AgentOut(BaseModel):
     agent_type: str
     description: Optional[str]
     company_id: Optional[str]
+    department_id: Optional[str]
     skills: List[str]
     skill_count: int
     status: str
@@ -340,13 +352,16 @@ class ExecutionOut(BaseModel):
 @router.get("", response_model=List[AgentOut])
 async def list_agents(
     company_id: Optional[str] = None,
+    department_id: Optional[str] = None,
     skill_ids: Optional[str] = None,  # comma-separated
+    skip: int = 0,
+    limit: int = 100,
 ):
-    """列出所有 Agent（支持 company_id/skills 过滤）"""
+    """列出所有 Agent（支持 company_id/department_id/skills 过滤）"""
     store = get_agent_store()
     skill_list = skill_ids.split(",") if skill_ids else None
-    agents = store.list_agents(company_id=company_id, skill_ids=skill_list)
-    return agents
+    agents = store.list_agents(company_id=company_id, department_id=department_id, skill_ids=skill_list)
+    return agents[skip:skip+limit]
 
 
 @router.get("/{code}", response_model=AgentOut)
@@ -479,3 +494,19 @@ def record_agent_execution(
     }
     store.add_execution(agent_code, execution)
     return execution_id
+
+
+# === 辅助函数：同步 Skill 绑定到内存索引 ===
+
+def _sync_add_binding(agent_code: str, skill_code: str) -> None:
+    """同步添加绑定到 skills.py 的内存索引（避免循环导入）。"""
+    # 延迟导入避免循环依赖
+    from .skills import _add_binding as add_binding
+    add_binding(agent_code, skill_code)
+
+
+def _sync_remove_binding(agent_code: str, skill_code: str) -> None:
+    """同步移除绑定到 skills.py 的内存索引（避免循环导入）。"""
+    # 延迟导入避免循环依赖
+    from .skills import _remove_binding as remove_binding
+    remove_binding(agent_code, skill_code)

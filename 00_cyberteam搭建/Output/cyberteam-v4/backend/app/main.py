@@ -166,10 +166,48 @@ def _init_event_subscriptions():
 
 app = FastAPI(
     title="CyberTeam V4 API",
-    description="AI 模拟公司协作平台后端服务",
-    version="4.1.0",
+    description="企业级AI协作系统 API",
+    version="4.0.0",
+    docs_url="/docs",
+    redoc_url="/redoc",
+    openapi_url="/openapi.json",
     lifespan=lifespan,
 )
+
+
+# ── 全局异常处理器 ──
+
+from fastapi.responses import JSONResponse
+from fastapi import Request, HTTPException
+
+
+@app.exception_handler(HTTPException)
+async def http_exception_handler(request: Request, exc: HTTPException):
+    """HTTP异常处理器。"""
+    return JSONResponse(
+        status_code=exc.status_code,
+        content={
+            "error": True,
+            "code": exc.status_code,
+            "message": exc.detail,
+            "path": str(request.url),
+        }
+    )
+
+
+@app.exception_handler(Exception)
+async def general_exception_handler(request: Request, exc: Exception):
+    """通用异常处理器。"""
+    return JSONResponse(
+        status_code=500,
+        content={
+            "error": True,
+            "code": 500,
+            "message": "服务器内部错误",
+            "detail": str(exc) if app.debug else None,
+            "path": str(request.url),
+        }
+    )
 
 # CORS — 明确允许的来源（生产环境应配置具体域名）
 ALLOWED_ORIGINS = [

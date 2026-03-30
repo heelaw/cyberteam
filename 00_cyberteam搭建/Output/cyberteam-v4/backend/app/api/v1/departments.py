@@ -24,6 +24,12 @@ from ...engine.department_registry import (
 router = APIRouter(prefix="/departments", tags=["departments v1"])
 
 
+# === Department-Agent Binding Store ===
+
+# 部门-Agent绑定关系: department_id -> list of agent_codes
+_department_agents: dict[str, list[str]] = {}
+
+
 # === Request/Response Models ===
 
 class RegisterDepartmentRequest(BaseModel):
@@ -216,7 +222,7 @@ async def update_department(
 
 @router.delete("/{department_id}")
 async def delete_department(department_id: str):
-    """删除自定义部门。"""
+    """删除自定义部门（包含清理部门-Agent绑定）。"""
     registry = get_department_registry()
 
     if department_id in BUILTIN_DEPARTMENT_IDS:
@@ -233,7 +239,11 @@ async def delete_department(department_id: str):
             detail=f"部门 {department_id} 不存在",
         )
 
-    return {"status": "ok", "department_id": department_id}
+    # 清理部门-Agent绑定
+    if department_id in _department_agents:
+        del _department_agents[department_id]
+
+    return {"status": "ok", "department_id": department_id, "cascaded": True}
 
 
 @router.post("/export")
@@ -250,3 +260,77 @@ async def import_departments(request: ExportImportRequest):
     registry = get_department_registry()
     imported = registry.import_config(request.config)
     return {"status": "ok", "imported_count": imported}
+
+
+# === Department-Agent Binding Endpoints ===
+
+@router.get("/{department_id}/agents")
+async def list_department_agents(department_id: str):
+    """获取部门绑定的所有Agent。"""
+    registry = get_department_registry()
+    dept = registry.get_department(department_id)
+    if not dept:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"部门 {department_id} 不存在",
+        )
+    agent_codes = _department_agents.get(department_id, [])
+    return {"department_id": department_id, "agent_codes": agent_codes, "count": len(agent_codes)}
+
+
+@router.post("/{department_id}/agents/{agent_code}")
+async def bind_agent_to_department(department_id: str, agent_code: str):
+    """将Agent绑定到部门。"""
+    registry = get_department_registry()
+    dept = registry.get_department(department_id)
+    if not dept:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"部门 {department_id} 不存在",
+        )
+    # 不在这里验证agent_code存在性（agent可能在另一个服务中管理）
+    if department_id not in _department_agents:
+        _department_agents[department_id] = []
+    if agent_code not in _department_agents[department_id]:
+        _department_agents[department_id].append(agent_code)
+    return {"department_id": department_id, "agent_code": agent_code, "status": "bound"}
+
+
+@router.delete("/{department_id}/agents/{agent_code}")
+async def unbind_agent_from_department(department_id: str, agent_code: str):
+    """将Agent从部门解绑。"""
+    registry = get_department_registry()
+    dept = registry.get_department(department_id)
+    if not dept:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"部门 {department_id} 不存在",
+        )
+    if department_id in _department_agents and agent_code in _department_agents[department_id]:
+        _department_agents[department_id].remove(agent_code)
+    return {"department_id": department_id, "agent_code": agent_code, "status": "unbound"}
+
+
+# === 辅助函数（用于级联删除） ===
+
+
+def clear_department_agents_by_department_ids(department_ids: list[str]) -> int:
+    """清理指定部门的所有Agent绑定（用于级联删除）。
+
+    Args:
+        department_ids: 部门ID列表
+
+    Returns:
+        清理的绑定数量
+    """
+    cleared_count = 0
+    for dept_id in department_ids:
+        if dept_id in _department_agents:
+            cleared_count += len(_department_agents[dept_id])
+            del _department_agents[dept_id]
+    return cleared_count
+
+
+def get_department_agents_binding() -> dict:
+    """获取部门-Agent绑定关系的只读引用（用于其他模块查询）。"""
+    return _department_agents

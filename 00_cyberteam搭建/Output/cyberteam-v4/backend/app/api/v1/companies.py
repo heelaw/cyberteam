@@ -17,6 +17,15 @@ from typing import Optional, List
 from datetime import datetime
 import uuid
 
+# 导入审计日志
+from .audit import record_audit
+
+# 导入 departments 模块的辅助函数和绑定存储
+from . import departments as dept_module
+
+# 导入 agents 模块的 store
+from .agents import get_agent_store
+
 router = APIRouter(prefix="/companies", tags=["companies v1"])
 
 
@@ -24,6 +33,9 @@ router = APIRouter(prefix="/companies", tags=["companies v1"])
 _companies: dict[str, dict] = {}
 _departments_by_company: dict[str, list] = {}
 _agents_by_company: dict[str, list] = {}
+
+# Agent-Skill 绑定记录（用于级联清理）
+_agent_skill_records: dict[str, list] = {}  # agent_code -> list of skill_ids
 
 
 # === Request/Response Models ===
@@ -94,9 +106,16 @@ class PaginatedCompanyResponse(BaseModel):
 
 # === Routes ===
 
-@router.post("", response_model=CompanyOut, status_code=status.HTTP_201_CREATED)
+@router.post("", response_model=CompanyOut, status_code=status.HTTP_201_CREATED,
+            summary="创建公司", tags=["companies"])
 async def create_company(request: CompanyCreate):
-    """创建新公司。"""
+    """创建新公司。
+
+    - **name**: 公司名称（必填，最大200字符）
+    - **description**: 公司描述（可选）
+    - **status**: 状态，默认为 active
+    - **config**: 公司配置（可选，JSON对象）
+    """
     company_id = str(uuid.uuid4())
     now = datetime.utcnow()
 
@@ -121,13 +140,19 @@ async def create_company(request: CompanyCreate):
     )
 
 
-@router.get("", response_model=PaginatedCompanyResponse)
+@router.get("", response_model=PaginatedCompanyResponse,
+           summary="列出公司", tags=["companies"])
 async def list_companies(
     skip: int = Query(0, ge=0, description="跳过数量"),
     limit: int = Query(50, ge=1, le=100, description="返回数量"),
     q: Optional[str] = Query(None, description="搜索公司名称"),
 ):
-    """列出所有公司（支持分页和搜索）。"""
+    """列出所有公司（支持分页和搜索）。
+
+    - **skip**: 跳过记录数（默认0）
+    - **limit**: 返回记录数（默认50，最大100）
+    - **q**: 按公司名称搜索（可选，模糊匹配）
+    """
     # 过滤已删除的公司
     filtered = [c for c in _companies.values() if c.get("status") != "deleted"]
 
@@ -163,9 +188,12 @@ async def list_companies(
     )
 
 
-@router.get("/stats")
+@router.get("/stats", summary="全局统计", tags=["companies"])
 async def get_global_stats():
-    """获取全局公司统计。"""
+    """获取全局公司统计数据。
+
+    返回所有公司的统计信息，包括总数、活跃数、已删除数。
+    """
     active = [c for c in _companies.values() if c.get("status") == "active"]
     return {
         "total_companies": len(_companies),
@@ -174,9 +202,13 @@ async def get_global_stats():
     }
 
 
-@router.get("/{company_id}", response_model=CompanyOut)
+@router.get("/{company_id}", response_model=CompanyOut,
+            summary="获取公司详情", tags=["companies"])
 async def get_company(company_id: str):
-    """获取公司详情。"""
+    """获取公司详情。
+
+    - **company_id**: 公司ID（路径参数）
+    """
     company = _companies.get(company_id)
 
     if not company:
@@ -198,9 +230,17 @@ async def get_company(company_id: str):
     )
 
 
-@router.put("/{company_id}", response_model=CompanyOut)
+@router.put("/{company_id}", response_model=CompanyOut,
+           summary="更新公司", tags=["companies"])
 async def update_company(company_id: str, request: CompanyUpdate):
-    """更新公司信息。"""
+    """更新公司信息。
+
+    - **company_id**: 公司ID（路径参数）
+    - **name**: 公司名称（可选）
+    - **description**: 公司描述（可选）
+    - **status**: 状态（可选）
+    - **config**: 公司配置（可选）
+    """
     company = _companies.get(company_id)
 
     if not company:
@@ -231,9 +271,18 @@ async def update_company(company_id: str, request: CompanyUpdate):
     )
 
 
-@router.delete("/{company_id}")
+@router.delete("/{company_id}", summary="删除公司", tags=["companies"])
 async def delete_company(company_id: str):
-    """删除公司（软删除，设置status=deleted）。"""
+    """删除公司（软删除 + 级联清理关联数据）。
+
+    级联清理内容：
+    - 软删除公司本身
+    - 清理公司下的部门-Agent绑定
+    - 软删除公司下的Agent
+    - 清理Agent-Skill绑定记录
+
+    - **company_id**: 公司ID（路径参数）
+    """
     company = _companies.get(company_id)
 
     if not company:
@@ -248,17 +297,48 @@ async def delete_company(company_id: str):
             detail=f"公司 {company_id} 已删除",
         )
 
-    # 软删除
+    # 记录审计日志
+    record_audit(
+        company_id=company_id,
+        action="DELETE",
+        resource_type="company",
+        resource_id=company_id,
+        resource_name=company.get("name"),
+    )
+
+    # 软删除公司
     company["status"] = "deleted"
     company["updated_at"] = datetime.utcnow()
     _companies[company_id] = company
 
-    return {"status": "ok", "company_id": company_id, "message": "公司已删除"}
+    # 级联清理：删除公司下的部门
+    depts = _departments_by_company.get(company_id, [])
+    dept_ids = [d.get("id") or d.get("department_id") for d in depts if d.get("id") or d.get("department_id")]
+    if dept_ids:
+        # 清理部门-Agent绑定
+        dept_module.clear_department_agents_by_department_ids(dept_ids)
+
+    # 级联清理：软删除公司下的Agent
+    agent_store = get_agent_store()
+    agents = _agents_by_company.get(company_id, [])
+    for agent in agents:
+        agent_code = agent.get("code") or agent.get("agent_code")
+        if agent_code:
+            agent_store.delete_agent(agent_code)
+            # 清理Agent-Skill绑定
+            if agent_code in _agent_skill_records:
+                del _agent_skill_records[agent_code]
+
+    return {"company_id": company_id, "status": "deleted", "cascaded": True}
 
 
-@router.get("/{company_id}/departments", response_model=List[DepartmentSummary])
+@router.get("/{company_id}/departments", response_model=List[DepartmentSummary],
+            summary="获取公司部门列表", tags=["companies"])
 async def get_company_departments(company_id: str):
-    """获取公司部门列表。"""
+    """获取公司部门列表。
+
+    - **company_id**: 公司ID（路径参数）
+    """
     company = _companies.get(company_id)
 
     if not company:
@@ -286,9 +366,13 @@ async def get_company_departments(company_id: str):
     ]
 
 
-@router.get("/{company_id}/agents", response_model=List[AgentSummary])
+@router.get("/{company_id}/agents", response_model=List[AgentSummary],
+            summary="获取公司Agent列表", tags=["companies"])
 async def get_company_agents(company_id: str):
-    """获取公司Agent列表。"""
+    """获取公司Agent列表。
+
+    - **company_id**: 公司ID（路径参数）
+    """
     company = _companies.get(company_id)
 
     if not company:
@@ -316,9 +400,13 @@ async def get_company_agents(company_id: str):
     ]
 
 
-@router.get("/{company_id}/stats", response_model=CompanyStats)
+@router.get("/{company_id}/stats", response_model=CompanyStats,
+           summary="获取公司统计", tags=["companies"])
 async def get_company_stats(company_id: str):
-    """获取公司统计数据。"""
+    """获取公司统计数据。
+
+    - **company_id**: 公司ID（路径参数）
+    """
     company = _companies.get(company_id)
 
     if not company:

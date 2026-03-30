@@ -17,6 +17,7 @@ import {
   PlusOutlined, ExpandOutlined, CollapseOutlined, ReloadOutlined,
 } from '@ant-design/icons'
 import { api } from '@/apis/clients/cyberteam'
+import { fetchDepartmentAgents } from '@/apis/modules/departments'
 
 const { Title, Text } = Typography
 
@@ -191,6 +192,7 @@ export default function OrganizationPage() {
   const [departments, setDepartments] = useState<Department[]>([])
   const [agents, setAgents] = useState<Agent[]>([])
   const [treeData, setTreeData] = useState<TreeNode[]>([])
+  const [departmentAgentMap, setDepartmentAgentMap] = useState<Record<string, string[]>>({})
   const [loading, setLoading] = useState(false)
   const [detailVisible, setDetailVisible] = useState(false)
   const [selectedNode, setSelectedNode] = useState<TreeNode | null>(null)
@@ -228,6 +230,13 @@ export default function OrganizationPage() {
       ])
       setDepartments(deptData)
       setAgents(agentData)
+
+      // 加载每个部门的真实绑定Agent
+      const deptAgentMap: Record<string, string[]> = {}
+      for (const dept of deptData) {
+        deptAgentMap[dept.id] = await fetchDepartmentAgents(dept.id)
+      }
+      setDepartmentAgentMap(deptAgentMap)
     } catch (error) {
       console.error('[Organization] 加载公司数据失败:', error)
       message.error('加载公司组织数据失败')
@@ -266,18 +275,14 @@ export default function OrganizationPage() {
       children: [],
     }
 
-    // 按部门分组Agent（由于API返回的Agent没有department_id，这里简化处理）
-    // 假设所有Agent都属于第一个部门或单独显示
+    // 按部门分组Agent（使用真实API绑定数据）
     const deptAgentsMap = new Map<string, Agent[]>()
-
-    // 为每个部门创建节点
     const departmentNodes: TreeNode[] = departments.map((dept) => {
-      // 将Agent分配给部门（这里需要根据实际数据结构调整）
-      const deptAgents = agents.filter((a) => {
-        // 简单的启发式分配：名字包含部门关键字
-        const deptKeywords = dept.name.toLowerCase()
-        return a.name.toLowerCase().includes(deptKeywords.substring(0, 2))
-      })
+      // 使用真实API返回的绑定Agent列表
+      const boundAgentCodes = departmentAgentMap[dept.id] || []
+      const deptAgents = (agents as Agent[]).filter((a) =>
+        boundAgentCodes.includes(a.id)
+      )
 
       return {
         key: `dept-${dept.id}`,
@@ -320,7 +325,7 @@ export default function OrganizationPage() {
 
     companyNode.children = departmentNodes
     setTreeData([companyNode])
-  }, [companies, selectedCompany, departments, agents])
+  }, [companies, selectedCompany, departments, agents, departmentAgentMap])
 
   // 展开/折叠节点
   const handleToggle = useCallback((key: string) => {

@@ -17,6 +17,7 @@ from sqlalchemy import select, func, delete
 
 from ..db import get_db
 from ..models import DepartmentOutput, Task
+from ..auth.dependencies import get_current_user, get_optional_user
 
 log = logging.getLogger("cyberteam.api.departments")
 router = APIRouter()
@@ -186,6 +187,7 @@ async def get_department(department_id: str):
 @router.post("/assign", status_code=status.HTTP_201_CREATED)
 async def assign_department_task(
     body: DepartmentTaskAssign,
+    current_user: dict = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
     """分配任务给部门。"""
@@ -231,6 +233,7 @@ async def assign_department_task(
 @router.post("/execute", response_model=DepartmentExecuteResponse)
 async def execute_department_task(
     body: DepartmentExecuteRequest,
+    current_user: dict = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
     """执行部门任务。"""
@@ -368,6 +371,7 @@ async def get_department_output(
 async def update_department_output(
     output_id: int,
     body: DepartmentTaskUpdate,
+    current_user: dict = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
     """更新部门输出。"""
