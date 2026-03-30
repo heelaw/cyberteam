@@ -49,7 +49,7 @@ def test_thinking_loader():
     results = loader.search_by_keyword("战略")
     print(f"\n✅ 关键词搜索 '战略': 找到 {len(results)} 个模型")
 
-    return len(models) > 0
+    assert len(models) > 0, "思维模型加载失败"
 
 
 def test_thinking_router():

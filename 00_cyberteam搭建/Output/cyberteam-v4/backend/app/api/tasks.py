@@ -8,7 +8,7 @@ import logging
 from datetime import datetime
 
 from fastapi import APIRouter, Depends, HTTPException, Query
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from ..db import get_db
@@ -79,8 +79,7 @@ class TaskOut(BaseModel):
     updated_at: Optional[str]
     completed_at: Optional[str]
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 # ── Swarm 相关 Schemas ──
