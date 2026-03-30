@@ -10,7 +10,7 @@ from .database import (
     _engine,
     _async_session_factory,
 )
-from .models import User, Conversation, Message, AgentExecution, BudgetTracking
+from .models import User, Conversation, Message, AgentExecution, BudgetTracking, Team, Task, DepartmentAgent
 
 # 别名：与旧 db.py 兼容
 _session_factory = _async_session_factory
@@ -29,4 +29,7 @@ __all__ = [
     "Message",
     "AgentExecution",
     "BudgetTracking",
+    "Team",
+    "Task",
+    "DepartmentAgent",
 ]

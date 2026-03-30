@@ -204,3 +204,102 @@ class Expert(Base):
     is_active = Column(Boolean, default=True)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+
+class Team(Base):
+    """团队表（支持公司隔离）。"""
+
+    __tablename__ = "teams"
+
+    id = Column(String(64), primary_key=True)
+    name = Column(String(200), nullable=False)
+    description = Column(Text, nullable=True)
+    company_id = Column(String(64), nullable=True, index=True)  # 公司ID（系统团队可为空）
+    agent_ids = Column(JSON, default=list)  # 成员Agent ID列表
+    coordination_mode = Column(String(32), default="sequential")  # sequential/parallel/hierarchical
+    reporting_cycle = Column(String(32), default="daily")  # daily/weekly/monthly
+    status = Column(String(32), default="active")  # active/inactive/archived
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    __table_args__ = (
+        Index("idx_team_company", "company_id"),
+    )
+
+    def to_dict(self) -> dict:
+        """转换为字典。"""
+        return {
+            "id": self.id,
+            "name": self.name,
+            "description": self.description,
+            "company_id": self.company_id,
+            "agent_ids": self.agent_ids or [],
+            "coordination_mode": self.coordination_mode,
+            "reporting_cycle": self.reporting_cycle,
+            "status": self.status,
+            "created_at": self.created_at.isoformat() if self.created_at else None,
+            "updated_at": self.updated_at.isoformat() if self.updated_at else None,
+        }
+
+
+class Task(Base):
+    """任务表（支持多Agent协作）。"""
+
+    __tablename__ = "tasks"
+
+    id = Column(String(64), primary_key=True)
+    title = Column(String(255), nullable=False)
+    description = Column(Text, nullable=True)
+    status = Column(String(32), default="pending")  # pending/running/completed/failed
+    priority = Column(Integer, default=3)  # 1=最高，5=最低
+    assignee_org = Column(String(64), nullable=True, index=True)  # 分配给的团队/部门ID
+    meta = Column(JSON, default=dict)  # 元数据（包含 executive_agent_ids 等）
+    result = Column(Text, nullable=True)  # 执行结果
+    error = Column(Text, nullable=True)  # 错误信息
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    completed_at = Column(DateTime, nullable=True)
+
+    __table_args__ = (
+        Index("idx_task_assignee_org", "assignee_org"),
+        Index("idx_task_status", "status"),
+    )
+
+    def to_dict(self) -> dict:
+        """转换为字典。"""
+        return {
+            "id": self.id,
+            "title": self.title,
+            "description": self.description,
+            "status": self.status,
+            "priority": self.priority,
+            "assignee_org": self.assignee_org,
+            "meta": self.meta or {},
+            "result": self.result,
+            "error": self.error,
+            "created_at": self.created_at.isoformat() if self.created_at else None,
+            "updated_at": self.updated_at.isoformat() if self.updated_at else None,
+            "completed_at": self.completed_at.isoformat() if self.completed_at else None,
+        }
+
+
+class DepartmentAgent(Base):
+    """部门-Agent关联表（支持公司隔离）。"""
+
+    __tablename__ = "department_agents"
+
+    id = Column(String(64), primary_key=True)
+    department_id = Column(String(64), nullable=False, index=True)
+    company_id = Column(String(64), nullable=True, index=True)  # 公司ID
+    agent_id = Column(String(64), nullable=False)
+    agent_type = Column(String(32), default="executor")  # executor/leader/coordinator
+    role_name = Column(String(64), nullable=True)  # 在部门中的角色名
+    is_active = Column(Boolean, default=True)
+    extra_data = Column(JSON, default=dict)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    __table_args__ = (
+        Index("idx_dept_agent_dept", "department_id"),
+        Index("idx_dept_agent_company", "company_id"),
+    )

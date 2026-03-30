@@ -344,3 +344,157 @@ class CustomAgentRepository:
             "author": skill.author,
             "created_at": skill.created_at.isoformat() if skill.created_at else None,
         }
+
+
+# ── Company Repository ──
+
+class CompanyRepository:
+    """公司数据访问层。"""
+
+    def __init__(self, session: AsyncSession):
+        self.session = session
+
+    async def create(
+        self,
+        name: str,
+        description: Optional[str] = None,
+        status: str = "active",
+        config: Optional[Dict[str, Any]] = None,
+    ) -> "Company":
+        """创建新公司。"""
+        from app.models import Company
+
+        company = Company(
+            id=str(uuid.uuid4()),
+            name=name,
+            description=description,
+            status=status,
+            config=config or {},
+        )
+        self.session.add(company)
+        await self.session.flush()
+        return company
+
+    async def list_all(
+        self,
+        status: Optional[str] = None,
+        search: Optional[str] = None,
+        limit: int = 100,
+        offset: int = 0,
+    ) -> List["Company"]:
+        """列出所有公司。"""
+        from app.models import Company
+
+        stmt = select(Company)
+        if status:
+            stmt = stmt.where(Company.status == status)
+        if search:
+            stmt = stmt.where(Company.name.ilike(f"%{search}%"))
+        stmt = stmt.order_by(Company.created_at.desc()).limit(limit).offset(offset)
+        result = await self.session.execute(stmt)
+        return list(result.scalars().all())
+
+    async def get(self, company_id: str) -> Optional["Company"]:
+        """获取单个公司。"""
+        from app.models import Company
+
+        stmt = select(Company).where(Company.id == company_id)
+        result = await self.session.execute(stmt)
+        return result.scalar_one_or_none()
+
+    async def update(
+        self,
+        company_id: str,
+        name: Optional[str] = None,
+        description: Optional[str] = None,
+        status: Optional[str] = None,
+        config: Optional[Dict[str, Any]] = None,
+    ) -> Optional["Company"]:
+        """更新公司。"""
+        from app.models import Company
+
+        company = await self.get(company_id)
+        if not company:
+            return None
+
+        update_values: Dict[str, Any] = {}
+        if name is not None:
+            update_values["name"] = name
+        if description is not None:
+            update_values["description"] = description
+        if status is not None:
+            update_values["status"] = status
+        if config is not None:
+            update_values["config"] = config
+
+        for key, value in update_values.items():
+            setattr(company, key, value)
+
+        await self.session.flush()
+        return company
+
+    async def delete(self, company_id: str) -> bool:
+        """删除公司（软删除，设置状态为 inactive）。"""
+        from app.models import Company
+
+        company = await self.get(company_id)
+        if not company:
+            return False
+
+        company.status = "inactive"
+        await self.session.flush()
+        return True
+
+    async def get_department_count(self, company_id: str) -> int:
+        """获取公司的部门数量。"""
+        from app.models import Department
+
+        stmt = select(func.count(Department.id)).where(
+            Department.company_id == company_id,
+            Department.is_active == True,
+        )
+        result = await self.session.execute(stmt)
+        return result.scalar() or 0
+
+    async def get_agent_count(self, company_id: str) -> int:
+        """获取公司的Agent数量。"""
+        from app.models import Agent
+
+        stmt = select(func.count(Agent.id)).where(
+            Agent.company_id == company_id,
+            Agent.is_active == True,
+        )
+        result = await self.session.execute(stmt)
+        return result.scalar() or 0
+
+    async def get_member_count(self, company_id: str) -> int:
+        """获取公司成员数量（通过公司部门关联）。"""
+        from app.models import CompanyDepartment
+
+        stmt = select(func.count(CompanyDepartment.id)).where(
+            CompanyDepartment.company_id == company_id,
+        )
+        result = await self.session.execute(stmt)
+        return result.scalar() or 0
+
+    async def list_departments(self, company_id: str) -> List["Department"]:
+        """获取公司的部门列表。"""
+        from app.models import Department
+
+        stmt = select(Department).where(
+            Department.company_id == company_id,
+            Department.is_active == True,
+        ).order_by(Department.created_at.desc())
+        result = await self.session.execute(stmt)
+        return list(result.scalars().all())
+
+    async def list_agents(self, company_id: str) -> List["Agent"]:
+        """获取公司的Agent列表。"""
+        from app.models import Agent
+
+        stmt = select(Agent).where(
+            Agent.company_id == company_id,
+            Agent.is_active == True,
+        ).order_by(Agent.created_at.desc())
+        result = await self.session.execute(stmt)
+        return list(result.scalars().all())

@@ -217,13 +217,15 @@ app.include_router(ws_api.router, tags=["websocket"])
 app.include_router(sse_api.router, prefix="/api", tags=["sse"])
 
 # 新增：API v1 路由（抄 Magic）
-from .api.v1 import chat as v1_chat, agents as v1_agents, projects as v1_projects, skills as v1_skills, expert_agents as v1_expert_agents, playground as v1_playground
+from .api.v1 import chat as v1_chat, agents as v1_agents, projects as v1_projects, skills as v1_skills, expert_agents as v1_expert_agents, playground as v1_playground, companies as v1_companies, teams as v1_teams
 
 app.include_router(v1_chat.router, prefix="/api/v1", tags=["chat v1"])
 app.include_router(v1_agents.router, prefix="/api/v1", tags=["agents v1"])
 app.include_router(v1_projects.router, prefix="/api/v1", tags=["projects v1"])
 app.include_router(v1_skills.router, prefix="/api/v1", tags=["skills v1"])
 app.include_router(v1_expert_agents.router, prefix="/api/v1", tags=["expert-agents v1"])
+app.include_router(v1_companies.router, prefix="/api/v1", tags=["companies v1"])
+app.include_router(v1_teams.router, prefix="/api/v1", tags=["teams v1"])
 app.include_router(v1_playground.router, prefix="/api", tags=["playground"])
 
 # ── 静态文件服务（serve frontend dist） ──

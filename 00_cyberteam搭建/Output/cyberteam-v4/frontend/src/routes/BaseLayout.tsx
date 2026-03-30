@@ -7,6 +7,8 @@ import {
   ProjectOutlined,
   SettingOutlined,
   ThunderboltOutlined,
+  UnorderedListOutlined,
+  RobotOutlined,
 } from '@ant-design/icons'
 
 const { Sider, Content } = Layout
@@ -15,6 +17,8 @@ const menuItems = [
   { key: '/dashboard', icon: <DashboardOutlined />, label: '仪表盘' },
   { key: '/chat', icon: <MessageOutlined />, label: '对话' },
   { key: '/agents', icon: <TeamOutlined />, label: 'Agent 管理' },
+  { key: '/departments', icon: <UnorderedListOutlined />, label: '部门管理' },
+  { key: '/custom-agents', icon: <RobotOutlined />, label: '自定义 Agent' },
   { key: '/projects', icon: <ProjectOutlined />, label: '项目中心' },
   { key: '/settings', icon: <SettingOutlined />, label: '系统设置' },
 ]

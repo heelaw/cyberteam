@@ -5,10 +5,10 @@ from datetime import datetime
 from enum import Enum
 from typing import Optional
 
-from sqlalchemy import Column, String, Text, DateTime, Date, Float, Integer, Boolean, Enum as SQLEnum
+from sqlalchemy import Column, String, Text, DateTime, Date, Float, Integer, Boolean, Enum as SQLEnum, ForeignKey, Index
 from sqlalchemy.dialects.sqlite import JSON
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
 
 class Base(DeclarativeBase):
@@ -633,19 +633,30 @@ class ReviewStatus(str, Enum):
 class Department(Base):
     """部门表 - 三省六部架构。"""
     __tablename__ = "departments"
+    __table_args__ = (
+        Index("ix_department_company_id", "company_id"),
+    )
 
     id: Mapped[str] = mapped_column(String(64), primary_key=True, default=lambda: str(uuid.uuid4()))
     name: Mapped[str] = mapped_column(String(64), nullable=False)
     code: Mapped[str] = mapped_column(String(32), unique=True, nullable=False, index=True)
     description: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
+    company_id: Mapped[Optional[str]] = mapped_column(String(64), ForeignKey("companies.id"), nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    # Relationships
+    company: Mapped[Optional["Company"]] = relationship("Company", back_populates="departments")
+    company_departments: Mapped[list["CompanyDepartment"]] = relationship("CompanyDepartment", back_populates="department")
 
 
 class Agent(Base):
     """Agent表。"""
     __tablename__ = "agents"
+    __table_args__ = (
+        Index("ix_agent_company_id", "company_id"),
+    )
 
     id: Mapped[str] = mapped_column(String(64), primary_key=True, default=lambda: str(uuid.uuid4()))
     name: Mapped[str] = mapped_column(String(64), nullable=False)
@@ -654,8 +665,13 @@ class Agent(Base):
     description: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     config: Mapped[dict] = mapped_column(JSON, default=dict)
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
+    company_id: Mapped[Optional[str]] = mapped_column(String(64), ForeignKey("companies.id"), nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    # Relationships
+    company: Mapped[Optional["Company"]] = relationship("Company", back_populates="agents")
+    company_agents: Mapped[list["CompanyAgent"]] = relationship("CompanyAgent", back_populates="agent")
 
 
 class Company(Base):
@@ -664,10 +680,29 @@ class Company(Base):
 
     id: Mapped[str] = mapped_column(String(64), primary_key=True, default=lambda: str(uuid.uuid4()))
     name: Mapped[str] = mapped_column(String(128), nullable=False)
+    description: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     status: Mapped[str] = mapped_column(String(32), default="active")
     config: Mapped[dict] = mapped_column(JSON, default=dict)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    # Relationships
+    departments: Mapped[list["Department"]] = relationship("Department", back_populates="company")
+    agents: Mapped[list["Agent"]] = relationship("Agent", back_populates="company")
+    company_departments: Mapped[list["CompanyDepartment"]] = relationship("CompanyDepartment", back_populates="company")
+    company_agents: Mapped[list["CompanyAgent"]] = relationship("CompanyAgent", back_populates="company")
+
+    def to_dict(self):
+        """转换为字典。"""
+        return {
+            "id": self.id,
+            "name": self.name,
+            "description": self.description,
+            "status": self.status,
+            "config": self.config or {},
+            "created_at": self.created_at.isoformat() if self.created_at else None,
+            "updated_at": self.updated_at.isoformat() if self.updated_at else None,
+        }
 
 
 class CompanyDepartment(Base):
@@ -675,9 +710,13 @@ class CompanyDepartment(Base):
     __tablename__ = "company_departments"
 
     id: Mapped[str] = mapped_column(String(64), primary_key=True, default=lambda: str(uuid.uuid4()))
-    company_id: Mapped[str] = mapped_column(String(64), nullable=False, index=True)
-    department_id: Mapped[str] = mapped_column(String(64), nullable=False)
+    company_id: Mapped[str] = mapped_column(String(64), ForeignKey("companies.id"), nullable=False, index=True)
+    department_id: Mapped[str] = mapped_column(String(64), ForeignKey("departments.id"), nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+
+    # Relationships
+    company: Mapped["Company"] = relationship("Company", back_populates="company_departments")
+    department: Mapped["Department"] = relationship("Department", back_populates="company_departments")
 
 
 class CompanyAgent(Base):
@@ -685,9 +724,13 @@ class CompanyAgent(Base):
     __tablename__ = "company_agents"
 
     id: Mapped[str] = mapped_column(String(64), primary_key=True, default=lambda: str(uuid.uuid4()))
-    company_id: Mapped[str] = mapped_column(String(64), nullable=False, index=True)
-    agent_id: Mapped[str] = mapped_column(String(64), nullable=False)
+    company_id: Mapped[str] = mapped_column(String(64), ForeignKey("companies.id"), nullable=False, index=True)
+    agent_id: Mapped[str] = mapped_column(String(64), ForeignKey("agents.id"), nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+
+    # Relationships
+    company: Mapped["Company"] = relationship("Company", back_populates="company_agents")
+    agent: Mapped["Agent"] = relationship("Agent", back_populates="company_agents")
 
 
 class CompanySkill(Base):
@@ -695,8 +738,8 @@ class CompanySkill(Base):
     __tablename__ = "company_skills"
 
     id: Mapped[str] = mapped_column(String(64), primary_key=True, default=lambda: str(uuid.uuid4()))
-    company_id: Mapped[str] = mapped_column(String(64), nullable=False, index=True)
-    skill_id: Mapped[str] = mapped_column(String(64), nullable=False)
+    company_id: Mapped[str] = mapped_column(String(64), ForeignKey("companies.id"), nullable=False, index=True)
+    skill_id: Mapped[str] = mapped_column(String(64), ForeignKey("skills.id"), nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
 
 
@@ -705,7 +748,7 @@ class Subscription(Base):
     __tablename__ = "subscriptions"
 
     id: Mapped[str] = mapped_column(String(64), primary_key=True, default=lambda: str(uuid.uuid4()))
-    company_id: Mapped[str] = mapped_column(String(64), nullable=False, index=True)
+    company_id: Mapped[str] = mapped_column(String(64), ForeignKey("companies.id"), nullable=False, index=True)
     plan: Mapped[str] = mapped_column(String(32), default="free")
     expires_at: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
