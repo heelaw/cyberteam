@@ -68,7 +68,9 @@ class TestIntegration:
         from integration.cyberteam_adapter import CyberTeamAdapter
         adapter = CyberTeamAdapter()
         assert adapter is not None
-        assert hasattr(adapter, 'TEMPLATES')
+        # 验证核心属性存在
+        assert hasattr(adapter, 'create_team')
+        assert hasattr(adapter, 'list_teams')
 
     def test_swarm_orchestrator(self):
         """测试 SwarmOrchestrator 导入"""

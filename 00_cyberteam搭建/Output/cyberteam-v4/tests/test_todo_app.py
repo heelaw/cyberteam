@@ -228,27 +228,34 @@ class TestTodoAPI:
 
     @pytest_asyncio.fixture
     async def client(self, test_engine):
-        """创建测试客户端"""
-        # 覆盖数据库配置
+        """创建测试客户端，注入测试数据库引擎。"""
+        # 覆盖 database.py 中的私有变量（get_db() 读取这些）
+        from backend.app.db import database as db_file_module
         from backend.app import db as db_module
 
         original_engine = db_module._engine
+        original_async_session_factory = db_file_module._async_session_factory
         original_session_factory = db_module._session_factory
 
-        # 设置测试引擎
-        db_module._engine = test_engine
-        db_module._session_factory = async_sessionmaker(
+        # 创建测试 session 工厂
+        test_session_factory = async_sessionmaker(
             test_engine,
             class_=AsyncSession,
             expire_on_commit=False,
         )
+
+        # 同时覆盖 db 包和 database.py 模块
+        db_file_module._async_session_factory = test_session_factory
+        db_module._async_session_factory = test_session_factory
+        db_module._session_factory = test_session_factory
 
         transport = ASGITransport(app=app)
         async with AsyncClient(transport=transport, base_url="http://test") as ac:
             yield ac
 
         # 恢复原始配置
-        db_module._engine = original_engine
+        db_file_module._async_session_factory = original_async_session_factory
+        db_module._async_session_factory = original_async_session_factory
         db_module._session_factory = original_session_factory
 
     @pytest.mark.asyncio
@@ -525,19 +532,33 @@ class TestTodoEdgeCases:
 
     @pytest_asyncio.fixture
     async def client(self, test_engine):
-        """创建测试客户端"""
+        """创建测试客户端，注入测试数据库引擎。"""
+        from backend.app.db import database as db_file_module
         from backend.app import db as db_module
 
-        db_module._engine = test_engine
-        db_module._session_factory = async_sessionmaker(
+        original_async_factory = db_file_module._async_session_factory
+        original_factory = db_module._session_factory
+
+        # 创建测试 session 工厂
+        test_session_factory = async_sessionmaker(
             test_engine,
             class_=AsyncSession,
             expire_on_commit=False,
         )
 
+        # 同时覆盖 db 包和 database.py 模块
+        db_file_module._async_session_factory = test_session_factory
+        db_module._async_session_factory = test_session_factory
+        db_module._session_factory = test_session_factory
+
         transport = ASGITransport(app=app)
         async with AsyncClient(transport=transport, base_url="http://test") as ac:
             yield ac
+
+        # 恢复原始配置
+        db_file_module._async_session_factory = original_async_factory
+        db_module._async_session_factory = original_async_factory
+        db_module._session_factory = original_factory
 
     @pytest.mark.asyncio
     async def test_title_too_long(self, client):

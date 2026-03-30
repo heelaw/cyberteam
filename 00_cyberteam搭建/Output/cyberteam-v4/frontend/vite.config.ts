@@ -13,11 +13,12 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/api': {
-        target: 'http://localhost:8000',
+        // 后端默认端口 49187，通过环境变量 CLAWTEAM_PORT 覆盖
+        target: 'http://localhost:49187',
         changeOrigin: true,
       },
       '/ws': {
-        target: 'ws://localhost:8000',
+        target: 'ws://localhost:49187',
         ws: true,
       },
     },
