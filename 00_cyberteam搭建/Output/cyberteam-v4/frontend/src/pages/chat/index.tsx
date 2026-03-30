@@ -1,20 +1,65 @@
-import { useState } from 'react'
-import { Input, Button, List, Avatar, Badge } from 'antd'
+import { useState, useEffect, useCallback } from 'react'
+import { Input, Button, List, Avatar, Badge, Modal, Form, message } from 'antd'
 import { MessageOutlined, PlusOutlined, SearchOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
-
-const mockConversations = [
-  { id: '1', title: '西北发面包子品牌策划', status: 'active' as const, updatedAt: '10分钟前' },
-  { id: '2', title: '新品上市全渠道推广方案', status: 'active' as const, updatedAt: '1小时前' },
-  { id: '3', title: '618大促活动策略讨论', status: 'active' as const, updatedAt: '昨天' },
-  { id: '4', title: '用户增长策略分析', status: 'archived' as const, updatedAt: '3天前' },
-]
+import { fetchConversations, createConversation, deleteConversation } from '@/apis/modules/chat'
+import type { Conversation } from '@/types'
 
 export default function Chat() {
   const navigate = useNavigate()
   const [search, setSearch] = useState('')
+  const [conversations, setConversations] = useState<Conversation[]>([])
+  const [loading, setLoading] = useState(false)
+  const [createLoading, setCreateLoading] = useState(false)
+  const [createModalOpen, setCreateModalOpen] = useState(false)
+  const [form] = Form.useForm()
 
-  const filtered = mockConversations.filter((c) =>
+  const loadConversations = useCallback(async () => {
+    setLoading(true)
+    try {
+      const data = await fetchConversations()
+      setConversations(data)
+    } catch {
+      // 后端未启动时显示空状态
+      setConversations([])
+    } finally {
+      setLoading(false)
+    }
+  }, [])
+
+  useEffect(() => {
+    loadConversations()
+  }, [loadConversations])
+
+  const handleCreate = async (values: { title?: string }) => {
+    setCreateLoading(true)
+    try {
+      const conv = await createConversation({
+        title: values.title || '新对话',
+      })
+      setConversations((prev) => [conv, ...prev])
+      setCreateModalOpen(false)
+      form.resetFields()
+      navigate(`/chat/${conv.id}`)
+    } catch {
+      message.error('创建对话失败，请检查后端服务')
+    } finally {
+      setCreateLoading(false)
+    }
+  }
+
+  const handleDelete = async (id: string, e: React.MouseEvent) => {
+    e.stopPropagation()
+    try {
+      await deleteConversation(id)
+      setConversations((prev) => prev.filter((c) => c.id !== id))
+      message.success('已删除')
+    } catch {
+      message.error('删除失败')
+    }
+  }
+
+  const filtered = conversations.filter((c) =>
     c.title.toLowerCase().includes(search.toLowerCase())
   )
 
@@ -30,30 +75,61 @@ export default function Chat() {
             onChange={(e) => setSearch(e.target.value)}
             allowClear
           />
-          <Button type="primary" icon={<PlusOutlined />} block className="mt-2">
+          <Button
+            type="primary"
+            icon={<PlusOutlined />}
+            block
+            className="mt-2"
+            onClick={() => setCreateModalOpen(true)}
+          >
             新建对话
           </Button>
         </div>
         <div className="flex-1 overflow-auto">
-          <List
-            dataSource={filtered}
-            renderItem={(item) => (
-              <List.Item
-                className="cursor-pointer hover:bg-gray-50 px-3"
-                onClick={() => navigate(`/chat/${item.id}`)}
-              >
-                <List.Item.Meta
-                  avatar={
-                    <Badge status={item.status === 'active' ? 'processing' : 'default'}>
-                      <Avatar icon={<MessageOutlined />} />
-                    </Badge>
-                  }
-                  title={item.title}
-                  description={item.updatedAt}
-                />
-              </List.Item>
-            )}
-          />
+          {loading ? (
+            <div className="p-4 text-center text-gray-400">加载中...</div>
+          ) : filtered.length === 0 ? (
+            <div className="p-4 text-center text-gray-400">
+              {search ? '无匹配对话' : '暂无对话，点击上方按钮创建'}
+            </div>
+          ) : (
+            <List
+              loading={loading}
+              dataSource={filtered}
+              renderItem={(item) => (
+                <List.Item
+                  className="cursor-pointer hover:bg-gray-50 px-3"
+                  onClick={() => navigate(`/chat/${item.id}`)}
+                  actions={[
+                    <Button
+                      key="delete"
+                      type="text"
+                      size="small"
+                      danger
+                      onClick={(e) => handleDelete(item.id, e)}
+                    >
+                      删除
+                    </Button>,
+                  ]}
+                >
+                  <List.Item.Meta
+                    avatar={
+                      <Badge status={item.status === 'active' ? 'processing' : 'default'}>
+                        <Avatar icon={<MessageOutlined />} />
+                      </Badge>
+                    }
+                    title={item.title}
+                    description={new Date(item.updatedAt).toLocaleString('zh-CN', {
+                      month: 'short',
+                      day: 'numeric',
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    })}
+                  />
+                </List.Item>
+              )}
+            />
+          )}
         </div>
       </div>
 
@@ -65,6 +141,25 @@ export default function Chat() {
           <p>或创建新对话启动 CyberTeam 任务</p>
         </div>
       </div>
+
+      {/* 新建对话弹窗 */}
+      <Modal
+        title="新建对话"
+        open={createModalOpen}
+        onCancel={() => setCreateModalOpen(false)}
+        footer={null}
+      >
+        <Form form={form} onFinish={handleCreate} layout="vertical">
+          <Form.Item name="title" label="对话标题">
+            <Input placeholder="例如：西北发面包子品牌策划" autoFocus />
+          </Form.Item>
+          <Form.Item className="mb-0">
+            <Button type="primary" htmlType="submit" loading={createLoading} block>
+              创建并进入
+            </Button>
+          </Form.Item>
+        </Form>
+      </Modal>
     </div>
   )
 }
