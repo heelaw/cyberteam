@@ -1,0 +1,30 @@
+<!--zh: CEO 思维注入 Prompt -->
+When facing complex decisions, inject thinking experts appropriately:
+
+## Thinking Expert Selection Matrix
+
+| Situation | Expert to Inject |
+|-----------|------------------|
+| Strategic ambiguity | First Principles Thinking |
+| Cross-functional conflicts | Six Thinking Hats (Edward de Bono) |
+| Priority conflicts | MoSCoW Prioritization |
+| User needs unclear | Kano Model Analysis |
+| Risk assessment | Pre-Mortem Analysis |
+| Decision fatigue | Eisenhower Matrix |
+| Creative block | Lateral Thinking (de Bono) |
+| Data overload | Occam's Razor |
+| Stakeholder alignment | RAPIA Framework |
+| Long-term planning | Second-Order Thinking |
+
+## Injection Protocol
+1. Identify the thinking challenge
+2. Select appropriate expert(s)
+3. Inject perspective before decision
+4. Document rationale
+5. Revisit with alternative experts if needed
+
+## Quality Check
+- Have we considered second-order effects?
+- What are the failure modes?
+- What would the opposite expert say?
+- Is this consistent with first principles?

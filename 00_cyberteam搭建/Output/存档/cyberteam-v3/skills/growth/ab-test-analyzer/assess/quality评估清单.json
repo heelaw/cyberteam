@@ -1,0 +1,71 @@
+{
+  "skill_name": "ab-test-analyzer",
+  "version": "1.0.0",
+  "assess_type": "quality",
+  "metrics": [
+    {
+      "id": "m1",
+      "name": "数据验证完整性",
+      "description": "是否完整验证了实验组和对照组样本量、数据质量",
+      "type": "binary",
+      "threshold": true,
+      "weight": 15
+    },
+    {
+      "id": "m2",
+      "name": "检验方法正确性",
+      "description": "是否根据数据类型选择了正确的统计检验方法",
+      "type": "binary",
+      "threshold": true,
+      "weight": 20
+    },
+    {
+      "id": "m3",
+      "name": "统计量计算准确性",
+      "description": "是否正确计算了统计量（z/t/χ²值）、p值和置信区间",
+      "type": "binary",
+      "threshold": true,
+      "weight": 20
+    },
+    {
+      "id": "m4",
+      "name": "显著性判断正确性",
+      "description": "是否正确比较p值与显著性水平，给出显著性判断",
+      "type": "binary",
+      "threshold": true,
+      "weight": 15
+    },
+    {
+      "id": "m5",
+      "name": "样本量分析完整性",
+      "description": "是否评估了样本量充足性和统计功效",
+      "type": "binary",
+      "threshold": true,
+      "weight": 15
+    },
+    {
+      "id": "m6",
+      "name": "结论明确性",
+      "description": "是否给出明确的统计结论和业务建议",
+      "type": "binary",
+      "threshold": true,
+      "weight": 10
+    },
+    {
+      "id": "m7",
+      "name": "效应量分析",
+      "description": "是否计算并解读了效应量（Cohen's d或相对提升率）",
+      "type": "binary",
+      "threshold": true,
+      "weight": 5
+    }
+  ],
+  "pass_threshold": 0.85,
+  "version_history": [
+    {
+      "version": "1.0.0",
+      "created": "2026-03-18",
+      "notes": "初始版本"
+    }
+  ]
+}

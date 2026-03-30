@@ -1,0 +1,119 @@
+# CyberTeam v2 配置文件
+
+[general]
+name = "CyberTeam v2"
+version = "2.0.0"
+description = "企业级 AI Agent 协作系统 - 100+ 思维专家驱动"
+
+[workspace]
+root = "~/.cyberteam/workspace"
+auto_cleanup = true
+worktree_enabled = true
+
+[model]
+default = "claude-opus-4-6"
+fallback = "claude-sonnet-4-6"
+max_tokens = 8192
+
+[thinking]
+enabled = true
+auto_trigger = true
+max_active_experts = 5
+confidence_threshold = 0.6
+expert_library_path = "experts/"
+
+[intent]
+classification_enabled = true
+confidence_threshold = 0.3
+patterns_path = "config/intent_patterns.json"
+
+[ceo]
+5w1h1y_enabled = true
+mece_enabled = true
+goal_drift_threshold = 0.2
+pua_flavor = "ali"
+
+[management]
+auto_spawn = true
+roles = [
+    "strategy",
+    "product",
+    "tech",
+    "design",
+    "ops",
+    "finance"
+]
+role_config_path = "layers/management/"
+
+[execution]
+parallel_limit = 5
+timeout_minutes = 30
+retry_count = 3
+output_format = "json"
+
+[clawteam]
+enabled = true
+workspace_root = "~/.clawteam/workspace"
+team_prefix = "cyber-"
+default_shell = "tmux"
+
+[pua]
+enabled = true
+flavor = "ali"  # ali, bytedance, huawei, tencent, musk
+cooldown_minutes = 5
+l1_threshold = 2
+l2_threshold = 3
+l3_threshold = 4
+l4_threshold = 5
+three_laws = [
+    "穷尽一切",
+    "先做后问",
+    "主动出击"
+]
+
+[goal_driver]
+enabled = true
+max_iterations = 10
+min_success_score = 75.0
+auto_revision = true
+evaluation_criteria = [
+    "完整性",
+    "专业性",
+    "可执行性",
+    "逻辑性"
+]
+
+[agency]
+enabled = true
+catalog_path = "integration/agency_catalog.json"
+cache_enabled = true
+cache_ttl_minutes = 60
+
+[scoring]
+weights = {
+    completeness = 0.20,
+    professionalism = 0.30,
+    practicality = 0.20,
+    logic = 0.30,
+    innovation = 0.0,
+    security = 0.0
+}
+bonus_max = 20
+
+[debate]
+enabled = true
+max_rounds = 5
+convergence_threshold = 0.3
+jaccard_similarity = true
+
+[logging]
+level = "INFO"
+format = "json"
+output = "console"
+file_path = "~/.cyberteam/logs/cyberteam.log"
+
+[limits]
+max_agents = 100
+max_concurrent_tasks = 50
+max_context_length = 200000
+rate_limit_per_minute = 60

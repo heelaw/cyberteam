@@ -1,0 +1,32 @@
+# 外部仓库（不需要push）
+"00_cyberteam搭建/需要融合的对象/"
+"00_cyberteam搭建/webui/"
+
+# IDE & System
+.DS_Store
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.venv/
+node_modules/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Large generated files
+*.sqlite
+*.db
+*.db-journal
+
+# Temp
+*.tmp
+*.swp
+*~

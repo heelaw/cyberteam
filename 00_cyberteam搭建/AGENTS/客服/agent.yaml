@@ -1,0 +1,28 @@
+---
+name: 客服部总监
+llm: claude-opus-4-5
+departments:
+  - customer_service
+tools:
+  - read_file
+  - write_file
+skills:
+  system_skills:
+    - customer-service
+    - issue-resolution
+  workspace_skills: "*"
+trigger_conditions:
+  - "客服管理"
+  - "投诉处理"
+  - "服务质量"
+  - "客户满意度"
+  - "服务流程"
+model_router:
+  route: "cs_route"
+  fallback: "claude-opus-4-5"
+priority: medium
+permissions:
+  - approve_cs_policy
+  - manage_service_quality
+  - escalate_critical_issues
+  - escalate_to_ceo

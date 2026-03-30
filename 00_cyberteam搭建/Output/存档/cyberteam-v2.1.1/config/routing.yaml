@@ -1,0 +1,581 @@
+# CyberTeam v2 - 中国平台Agent路由配置
+# 版本: v2.2 | 更新: 2026-03-24
+# 来源: CyberTeam-v2.1 + v2 内置Agent融合
+
+---
+# ============================================================================
+# 路由规则版本
+# ============================================================================
+version: "2.2"
+last_updated: "2026-03-24"
+source: agency-agents-zh + cyberteam-v2 integration
+
+# ============================================================================
+# v2 内置Agent (优先级高于中国平台Agent)
+# ============================================================================
+
+builtin_agents:
+  # --------------------------------------------------------------------------
+  # 战略层 - 全局调度
+  # --------------------------------------------------------------------------
+  strategy-director:
+    name: 战略总监
+    description: 全局战略规划与Agent调度协调
+    category: builtin_strategy
+    priority: critical
+    capabilities:
+      - 项目全局规划
+      - Agent任务分配
+      - 进度监控协调
+      - 风险识别应对
+    triggers:
+      - "战略"
+      - "规划"
+      - "全局"
+      - "项目启动"
+
+  # --------------------------------------------------------------------------
+  # 产品层
+  # --------------------------------------------------------------------------
+  product-director:
+    name: 产品总监
+    description: 产品需求分析与功能规划
+    category: builtin_product
+    priority: high
+    capabilities:
+      - 需求分析
+      - PRD撰写
+      - 功能优先级排序
+      - 用户故事编写
+    triggers:
+      - "产品"
+      - "需求"
+      - "PRD"
+      - "功能规划"
+
+  # --------------------------------------------------------------------------
+  # 工程层
+  # --------------------------------------------------------------------------
+  engineering-lead:
+    name: 工程负责人
+    description: 技术方案设计与代码审查
+    category: builtin_engineering
+    priority: high
+    capabilities:
+      - 技术方案设计
+      - 架构评审
+      - 代码审查
+      - 技术难题攻关
+    triggers:
+      - "技术方案"
+      - "架构"
+      - "代码审查"
+      - "工程"
+
+  # --------------------------------------------------------------------------
+  # 质量层
+  # --------------------------------------------------------------------------
+  qa-lead:
+    name: QA负责人
+    description: 测试策略与质量保障
+    category: builtin_qa
+    priority: high
+    capabilities:
+      - 测试计划制定
+      - 测试用例设计
+      - 缺陷管理
+      - 质量报告
+    triggers:
+      - "测试"
+      - "QA"
+      - "质量"
+      - "验收"
+
+  # --------------------------------------------------------------------------
+  # 运营层
+  # --------------------------------------------------------------------------
+  operations-director:
+    name: 运营总监
+    description: 项目运营与交付管理
+    category: builtin_operations
+    priority: medium
+    capabilities:
+      - 交付管理
+      - 进度追踪
+      - 资源协调
+      - 文档输出
+    triggers:
+      - "运营"
+      - "交付"
+      - "进度"
+      - "管理"
+
+# ============================================================================
+# 中国平台Agent路由配置
+# ============================================================================
+
+china_platforms_agents:
+  # --------------------------------------------------------------------------
+  # 短视频类
+  # --------------------------------------------------------------------------
+  douyin:
+    name: 抖音运营专家
+    agent_id: douyin-agent
+    builtin_equivalent: null
+    triggers:
+      - "抖音"
+      - "短视频"
+      - "直播带货"
+      - "DOU+"
+      - "千川"
+      - "抖音运营"
+      - "短视频营销"
+    skills:
+      - 抖音内容创作法
+      - 抖音直播运营法
+      - 抖音投放策略
+    priority: high
+    category: short_video
+    coordination_with:
+      - kuaishou  # 短视频协同
+      - private_domain  # 直播引流私域
+
+  kuaishou:
+    name: 快手运营专家
+    agent_id: kuaishou-agent
+    builtin_equivalent: null
+    triggers:
+      - "快手"
+      - "老铁"
+      - "直播带货"
+      - "快手电商"
+      - "下沉市场"
+      - "快手短视频"
+    skills:
+      - 快手老铁经济运营
+      - 快手直播带货
+    priority: medium
+    category: short_video
+    coordination_with:
+      - douyin  # 短视频协同
+      - private_domain  # 老铁经济与私域结合
+
+  # --------------------------------------------------------------------------
+  # 社交媒体类
+  # --------------------------------------------------------------------------
+  xiaohongshu:
+    name: 小红书运营专家
+    agent_id: xiaohongshu-agent
+    builtin_equivalent: null
+    triggers:
+      - "小红书"
+      - "种草"
+      - "笔记"
+      - "达人合作"
+      - "KOL/KOC"
+      - "小红书投放"
+      - "小红书运营"
+    skills:
+      - 小红书内容选题法
+      - 小红书爆款笔记写作
+      - 小红书数据运营分析
+    priority: high
+    category: social_media
+    coordination_with:
+      - douyin  # 种草-拔草链路
+      - wechat  # 内容导流私域
+
+  bilibili:
+    name: B站运营专家
+    agent_id: bilibili-agent
+    builtin_equivalent: null
+    triggers:
+      - "B站"
+      - "哔哩哔哩"
+      - "UP主"
+      - "中长视频"
+      - "弹幕"
+      - "花火平台"
+      - "B站运营"
+    skills:
+      - B站中长视频脚本创作
+      - B站UP主商业化
+      - B站社区运营
+    priority: medium
+    category: video
+    coordination_with:
+      - douyin  # 内容矩阵协同
+
+  # --------------------------------------------------------------------------
+  # 内容运营类
+  # --------------------------------------------------------------------------
+  wechat:
+    name: 微信公众号运营专家
+    agent_id: wechat-agent
+    builtin_equivalent: null
+    triggers:
+      - "微信公众号"
+      - "微信运营"
+      - "公众号内容"
+      - "公众号运营"
+      - "微信营销"
+    skills:
+      - 微信公众号内容策划
+      - 微信公众号用户运营
+      - 微信公众号数据分析
+    priority: medium
+    category: content
+    coordination_with:
+      - private_domain  # 公众号是私域重要组成
+
+  baidu_seo:
+    name: 百度SEO专家
+    agent_id: baidu-seo-agent
+    builtin_equivalent: null
+    triggers:
+      - "百度SEO"
+      - "百度搜索"
+      - "搜索引擎优化"
+      - "关键词优化"
+      - "百度收录"
+      - "SEO"
+    skills:
+      - 百度SEO技术优化
+      - 百度生态矩阵运营
+      - 百度关键词研究
+    priority: medium
+    category: search
+    coordination_with:
+      - xiaohongshu  # 搜索+种草协同
+
+  # --------------------------------------------------------------------------
+  # 私域运营类
+  # --------------------------------------------------------------------------
+  private_domain:
+    name: 私域流量运营专家
+    agent_id: private-domain-agent
+    builtin_equivalent: null
+    triggers:
+      - "私域流量"
+      - "企业微信"
+      - "企微SCRM"
+      - "社群运营"
+      - "用户生命周期"
+      - "私域转化"
+      - "微信私域"
+    skills:
+      - 企微SCRM配置
+      - 社群精细化运营
+      - 用户生命周期管理
+    priority: high
+    category: private_traffic
+    coordination_with:
+      - wechat  # 公众号导流私域
+      - douyin  # 直播引流私域
+      - kuaishou  # 老铁经济与私域
+
+  # --------------------------------------------------------------------------
+  # 电商运营类
+  # --------------------------------------------------------------------------
+  taobao:
+    name: 淘宝天猫运营专家
+    agent_id: taobao-agent
+    builtin_equivalent: null
+    triggers:
+      - "淘宝"
+      - "天猫"
+      - "直通车"
+      - "淘宝直播"
+      - "店铺运营"
+      - "电商运营"
+      - "淘系"
+    skills:
+      - 淘宝直通车投放
+      - 天猫店铺运营
+    priority: high
+    category: ecommerce
+    coordination_with:
+      - xiaohongshu  # 种草-拔草
+      - wechat  # 私域复购
+
+  jd:
+    name: 京东运营专家
+    agent_id: jd-agent
+    builtin_equivalent: null
+    triggers:
+      - "京东"
+      - "京东自营"
+      - "京东快车"
+      - "京速推"
+      - "京东物流"
+      - "京东电商"
+    skills:
+      - 京东快车投放
+      - 京东自营运营
+    priority: medium
+    category: ecommerce
+    coordination_with:
+      - xiaohongshu  # 种草-拔草
+
+  pinduoduo:
+    name: 拼多多运营专家
+    agent_id: pinduoduo-agent
+    builtin_equivalent: null
+    triggers:
+      - "拼多多"
+      - "多多搜索"
+      - "多多场景"
+      - "拼团"
+      - "社交电商"
+      - "低价策略"
+    skills:
+      - 拼多多多多搜索投放
+      - 拼多多社交电商
+    priority: medium
+    category: ecommerce
+    coordination_with:
+      - xiaohongshu  # 种草-拔草
+      - private_domain  # 社交裂变与私域
+
+# ============================================================================
+# 技能到Agent的映射
+# ============================================================================
+
+skills_mapping:
+  # 抖音相关
+  抖音内容创作法:
+    agent: douyin-agent
+    category: short_video
+  抖音直播运营法:
+    agent: douyin-agent
+    category: short_video
+  抖音投放策略:
+    agent: douyin-agent
+    category: short_video
+
+  # 快手相关
+  快手老铁经济运营:
+    agent: kuaishou-agent
+    category: short_video
+  快手直播带货:
+    agent: kuaishou-agent
+    category: short_video
+
+  # 小红书相关
+  小红书内容选题法:
+    agent: xiaohongshu-agent
+    category: social_media
+  小红书爆款笔记写作:
+    agent: xiaohongshu-agent
+    category: social_media
+  小红书数据运营分析:
+    agent: xiaohongshu-agent
+    category: social_media
+
+  # B站相关
+  B站中长视频脚本创作:
+    agent: bilibili-agent
+    category: video
+  B站UP主商业化:
+    agent: bilibili-agent
+    category: video
+  B站社区运营:
+    agent: bilibili-agent
+    category: video
+
+  # 微信相关
+  微信公众号内容策划:
+    agent: wechat-agent
+    category: content
+  微信公众号用户运营:
+    agent: wechat-agent
+    category: content
+  微信公众号数据分析:
+    agent: wechat-agent
+    category: content
+
+  # 百度相关
+  百度SEO技术优化:
+    agent: baidu-seo-agent
+    category: search
+  百度生态矩阵运营:
+    agent: baidu-seo-agent
+    category: search
+  百度关键词研究:
+    agent: baidu-seo-agent
+    category: search
+
+  # 私域相关
+  企微SCRM配置:
+    agent: private-domain-agent
+    category: private_traffic
+  社群精细化运营:
+    agent: private-domain-agent
+    category: private_traffic
+  用户生命周期管理:
+    agent: private-domain-agent
+    category: private_traffic
+
+  # 淘宝相关
+  淘宝直通车投放:
+    agent: taobao-agent
+    category: ecommerce
+  天猫店铺运营:
+    agent: taobao-agent
+    category: ecommerce
+
+  # 京东相关
+  京东快车投放:
+    agent: jd-agent
+    category: ecommerce
+  京东自营运营:
+    agent: jd-agent
+    category: ecommerce
+
+  # 拼多多相关
+  拼多多多多搜索投放:
+    agent: pinduoduo-agent
+    category: ecommerce
+  拼多多社交电商:
+    agent: pinduoduo-agent
+    category: ecommerce
+
+# ============================================================================
+# 路由优先级规则
+# ============================================================================
+
+routing_priority:
+  # 优先级顺序: 内置Agent > 高优先级平台 > 中优先级平台
+  builtin_first:
+    - strategy-director
+    - product-director
+    - engineering-lead
+    - qa-lead
+
+  high_priority:
+    - douyin
+    - xiaohongshu
+    - private_domain
+    - taobao
+
+  medium_priority:
+    - kuaishou
+    - wechat
+    - bilibili
+    - baidu_seo
+    - jd
+    - pinduoduo
+
+  # 触发词权重
+  trigger_weights:
+    exact_match: 100
+    partial_match: 50
+    fuzzy_match: 20
+    builtin_priority_boost: 10
+
+# ============================================================================
+# Agent协同链路
+# ============================================================================
+
+coordination_chains:
+  # 种草-拔草链路
+  seeding_to_conversion:
+    - xiaohongshu  # 种草
+    - douyin      # 短视频验证
+    - taobao      # 淘宝拔草
+    - jd          # 京东拔草
+    - pinduoduo   # 拼多多拔草
+
+  # 直播电商链路
+  live_commerce:
+    - douyin      # 抖音直播
+    - kuaishou    # 快手直播
+    - private_domain  # 引流私域
+    - wechat      # 公众号沉淀
+
+  # 私域运营链路
+  private_domain_flow:
+    - wechat      # 公众号获客
+    - private_domain  # 私域沉淀
+    - xiaohongshu  # 持续种草
+    - taobao      # 电商转化
+
+  # 内容矩阵链路
+  content_matrix:
+    - bilibili    # 中长视频深度内容
+    - douyin      # 短视频引流
+    - kuaishou    # 下沉市场
+    - xiaohongshu # 种草转化
+    - baidu_seo   # 搜索截流
+
+# ============================================================================
+# 分类统计
+# ============================================================================
+
+category_summary:
+  builtin_strategy:
+    - strategy-director
+    display_name: 战略层
+  builtin_product:
+    - product-director
+    display_name: 产品层
+  builtin_engineering:
+    - engineering-lead
+    display_name: 工程层
+  builtin_qa:
+    - qa-lead
+    display_name: 质量层
+  builtin_operations:
+    - operations-director
+    display_name: 运营层
+  short_video:
+    - douyin
+    - kuaishou
+    display_name: 短视频
+  social_media:
+    - xiaohongshu
+    display_name: 社交媒体
+  video:
+    - bilibili
+    display_name: 视频平台
+  content:
+    - wechat
+    display_name: 内容运营
+  search:
+    - baidu_seo
+    display_name: 搜索引擎
+  private_traffic:
+    - private_domain
+    display_name: 私域运营
+  ecommerce:
+    - taobao
+    - jd
+    - pinduoduo
+    display_name: 电商运营
+
+# ============================================================================
+# 文件路径配置
+# ============================================================================
+
+paths:
+  builtin_agents: agents/builtin/
+  china_platforms_agents: agents/china-platforms/
+  skills: skills/china-platforms/
+  templates: templates/china-platforms/
+  coordination: config/coordination/
+
+# ============================================================================
+# 配置元数据
+# ============================================================================
+
+metadata:
+  builtin_agents_count: 5
+  china_platforms_agents_count: 10
+  total_skills: 26
+  categories: 12
+  coordination_chains: 4
+  source_repositories:
+    - agency-agents-zh
+    - cyberteam-v2
+  integration_date: 2026-03-24
+  version: "2.2"

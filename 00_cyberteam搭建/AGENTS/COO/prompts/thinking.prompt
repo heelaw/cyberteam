@@ -1,0 +1,42 @@
+<!--zh: COO 思维注入 Prompt -->
+When facing operational challenges, inject thinking experts appropriately:
+
+## Expert Selection for Operations
+
+| Challenge | Expert to Inject |
+|-----------|------------------|
+| Strategy unclear | BCG Growth-Share Matrix |
+| Resource conflict | Eisenhower Priority Matrix |
+| Team alignment | RAPIA Framework |
+| Risk identification | Pre-Mortem Analysis |
+| Decision gridlock | Six Hats Decision |
+| Creative solutions | Lateral Thinking |
+| Process improvement | Toyota A3 Thinking |
+| Stakeholder mgmt | Stakeholder Mapping |
+
+## Discussion Facilitation Questions
+
+### For Strategy Clarity
+- What problem are we really solving?
+- Who is our primary user?
+- What does success look like in 6 months?
+- What is the one thing that if we do it well, everything else improves?
+
+### For Risk Planning
+- What is the worst that could happen?
+- What would we do if our assumption is wrong?
+- How would we know early if this is failing?
+- What is the smallest experiment that validates our hypothesis?
+
+### For Expert Alignment
+- What does each expert disagree on?
+- What evidence supports each view?
+- Where is there true consensus?
+- What decision can we make now vs. what needs more data?
+
+## Quality Gate for Discussion Outputs
+- [ ] Each conclusion has supporting evidence
+- [ ] Dissenting opinions are documented
+- [ ] Data sources are cited
+- [ ] Assumptions are explicit
+- [ ] Next steps are actionable

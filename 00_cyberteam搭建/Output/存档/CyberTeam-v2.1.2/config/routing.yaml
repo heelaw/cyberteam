@@ -1,0 +1,392 @@
+# CyberTeam v2.1 - 中国平台Agent路由配置
+# 版本: v2.1 | 更新: 2026-03-23
+
+---
+# 路由规则版本
+version: "2.1"
+last_updated: "2026-03-23"
+source: agency-agents-zh
+
+# ============================================================================
+# 中国平台Agent路由配置
+# ============================================================================
+
+china_platforms_agents:
+  # --------------------------------------------------------------------------
+  # 小红书运营专家
+  # --------------------------------------------------------------------------
+  xiaohongshu:
+    name: 小红书运营专家
+    agent_id: xiaohongshu-agent
+    triggers:
+      - "小红书"
+      - "种草"
+      - "笔记"
+      - "达人合作"
+      - "KOL/KOC"
+      - "小红书投放"
+      - "小红书运营"
+    skills:
+      - 小红书内容选题法
+      - 小红书爆款笔记写作
+      - 小红书数据运营分析
+    priority: high
+    category: social_media
+
+  # --------------------------------------------------------------------------
+  # 抖音运营专家
+  # --------------------------------------------------------------------------
+  douyin:
+    name: 抖音运营专家
+    agent_id: douyin-agent
+    triggers:
+      - "抖音"
+      - "短视频"
+      - "直播带货"
+      - "DOU+"
+      - "千川"
+      - "抖音运营"
+      - "短视频营销"
+    skills:
+      - 抖音内容创作法
+      - 抖音直播运营法
+      - 抖音投放策略
+    priority: high
+    category: short_video
+
+  # --------------------------------------------------------------------------
+  # 微信公众号运营专家
+  # --------------------------------------------------------------------------
+  wechat:
+    name: 微信公众号运营专家
+    agent_id: wechat-agent
+    triggers:
+      - "微信公众号"
+      - "微信运营"
+      - "公众号内容"
+      - "公众号运营"
+      - "微信营销"
+    skills:
+      - 微信公众号内容策划
+      - 微信公众号用户运营
+      - 微信公众号数据分析
+    priority: medium
+    category: content
+
+  # --------------------------------------------------------------------------
+  # B站运营专家
+  # --------------------------------------------------------------------------
+  bilibili:
+    name: B站运营专家
+    agent_id: bilibili-agent
+    triggers:
+      - "B站"
+      - "哔哩哔哩"
+      - "UP主"
+      - "中长视频"
+      - "弹幕"
+      - "花火平台"
+      - "B站运营"
+    skills:
+      - B站中长视频脚本创作
+      - B站UP主商业化
+      - B站社区运营
+    priority: medium
+    category: video
+
+  # --------------------------------------------------------------------------
+  # 百度SEO专家
+  # --------------------------------------------------------------------------
+  baidu_seo:
+    name: 百度SEO专家
+    agent_id: baidu-seo-agent
+    triggers:
+      - "百度SEO"
+      - "百度搜索"
+      - "搜索引擎优化"
+      - "关键词优化"
+      - "百度收录"
+      - "SEO"
+    skills:
+      - 百度SEO技术优化
+      - 百度生态矩阵运营
+      - 百度关键词研究
+    priority: medium
+    category: search
+
+  # --------------------------------------------------------------------------
+  # 私域流量运营专家
+  # --------------------------------------------------------------------------
+  private_domain:
+    name: 私域流量运营专家
+    agent_id: private-domain-agent
+    triggers:
+      - "私域流量"
+      - "企业微信"
+      - "企微SCRM"
+      - "社群运营"
+      - "用户生命周期"
+      - "私域转化"
+      - "微信私域"
+    skills:
+      - 企微SCRM配置
+      - 社群精细化运营
+      - 用户生命周期管理
+    priority: high
+    category: private_traffic
+
+  # --------------------------------------------------------------------------
+  # 淘宝天猫运营专家
+  # --------------------------------------------------------------------------
+  taobao:
+    name: 淘宝天猫运营专家
+    agent_id: taobao-agent
+    triggers:
+      - "淘宝"
+      - "天猫"
+      - "直通车"
+      - "淘宝直播"
+      - "店铺运营"
+      - "电商运营"
+      - "淘系"
+    skills:
+      - 淘宝直通车投放
+      - 天猫店铺运营
+    priority: high
+    category: ecommerce
+
+  # --------------------------------------------------------------------------
+  # 京东运营专家
+  # --------------------------------------------------------------------------
+  jd:
+    name: 京东运营专家
+    agent_id: jd-agent
+    triggers:
+      - "京东"
+      - "京东自营"
+      - "京东快车"
+      - "京速推"
+      - "京东物流"
+      - "京东电商"
+    skills:
+      - 京东快车投放
+      - 京东自营运营
+    priority: medium
+    category: ecommerce
+
+  # --------------------------------------------------------------------------
+  # 拼多多运营专家
+  # --------------------------------------------------------------------------
+  pinduoduo:
+    name: 拼多多运营专家
+    agent_id: pinduoduo-agent
+    triggers:
+      - "拼多多"
+      - "多多搜索"
+      - "多多场景"
+      - "拼团"
+      - "社交电商"
+      - "低价策略"
+    skills:
+      - 拼多多多多搜索投放
+      - 拼多多社交电商
+    priority: medium
+    category: ecommerce
+
+  # --------------------------------------------------------------------------
+  # 快手运营专家
+  # --------------------------------------------------------------------------
+  kuaishou:
+    name: 快手运营专家
+    agent_id: kuaishou-agent
+    triggers:
+      - "快手"
+      - "老铁"
+      - "直播带货"
+      - "快手电商"
+      - "下沉市场"
+      - "快手短视频"
+    skills:
+      - 快手老铁经济运营
+      - 快手直播带货
+    priority: medium
+    category: short_video
+
+# ============================================================================
+# 技能到Agent的映射
+# ============================================================================
+
+skills_mapping:
+  # 小红书相关
+  小红书内容选题法:
+    agent: xiaohongshu-agent
+    category: social_media
+  小红书爆款笔记写作:
+    agent: xiaohongshu-agent
+    category: social_media
+  小红书数据运营分析:
+    agent: xiaohongshu-agent
+    category: social_media
+
+  # 抖音相关
+  抖音内容创作法:
+    agent: douyin-agent
+    category: short_video
+  抖音直播运营法:
+    agent: douyin-agent
+    category: short_video
+  抖音投放策略:
+    agent: douyin-agent
+    category: short_video
+
+  # 微信相关
+  微信公众号内容策划:
+    agent: wechat-agent
+    category: content
+  微信公众号用户运营:
+    agent: wechat-agent
+    category: content
+  微信公众号数据分析:
+    agent: wechat-agent
+    category: content
+
+  # B站相关
+  B站中长视频脚本创作:
+    agent: bilibili-agent
+    category: video
+  B站UP主商业化:
+    agent: bilibili-agent
+    category: video
+  B站社区运营:
+    agent: bilibili-agent
+    category: video
+
+  # 百度相关
+  百度SEO技术优化:
+    agent: baidu-seo-agent
+    category: search
+  百度生态矩阵运营:
+    agent: baidu-seo-agent
+    category: search
+  百度关键词研究:
+    agent: baidu-seo-agent
+    category: search
+
+  # 私域相关
+  企微SCRM配置:
+    agent: private-domain-agent
+    category: private_traffic
+  社群精细化运营:
+    agent: private-domain-agent
+    category: private_traffic
+  用户生命周期管理:
+    agent: private-domain-agent
+    category: private_traffic
+
+  # 淘宝相关
+  淘宝直通车投放:
+    agent: taobao-agent
+    category: ecommerce
+  天猫店铺运营:
+    agent: taobao-agent
+    category: ecommerce
+
+  # 京东相关
+  京东快车投放:
+    agent: jd-agent
+    category: ecommerce
+  京东自营运营:
+    agent: jd-agent
+    category: ecommerce
+
+  # 拼多多相关
+  拼多多多多搜索投放:
+    agent: pinduoduo-agent
+    category: ecommerce
+  拼多多社交电商:
+    agent: pinduoduo-agent
+    category: ecommerce
+
+  # 快手相关
+  快手老铁经济运营:
+    agent: kuaishou-agent
+    category: short_video
+  快手直播带货:
+    agent: kuaishou-agent
+    category: short_video
+
+# ============================================================================
+# 分类统计
+# ============================================================================
+
+category_summary:
+  social_media:
+    - xiaohongshu
+    display_name: 社交媒体
+  short_video:
+    - douyin
+    - kuaishou
+    display_name: 短视频
+  content:
+    - wechat
+    display_name: 内容运营
+  video:
+    - bilibili
+    display_name: 视频平台
+  search:
+    - baidu_seo
+    display_name: 搜索引擎
+  private_traffic:
+    - private_domain
+    display_name: 私域运营
+  ecommerce:
+    - taobao
+    - jd
+    - pinduoduo
+    display_name: 电商运营
+
+# ============================================================================
+# 路由优先级规则
+# ============================================================================
+
+routing_priority:
+  # 高优先级类别
+  high_priority:
+    - social_media
+    - private_traffic
+    - ecommerce
+    - short_video
+
+  # 中优先级类别
+  medium_priority:
+    - content
+    - video
+    - search
+
+  # 触发词权重
+  trigger_weights:
+    exact_match: 100
+    partial_match: 50
+    fuzzy_match: 20
+
+# ============================================================================
+# 文件路径配置
+# ============================================================================
+
+paths:
+  agents: agents/china-platforms/
+  skills: skills/china-platforms/
+  templates: templates/china-platforms/
+  examples: examples/china-platforms/
+
+# ============================================================================
+# 配置元数据
+# ============================================================================
+
+metadata:
+  total_agents: 10
+  total_skills: 26
+  categories: 7
+  source_repository: agency-agents-zh
+  integration_date: 2026-03-23
+  version: "2.1"
