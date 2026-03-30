@@ -13,6 +13,12 @@ from typing import Any, Optional
 
 from cyberteam.mcp.helpers import require_team, to_payload
 from cyberteam.spawn.sessions import SessionStore, SessionState
+from cyberteam.spawn.permissions import (
+    check_spawn_permission,
+    check_send_permission,
+    register_spawnable_agent,
+    enforce_permission,
+)
 from cyberteam.team.mailbox import MailboxManager
 
 
@@ -135,7 +141,31 @@ def sessions_spawn(
     """
     require_team(team_name)
 
-    # Generate session ID
+    # ── allowAgents 权限检查 ──
+    # 确定调用者（通常由 orchestrator 或 leader 作为调度方）
+    caller = leader_name  # leader_name 是调度发起方
+
+    allowed, reason = check_spawn_permission(
+        from_agent=caller,
+        to_agent=agent_name,
+        team_name=team_name,
+    )
+    if not allowed:
+        return {
+            "sessionId": session_id if 'session_id' in dir() else "",
+            "agentName": agent_name,
+            "teamName": team_name,
+            "status": "denied",
+            "error": f"[allowAgents] {caller} 无法 spawn {agent_name}: {reason}",
+            "allowAgentsCheck": {
+                "from": caller,
+                "to": agent_name,
+                "allowed": False,
+                "reason": reason,
+            },
+        }
+
+    # Generate session ID after permission check
     session_id = uuid.uuid4().hex[:12]
 
     # Build the agent prompt
@@ -269,6 +299,28 @@ def sessions_send(
         dict with round count, response content, and status
     """
     require_team(team_name)
+
+    # ── allowAgents 权限检查 ──
+    allowed, reason = check_send_permission(
+        from_agent=from_agent,
+        to_agent=to_agent,
+        team_name=team_name,
+    )
+    if not allowed:
+        return {
+            "sessionId": session_id,
+            "teamName": team_name,
+            "fromAgent": from_agent,
+            "toAgent": to_agent,
+            "status": "denied",
+            "error": f"[allowAgents] {from_agent} 无法向 {to_agent} 发消息: {reason}",
+            "allowAgentsCheck": {
+                "from": from_agent,
+                "to": to_agent,
+                "allowed": False,
+                "reason": reason,
+            },
+        }
 
     mailbox = _mailbox(team_name)
     store = _store(team_name)
