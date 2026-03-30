@@ -7,5 +7,6 @@ from .skills import router as skills_router
 from .expert_agents import router as expert_agents_router
 from .playground import router as playground_router
 from .companies import router as companies_router
+from .spawn_api import router as spawn_router
 
-__all__ = ["chat_router", "agents_router", "projects_router", "skills_router", "expert_agents_router", "playground_router", "companies_router"]
+__all__ = ["chat_router", "agents_router", "projects_router", "skills_router", "expert_agents_router", "playground_router", "companies_router", "spawn_router"]

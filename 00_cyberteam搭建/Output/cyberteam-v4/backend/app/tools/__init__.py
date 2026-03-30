@@ -42,6 +42,38 @@ from .errors import (
     ToolRegistrationError
 )
 
+# Session 管理工具（子Agent双向通信）
+from .sessions_spawn import (
+    SpawnSessionManager,
+    SpawnParams,
+    SpawnResult,
+    SessionStatus,
+    SessionsSpawnTool,
+    sessions_spawn,
+    get_session,
+    list_sessions,
+    update_session,
+)
+from .sessions_send import (
+    SessionsSendParams,
+    SessionsSendResult,
+    SessionsSendTool,
+    ConversationManager,
+    sessions_send,
+    MAX_ROUNDS,
+)
+from .sessions_receive import (
+    SessionsReceiveParams,
+    SessionsReceiveResult,
+    SessionsReplyParams,
+    SessionsReplyResult,
+    SessionsReceiveTool,
+    SessionsReplyTool,
+    SubAgentMessageQueue,
+    sessions_receive,
+    sessions_reply,
+)
+
 __all__ = [
     # 核心类
     'BaseTool',
@@ -63,4 +95,34 @@ __all__ = [
     'ToolExecutionError',
     'ToolNotFoundError',
     'ToolRegistrationError',
+
+    # Session 管理工具
+    'SpawnSessionManager',
+    'SpawnParams',
+    'SpawnResult',
+    'SessionStatus',
+    'SessionsSpawnTool',
+    'sessions_spawn',
+    'get_session',
+    'list_sessions',
+    'update_session',
+
+    # Sessions Send (主Agent调用)
+    'SessionsSendParams',
+    'SessionsSendResult',
+    'SessionsSendTool',
+    'ConversationManager',
+    'sessions_send',
+    'MAX_ROUNDS',
+
+    # Sessions Receive (子Agent调用)
+    'SessionsReceiveParams',
+    'SessionsReceiveResult',
+    'SessionsReplyParams',
+    'SessionsReplyResult',
+    'SessionsReceiveTool',
+    'SessionsReplyTool',
+    'SubAgentMessageQueue',
+    'sessions_receive',
+    'sessions_reply',
 ]
