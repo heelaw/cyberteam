@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+/* CyberTeam 品牌主题 */
+@theme {
+  --color-primary: #3b82f6;
+  --color-cyber-gold: #f59e0b;
+  --color-cyber-blue: #3b82f6;
+  --color-cyber-green: #10b981;
+  --color-cyber-red: #ef4444;
+  --color-cyber-purple: #8b5cf6;
+}
+
+/* 全局样式 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 自定义滚动条 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a0aec0;
+}
+
+/* Ant Design 覆盖 */
+.ant-layout-sider {
+  border-right: 1px solid #f0f0f0;
+}

@@ -1,0 +1,53 @@
+{
+  "version": "1.0",
+  "test_cases": [
+    {
+      "id": "1",
+      "scenario": "设计游戏化学习方案",
+      "description": "将游戏化要素迁移到在线课程产品",
+      "difficulty": "medium",
+      "input": {
+        "elements": ["经验值系统", "等级系统", "成就系统", "排行榜"],
+        "business_features": "在线职业技能课程，用户以职场人士为主",
+        "constraints": "技术团队有限，3个月内上线"
+      },
+      "expected_output": {
+        "adaptation": "有明确的适配分析",
+        "product_design": "功能清单完整",
+        "process_design": "流程清晰",
+        "mechanism_design": "机制配套"
+      },
+      "evaluation_points": [
+        "适配设计合理",
+        "产品设计完整",
+        "流程可执行"
+      ]
+    },
+    {
+      "id": "2",
+      "scenario": "设计会员积分体系",
+      "description": "将会员积分要素迁移到电商平台",
+      "difficulty": "medium",
+      "input": {
+        "elements": ["积分获取", "积分消耗", "等级权益"],
+        "business_features": "综合电商平台，月活100万",
+        "constraints": "预算50万"
+      },
+      "expected_output": {
+        "adaptation": "有适配分析",
+        "product_design": "功能设计完整",
+        "process_design": "流程清晰"
+      },
+      "evaluation_points": [
+        "适配设计合理",
+        "方案可执行"
+      ]
+    }
+  ],
+  "evaluation_criteria": {
+    "adaptation": "要素与业务适配",
+    "product_completeness": "产品设计完整",
+    "process_clarity": "流程可执行",
+    "mechanism_ completeness": "机制配套"
+  }
+}

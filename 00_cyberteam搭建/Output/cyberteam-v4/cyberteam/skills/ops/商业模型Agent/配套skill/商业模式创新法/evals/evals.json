@@ -1,0 +1,84 @@
+{
+  "skill_name": "商业模式创新法",
+  "version": "1.0",
+  "eval_type": "skill_functional",
+  "test_cases": [
+    {
+      "id": 1,
+      "difficulty": "simple",
+      "category": "转型创新",
+      "input": {
+        "scenario": "一个线下健身房想转型，请给出商业模式创新建议"
+      },
+      "expected_output": {
+        "must_include": [
+          "收入来源创新：会员制+私教+课程销售+电商",
+          "价值主张创新：健身服务→健康解决方案",
+          "渠道创新：线下→线上+线下融合",
+          "交付方式创新：到店→到家+到店结合",
+          "客户关系创新：交易→会员+社群运营"
+        ],
+        "output_structure": "五维度创新分析+Quick Wins建议",
+        "min_score": 3
+      },
+      "evaluation_criteria": {
+        "completeness": "是否覆盖五大创新维度",
+        "feasibility": "方案是否可行",
+        "clarity": "输出是否清晰可读"
+      }
+    },
+    {
+      "id": 2,
+      "difficulty": "medium",
+      "category": "转型升级",
+      "input": {
+        "scenario": "一个传统教育培训公司，现在面临线上教育冲击，请分析商业模式创新机会"
+      },
+      "expected_output": {
+        "must_include": [
+          "收入来源：课程收入→会员订阅+增值服务+企业培训",
+          "价值主张：应试教育→能力提升+终身学习",
+          "渠道：线下校区→线上平台+线下体验",
+          "交付方式：面授→线上直播+录播+线下混合",
+          "客户关系：销售导向→服务导向+社群运营"
+        ],
+        "output_structure": "五维度创新分析+实施路径",
+        "min_score": 3
+      },
+      "evaluation_criteria": {
+        "completeness": "是否覆盖五大创新维度",
+        "depth": "分析是否有深度",
+        "practicality": "建议是否具有实操性"
+      }
+    },
+    {
+      "id": 3,
+      "difficulty": "hard",
+      "category": "跨界创新",
+      "input": {
+        "scenario": "一个传统书店想进行商业模式创新，请分析可能的创新方向"
+      },
+      "expected_output": {
+        "must_include": [
+          "收入来源：卖书→图书+咖啡+活动+会员+文创+空间租赁",
+          "价值主张：卖书→文化体验+社交空间+第三空间",
+          "渠道：门店→线上+线下+社区",
+          "交付方式：购买→阅读+体验+配送",
+          "客户关系：交易关系→会员+社群+活动参与"
+        ],
+        "output_structure": "五维度创新分析+案例参考+创新路线图",
+        "min_score": 3
+      },
+      "evaluation_criteria": {
+        "completeness": "是否覆盖五大创新维度",
+        "innovation": "创新程度是否足够",
+        "feasibility": "方案是否可行"
+      }
+    }
+  ],
+  "evaluation_methodology": {
+    "scoring": "每个维度1-5分，5分制评分",
+    "pass_criteria": "总分≥15分（满分25分），且每个维度≥3分",
+    "process": "1.分析现有商业模式 2.识别创新机会点 3.从五大维度设计创新方案 4.评估可行性和实施路径"
+  }
+}

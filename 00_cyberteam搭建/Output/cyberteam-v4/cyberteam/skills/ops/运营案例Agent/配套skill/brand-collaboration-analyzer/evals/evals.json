@@ -1,0 +1,69 @@
+{
+  "skill_name": "brand-collaboration-analyzer",
+  "eval_version": "v1.0",
+  "evaluation_date": "2026-03-19",
+
+  "test_cases": [
+    {
+      "case_id": "eval-1",
+      "case_name": "分析瑞幸x茅台联名成功因素",
+      "difficulty": "simple",
+      "scenario": "用户想学习品牌联名分析",
+      "input": {
+        "user_request": "分析一下瑞幸x茅台联名为什么能爆火出圈"
+      },
+      "expected_output": {
+        "品牌互补性": "高端x大众，互补明显",
+        "产品创新度": "口味创新+视觉设计",
+        "传播策略": "三阶段清晰",
+        "可借鉴经验": "3条以上"
+      },
+      "evaluation_criteria": [
+        "互补性评估准确",
+        "创新度评估合理",
+        "经验可复用"
+      ],
+      "pass_threshold": {
+        "互补性评估": "至少2个维度",
+        "创新度评估": "至少1个维度",
+        "经验可复用": "2条以上"
+      }
+    },
+    {
+      "case_id": "eval-2",
+      "case_name": "评估两个品牌是否适合联名",
+      "difficulty": "simple",
+      "scenario": "用户想评估自己品牌的联名机会",
+      "input": {
+        "brand_a": "某高端美妆品牌",
+        "brand_b": "某平价茶饮品牌"
+      },
+      "expected_output": {
+        "互补性评估": "多维度分析",
+        "联名建议": "是否适合联名",
+        "风险提示": "潜在风险"
+      },
+      "evaluation_criteria": [
+        "分析框架完整",
+        "建议合理有据",
+        "风险提示到位"
+      ],
+      "pass_threshold": {
+        "分析框架": "完整",
+        "建议": "合理",
+        "风险": "有提示"
+      }
+    }
+  ],
+
+  "difficulty_distribution": {
+    "simple": 2,
+    "medium": 0,
+    "complex": 0
+  },
+
+  "overall_pass_threshold": 0.8,
+  "version_history": [
+    {"version": "v1.0", "date": "2026-03-19", "note": "初始版本"}
+  ]
+}

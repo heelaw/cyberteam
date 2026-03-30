@@ -1,0 +1,52 @@
+{
+  "version": "1.0",
+  "core_theory": {
+    "name": "进度追踪方法论",
+    "source": "业务操盘手课程 - 第四章：工作规划与模型",
+    "summary": "追踪工作执行进度，识别偏差和风险，推动问题解决",
+    "key_principle": "计划 → 执行 → 检查 → 行动 (PDCA)"
+  },
+  "progress_metrics": [
+    {
+      "metric": "完成率",
+      "formula": "已完成任务/总任务×100%",
+      "interpretation": "整体进度"
+    },
+    {
+      "metric": "进度偏差",
+      "formula": "(实际进度-计划进度)/计划进度×100%",
+      "interpretation": "与计划的差距"
+    },
+    {
+      "metric": "里程碑达成率",
+      "formula": "已达成里程碑/总里程碑×100%",
+      "interpretation": "关键节点达成"
+    }
+  ],
+  "status_levels": [
+    {"status": "正常", "variance": "<10%", "color": "绿色"},
+    {"status": "预警", "variance": "10-20%", "color": "黄色"},
+    {"status": "延期", "variance": ">20%", "color": "红色"}
+  ],
+  "risk_types": [
+    {"type": "进度风险", "signals": ["连续延期", "资源不足"]},
+    {"type": "质量风险", "signals": ["交付物不达标", "返工"]},
+    {"type": "资源风险", "signals": ["人力超支", "预算不足"]},
+    {"type": "外部风险", "signals": ["市场变化", "政策影响"]}
+  ],
+  "warning_levels": [
+    {"level": "高", "color": "🔴", "description": "影响目标达成"},
+    {"level": "中", "color": "🟡", "description": "影响里程碑"},
+    {"level": "低", "color": "🟢", "description": "可接受范围"}
+  ],
+  "issue_status": [
+    {"status": "待解决", "action": "明确责任人"},
+    {"status": "进行中", "action": "跟踪进展"},
+    {"status": "已解决", "action": "确认闭环"}
+  ],
+  "references": [
+    {"name": "项目管理知识", "source": "PMBOK"},
+    {"name": "敏捷管理", "source": "Scrum"},
+    {"name": "进度追踪方法论", "source": "业务操盘手课程 - 第四章"}
+  ]
+}

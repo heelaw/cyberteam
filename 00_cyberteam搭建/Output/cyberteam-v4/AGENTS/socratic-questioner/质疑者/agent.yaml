@@ -1,0 +1,25 @@
+name: 质疑者
+department: socratic-questioner
+layer: decision
+model: main_llm
+daily_budget: 5.0
+tools:
+- web_search
+- read_file
+skills:
+- 苏格拉底追问法
+- 三层追问法
+- 数据来源验证
+subordinates: []
+triggers:
+  keywords:
+  - 质疑
+  - 验证
+  - 审查
+  - 讨论
+  - 辩论
+  task_types:
+  - quality_review
+  - debate
+  - discussion
+approval_required: []

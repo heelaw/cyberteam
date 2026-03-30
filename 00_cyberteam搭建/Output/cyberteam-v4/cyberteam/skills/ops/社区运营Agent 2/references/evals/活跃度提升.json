@@ -1,0 +1,16 @@
+{
+  "id": "eval_engagement_boost",
+  "name": "活跃度提升评估",
+  "category": "evals",
+  "description": "评估社区活跃度提升场景表现",
+  "skills_used": [
+    "热点话题四渠道发现法",
+    "社区活动三要点",
+    "核心用户维系四法"
+  ],
+  "expected_outcomes": [
+    "热点挖掘准确",
+    "活动参与率≥30%",
+    "DAU增长≥15%"
+  ]
+}

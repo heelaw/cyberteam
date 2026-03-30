@@ -1,0 +1,79 @@
+{
+  "skill_name": "用户分层器",
+  "version": "1.0.0",
+  "assess_type": "quality",
+  "metrics": [
+    {
+      "id": "m1",
+      "name": "分层维度数",
+      "description": "是否至少有3个分层维度",
+      "type": "count",
+      "threshold": 3,
+      "weight": 15
+    },
+    {
+      "id": "m2",
+      "name": "数据支撑",
+      "description": "分层是否有数据或调研支撑",
+      "type": "binary",
+      "threshold": true,
+      "weight": 15
+    },
+    {
+      "id": "m3",
+      "name": "核心用户明确",
+      "description": "是否明确核心目标用户",
+      "type": "binary",
+      "threshold": true,
+      "weight": 20
+    },
+    {
+      "id": "m4",
+      "name": "画像具体性",
+      "description": "用户画像是否具体可感知",
+      "type": "binary",
+      "threshold": true,
+      "weight": 15
+    },
+    {
+      "id": "m5",
+      "name": "策略匹配",
+      "description": "是否有针对不同层级的策略建议",
+      "type": "binary",
+      "threshold": true,
+      "weight": 15
+    },
+    {
+      "id": "m6",
+      "name": "Critical Rules",
+      "description": "是否有至少5条禁止行为",
+      "type": "count",
+      "threshold": 5,
+      "weight": 10
+    },
+    {
+      "id": "m7",
+      "name": "Success Metrics",
+      "description": "是否有量化指标",
+      "type": "binary",
+      "threshold": true,
+      "weight": 5
+    },
+    {
+      "id": "m8",
+      "name": "Skill协同",
+      "description": "是否有前后置Skill定义",
+      "type": "binary",
+      "threshold": true,
+      "weight": 5
+    }
+  ],
+  "pass_threshold": 0.85,
+  "version_history": [
+    {
+      "version": "1.0.0",
+      "created": "2026-03-18",
+      "notes": "初始版本"
+    }
+  ]
+}

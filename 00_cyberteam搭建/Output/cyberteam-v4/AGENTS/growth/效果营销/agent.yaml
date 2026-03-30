@@ -1,0 +1,28 @@
+name: 效果营销
+department: growth
+layer: execution
+model: main_llm
+daily_budget: 8.0
+tools:
+- web_search
+- write_file
+- read_file
+skills:
+- 投放策略
+- ROI优化
+- 渠道效果分析
+subordinates: []
+triggers:
+  keywords:
+  - 投放
+  - ROI
+  - 效果
+  - 广告
+  - 竞价
+  - 信息流
+  task_types:
+  - performance_marketing
+  - ad_campaign
+approval_required:
+- budget_exceed_5usd
+- publish_content

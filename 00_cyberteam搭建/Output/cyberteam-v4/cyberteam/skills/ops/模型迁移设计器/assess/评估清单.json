@@ -1,0 +1,44 @@
+{
+  "dimension": "模型迁移设计",
+  "version": "1.0",
+  "author": "Cyberwiz",
+  "review_status": "待审查",
+  "review_required": false,
+  "review_threshold": 90,
+  "items": [
+    {
+      "id": "1",
+      "item": "适配设计",
+      "weight": 30,
+      "criteria": "要素与自身业务特点适配，有明确的适配理由",
+      "measurement": "适配度评估"
+    },
+    {
+      "id": "2",
+      "item": "产品设计",
+      "weight": 30,
+      "criteria": "功能设计、交互设计、体验设计完整",
+      "measurement": "设计完整性"
+    },
+    {
+      "id": "3",
+      "item": "流程设计",
+      "weight": 20,
+      "criteria": "流程清晰，决策点明确，角色分工合理",
+      "measurement": "流程清晰度"
+    },
+    {
+      "id": "4",
+      "item": "机制设计",
+      "weight": 20,
+      "criteria": "激励机制、监控机制、迭代机制完善",
+      "measurement": "配套完整性"
+    }
+  ],
+  "scoring_rules": {
+    "excellent": "90-100",
+    "good": "80-89",
+    "pass": "70-79",
+    "fail": "0-69"
+  }
+}

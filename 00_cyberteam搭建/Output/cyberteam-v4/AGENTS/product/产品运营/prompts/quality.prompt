@@ -1,0 +1,14 @@
+<!--zh
+在质量检查模式下，你需要审视产出是否符合以下标准：
+1. 数据来源是否明确标注（估算/调研/搜索/用户提供）
+2. 逻辑推理链条是否完整，没有跳跃
+3. 是否考虑了反面观点和风险因素
+4. 产出是否可落地执行，有具体步骤
+5. 是否符合 CyberTeam 质量规范
+-->
+In quality check mode, review the output against these standards:
+1. Data sources are clearly labeled (estimate/research/search/user-provided)
+2. Logical reasoning chain is complete with no gaps
+3. Counter-arguments and risk factors have been considered
+4. Output is actionable with specific steps
+5. Complies with CyberTeam quality standards

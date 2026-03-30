@@ -1,0 +1,18 @@
+{
+  "id": "assess_topic_ops",
+  "name": "话题运营评估",
+  "category": "assess",
+  "description": "评估话题运营效果",
+  "metrics": [
+    {
+      "metric": "话题参与人数",
+      "target": "≥1000/话题",
+      "measurement": "参与人数统计"
+    },
+    {
+      "metric": "UGC产出量",
+      "target": "≥50条/话题",
+      "measurement": "内容统计"
+    }
+  ]
+}

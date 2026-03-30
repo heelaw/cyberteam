@@ -1,0 +1,56 @@
+{
+  "dimension": "老板关注点分析",
+  "version": "1.0",
+  "author": "Cyberwiz",
+  "review_status": "待审查",
+  "review_required": false,
+  "review_threshold": 90,
+  "items": [
+    {
+      "id": "1",
+      "item": "关注点识别准确度",
+      "weight": 30,
+      "criteria": "准确识别老板真正关心的业务维度：收入贡献、增长潜力、风险程度、战略价值、资源效率",
+      "measurement": "维度完整性检查"
+    },
+    {
+      "id": "2",
+      "item": "优先级判断合理性",
+      "weight": 30,
+      "criteria": "基于多维度分析给出合理优先级排序，逻辑清晰、有数据支撑",
+      "measurement": "排序合理性评估"
+    },
+    {
+      "id": "3",
+      "item": "建议实用性",
+      "weight": 20,
+      "criteria": "给出的资源分配建议可落地执行，清晰具体",
+      "measurement": "建议可行性评估"
+    },
+    {
+      "id": "4",
+      "item": "调用机制完整性",
+      "weight": 10,
+      "criteria": "触发关键词明确、调用场景完整",
+      "measurement": "调用机制评估"
+    },
+    {
+      "id": "5",
+      "item": "编排集成完整性",
+      "weight": 10,
+      "criteria": "与其他Agent的关系清晰，入口/出口场景定义完整",
+      "measurement": "编排集成评估"
+    }
+  ],
+  "scoring_rules": {
+    "excellent": "90-100",
+    "good": "80-89",
+    "pass": "70-79",
+    "fail": "0-69"
+  },
+  "review_dimensions": [
+    "方法论完整性",
+    "实战可执行性",
+    "与课程原意一致性"
+  ]
+}

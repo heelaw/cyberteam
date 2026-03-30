@@ -1,0 +1,83 @@
+{
+  "version": "1.0",
+  "test_cases": [
+    {
+      "id": "1",
+      "scenario": "电商转化率提升",
+      "description": "电商运营总监希望提升整体转化率",
+      "difficulty": "medium",
+      "input": {
+        "question": "转化率怎么提升",
+        "current_metrics": {
+          "曝光": "100万",
+          "点击": "5万",
+          "转化": "1000单",
+          "客单价": 200
+        },
+        "goal": "GMV提升50%"
+      },
+      "expected_output": {
+        "decomposition_type": "乘法式",
+        "formula": "GMV = 曝光 × 点击率 × 转化率 × 客单价",
+        "metrics_broken": true,
+        "action_items": "具体可执行"
+      },
+      "evaluation_points": [
+        "拆解类型判断是否正确",
+        "公式是否准确",
+        "子指标是否齐全",
+        "行动建议是否有效"
+      ]
+    },
+    {
+      "id": "2",
+      "scenario": "收入结构分析",
+      "description": "CFO希望分析公司收入结构",
+      "difficulty": "medium",
+      "input": {
+        "question": "收入结构是什么",
+        "context": "公司有3条产品线，多个渠道"
+      },
+      "expected_output": {
+        "decomposition_type": "并列式",
+        "products": ["A产品", "B产品", "C产品"],
+        "channels": ["线上", "线下", "代理"],
+        "structure_clear": true
+      },
+      "evaluation_points": [
+        "拆解类型判断是否正确",
+        "并列关系是否清晰",
+        "结构是否完整"
+      ]
+    },
+    {
+      "id": "3",
+      "scenario": "GMV增长目标拆解",
+      "description": "CEO希望将年度GMV目标拆解到各维度",
+      "difficulty": "high",
+      "input": {
+        "question": "GMV怎么增长",
+        "current_annual_gmv": "1亿",
+        "target_annual_gmv": "1.5亿"
+      },
+      "expected_output": {
+        "decomposition_type": "乘法式+并列式",
+        "growth_drivers": ["新客", "复购", "客单价"],
+        "quarterly_targets": "明确",
+        "action_plan": "可执行"
+      },
+      "evaluation_points": [
+        "增长驱动因素识别是否准确",
+        "拆解是否全面",
+        "目标是否合理",
+        "行动建议是否可行"
+      ]
+    }
+  ],
+  "evaluation_criteria": {
+    "type_accuracy": "拆解类型判断正确（乘法式/并列式）",
+    "decomposition_completeness": "拆解逻辑完整、无遗漏",
+    "metric_measurability": "指标定义明确、可测量",
+    "action_effectiveness": "行动建议具体、可执行"
+  }
+}

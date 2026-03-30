@@ -1,0 +1,56 @@
+{
+  "skill_name": "马甲号运用策略",
+  "version": "v1.0",
+  "test_cases": [
+    {
+      "id": "eval-1",
+      "name": "新建社区冷启动马甲号运营",
+      "description": "为一个新建的摄影爱好者社区设计马甲号运营方案",
+      "difficulty": "medium",
+      "context": {
+        "community_type": "摄影爱好者社区",
+        "community_scale": "0-1000用户",
+        "current_phase": "冷启动",
+        "main_problem": "社区内容匮乏，用户发帖量少，互动率低",
+        "num_accounts": 10
+      },
+      "expected_outputs": [
+        "账号矩阵设计方案（结构/分工）",
+        "人设打造方案（5-8个账号）",
+        "内容发布计划",
+        "氛围引导策略"
+      ],
+      "evaluation_criteria": {
+        "矩阵设计合理性": "结构清晰，分工明确",
+        "人设打造真实度": "人设可信，各账号有区分度",
+        "内容发布有效性": "内容有价值，节奏稳定",
+        "氛围引导正向性": "社区氛围正向，互动自然"
+      }
+    },
+    {
+      "id": "eval-2",
+      "name": "成熟社区日常运营马甲号方案",
+      "description": "为一个5万用户规模的游戏攻略社区设计日常马甲号运营",
+      "difficulty": "simple",
+      "context": {
+        "community_type": "游戏攻略社区",
+        "community_scale": "5万用户",
+        "current_phase": "日常运营",
+        "main_problem": "社区氛围有时偏负面，优质内容不够突出",
+        "num_accounts": 20
+      },
+      "expected_outputs": [
+        "账号矩阵优化方案",
+        "人设调整方案",
+        "内容发布计划",
+        "氛围引导优化方案"
+      ],
+      "evaluation_criteria": {
+        "矩阵设计合理性": "与社区规模匹配",
+        "人设打造真实度": "人设与游戏社区契合",
+        "内容发布有效性": "攻略内容有价值",
+        "氛围引导正向性": "社区氛围改善"
+      }
+    }
+  ]
+}

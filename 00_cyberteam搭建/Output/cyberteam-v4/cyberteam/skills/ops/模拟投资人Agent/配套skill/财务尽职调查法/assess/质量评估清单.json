@@ -1,0 +1,147 @@
+{
+  "skill_name": "财务尽职调查法",
+  "version": "1.0",
+  "assess_type": "6维度评分",
+  "pass_threshold": 85,
+  "评估维度": [
+    {
+      "dimension": "完整性",
+      "weight": "20%",
+      "description": "财务尽职调查方法的完整程度",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": "完整包含：收入核查+成本核查+资产核查+负债核查+现金流+健康度+案例≥3个"
+        },
+        "good": {
+          "score": 4,
+          "criteria": "包含六大领域，部分案例缺失"
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": "框架基本完整但有缺失"
+        },
+        "poor": {
+          "score": 1,
+          "criteria": "核心方法严重缺失"
+        }
+      }
+    },
+    {
+      "dimension": "实用性",
+      "weight": "20%",
+      "description": "对实际财务尽职调查工作的指导价值",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": "提供可直接使用的核查清单+核查步骤+模板+完整案例"
+        },
+        "good": {
+          "score": 4,
+          "criteria": "提供模板和工具"
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": "有框架但缺少实操细节"
+        },
+        "poor": {
+          "score": 1,
+          "criteria": "纯理论，无实操价值"
+        }
+      }
+    },
+    {
+      "dimension": "专业性",
+      "weight": "20%",
+      "description": "财务尽职调查专业方法的准确性",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": "六大领域核查专业，财务指标准确，术语规范"
+        },
+        "good": {
+          "score": 4,
+          "criteria": "方法准确"
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": "方法基本准确"
+        },
+        "poor": {
+          "score": 1,
+          "criteria": "方法错误或混乱"
+        }
+      }
+    },
+    {
+      "dimension": "严谨性",
+      "weight": "20%",
+      "description": "逻辑严密性和风险识别",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": "逻辑推演严密，风险识别完整，核查步骤清晰，有边界说明"
+        },
+        "good": {
+          "score": 4,
+          "criteria": "逻辑清晰"
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": "部分逻辑跳跃"
+        },
+        "poor": {
+          "score": 1,
+          "criteria": "逻辑混乱"
+        }
+      }
+    },
+    {
+      "dimension": "独特个性",
+      "weight": "10%",
+      "description": "差异化视角和独特见解",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": "有独特核查框架+原创方法"
+        },
+        "good": {
+          "score": 4,
+          "criteria": "有少量独特见解"
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": "以复用经典为主"
+        },
+        "poor": {
+          "score": 1,
+          "criteria": "无独特性"
+        }
+      }
+    },
+    {
+      "dimension": "规范性",
+      "weight": "10%",
+      "description": "格式规范和Critical Rules完整性",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": "格式完全规范+Critical Rules≥5条+Workflow Steps完整"
+        },
+        "good": {
+          "score": 4,
+          "criteria": "格式规范，Critical Rules≥3条"
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": "格式基本规范"
+        },
+        "poor": {
+          "score": 1,
+          "criteria": "格式混乱"
+        }
+      }
+    }
+  ],
+  "评分说明": "总分=各维度得分×权重之和，满分100分。≥85分为通过"
+}

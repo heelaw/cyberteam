@@ -1,0 +1,58 @@
+{
+  "dimension": "局部工作规划",
+  "version": "1.0",
+  "author": "Cyberwiz",
+  "review_status": "待审查",
+  "review_required": true,
+  "review_threshold": 90,
+  "items": [
+    {
+      "id": "1",
+      "item": "目标制定完整性",
+      "weight": 25,
+      "criteria": "目标制定清晰、具体、可衡量，包含明确的时间范围和成功标准",
+      "measurement": "用户确认目标清晰度≥90%"
+    },
+    {
+      "id": "2",
+      "item": "拆解落地完整性",
+      "weight": 25,
+      "criteria": "目标拆解为可操作的具体行动计划，步骤完整且可执行",
+      "measurement": "行动计划完整性≥95%"
+    },
+    {
+      "id": "3",
+      "item": "进度管控有效性",
+      "weight": 20,
+      "criteria": "建立有效的进度跟踪机制，能及时发现并解决问题",
+      "measurement": "任务按时完成率≥85%"
+    },
+    {
+      "id": "4",
+      "item": "资源匹配合理性",
+      "weight": 15,
+      "criteria": "资源分配合理，与目标匹配度高",
+      "measurement": "资源利用率评估"
+    },
+    {
+      "id": "5",
+      "item": "风险预案完整性",
+      "weight": 15,
+      "criteria": "识别关键风险并制定应对措施",
+      "measurement": "风险识别覆盖率"
+    }
+  ],
+  "scoring_rules": {
+    "excellent": "95-100",
+    "good": "85-94",
+    "pass": "75-84",
+    "fail": "0-74"
+  },
+  "review_dimensions": [
+    "目标制定质量",
+    "拆解落地完整性",
+    "进度管控有效性",
+    "资源匹配合理性",
+    "风险预案完整性"
+  ]
+}

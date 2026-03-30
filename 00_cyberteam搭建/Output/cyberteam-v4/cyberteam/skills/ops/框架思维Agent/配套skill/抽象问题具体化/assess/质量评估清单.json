@@ -1,0 +1,219 @@
+{
+  "skill_name": "抽象问题具体化",
+  "version": "1.0",
+  "created": "2026-03-20",
+  "updated": "2026-03-20",
+  "assessment_dimensions": [
+    {
+      "dimension": "完整性",
+      "weight": 0.20,
+      "description": "拆解是否覆盖抽象概念的全部含义",
+      "criteria": [
+        {
+          "id": "C1",
+          "description": "概念澄清完整",
+          "levels": {
+            "excellent": "用户当前理解和目标状态都明确，用户确认理解准确",
+            "good": "概念澄清基本完整",
+            "acceptable": "有澄清但不够深入",
+            "poor": "概念边界模糊"
+          }
+        },
+        {
+          "id": "C2",
+          "description": "子方向数量适中（3-7个）",
+          "levels": {
+            "excellent": "子方向数量在3-7个之间，且每个都有实质性内容",
+            "good": "子方向数量基本合理",
+            "acceptable": "子方向数量略超范围",
+            "poor": "子方向过多或过少"
+          }
+        },
+        {
+          "id": "C3",
+          "description": "覆盖概念主要方面",
+          "levels": {
+            "excellent": "拆解结果覆盖了抽象概念的全部主要维度",
+            "good": "覆盖大部分主要方面",
+            "acceptable": "覆盖基本方面",
+            "poor": "存在明显遗漏"
+          }
+        }
+      ]
+    },
+    {
+      "dimension": "实用性",
+      "weight": 0.20,
+      "description": "拆解结果是否能直接落地执行",
+      "criteria": [
+        {
+          "id": "P1",
+          "description": "有可衡量的指标",
+          "levels": {
+            "excellent": "每个子方向都有量化指标或明确判断标准",
+            "good": "大部分子方向有衡量指标",
+            "acceptable": "部分子方向有指标",
+            "poor": "没有可衡量的指标"
+          }
+        },
+        {
+          "id": "P2",
+          "description": "有可执行的行动",
+          "levels": {
+            "excellent": "每个子方向都有具体的行动清单",
+            "good": "大部分子方向有具体行动",
+            "acceptable": "有行动但不够具体",
+            "poor": "没有可执行的行动"
+          }
+        },
+        {
+          "id": "P3",
+          "description": "用户能理解并执行",
+          "levels": {
+            "excellent": "用户完全理解如何执行，有明确行动方向",
+            "good": "用户基本理解执行方式",
+            "acceptable": "用户有部分疑问",
+            "poor": "用户不知道如何执行"
+          }
+        }
+      ]
+    },
+    {
+      "dimension": "专业性",
+      "weight": 0.20,
+      "description": "拆解方法是否专业合理",
+      "criteria": [
+        {
+          "id": "S1",
+          "description": "方向选择有依据",
+          "levels": {
+            "excellent": "方向选择完全基于概念特征，有明确业务逻辑",
+            "good": "方向选择有一定依据",
+            "acceptable": "依据不够充分",
+            "poor": "方向选择随意"
+          }
+        },
+        {
+          "id": "S2",
+          "description": "方向与概念匹配",
+          "levels": {
+            "excellent": "选定的方向能有效拆解该抽象概念",
+            "good": "方向基本能拆解概念",
+            "acceptable": "方向匹配度一般",
+            "poor": "方向与概念不匹配"
+          }
+        },
+        {
+          "id": "S3",
+          "description": "子方向之间无重叠",
+          "levels": {
+            "excellent": "各子方向边界清晰，无交叉",
+            "good": "子方向边界基本清晰",
+            "acceptable": "存在轻微重叠",
+            "poor": "子方向之间严重重叠"
+          }
+        }
+      ]
+    },
+    {
+      "dimension": "严谨性",
+      "weight": 0.20,
+      "description": "拆解过程是否严谨",
+      "criteria": [
+        {
+          "id": "R1",
+          "description": "问题边界清晰",
+          "levels": {
+            "excellent": "问题的范围和限制条件完全明确",
+            "good": "问题边界基本明确",
+            "acceptable": "边界有轻微模糊",
+            "poor": "问题边界模糊"
+          }
+        },
+        {
+          "id": "R2",
+          "description": "有反馈调整环节",
+          "levels": {
+            "excellent": "根据用户反馈进行了充分调整",
+            "good": "有基本调整",
+            "acceptable": "调整较少",
+            "poor": "没有调整环节"
+          }
+        },
+        {
+          "id": "R3",
+          "description": "执行建议明确",
+          "levels": {
+            "excellent": "提供了完整的执行顺序和注意事项",
+            "good": "有基本的执行建议",
+            "acceptable": "执行建议有限",
+            "poor": "没有执行建议"
+          }
+        }
+      ]
+    },
+    {
+      "dimension": "独特个性",
+      "weight": 0.10,
+      "description": "是否有独特价值",
+      "criteria": [
+        {
+          "id": "U1",
+          "description": "解决用户的实际问题",
+          "levels": {
+            "excellent": "完全解决用户的真实困惑，提供可行方案",
+            "good": "解决大部分问题",
+            "acceptable": "解决基本问题",
+            "poor": "无法解决实际问题"
+          }
+        },
+        {
+          "id": "U2",
+          "description": "有差异化视角",
+          "levels": {
+            "excellent": "提供独特而有价值的视角",
+            "good": "有一定差异化",
+            "acceptable": "视角较为通用",
+            "poor": "与其他方法无差异"
+          }
+        }
+      ]
+    },
+    {
+      "dimension": "规范性",
+      "weight": 0.10,
+      "description": "输出格式是否规范",
+      "criteria": [
+        {
+          "id": "N1",
+          "description": "使用标准输出模板",
+          "levels": {
+            "excellent": "完全按照模板格式输出",
+            "good": "基本按照模板格式",
+            "acceptable": "格式基本规范",
+            "poor": "格式混乱"
+          }
+        },
+        {
+          "id": "N2",
+          "description": "结构清晰可读",
+          "levels": {
+            "excellent": "层次分明，易读性强",
+            "good": "结构较为清晰",
+            "acceptable": "结构基本可读",
+            "poor": "结构混乱"
+          }
+        }
+      ]
+    }
+  ],
+  "scoring_guide": {
+    "excellent": 5,
+    "good": 4,
+    "acceptable": 3,
+    "poor": 1
+  },
+  "pass_threshold": 85,
+  "max_score": 100,
+  "calculation_method": "各维度得分乘以权重后累加，满分100分"
+}
