@@ -183,6 +183,26 @@ class AgentStore:
 # 全局单例
 _agent_store = AgentStore()
 
+# === 初始化默认 Agents ===
+def _init_default_agents():
+    """初始化默认 Agents 数据"""
+    default_agents = [
+        {"code": "gsd-planner", "name": "GSD规划师", "agent_type": "builtin", "description": "擅长制定详细执行计划", "skills": ["strategy", "planning"], "department_id": "ceo"},
+        {"code": "gsd-executor", "name": "GSD执行者", "agent_type": "builtin", "description": "高效执行任务和代码开发", "skills": ["coding", "operations"], "department_id": "engineering"},
+        {"code": "gsd-verifier", "name": "GSD验证师", "agent_type": "builtin", "description": "验证任务完成质量和测试", "skills": ["review", "analysis"], "department_id": "engineering"},
+        {"code": "code-reviewer", "name": "代码审查专家", "agent_type": "builtin", "description": "专业代码审查和质量把控", "skills": ["review", "coding"], "department_id": "engineering"},
+        {"code": "marketing-expert", "name": "营销专家", "agent_type": "builtin", "description": "市场调研和营销推广", "skills": ["marketing", "research"], "department_id": "marketing"},
+        {"code": "strategy-expert", "name": "战略专家", "agent_type": "builtin", "description": "企业战略规划和商业模式", "skills": ["strategy", "analysis"], "department_id": "ceo"},
+        {"code": "design-expert", "name": "设计专家", "agent_type": "builtin", "description": "UI设计和用户体验优化", "skills": ["design"], "department_id": "design"},
+    ]
+    for agent in default_agents:
+        try:
+            _agent_store.create_agent(agent)
+        except ValueError:
+            pass  # 已存在
+
+_init_default_agents()
+
 
 def get_agent_store() -> AgentStore:
     """获取 Agent 存储实例"""
@@ -282,6 +302,29 @@ class SkillStore:
 
 # 全局 Skill Store（供 Agent API 使用）
 _skill_store = SkillStore()
+
+# === 初始化默认 Skills ===
+def _init_default_skills():
+    """初始化默认 Skills 数据"""
+    default_skills = [
+        {"code": "strategy", "name": "战略规划", "category": "management", "difficulty": "hard", "description": "制定企业战略和长期规划", "trigger_keywords": ["战略", "规划", "商业模式"], "success_metrics": {"accuracy": 0.9}, "config": {}},
+        {"code": "planning", "name": "项目计划", "category": "management", "difficulty": "medium", "description": "制定项目执行计划和里程碑", "trigger_keywords": ["计划", "排期", "里程碑"], "success_metrics": {"accuracy": 0.85}, "config": {}},
+        {"code": "analysis", "name": "数据分析", "category": "data", "difficulty": "medium", "description": "分析数据并生成洞察报告", "trigger_keywords": ["分析", "数据", "统计"], "success_metrics": {"accuracy": 0.88}, "config": {}},
+        {"code": "writing", "name": "文案写作", "category": "content", "difficulty": "medium", "description": "撰写各类营销文案和内容", "trigger_keywords": ["文案", "写作", "内容"], "success_metrics": {"accuracy": 0.85}, "config": {}},
+        {"code": "coding", "name": "代码开发", "category": "engineering", "difficulty": "hard", "description": "编写和调试代码", "trigger_keywords": ["代码", "开发", "编程"], "success_metrics": {"accuracy": 0.92}, "config": {}},
+        {"code": "review", "name": "代码审查", "category": "engineering", "difficulty": "medium", "description": "审查代码质量和提出改进建议", "trigger_keywords": ["审查", "代码审查", "PR"], "success_metrics": {"accuracy": 0.9}, "config": {}},
+        {"code": "design", "name": "UI设计", "category": "design", "difficulty": "medium", "description": "设计用户界面和交互流程", "trigger_keywords": ["设计", "UI", "界面"], "success_metrics": {"accuracy": 0.85}, "config": {}},
+        {"code": "research", "name": "市场调研", "category": "marketing", "difficulty": "medium", "description": "调研市场和竞品分析", "trigger_keywords": ["调研", "市场", "竞品"], "success_metrics": {"accuracy": 0.82}, "config": {}},
+        {"code": "marketing", "name": "营销推广", "category": "marketing", "difficulty": "medium", "description": "制定营销方案和推广策略", "trigger_keywords": ["营销", "推广", "获客"], "success_metrics": {"accuracy": 0.8}, "config": {}},
+        {"code": "operations", "name": "运营管理", "category": "operations", "difficulty": "medium", "description": "日常运营管理和流程优化", "trigger_keywords": ["运营", "管理", "流程"], "success_metrics": {"accuracy": 0.85}, "config": {}},
+    ]
+    for skill in default_skills:
+        try:
+            _skill_store.create_skill(skill)
+        except ValueError:
+            pass  # 已存在
+
+_init_default_skills()
 
 
 def get_skill_store() -> SkillStore:

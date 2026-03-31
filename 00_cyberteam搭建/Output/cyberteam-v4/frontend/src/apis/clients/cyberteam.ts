@@ -29,8 +29,13 @@ client.interceptors.response.use(
 )
 
 export async function api<T>(method: string, url: string, data?: unknown): Promise<T> {
-  const res = await client.request<ApiResponse<T>>({ method, url, data, params: method === 'GET' ? data : undefined })
-  return res.data.data
+  const res = await client.request<ApiResponse<T> | T>({ method, url, data, params: method === 'GET' ? data : undefined })
+  // 兼容两种响应格式：{code, data, message} 或 裸数组/对象
+  const body = res.data as Record<string, unknown>
+  if (body && 'code' in body && 'data' in body) {
+    return body.data as T
+  }
+  return res.data as T
 }
 
 export default client

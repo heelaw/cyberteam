@@ -60,8 +60,8 @@ async def init_db() -> None:
         autoflush=False,
     )
 
-    # 创建表
-    from .models import Base
+    # 创建表 - 使用 app/models/__init__.py 的 Base（包含所有正确的模型定义）
+    from ..models import Base
     async with _engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
 

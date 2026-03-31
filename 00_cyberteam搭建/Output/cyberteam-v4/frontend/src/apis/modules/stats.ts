@@ -34,11 +34,32 @@ export async function fetchDashboardStats(): Promise<SystemStats> {
     // 尝试从多个可能的端点获取数据
     const [tasks, agents] = await Promise.allSettled([
       api<any[]>('GET', '/tasks', { limit: 5 }),
-      api<any[]>('GET', '/agents', { limit: 10 }),
+      api<{agents?: any[]; agent_id?: string}[]>('GET', '/agents', { limit: 10 }),
     ])
 
-    const taskData = tasks.status === 'fulfilled' ? tasks.value : []
-    const agentData = agents.status === 'fulfilled' ? agents.value : []
+    // 处理 tasks 响应格式
+    let taskData: any[] = []
+    if (tasks.status === 'fulfilled') {
+      const value = tasks.value
+      // 兼容 {tasks: [...]} 或直接是数组
+      if (Array.isArray(value)) {
+        taskData = value
+      } else if (value && typeof value === 'object' && 'tasks' in value) {
+        taskData = (value as any).tasks || []
+      }
+    }
+
+    // 处理 agents 响应格式
+    let agentData: any[] = []
+    if (agents.status === 'fulfilled') {
+      const value = agents.value
+      // 兼容 {agents: [...]} 或直接是数组
+      if (Array.isArray(value)) {
+        agentData = value
+      } else if (value && typeof value === 'object' && 'agents' in value) {
+        agentData = (value as any).agents || []
+      }
+    }
 
     // 从真实数据计算统计
     const activeTasks = taskData.filter((t: any) => t.status === 'in_progress').length

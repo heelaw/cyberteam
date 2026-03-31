@@ -1,10 +1,47 @@
-// API 模块导出
+// API 模块导出（避免命名冲突，使用显式命名导出）
+export { type Agent, fetchAgents, fetchAgent, sendMessageToAgent } from './agents'
 export * from './stats'
-export * from './projects'
-export * from './agents'
 export * from './chat'
-export * from './playground'
-export * from './expert-agents'
-export * from './skills'
 export * from './departments'
-export * from './custom-agents'
+export {
+  type CustomAgent,
+  type CreateAgentRequest,
+  type UpdateAgentRequest,
+  type BindSkillRequest,
+  fetchAgents as fetchCustomAgents,
+  fetchAgent as fetchCustomAgent,
+  createAgent,
+  updateAgent,
+  deleteAgent,
+  bindSkillToAgent,
+  unbindSkillFromAgent,
+} from './custom-agents'
+export {
+  type PlaygroundRequest,
+  type PlaygroundResponse,
+  type PlaygroundHTMLResponse,
+  generatePlayground,
+  fetchPlaygroundHTML,
+  subscribePlaygroundSSE,
+} from './playground'
+export * from './expert-agents'
+export {
+  type Skill,
+  type SkillCreate,
+  type SkillUpdate,
+  type SkillCategory,
+  type AgentBrief,
+  type ExecuteSkillRequest,
+  type ExecuteSkillResponse,
+  fetchSkills,
+  fetchSkillCategories,
+  fetchSkill,
+} from './skills'
+export {
+  type Project,
+  type CreateProjectRequest,
+  fetchProjects,
+  createProject,
+  fetchProject,
+  updateProject,
+} from './projects'

@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^6.1.1",
+    "@anthropic-ai/claude-agent-sdk": "^0.2.88",
     "antd": "^6.3.4",
     "axios": "^1.14.0",
     "class-variance-authority": "^0.7.1",
@@ -28,10 +29,11 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
-    "@types/node": "^24.12.0",
+    "@tailwindcss/vite": "4",
+    "@types/node": "^25.5.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^6.0.1",
+    "@vitejs/plugin-react": "5",
     "autoprefixer": "^10.4.27",
     "eslint": "^9.39.4",
     "eslint-plugin-react-hooks": "^7.0.1",
