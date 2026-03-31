@@ -1,0 +1,27 @@
+[package]
+name = "cyberteam-desktop"
+version = "1.0.0"
+description = "CyberTeam Desktop - AI Agent Collaboration"
+authors = ["CyberTeam"]
+edition = "2021"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["devtools"] }
+tauri-plugin-shell = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["full"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+uuid = { version = "1", features = ["v4"] }
+dirs = "5"
+parking_lot = "0.12"
+
+[profile.release]
+strip = true
+lto = true
+codegen-units = 1
+panic = "abort"
