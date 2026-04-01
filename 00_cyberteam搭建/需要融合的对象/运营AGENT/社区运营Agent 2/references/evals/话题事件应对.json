@@ -1,0 +1,16 @@
+{
+  "id": "eval_crisis_response",
+  "name": "话题事件应对评估",
+  "category": "evals",
+  "description": "评估话题事件应对场景表现",
+  "skills_used": [
+    "热点话题四渠道发现法",
+    "马甲号运用策略",
+    "核心用户维系四法"
+  ],
+  "expected_outcomes": [
+    "响应及时",
+    "舆论正向引导",
+    "核心用户稳定"
+  ]
+}

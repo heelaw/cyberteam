@@ -1,0 +1,68 @@
+{
+  "skill_name": "核心关注点分析法",
+  "version": "1.0",
+  "evaluation_type": "skill_quality",
+  "quality_dimensions": [
+    {
+      "dimension": "完整性",
+      "weight": "20%",
+      "score_levels": {
+        "excellent": {"score": 5, "criteria": ["包含阶段视角、问题层级、优先级矩阵三要素", "每个阶段有明确关注点", "优先级划分清晰(P0/P1/P2)"]},
+        "good": {"score": 4, "criteria": ["三要素齐全但部分内容简略"]},
+        "acceptable": {"score": 3, "criteria": ["仅覆盖2个要素"]},
+        "poor": {"score": 1, "criteria": ["要素不完整"]}
+      }
+    },
+    {
+      "dimension": "实用性",
+      "weight": "20%",
+      "score_levels": {
+        "excellent": {"score": 5, "criteria": ["分析步骤清晰明确(5步)", "输出直接可用", "有具体执行指引和行动建议"]},
+        "good": {"score": 4, "criteria": ["步骤较清晰"]},
+        "acceptable": {"score": 3, "criteria": ["有基本步骤但指引不足"]},
+        "poor": {"score": 1, "criteria": ["步骤模糊难以操作"]}
+      }
+    },
+    {
+      "dimension": "专业性",
+      "weight": "20%",
+      "score_levels": {
+        "excellent": {"score": 5, "criteria": ["框架完全正确(阶段×层级×优先级三维定位)", "逻辑清晰严密", "术语准确，符合高层管理语境"]},
+        "good": {"score": 4, "criteria": ["框架较正确"]},
+        "acceptable": {"score": 3, "criteria": ["存在少量问题"]},
+        "poor": {"score": 1, "criteria": ["框架错误多"]}
+      }
+    },
+    {
+      "dimension": "严谨性",
+      "weight": "20%",
+      "score_levels": {
+        "excellent": {"score": 5, "criteria": ["Critical Rules完整(≥5条)", "禁止行为明确(≥5条)", "触发场景描述具体", "基于阶段判断，不凭感觉给建议"]},
+        "good": {"score": 4, "criteria": ["Critical Rules完整"]},
+        "acceptable": {"score": 3, "criteria": ["Critical Rules不足5条"]},
+        "poor": {"score": 1, "criteria": ["Critical Rules缺失或不足3条"]}
+      }
+    },
+    {
+      "dimension": "独特个性",
+      "weight": "10%",
+      "score_levels": {
+        "excellent": {"score": 5, "criteria": ["有独特的\"三维定位法\"方法论", "明确差异化定位：避免\"什么都重要\"困境", "适合资源有限的成长期企业"]},
+        "good": {"score": 4, "criteria": ["有一定独特性"]},
+        "acceptable": {"score": 3, "criteria": ["个性不够鲜明"]},
+        "poor": {"score": 1, "criteria": ["无独特性"]}
+      }
+    },
+    {
+      "dimension": "规范性",
+      "weight": "10%",
+      "score_levels": {
+        "excellent": {"score": 5, "criteria": ["完全符合模板规范", "字段完整(输入/输出/示例/错误处理)", "格式统一"]},
+        "good": {"score": 4, "criteria": ["基本符合规范"]},
+        "acceptable": {"score": 3, "criteria": ["部分格式不规范"]},
+        "poor": {"score": 1, "criteria": ["格式混乱"]}
+      }
+    }
+  ],
+  "pass_threshold": {"total_score": "≥85分", "各维度最低要求": "每个维度至少3分", "计算方式": "各维度得分×权重之和，满分100分"}
+}

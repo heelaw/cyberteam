@@ -1,0 +1,402 @@
+[
+  {
+    "id": "kahneman",
+    "path": "01-kahneman/"
+  },
+  {
+    "id": "first-principle",
+    "path": "02-first-principle/"
+  },
+  {
+    "id": "six-hats",
+    "path": "03-six-hats/"
+  },
+  {
+    "id": "swot-tows",
+    "path": "04-swot-tows/"
+  },
+  {
+    "id": "fivewhy",
+    "path": "05-fivewhy/"
+  },
+  {
+    "id": "goldlin",
+    "path": "06-goldlin/"
+  },
+  {
+    "id": "grow",
+    "path": "07-grow/"
+  },
+  {
+    "id": "kiss",
+    "path": "08-kiss/"
+  },
+  {
+    "id": "mckinsey",
+    "path": "09-mckinsey/"
+  },
+  {
+    "id": "ai-board",
+    "path": "10-ai-board/"
+  },
+  {
+    "id": "spiral-dynamics",
+    "path": "100-spiral-dynamics/"
+  },
+  {
+    "id": "reverse-thinking",
+    "path": "11-reverse-thinking/"
+  },
+  {
+    "id": "five-dimension",
+    "path": "12-five-dimension/"
+  },
+  {
+    "id": "wbs",
+    "path": "13-wbs/"
+  },
+  {
+    "id": "manager-leap",
+    "path": "14-manager-leap/"
+  },
+  {
+    "id": "opportunity-cost",
+    "path": "15-opportunity-cost/"
+  },
+  {
+    "id": "sunk-cost",
+    "path": "16-sunk-cost/"
+  },
+  {
+    "id": "confirmation-bias",
+    "path": "17-confirmation-bias/"
+  },
+  {
+    "id": "critical-thinking",
+    "path": "18-critical-thinking/"
+  },
+  {
+    "id": "systems-thinking",
+    "path": "19-systems-thinking/"
+  },
+  {
+    "id": "anti-fragile",
+    "path": "20-anti-fragile/"
+  },
+  {
+    "id": "game-theory",
+    "path": "21-game-theory/"
+  },
+  {
+    "id": "pareto",
+    "path": "22-pareto/"
+  },
+  {
+    "id": "compound-effect",
+    "path": "23-compound-effect/"
+  },
+  {
+    "id": "porters-five-forces",
+    "path": "24-porters-five-forces/"
+  },
+  {
+    "id": "long-tail",
+    "path": "25-long-tail/"
+  },
+  {
+    "id": "second-order",
+    "path": "26-second-order/"
+  },
+  {
+    "id": "pre-mortem",
+    "path": "27-pre-mortem/"
+  },
+  {
+    "id": "circle-of-competence",
+    "path": "28-circle-of-competence/"
+  },
+  {
+    "id": "occams-razor",
+    "path": "29-occams-razor/"
+  },
+  {
+    "id": "hanlons-razor",
+    "path": "30-hanlons-razor/"
+  },
+  {
+    "id": "circle-of-influence",
+    "path": "31-circle-of-influence/"
+  },
+  {
+    "id": "inversion",
+    "path": "32-inversion/"
+  },
+  {
+    "id": "parkinsons-law",
+    "path": "33-parkinsons-law/"
+  },
+  {
+    "id": "peter-principle",
+    "path": "34-peter-principle/"
+  },
+  {
+    "id": "maslows-hammer",
+    "path": "35-maslows-hammer/"
+  },
+  {
+    "id": "dunning-kruger",
+    "path": "36-dunning-kruger/"
+  },
+  {
+    "id": "planning-fallacy",
+    "path": "37-planning-fallacy/"
+  },
+  {
+    "id": "availability-heuristic",
+    "path": "38-availability-heuristic/"
+  },
+  {
+    "id": "representativeness-heuristic",
+    "path": "39-representativeness-heuristic/"
+  },
+  {
+    "id": "base-rate-fallacy",
+    "path": "40-base-rate-fallacy/"
+  },
+  {
+    "id": "conjunction-fallacy",
+    "path": "41-conjunction-fallacy/"
+  },
+  {
+    "id": "gamblers-fallacy",
+    "path": "42-gamblers-fallacy/"
+  },
+  {
+    "id": "regression-mean",
+    "path": "43-regression-mean/"
+  },
+  {
+    "id": "information-cascade",
+    "path": "44-information-cascade/"
+  },
+  {
+    "id": "disposition-effect",
+    "path": "45-disposition-effect/"
+  },
+  {
+    "id": "ambiguity-aversion",
+    "path": "46-ambiguity-aversion/"
+  },
+  {
+    "id": "zero-sum-thinking",
+    "path": "47-zero-sum-thinking/"
+  },
+  {
+    "id": "falsification-principle",
+    "path": "48-falsification-principle/"
+  },
+  {
+    "id": "sunk-cost-fallacy",
+    "path": "49-sunk-cost-fallacy/"
+  },
+  {
+    "id": "socratic-questioning",
+    "path": "50-socratic-questioning/"
+  },
+  {
+    "id": "anti-fragile",
+    "path": "51-anti-fragile/"
+  },
+  {
+    "id": "five-elements",
+    "path": "52-five-elements/"
+  },
+  {
+    "id": "local-global",
+    "path": "53-local-global/"
+  },
+  {
+    "id": "bounded-rationality",
+    "path": "54-bounded-rationality/"
+  },
+  {
+    "id": "first-principles",
+    "path": "55-first-principles/"
+  },
+  {
+    "id": "ecosystem",
+    "path": "56-ecosystem/"
+  },
+  {
+    "id": "network-effects",
+    "path": "57-network-effects/"
+  },
+  {
+    "id": "second-order",
+    "path": "58-second-order/"
+  },
+  {
+    "id": "reversal",
+    "path": "59-reversal/"
+  },
+  {
+    "id": "deliberate-practice",
+    "path": "60-deliberate-practice/"
+  },
+  {
+    "id": "systems-thinker",
+    "path": "61-systems-thinker/"
+  },
+  {
+    "id": "probabilistic",
+    "path": "62-probabilistic/"
+  },
+  {
+    "id": "diverse-seeking",
+    "path": "63-diverse-seeking/"
+  },
+  {
+    "id": "venture",
+    "path": "64-venture/"
+  },
+  {
+    "id": "longitudinal",
+    "path": "65-longitudinal/"
+  },
+  {
+    "id": "proximate",
+    "path": "66-proximate/"
+  },
+  {
+    "id": "first-principles-thinking",
+    "path": "67-first-principles-thinking/"
+  },
+  {
+    "id": "para-analyzing",
+    "path": "68-para-analyzing/"
+  },
+  {
+    "id": "problem-reformulation",
+    "path": "69-problem-reformulation/"
+  },
+  {
+    "id": "algoheuristic",
+    "path": "70-algoheuristic/"
+  },
+  {
+    "id": "second-order",
+    "path": "71-second-order/"
+  },
+  {
+    "id": "occams-razor",
+    "path": "72-occams-razor/"
+  },
+  {
+    "id": "bayesian",
+    "path": "73-bayesian/"
+  },
+  {
+    "id": "premortem",
+    "path": "74-premortem/"
+  },
+  {
+    "id": "analogical",
+    "path": "75-analogical/"
+  },
+  {
+    "id": "dialectical",
+    "path": "76-dialectical/"
+  },
+  {
+    "id": "pdca",
+    "path": "77-pdca/"
+  },
+  {
+    "id": "iteration",
+    "path": "78-iteration/"
+  },
+  {
+    "id": "gaslighting",
+    "path": "79-gaslighting/"
+  },
+  {
+    "id": "serial-position",
+    "path": "80-serial-position/"
+  },
+  {
+    "id": "ladder-of-inference",
+    "path": "81-ladder-of-inference/"
+  },
+  {
+    "id": "counterfactual",
+    "path": "82-counterfactual/"
+  },
+  {
+    "id": "birdcage-effect",
+    "path": "83-birdcage-effect/"
+  },
+  {
+    "id": "sleep-law",
+    "path": "84-sleep-law/"
+  },
+  {
+    "id": "sw1h",
+    "path": "85-sw1h/"
+  },
+  {
+    "id": "lighthouse",
+    "path": "86-lighthouse/"
+  },
+  {
+    "id": "hook-model",
+    "path": "87-hook-model/"
+  },
+  {
+    "id": "emotion-regulation",
+    "path": "88-emotion-regulation/"
+  },
+  {
+    "id": "abc-emotion",
+    "path": "89-abc-emotion/"
+  },
+  {
+    "id": "mushroom-management",
+    "path": "90-mushroom-management/"
+  },
+  {
+    "id": "prospect-theory",
+    "path": "91-prospect-theory/"
+  },
+  {
+    "id": "two-list",
+    "path": "92-two-list/"
+  },
+  {
+    "id": "metcalfe-law",
+    "path": "93-metcalfe-law/"
+  },
+  {
+    "id": "truth-consensus",
+    "path": "94-truth-consensus/"
+  },
+  {
+    "id": "moat-theory",
+    "path": "95-moat-theory/"
+  },
+  {
+    "id": "dunbar-number",
+    "path": "96-dunbar-number/"
+  },
+  {
+    "id": "breakeven",
+    "path": "97-breakeven/"
+  },
+  {
+    "id": "leverage",
+    "path": "98-leverage/"
+  },
+  {
+    "id": "flywheel",
+    "path": "99-flywheel/"
+  }
+]

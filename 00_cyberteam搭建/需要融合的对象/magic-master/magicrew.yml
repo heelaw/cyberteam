@@ -1,0 +1,13 @@
+images:
+  magic-service:
+    context: ./backend/magic-service
+  magic-gateway:
+    context: ./backend/magic-gateway
+  super-magic:
+    context: ./backend/super-magic
+  sandbox-components:
+    context: ./backend/sandbox-components
+  magic-web:
+    context: ./frontend/magic-web
+  playwright-mod:
+    context: ./thirdparty/playwright-mod

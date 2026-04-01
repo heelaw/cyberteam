@@ -1,0 +1,218 @@
+{
+  "skill_name": "8大常见管理工具",
+  "version": "1.0",
+  "assess_type": "质量评估清单",
+  "total_score": 100,
+  "pass_threshold": 85,
+  "evaluation_dimensions": [
+    {
+      "dimension": "完整性",
+      "weight": 20,
+      "description": "评估8大工具的全面程度",
+      "criteria": [
+        {
+          "item": "工具数量",
+          "description": "覆盖8种管理工具",
+          "score_levels": {
+            "excellent": "5",
+            "good": "4",
+            "acceptable": "3",
+            "poor": "1"
+          }
+        },
+        {
+          "item": "每个工具要素",
+          "description": "目的、场景、核心要素完整",
+          "score_levels": {
+            "excellent": "5",
+            "good": "4",
+            "acceptable": "3",
+            "poor": "1"
+          }
+        },
+        {
+          "item": "工具选择决策树",
+          "description": "有明确的工具选择指引",
+          "score_levels": {
+            "excellent": "5",
+            "good": "4",
+            "acceptable": "3",
+            "poor": "1"
+          }
+        }
+      ]
+    },
+    {
+      "dimension": "实用性",
+      "weight": 20,
+      "description": "评估管理工具的可执行性",
+      "criteria": [
+        {
+          "item": "适用场景明确",
+          "description": "每个工具有明确的适用场景",
+          "score_levels": {
+            "excellent": "5",
+            "good": "4",
+            "acceptable": "3",
+            "poor": "1"
+          }
+        },
+        {
+          "item": "模板工具提供",
+          "description": "提供实用的模板和工具",
+          "score_levels": {
+            "excellent": "5",
+            "good": "4",
+            "acceptable": "3",
+            "poor": "1"
+          }
+        },
+        {
+          "item": "咨询话术",
+          "description": "引导性强，易于执行",
+          "score_levels": {
+            "excellent": "5",
+            "good": "4",
+            "acceptable": "3",
+            "poor": "1"
+          }
+        }
+      ]
+    },
+    {
+      "dimension": "专业性",
+      "weight": 20,
+      "description": "评估工具的专业水准",
+      "criteria": [
+        {
+          "item": "汇报框架",
+          "description": "目的、场景、核心要素完整",
+          "score_levels": {
+            "excellent": "5",
+            "good": "4",
+            "acceptable": "3",
+            "poor": "1"
+          }
+        },
+        {
+          "item": "目标管理",
+          "description": "OKR/KPI说明清晰",
+          "score_levels": {
+            "excellent": "5",
+            "good": "4",
+            "acceptable": "3",
+            "poor": "1"
+          }
+        },
+        {
+          "item": "复盘模板",
+          "description": "结构化四步完整",
+          "score_levels": {
+            "excellent": "5",
+            "good": "4",
+            "acceptable": "3",
+            "poor": "1"
+          }
+        }
+      ]
+    },
+    {
+      "dimension": "严谨性",
+      "weight": 20,
+      "description": "评估工具框架的严密程度",
+      "criteria": [
+        {
+          "item": "Critical Rules数量",
+          "description": "≥5条规则",
+          "score_levels": {
+            "excellent": "5",
+            "good": "4",
+            "acceptable": "3",
+            "poor": "1"
+          }
+        },
+        {
+          "item": "Workflow Steps",
+          "description": "4-6步，结构完整",
+          "score_levels": {
+            "excellent": "5",
+            "good": "4",
+            "acceptable": "3",
+            "poor": "1"
+          }
+        },
+        {
+          "item": "逻辑自洽",
+          "description": "8大工具之间逻辑自洽",
+          "score_levels": {
+            "excellent": "5",
+            "good": "4",
+            "acceptable": "3",
+            "poor": "1"
+          }
+        }
+      ]
+    },
+    {
+      "dimension": "独特个性",
+      "weight": 10,
+      "description": "评估Skill的独特风格",
+      "criteria": [
+        {
+          "item": "工具箱思维",
+          "description": "提供完整的管理工具箱",
+          "score_levels": {
+            "excellent": "5",
+            "good": "4",
+            "acceptable": "3",
+            "poor": "1"
+          }
+        },
+        {
+          "item": "实用导向",
+          "description": "注重工具的实际应用",
+          "score_levels": {
+            "excellent": "5",
+            "good": "4",
+            "acceptable": "3",
+            "poor": "1"
+          }
+        }
+      ]
+    },
+    {
+      "dimension": "规范性",
+      "weight": 10,
+      "description": "评估输出格式的规范性",
+      "criteria": [
+        {
+          "item": "SKILL.md格式规范",
+          "description": "frontmatter完整",
+          "score_levels": {
+            "excellent": "5",
+            "good": "4",
+            "acceptable": "3",
+            "poor": "1"
+          }
+        },
+        {
+          "item": "references文件",
+          "description": "≥3个模板文件",
+          "score_levels": {
+            "excellent": "5",
+            "good": "4",
+            "acceptable": "3",
+            "poor": "1"
+          }
+        }
+      ]
+    }
+  ],
+  "common_fail_points": [
+    "工具数量不足8种",
+    "工具要素不完整",
+    "缺少工具选择指引",
+    "Critical Rules不足5条",
+    "Workflow Steps结构不完整"
+  ]
+}

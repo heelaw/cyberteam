@@ -1,303 +1,286 @@
 # CyberTeam Desktop 验证报告
 
-**验证时间**: 2026-03-31
+**验证时间**: 2026-04-01
 **验证者**: gsd-verifier
 **项目路径**: `Output/cyberteam-desktop/`
+**验证层级**: L3 (函数可调用) + L4 (构建验证)
 
 ---
 
-## 1. 目录结构检查
+## 执行摘要
 
-### 结果: PARTIAL FAIL
-
-| 检查项 | 状态 | 说明 |
-|--------|------|------|
-| 前端配置 (package.json) | PASS | 存在，配置正确 |
-| TypeScript 配置 | PASS | tsconfig.json 存在 |
-| Vite 配置 | PASS | vite.config.ts 存在 |
-| Tailwind 配置 | PASS | tailwind.config.js 存在 |
-| PostCSS 配置 | PASS | postcss.config.js 存在 |
-| **src-tauri/Cargo.toml** | **FAIL** | **缺失** |
-| **src-tauri/tauri.conf.json** | **FAIL** | **缺失** |
-| **src-tauri/src/main.rs** | **FAIL** | **缺失** |
-| **src-tauri/src/lib.rs** | **FAIL** | **缺失** |
-| **src-tauri/icons/** | **FAIL** | **缺失** |
-| src/pages/agents/ | **FAIL** | 空目录，缺少 index.tsx |
-| src/pages/chat/ | **FAIL** | 空目录，缺少 index.tsx |
-| src/pages/settings/ | PASS | index.tsx 存在 |
-| src/pages/skills/ | PASS | index.tsx 存在 |
-| src/components/ | PASS | Sidebar.tsx 存在 |
+| 维度 | 状态 | 说明 |
+|------|------|------|
+| 前端构建 | ✅ PASS | `npm run build` 成功 |
+| Electron 编译 | ✅ PASS | `npm run electron:compile` 成功 |
+| TypeScript | ⚠️ WARN | 24行错误（非阻塞，`skipLibCheck: true`） |
+| 页面完整性 | ✅ PASS | 6个页面全部实现（Chat/部门/Agent/Skill/市场/设置） |
+| IPC 处理 | ✅ PASS | 全部 40+ 个 IPC handler 已注册 |
+| 数据库 | ✅ PASS | JSON 文件存储，seed 数据完整 |
+| 架构一致性 | ⚠️ DRIFT | ARCHITECTURE.md 声称 SQLite，实际为 JSON |
 
 ---
 
-## 2. TypeScript 编译检查
+## 1. 构建验证
 
-### 结果: FAIL
+### 1.1 前端构建 ✅ PASS
 
 ```bash
-$ npx tsc --noEmit
+cd Output/cyberteam-desktop && npm run build
+# vite v6.4.1 building for production...
+# ✓ 1026 modules transformed.
+# dist/index.html                    0.47 kB
+# dist/assets/main-BNxf-dxy.js   1,057.46 kB
+# ✓ built in 12.96s
 ```
 
-**错误清单**:
+**输出文件**:
+- `dist/index.html` (0.47 kB)
+- `dist/assets/main-D7jAg7ln.css` (16.05 kB)
+- `dist/assets/main-BNxf-dxy.js` (1,057.46 kB)
 
-| # | 文件 | 错误代码 | 描述 |
-|---|------|----------|------|
-| 1 | src/App.tsx:3 | TS2307 | Cannot find module '@tauri-apps/event' |
-| 2 | src/App.tsx:7 | TS2307 | Cannot find module './pages/agents' |
-| 3 | src/App.tsx:8 | TS2307 | Cannot find module './pages/chat' |
-| 4 | src/App.tsx:27 | TS7006 | Parameter 'event' implicitly has an 'any' type |
-| 5 | src/App.tsx:32 | TS7006 | Parameter 'fn' implicitly has an 'any' type |
-| 6 | src/components/Sidebar.tsx:1 | TS2614 | Module '"../App"' has no exported member 'Page' |
-
-**详细错误**:
-
-```
-src/App.tsx(3,24): error TS2307: Cannot find module '@tauri-apps/event' or its corresponding type declarations.
-  → 应改为: import { listen } from '@tauri-apps/api/event'
-
-src/App.tsx(7,20): error TS2307: Cannot find module './pages/agents' or its corresponding type declarations.
-  → agents 目录为空，需要创建 index.tsx
-
-src/App.tsx(8,18): error TS2307: Cannot find module './pages/chat' or its corresponding type declarations.
-  → chat 目录为空，需要创建 index.tsx
-
-src/components/Sidebar.tsx(1,15): error TS2614: Module '"../App"' has no exported member 'Page'. Did you mean to use 'import Page from "../App"' instead?
-  → Page 是类型，但 Sidebar 用 import type 导入，需要导出 Page 类型
-```
-
----
-
-## 3. Rust 编译检查
-
-### 结果: CANNOT RUN
-
-| 检查项 | 状态 | 说明 |
-|--------|------|------|
-| cargo 可用性 | FAIL | Rust 未安装 |
-| Cargo.toml | FAIL | 文件不存在 |
-
-**无法执行**: `cargo check --manifest-path Output/cyberteam-desktop/src-tauri/Cargo.toml`
-
-**原因**: Cargo.toml 缺失，且系统未安装 Rust 工具链。
-
----
-
-## 4. Tauri 构建检查
-
-### 结果: CANNOT RUN
-
-| 检查项 | 状态 | 说明 |
-|--------|------|------|
-| Tauri CLI | 未测试 | 需要完整 Tauri 配置 |
-| 前端构建 | 未测试 | TypeScript 编译失败 |
-
-**原因**:
-1. 缺少 `src-tauri/tauri.conf.json`
-2. 缺少 `src-tauri/Cargo.toml`
-3. 缺少 Rust 源码 (`main.rs` / `lib.rs`)
-4. TypeScript 编译失败导致无法构建前端
-
----
-
-## 5. 问题汇总
-
-### 严重程度: HIGH
-
-| 优先级 | 问题 | 影响 |
-|--------|------|------|
-| P0 | 缺少 Tauri 后端配置 (Cargo.toml, tauri.conf.json) | 无法构建桌面应用 |
-| P0 | 缺少 Rust 入口文件 (main.rs/lib.rs) | 无法编译后端 |
-| P1 | src/pages/agents/ 为空 | Chat 页面无法导航 |
-| P1 | src/pages/chat/ 为空 | 核心功能缺失 |
-| P2 | App.tsx import 错误 (@tauri-apps/event) | 类型检查失败 |
-| P2 | Sidebar.tsx Page 类型导入错误 | 类型检查失败 |
-
----
-
-## 6. 修复建议
-
-### 6.1 创建 Tauri 后端配置
-
-需要创建以下文件:
-
-```
-src-tauri/
-├── Cargo.toml           # Rust 依赖配置
-├── tauri.conf.json     # Tauri 应用配置
-├── src/
-│   ├── main.rs          # Rust 入口
-│   └── lib.rs           # Rust 库（可选）
-└── icons/               # 应用图标
-```
-
-**Cargo.toml 示例**:
-```toml
-[package]
-name = "cyberteam-desktop"
-version = "1.0.0"
-edition = "2021"
-
-[lib]
-name = "cyberteam_desktop_lib"
-crate-type = ["staticlib", "cdylib", "rlib"]
-
-[build-dependencies]
-tauri-build = { version = "2", features = [] }
-
-[dependencies]
-tauri = { version = "2", features = ["devtools"] }
-tauri-plugin-shell = "2"
-serde = { version = "1", features = ["derive"] }
-serde_json = "1"
-```
-
-**tauri.conf.json 示例**:
-```json
-{
-  "$schema": "https://schema.tauri.app/config/2",
-  "productName": "CyberTeam Desktop",
-  "identifier": "com.cyberteam.desktop",
-  "version": "1.0.0",
-  "build": {
-    "beforeBuildCommand": "npm run build",
-    "beforeDevCommand": "npm run dev",
-    "frontendDist": "../dist"
-  },
-  "app": {
-    "withGlobalTauri": true,
-    "windows": [{ "title": "CyberTeam Desktop", "width": 1200, "height": 800 }]
-  }
-}
-```
-
-### 6.2 创建 Rust 入口文件
-
-**src-tauri/src/main.rs**:
-```rust
-#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
-
-fn main() {
-    cyberteam_desktop_lib::run()
-}
-```
-
-**src-tauri/src/lib.rs**:
-```rust
-use tauri::Manager;
-
-#[tauri::command]
-fn get_setting(key: &str) -> Result<String, String> {
-    // 实现设置获取
-    Ok(String::new())
-}
-
-#[tauri::command]
-fn set_setting(key: &str, value: &str) -> Result<(), String> {
-    // 实现设置保存
-    Ok(())
-}
-
-#[cfg_attr(mobile, tauri::mobile_entry_point)]
-pub fn run() {
-    tauri::Builder::default()
-        .plugin(tauri_plugin_shell::init())
-        .invoke_handler(tauri::generate_handler![get_setting, set_setting])
-        .run(tauri::generate_context!())
-        .expect("error while running tauri application");
-}
-```
-
-### 6.3 创建前端缺失页面
-
-**src/pages/agents/index.tsx**:
-```tsx
-export default function Agents() {
-  return (
-    <div className="h-full overflow-auto p-6">
-      <h2 className="text-2xl font-bold text-white">Agent 管理</h2>
-      {/* 实现 Agent 列表页面 */}
-    </div>
-  )
-}
-```
-
-**src/pages/chat/index.tsx**:
-```tsx
-interface ChatProps {
-  claudePath: string
-  apiKey: string
-}
-
-export default function Chat({ claudePath, apiKey }: ChatProps) {
-  return (
-    <div className="h-full overflow-auto p-6">
-      <h2 className="text-2xl font-bold text-white">对话</h2>
-      {/* 实现聊天界面 */}
-    </div>
-  )
-}
-```
-
-### 6.4 修复 App.tsx Import
-
-**当前 (错误)**:
-```tsx
-import { listen } from '@tauri-apps/event'
-```
-
-**应改为**:
-```tsx
-import { listen } from '@tauri-apps/api/event'
-```
-
-### 6.5 修复 Sidebar.tsx 类型导入
-
-**当前 (错误)**:
-```tsx
-import type { Page } from '../App'
-```
-
-**应改为**:
-```tsx
-// 在 App.tsx 中导出 Page 类型
-export type Page = 'chat' | 'settings' | 'skills' | 'agents'
-```
-
----
-
-## 7. 验证命令摘要
+### 1.2 Electron 编译 ✅ PASS
 
 ```bash
-# 安装依赖
-cd Output/cyberteam-desktop
-npm install --include=dev
+npm run electron:compile
+# electron/main.cjs           70.4kb
+# electron/init-database.cjs  26.1kb
+# electron/database.cjs       18.4kb
+# electron/preload.cjs         6.4kb
+```
 
-# TypeScript 检查
+**已编译文件**:
+- `electron/main.cjs` (70.4 kB)
+- `electron/init-database.cjs` (26.1 kB)
+- `electron/database.cjs` (18.4 kB)
+- `electron/preload.cjs` (6.4 kB)
+
+---
+
+## 2. TypeScript 检查
+
+### 2.1 错误清单（24行，非阻塞）
+
+```bash
+npx tsc --noEmit 2>&1 | wc -l  # 24行
+```
+
+| # | 文件 | 错误代码 | 描述 | 严重度 |
+|---|------|----------|------|--------|
+| 1 | `electron/claude-client.ts:221` | TS2769 | Error构造函数参数类型`unknown`→`string` | LOW |
+| 2 | `electron/main.ts:351` | TS2339 | `sendMessage`不存在于ClaudeClient（应为`sendMessageStream`） | **HIGH** |
+| 3 | `src/components/MarkdownRenderer.tsx:40` | TS2769 | CSSProperties类型不兼容SyntaxHighlighter | LOW |
+| 4-11 | `src/pages/chat/ChatPage.tsx:122,154,165,176,189,224,374,397` | TS2304 | `ElectronAPI`类型未找到（module augmentation问题） | MED |
+| 12 | `src/pages/market/MarketPage.tsx:146` | TS2339 | `CrewMember.department_id`不存在于接口定义 | MED |
+
+### 2.2 关键错误详解
+
+**错误 #2: `sendMessage` 方法不存在** ⚠️ **RUNTIME BUG**
+
+```typescript
+// electron/main.ts:351
+const response = await claudeClient.sendMessage(data.message, {  // ❌ 不存在
+  cwd: data.working_directory,
+  providerId: data.provider_id,
+  model: data.model,
+  systemPrompt: data.system_prompt,
+})
+```
+
+ClaudeClient 类只有 `sendMessageStream()` 方法，没有 `sendMessage()`。这会导致运行时崩溃。
+
+**错误 #4-11: `ElectronAPI` 未定义**
+
+ChatPage.tsx 使用 `(window as Window & { electronAPI?: ElectronAPI }).electronAPI` 但未导入 `ElectronAPI` 类型。`src/types/electron.d.ts` 使用 `export {}` 和 `declare global`，但没有文件导入它来激活全局扩展。
+
+**错误 #12: `CrewMember.department_id` 缺失**
+
+```typescript
+// MarketPage.tsx:5-8
+interface CrewMember {
+  agent_id: string
+  role: string
+  // ❌ 缺少 department_id
+}
+
+// MarketPage.tsx:146
+department_id: member.department_id || mockAgent.departmentId  // ❌ 访问不存在的属性
+```
+
+---
+
+## 3. 页面完整性检查 ✅ PASS
+
+| 页面 | 文件 | 行数 | 路由 | 状态 |
+|------|------|------|------|------|
+| Chat | `src/pages/chat/ChatPage.tsx` | 1069 | `/chat`, `/chat/:sessionId` | ✅ |
+| 部门 | `src/pages/departments/DepartmentsPage.tsx` | 252 | `/departments` | ✅ |
+| Agent | `src/pages/agents/AgentsPage.tsx` | 310 | `/agents` | ✅ |
+| Skill | `src/pages/skills/SkillsPage.tsx` | 338 | `/skills` | ✅ |
+| 市场 | `src/pages/market/MarketPage.tsx` | 703 | `/market` | ✅ |
+| 设置 | `src/pages/settings/SettingsPage.tsx` | 486 | `/settings` | ✅ |
+
+**路由入口** (`src/main.tsx`):
+```tsx
+<Route path="/" element={<App />}>
+  <Route index element={<Navigate to="/chat" replace />} />
+  <Route path="chat" element={<ChatPage />} />
+  <Route path="chat/:sessionId" element={<ChatPage />} />
+  <Route path="settings" element={<SettingsPage />} />
+  <Route path="departments" element={<DepartmentsPage />} />
+  <Route path="market" element={<MarketPage />} />
+  <Route path="agents" element={<AgentsPage />} />
+  <Route path="skills" element={<SkillsPage />} />
+</Route>
+```
+
+---
+
+## 4. Electron IPC Handler 检查 ✅ PASS
+
+| 分类 | Handler 数量 | 状态 |
+|------|-------------|------|
+| Chat (sessions + messages) | 7 | ✅ |
+| Claude Code CLI | 2 | ⚠️ `send` 有 bug（见错误#2） |
+| 文件浏览 | 3 | ✅ |
+| Provider 管理 | 6 | ✅ |
+| 项目管理 | 5 | ✅ |
+| 部门管理 | 4 | ✅ |
+| Agent 管理 | 5 | ✅ |
+| 会议纪要 | 3 | ✅ |
+| Crew 模板 | 3 | ✅ |
+| Skill 管理 | 6 | ✅ |
+| 系统 | 3 | ✅ |
+| **总计** | **47** | ✅ |
+
+---
+
+## 5. 数据库检查 ✅ PASS
+
+**存储引擎**: JSON 文件（非 ARCHITECTURE.md 声称的 SQLite）
+
+```typescript
+// electron/database.ts:654
+const dbPath = path.join(userDataPath, "cyberteam-data.json")
+```
+
+**Seed 数据完整**:
+
+| 表/集合 | 记录数 | 默认数据 |
+|---------|--------|---------|
+| `providers` | 3 | Anthropic, MiniMax, OpenRouter |
+| `departments` | 10 | CEO/COO/战略/产品/研发/设计/运营/财务/HR/市场 |
+| `agents` | 1 | CEO Agent |
+| `skills` | 6 | 内容创作/数据分析/SEO优化/战略规划/产品设计/项目管理 |
+| `sessions` | 0 | 空（运行时创建） |
+| `messages` | 0 | 空（运行时创建） |
+| `projects` | 0 | 空（运行时创建） |
+| `crewTemplates` | 0 | 空（运行时创建） |
+| `meetingMinutes` | 0 | 空（运行时创建） |
+
+---
+
+## 6. 架构一致性检查 ⚠️ DRIFT
+
+| 文档声明 | 实际实现 | 状态 |
+|----------|----------|------|
+| Tauri 2 后端 | Electron (已迁移) | ✅ 已更新 |
+| better-sqlite3 (SQLite) | JSON 文件存储 | ❌ **不一致** |
+| TipTap @mention | 未实现（仅 AgentMentionSelector） | ⚠️ 部分实现 |
+| 微信风格聊天 | ✅ 已实现 | ✅ 一致 |
+| 7 Tab Playground | ❌ 未实现 | ❌ 缺失 |
+| CEO 审核流程 | ❌ 未实现 | ❌ 缺失 |
+
+---
+
+## 7. 安全与权限检查
+
+| 检查项 | 状态 | 说明 |
+|--------|------|------|
+| contextBridge 隔离 | ✅ PASS | preload.ts 使用 contextBridge.exposeInMainWorld |
+| nodeIntegration | ✅ OFF | main.ts 设置 `nodeIntegration: false` |
+| 危险 API 暴露 | ⚠️ 检查中 | `openExternal` 存在，需验证 URL 验证 |
+
+---
+
+## 8. 风险清单
+
+### 🔴 高风险（影响运行时）
+
+| ID | 文件 | 问题 | 触发条件 |
+|----|------|------|----------|
+| **R-01** | `electron/main.ts:351` | `claudeClient.sendMessage()` 不存在，会导致 `TypeError` 崩溃 | 用户发送任何消息 |
+| **R-02** | `electron/main.ts:319` | `claude:send` handler 调用不存在的 `sendMessage` 方法 | 同上 |
+
+### 🟡 中风险（运行时可能出错）
+
+| ID | 文件 | 问题 | 触发条件 |
+|----|------|------|----------|
+| **R-03** | `src/pages/chat/ChatPage.tsx` | `ElectronAPI` 类型未导入，`window.electronAPI` 断言为 `ElectronAPI \| undefined` | 编译时类型不安全 |
+| **R-04** | `src/pages/market/MarketPage.tsx:146` | `member.department_id` 访问 undefined 属性 | 创建 Crew 模板时 |
+| **R-05** | `src/components/MarkdownRenderer.tsx:40` | `oneDark` style 类型不兼容 | 渲染代码块时 |
+
+### 🟢 低风险（构建时可见，运行时可能不影响）
+
+| ID | 文件 | 问题 | 说明 |
+|----|------|------|------|
+| **R-06** | `electron/claude-client.ts:221` | Error构造函数参数为 `unknown` | TypeScript strict mode 警告 |
+| **R-07** | 整体 chunk 大小 | `main-BNxf-dxy.js` 1,057 kB > 500 kB 警告 | 可通过 code splitting 优化 |
+
+---
+
+## 9. 缺失功能（相对 ARCHITECTURE.md 承诺）
+
+| 功能 | ARCHITECTURE.md 描述 | 实际状态 |
+|------|---------------------|----------|
+| **7 Tab Playground** | 概览/公式/漏斗/时段/风险/预算/模拟 | ❌ 未实现 |
+| **CEO 审核流程** | 四层对话体系 + CEO 审核状态机 | ❌ 未实现 |
+| **Playground 看板** | 交互式 HTML 看扳 | ❌ 未实现 |
+| **会议纪要系统** | CEO-COO 对齐/策略讨论/风险预案 | ❌ 未实现 |
+| **质疑者机制** | Socratic Questioner Agent | ❌ 未实现 |
+| **多 Agent 群聊** | 群聊 + @mention 触发 | ⚠️ 部分实现（AgentMentionSelector 存在但 TipTap 未集成） |
+
+---
+
+## 10. 验证命令
+
+```bash
+# 前端构建
+cd Output/cyberteam-desktop && npm run build
+
+# Electron 编译
+npm run electron:compile
+
+# TypeScript 检查（查看所有错误）
 npx tsc --noEmit
 
-# Rust 检查 (需要先安装 Rust)
-# cargo check --manifest-path src-tauri/Cargo.toml
+# 启动开发模式
+npm run dev
 
-# Tauri 构建 (需要完整配置)
-# npm run tauri build
+# Electron 预览（需先编译）
+npm run electron:preview
 ```
 
 ---
 
-## 8. 总结
+## 11. 总结
 
-| 检查类别 | 状态 | 完成度 |
-|----------|------|--------|
-| 目录结构 | PARTIAL | 40% |
-| TypeScript | FAIL | 0% |
-| Rust | CANNOT RUN | 0% |
-| Tauri Build | CANNOT RUN | 0% |
+| 维度 | 评分 | 说明 |
+|------|------|------|
+| **构建** | 90/100 | 构建成功，chunk 过大扣分 |
+| **代码完整性** | 75/100 | 6页完整，但核心 Claude 消息功能有 bug |
+| **类型安全** | 60/100 | 24行 TS 错误，包含 1 个高风险运行时 bug |
+| **架构一致性** | 70/100 | 与 ARCHITECTURE.md 有多处 drift（JSON vs SQLite，Playground 缺失） |
+| **功能完整性** | 55/100 | 基础框架完成，CEO/Playground/质疑者等核心功能缺失 |
 
-**整体评估**: 项目处于早期阶段，缺少核心 Tauri 后端配置和部分前端页面实现。
+**整体评估**: 项目基础框架可用，但存在 **1 个高风险运行时 bug**（`sendMessage` 不存在）和 **架构 drift**。建议修复 bug 后再进行功能扩展。
 
-**下一步行动**:
-1. 创建 Tauri 后端配置文件 (Cargo.toml, tauri.conf.json)
-2. 创建 Rust 入口文件 (main.rs, lib.rs)
-3. 补充缺失的前端页面 (agents, chat)
-4. 修复 TypeScript 类型错误
-5. 安装 Rust 工具链进行编译验证
+**必须修复（阻塞）**:
+1. `electron/main.ts:351` — `sendMessage` → `sendMessageStream`
+2. `electron/main.ts:319-351` — 重构 `claude:send` handler 使用流式 API
+
+**建议修复（提升质量）**:
+3. `MarketPage.tsx` — `CrewMember` 接口添加 `department_id` 字段
+4. `ChatPage.tsx` — 导入 `ElectronAPI` 类型或移除类型断言
+5. `MarkdownRenderer.tsx` — 修复 `oneDark` style 类型
+6. `ARCHITECTURE.md` — 更新数据库描述（JSON 而非 SQLite）

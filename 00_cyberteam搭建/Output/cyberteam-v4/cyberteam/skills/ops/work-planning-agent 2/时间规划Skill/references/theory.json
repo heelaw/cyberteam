@@ -1,0 +1,39 @@
+{
+  "skill_name": "时间规划",
+  "理论依据": [
+    {
+      "理论": "时间块规划法（Time Blocking）",
+      "来源": "Cal Newport《深度工作》",
+      "核心观点": "将一天分成若干时间块，每个时间块专注做一件事"
+    },
+    {
+      "理论": "能量管理",
+      "来源": "Jim Loehr《精力管理》",
+      "核心观点": "跟随能量节奏安排任务，高能量做高价值工作"
+    },
+    {
+      "理论": "GTD",
+      "来源": "David Allen《搞定》",
+      "核心观点": "收集→处理→组织→回顾→执行五步法"
+    }
+  ],
+  "关键概念": [
+    {
+      "概念": "黄金时间",
+      "definition": "人精力最充沛的时间段，通常是上午9-11点，适合处理高价值任务"
+    },
+    {
+      "概念": "时间块",
+      "definition": "将时间划分为固定长度的区块，每个区块专注特定类型任务"
+    },
+    {
+      "概念": "深度工作",
+      "definition": "无干扰、专注度高的认知活动，需要连续2-3小时不被打断"
+    }
+  ],
+  "参考文献": [
+    "Cal Newport. Deep Work: Rules for Focused Success in a Distracted World",
+    "David Allen. Getting Things Done: The Art of Stress-Free Productivity",
+    "Jim Loehr. The Power of Full Engagement"
+  ]
+}

@@ -1,0 +1,205 @@
+{
+  "skill_name": "商业模式判断法",
+  "version": "1.0",
+  "evaluation_type": "skill_quality",
+  "quality_dimensions": [
+    {
+      "dimension": "完整性",
+      "weight": "20%",
+      "score_levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": [
+            "包含交易模式、客户类型、付费模式、价值链位置四大维度",
+            "每个维度都有明确判断依据",
+            "覆盖自营型、平台型、混合型等多种模式"
+          ]
+        },
+        "good": {
+          "score": 4,
+          "criteria": [
+            "包含四大维度但部分维度判断依据不够清晰"
+          ]
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": [
+            "仅覆盖2-3个维度"
+          ]
+        },
+        "poor": {
+          "score": 1,
+          "criteria": [
+            "维度不完整或缺失关键维度"
+          ]
+        }
+      }
+    },
+    {
+      "dimension": "实用性",
+      "weight": "20%",
+      "score_levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": [
+            "判断标准清晰明确，可直接套用",
+            "输出模板可操作，每个维度有具体判断规则",
+            "包含简单案例和复杂案例的判断示例"
+          ]
+        },
+        "good": {
+          "score": 4,
+          "criteria": [
+            "标准较清晰但案例不足"
+          ]
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": [
+            "有基本标准但操作困难"
+          ]
+        },
+        "poor": {
+          "score": 1,
+          "criteria": [
+            "标准模糊难以操作"
+          ]
+        }
+      }
+    },
+    {
+      "dimension": "专业性",
+      "weight": "20%",
+      "score_levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": [
+            "术语准确无误（B2B/B2C/C2C/平台型/自营型等）",
+            "判断逻辑正确，四维度交叉定位方法科学",
+            "符合商业分析行业规范"
+          ]
+        },
+        "good": {
+          "score": 4,
+          "criteria": [
+            "术语较准确，逻辑基本正确"
+          ]
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": [
+            "存在少量术语错误或逻辑问题"
+          ]
+        },
+        "poor": {
+          "score": 1,
+          "criteria": [
+            "术语错误多，逻辑混乱"
+          ]
+        }
+      }
+    },
+    {
+      "dimension": "严谨性",
+      "weight": "20%",
+      "score_levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": [
+            "必须遵守规则≥5条",
+            "禁止行为明确≥5条",
+            "触发场景描述具体明确",
+            "错误处理机制完善"
+          ]
+        },
+        "good": {
+          "score": 4,
+          "criteria": [
+            "Critical Rules完整但触发场景较简略"
+          ]
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": [
+            "Critical Rules不足5条"
+          ]
+        },
+        "poor": {
+          "score": 1,
+          "criteria": [
+            "Critical Rules缺失或不足3条"
+          ]
+        }
+      }
+    },
+    {
+      "dimension": "独特个性",
+      "weight": "10%",
+      "score_levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": [
+            "有明确的方法论特色（四维度交叉定位法）",
+            "角色定位清晰（商业模式诊断师）",
+            "有独特的分析框架和视角",
+            "有标志性语言风格"
+          ]
+        },
+        "good": {
+          "score": 4,
+          "criteria": [
+            "有方法论特色但角色定位较简略"
+          ]
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": [
+            "有基本框架但缺乏独特性"
+          ]
+        },
+        "poor": {
+          "score": 1,
+          "criteria": [
+            "缺乏独特个性，千篇一律"
+          ]
+        }
+      }
+    },
+    {
+      "dimension": "规范性",
+      "weight": "10%",
+      "score_levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": [
+            "完全符合模板规范",
+            "输入输出字段完整",
+            "格式统一，层级清晰"
+          ]
+        },
+        "good": {
+          "score": 4,
+          "criteria": [
+            "基本符合规范，有少量格式问题"
+          ]
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": [
+            "部分格式不规范"
+          ]
+        },
+        "poor": {
+          "score": 1,
+          "criteria": [
+            "格式混乱，字段缺失严重"
+          ]
+        }
+      }
+    }
+  ],
+  "pass_threshold": {
+    "total_score": "≥85分",
+    "各维度最低要求": "每个维度至少3分"
+  }
+}

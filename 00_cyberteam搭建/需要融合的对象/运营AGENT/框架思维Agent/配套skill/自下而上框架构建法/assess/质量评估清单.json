@@ -1,0 +1,219 @@
+{
+  "skill_name": "自下而上框架构建法",
+  "version": "1.0",
+  "created": "2026-03-20",
+  "updated": "2026-03-20",
+  "assessment_dimensions": [
+    {
+      "dimension": "完整性",
+      "weight": 0.20,
+      "description": "信息收集和框架构建是否完整",
+      "criteria": [
+        {
+          "id": "C1",
+          "description": "信息来源覆盖主要渠道",
+          "levels": {
+            "excellent": "覆盖3个以上主要信息来源（书籍/课程/文章/案例/专家等）",
+            "good": "覆盖2-3个主要信息来源",
+            "acceptable": "信息来源较少但覆盖核心渠道",
+            "poor": "信息来源单一或不相关"
+          }
+        },
+        {
+          "id": "C2",
+          "description": "收集数量达到饱和",
+          "levels": {
+            "excellent": "继续收集边际收益明显递减",
+            "good": "收集数量基本足够",
+            "acceptable": "收集数量略少但可接受",
+            "poor": "收集不足就急于归类"
+          }
+        },
+        {
+          "id": "C3",
+          "description": "每个来源有核心观点记录",
+          "levels": {
+            "excellent": "每个来源都有实质性核心观点",
+            "good": "大部分来源有核心观点",
+            "acceptable": "部分来源只有标题无实质内容",
+            "poor": "存在空来源或只有标题"
+          }
+        }
+      ]
+    },
+    {
+      "dimension": "实用性",
+      "weight": 0.20,
+      "description": "框架是否能直接指导实践",
+      "criteria": [
+        {
+          "id": "P1",
+          "description": "框架能解释已知信息",
+          "levels": {
+            "excellent": "框架能归类95%以上的收集信息",
+            "good": "框架能归类大部分信息",
+            "acceptable": "框架能归类基本重要信息",
+            "poor": "框架与收集信息脱节"
+          }
+        },
+        {
+          "id": "P2",
+          "description": "核心要素被识别",
+          "levels": {
+            "excellent": "高频出现的概念和关键词被准确识别",
+            "good": "识别出大部分核心要素",
+            "acceptable": "核心要素识别基本完整",
+            "poor": "核心要素识别有重大遗漏"
+          }
+        },
+        {
+          "id": "P3",
+          "description": "框架可指导后续学习",
+          "levels": {
+            "excellent": "框架可直接指导后续深入学习和实践",
+            "good": "框架对学习有一定指导意义",
+            "acceptable": "框架指导意义有限",
+            "poor": "框架过于理论化，无实用价值"
+          }
+        }
+      ]
+    },
+    {
+      "dimension": "专业性",
+      "weight": 0.20,
+      "description": "归类和框架是否体现专业深度",
+      "criteria": [
+        {
+          "id": "S1",
+          "description": "信息被分成清晰的类别",
+          "levels": {
+            "excellent": "类别之间边界完全清晰，无交叉",
+            "good": "类别边界基本清晰",
+            "acceptable": "存在轻微边界模糊",
+            "poor": "类别之间存在严重交叉"
+          }
+        },
+        {
+          "id": "S2",
+          "description": "类别数量适中（3-7个）",
+          "levels": {
+            "excellent": "类别数量在3-7个之间，且每个类别都有实质内容",
+            "good": "类别数量在合理范围内",
+            "acceptable": "类别数量略超范围但可接受",
+            "poor": "类别过多或过少"
+          }
+        },
+        {
+          "id": "S3",
+          "description": "类别关系明确",
+          "levels": {
+            "excellent": "各类别之间的关联关系被清晰标注",
+            "good": "类别关系基本明确",
+            "acceptable": "类别关系有描述但不够清晰",
+            "poor": "类别之间关系混乱"
+          }
+        }
+      ]
+    },
+    {
+      "dimension": "严谨性",
+      "weight": 0.20,
+      "description": "构建过程是否严谨验证",
+      "criteria": [
+        {
+          "id": "R1",
+          "description": "有验证环节",
+          "levels": {
+            "excellent": "经过自我检查和外部验证，验证过程完整",
+            "good": "有基本的验证环节",
+            "acceptable": "验证环节较为简单",
+            "poor": "没有验证环节"
+          }
+        },
+        {
+          "id": "R2",
+          "description": "根据反馈有调整",
+          "levels": {
+            "excellent": "发现问题能主动优化框架",
+            "good": "有调整但调整幅度有限",
+            "acceptable": "有调整但不够深入",
+            "poor": "发现问题不愿修改"
+          }
+        },
+        {
+          "id": "R3",
+          "description": "用户确认框架可用",
+          "levels": {
+            "excellent": "用户完全理解并认同框架结构",
+            "good": "用户基本认可框架",
+            "acceptable": "用户有部分疑问但基本接受",
+            "poor": "用户不认可或无法理解框架"
+          }
+        }
+      ]
+    },
+    {
+      "dimension": "独特个性",
+      "weight": 0.10,
+      "description": "是否有独特价值",
+      "criteria": [
+        {
+          "id": "U1",
+          "description": "保持开放性",
+          "levels": {
+            "excellent": "完全没有预设干扰，开放收集信息",
+            "good": "基本保持开放性",
+            "acceptable": "存在轻微预设倾向",
+            "poor": "带着结论去找证据"
+          }
+        },
+        {
+          "id": "U2",
+          "description": "能发现独特洞见",
+          "levels": {
+            "excellent": "通过归类发现新的规律或洞见",
+            "good": "能发现一些新规律",
+            "acceptable": "发现有限",
+            "poor": "只是简单分类，无新发现"
+          }
+        }
+      ]
+    },
+    {
+      "dimension": "规范性",
+      "weight": 0.10,
+      "description": "输出格式是否规范",
+      "criteria": [
+        {
+          "id": "N1",
+          "description": "使用标准输出模板",
+          "levels": {
+            "excellent": "完全按照模板格式输出",
+            "good": "基本按照模板格式",
+            "acceptable": "格式基本规范",
+            "poor": "格式混乱"
+          }
+        },
+        {
+          "id": "N2",
+          "description": "信息归类记录清晰",
+          "levels": {
+            "excellent": "归类过程记录完整可追溯",
+            "good": "归类记录基本完整",
+            "acceptable": "归类记录有缺失",
+            "poor": "没有归类记录"
+          }
+        }
+      ]
+    }
+  ],
+  "scoring_guide": {
+    "excellent": 5,
+    "good": 4,
+    "acceptable": 3,
+    "poor": 1
+  },
+  "pass_threshold": 85,
+  "max_score": 100,
+  "calculation_method": "各维度得分乘以权重后累加，满分100分"
+}

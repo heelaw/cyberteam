@@ -1,0 +1,234 @@
+{
+  "skill_name": "同理心地图",
+  "version": "v1.0",
+  "assess_date": "2026-03-19",
+  "assessor": "系统评估",
+  "quality_dimension": [
+    {
+      "dimension": "完整性",
+      "weight": 20,
+      "description": "评估四象限的完整程度",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "四个象限（看到/听到、想到/感受到、说什么/做什么、痛点/期望）全部覆盖，内容充实"
+        },
+        "good": {
+          "score": 4,
+          "description": "四个象限基本完整"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "部分象限缺失或内容不足"
+        },
+        "poor": {
+          "score": 1,
+          "description": "象限严重缺失"
+        }
+      },
+      "criteria": [
+        "四个象限是否全部覆盖",
+        "每个象限是否有实质性内容"
+      ]
+    },
+    {
+      "dimension": "实用性",
+      "weight": 20,
+      "description": "评估洞察对产品决策的指导价值",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "洞察可直接指导产品决策，有明确的产品建议和优先级"
+        },
+        "good": {
+          "score": 4,
+          "description": "有产品建议，但可执行性稍弱"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "建议较模糊"
+        },
+        "poor": {
+          "score": 1,
+          "description": "缺乏可执行的建议"
+        }
+      },
+      "criteria": [
+        "洞察是否可直接指导产品决策",
+        "是否有明确的产品建议",
+        "建议是否有优先级"
+      ]
+    },
+    {
+      "dimension": "专业性",
+      "weight": 20,
+      "description": "评估洞察的深度和专业性",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "能识别言行差异，深入到心理层面，情绪分析具体"
+        },
+        "good": {
+          "score": 4,
+          "description": "有一定洞察深度"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "洞察较浅显"
+        },
+        "poor": {
+          "score": 1,
+          "description": "缺乏深度洞察"
+        }
+      },
+      "criteria": [
+        "是否识别用户说和做之间的差异",
+        "是否深入到心理层面（不只是表面言语）",
+        "情绪分析是否有触发点和程度"
+      ]
+    },
+    {
+      "dimension": "严谨性",
+      "weight": 20,
+      "description": "评估分析的客观性和证据支撑",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "所有洞察基于真实用户数据，有明确的数据来源和样本量"
+        },
+        "good": {
+          "score": 4,
+          "description": "有数据支撑"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "证据较少但基本合理"
+        },
+        "poor": {
+          "score": 1,
+          "description": "缺乏数据依据，主观臆断"
+        }
+      },
+      "criteria": [
+        "洞察是否基于真实用户数据",
+        "数据来源是否可靠",
+        "样本量是否充足"
+      ]
+    },
+    {
+      "dimension": "独特个性",
+      "weight": 10,
+      "description": "评估是否体现独特洞察视角",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "有独特视角，能发现常规分析忽略的用户心理"
+        },
+        "good": {
+          "score": 4,
+          "description": "有部分独到见解"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "见解较常规"
+        },
+        "poor": {
+          "score": 1,
+          "description": "缺乏独特见解"
+        }
+      },
+      "criteria": [
+        "是否能发现隐藏的用户心理",
+        "是否有独特的分析视角"
+      ]
+    },
+    {
+      "dimension": "规范性",
+      "weight": 10,
+      "description": "评估输出格式和Critical Rules的规范性",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "格式规范，Critical Rules完整，Workflow Steps标准"
+        },
+        "good": {
+          "score": 4,
+          "description": "格式规范，Critical Rules较完整"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "格式基本规范"
+        },
+        "poor": {
+          "score": 1,
+          "description": "格式混乱"
+        }
+      },
+      "criteria": [
+        "输出格式是否符合标准模板",
+        "Critical Rules是否≥5条必须遵守+≥5条禁止行为",
+        "Workflow Steps是否完整"
+      ]
+    }
+  ],
+  "quality_score": {
+    "total_score": 100,
+    "pass_threshold": 85,
+    "excellent": [90, 100],
+    "good": [85, 89],
+    "acceptable": [70, 84],
+    "poor": [0, 69]
+  },
+  "critical_rules_check": {
+    "description": "Critical Rules检查清单",
+    "rules": [
+      {
+        "rule": "四个象限必须完整",
+        "check_item": "看到/听到、想到/感受到、说什么/做什么、痛点/期望是否都有",
+        "pass_condition": "缺一不可"
+      },
+      {
+        "rule": "必须识别言行差异",
+        "check_item": "用户说的和做的是否有差异",
+        "pass_condition": "发现隐性信息"
+      },
+      {
+        "rule": "洞察必须有数据支撑",
+        "check_item": "是否有用户反馈或行为数据",
+        "pass_condition": "数据说话"
+      },
+      {
+        "rule": "建议必须有优先级",
+        "check_item": "是否按价值/可行性排序",
+        "pass_condition": "分清主次"
+      },
+      {
+        "rule": "必须深入到心理层面",
+        "check_item": "不只是表面言语，要分析深层动机",
+        "pass_condition": "透过现象看本质"
+      }
+    ]
+  },
+  "forbidden_check": {
+    "description": "禁止行为检查",
+    "items": [
+      "禁止四个象限缺失任何一项",
+      "禁止没有识别言行差异",
+      "禁止洞察没有数据支撑",
+      "禁止只描述表面言语不分析心理",
+      "禁止建议没有优先级",
+      "禁止主观臆断用户想法"
+    ]
+  },
+  "output_standard": {
+    "must_include": [
+      "看到/听到（用户所处环境）",
+      "想到/感受到（用户心理和情绪）",
+      "说什么/做什么（用户言行）",
+      "痛点/期望（问题和希望）",
+      "言行差异分析",
+      "产品建议及优先级"
+    ],
+    "format_requirement": "四象限完整，有言行差异分析，有产品建议"
+  }
+}

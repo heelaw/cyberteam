@@ -7,7 +7,7 @@
  * - WebSocket 实时推送 Agent 状态事件（/ws/{user_id}）
  * - 右栏 Agent 状态面板随 SSE 事件实时更新
  */
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { Input, Button, Card, Tag, Avatar, Space, Timeline, Typography, message, Select, Alert } from 'antd'
 import {
@@ -20,6 +20,7 @@ import {
   ArrowLeftOutlined,
   ProjectOutlined,
 } from '@ant-design/icons'
+import DOMPurify from 'dompurify'
 import ReactMarkdown from 'react-markdown'
 import { fetchMessages, sendMessage } from '@/apis/modules/chat'
 import { fetchProjects, fetchProjectContext, type Project, type ProjectContext } from '@/apis/modules/projects'
@@ -33,7 +34,7 @@ const { TextArea } = Input
 const { Text } = Typography
 
 // === Agent 状态面板类型 ===
-type AgentStatus = 'pending' | 'running' | 'done' | 'error'
+type AgentStatus = 'pending' | 'thinking' | 'running' | 'done' | 'error'
 
 interface AgentStatusItem {
   name: string
@@ -104,6 +105,11 @@ interface DeptOption {
   agent: string      // 对应 Agent 名称
 }
 
+// === 轮询常量 ===
+const MAX_POLLS = 20
+const POLL_INTERVAL = 2000
+const MAX_POLL_ERRORS = 3
+
 // 从 deptAgentMap 提取唯一的部门选项
 const deptOptions: DeptOption[] = [
   { label: 'CEO', value: 'ceo', agent: 'CEO' },
@@ -156,10 +162,15 @@ export default function ChatRoom() {
     const project = projects.find(p => p.id === projectId)
     setSelectedProject(project || null)
     if (project) {
-      const ctx = await fetchProjectContext(projectId)
-      setProjectContext(ctx)
-      if (ctx?.has_context) {
-        message.info(`已加载项目「${project.name}」的业务背景`)
+      try {
+        const ctx = await fetchProjectContext(projectId)
+        setProjectContext(ctx)
+        if (ctx?.has_context) {
+          message.info(`已加载项目「${project.name}」的业务背景`)
+        }
+      } catch {
+        message.error('加载项目上下文失败')
+        setProjectContext(null)
       }
     } else {
       setProjectContext(null)
@@ -175,14 +186,17 @@ export default function ChatRoom() {
   const [mentionSearch, setMentionSearch] = useState<string | null>(null)
   const [selectedIndex, setSelectedIndex] = useState(0)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
+  const pollTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  // 根据搜索过滤部门选项
-  const filteredOptions = mentionSearch === null
-    ? deptOptions
-    : deptOptions.filter(opt =>
-        opt.label.toLowerCase().includes(mentionSearch.toLowerCase()) ||
-        opt.agent.toLowerCase().includes(mentionSearch.toLowerCase())
-      )
+  // 根据搜索过滤部门选项（useMemo 避免每次渲染创建新数组）
+  const filteredOptions = useMemo(() =>
+    mentionSearch === null
+      ? deptOptions
+      : deptOptions.filter(opt =>
+          opt.label.toLowerCase().includes(mentionSearch.toLowerCase()) ||
+          opt.agent.toLowerCase().includes(mentionSearch.toLowerCase())
+        )
+  , [mentionSearch])
 
   // 插入提及文本到光标位置
   const insertMention = useCallback((option: DeptOption) => {
@@ -408,7 +422,9 @@ export default function ChatRoom() {
         setStreamingContent('')
         // 刷新消息列表
         if (conversationId) {
-          fetchMessages(conversationId).then(setMessages)
+          fetchMessages(conversationId).then(setMessages).catch(() => {
+            message.error('刷新消息列表失败')
+          })
         }
       },
     }
@@ -448,8 +464,7 @@ export default function ChatRoom() {
 
     // 3. 轮询获取 Agent 响应（SSE 尚未实现，临时用轮询）
     let pollCount = 0
-    const MAX_POLLS = 20
-    const POLL_INTERVAL = 2000
+    let errorCount = 0
     const pollForResponse = async () => {
       if (pollCount >= MAX_POLLS) {
         setIsStreaming(false)
@@ -459,6 +474,7 @@ export default function ChatRoom() {
       pollCount++
       try {
         const msgs = await fetchMessages(conversationId)
+        errorCount = 0 // 重置错误计数
         const latest = msgs[msgs.length - 1]
         // 如果有新消息（非用户发的），说明 Agent 已响应
         if (latest && latest.senderType !== 'user') {
@@ -467,22 +483,34 @@ export default function ChatRoom() {
           setIsStreaming(false)
           return
         }
-      } catch { /* ignore */ }
-      setTimeout(pollForResponse, POLL_INTERVAL)
+      } catch {
+        errorCount++
+        if (errorCount >= MAX_ERRORS) {
+          message.warning('获取 Agent 响应时遇到问题，请检查后端服务')
+          setIsStreaming(false)
+          return
+        }
+      }
+      pollTimerRef.current = setTimeout(pollForResponse, POLL_INTERVAL)
     }
     pollForResponse()
 
     setSending(false)
   }
 
-  // 组件卸载时取消订阅并关闭 session
+  // 组件卸载时取消订阅、清理轮询、关闭 session
   useEffect(() => {
     return () => {
+      // 清理轮询计时器
+      if (pollTimerRef.current) {
+        clearTimeout(pollTimerRef.current)
+        pollTimerRef.current = null
+      }
       unsubscribeRef.current?.()
       if (sessionIdRef.current) {
         StreamSessionManager.getInstance().closeSession(sessionIdRef.current)
       }
-      wsClient.disconnect()
+      wsClient.cleanup() // 只关闭连接，不禁用重连
     }
   }, [])
 
@@ -611,7 +639,7 @@ export default function ChatRoom() {
                       </div>
                     )}
                     <div className="prose prose-sm max-w-none">
-                      <ReactMarkdown>{msg.content}</ReactMarkdown>
+                      <ReactMarkdown>{DOMPurify.sanitize(msg.content)}</ReactMarkdown>
                     </div>
                   </Card>
                 </div>
@@ -628,7 +656,7 @@ export default function ChatRoom() {
                       <Tag color="blue" className="text-xs animate-pulse">流式输出</Tag>
                     </div>
                     <div className="prose prose-sm max-w-none">
-                      <ReactMarkdown>{streamingContent}</ReactMarkdown>
+                      <ReactMarkdown>{DOMPurify.sanitize(streamingContent)}</ReactMarkdown>
                     </div>
                   </Card>
                 </div>

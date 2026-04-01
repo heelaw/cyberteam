@@ -1,0 +1,14 @@
+{
+  "name": "@cyberteam/desktop",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "main": "dist/main.cjs",
+  "scripts": {
+    "dev": "wait-on http://localhost:3000 && npm run build && electron .",
+    "build": "npm run build:main && npm run copy:renderer",
+    "build:main": "node ../../node_modules/esbuild/bin/esbuild src/main.ts --bundle --platform=node --format=cjs --outfile=dist/main.cjs --external:electron --external:node:child_process --external:node:fs --external:node:path --external:node:url && node ../../node_modules/esbuild/bin/esbuild src/preload.ts --bundle --platform=node --format=cjs --outfile=dist/preload.cjs --external:electron",
+    "copy:renderer": "node scripts/copy-renderer.mjs",
+    "typecheck": "node ../../node_modules/typescript/bin/tsc -p tsconfig.json --noEmit"
+  }
+}

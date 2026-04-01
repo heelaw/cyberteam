@@ -1,0 +1,147 @@
+{
+  "skill_name": "局部业务模型形成",
+  "version": "1.0",
+  "assess_type": "6维度评分",
+  "pass_threshold": 85,
+  "评估维度": [
+    {
+      "dimension": "完整性",
+      "weight": "20%",
+      "description": "局部业务模型形成方法的完整程度",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": "完整包含：三种拆分方法+五要素+画布+流程+误区说明+案例≥2个"
+        },
+        "good": {
+          "score": 4,
+          "criteria": "包含拆分方法+五要素+画布+流程，部分内容缺失"
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": "框架基本完整但有重要缺失"
+        },
+        "poor": {
+          "score": 1,
+          "criteria": "核心方法严重缺失"
+        }
+      }
+    },
+    {
+      "dimension": "实用性",
+      "weight": "20%",
+      "description": "对实际业务分析工作的指导价值",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": "提供可直接使用的拆分模板+画布工具+完整案例+实操流程"
+        },
+        "good": {
+          "score": 4,
+          "criteria": "提供模板和工具，流程基本完整"
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": "有框架但缺少实操细节"
+        },
+        "poor": {
+          "score": 1,
+          "criteria": "纯理论，无实操价值"
+        }
+      }
+    },
+    {
+      "dimension": "专业性",
+      "weight": "20%",
+      "description": "局部模型专业方法的准确性",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": "三种拆分方法准确，五要素完整，画布专业，误区说明深刻"
+        },
+        "good": {
+          "score": 4,
+          "criteria": "方法准确，有少量创新"
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": "方法基本准确，有遗漏"
+        },
+        "poor": {
+          "score": 1,
+          "criteria": "方法错误或混乱"
+        }
+      }
+    },
+    {
+      "dimension": "严谨性",
+      "weight": "20%",
+      "description": "逻辑严密性和案例真实性",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": "逻辑推演严密，案例真实，误区说明有对照，有边界说明"
+        },
+        "good": {
+          "score": 4,
+          "criteria": "逻辑清晰，案例真实"
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": "部分逻辑跳跃"
+        },
+        "poor": {
+          "score": 1,
+          "criteria": "逻辑混乱"
+        }
+      }
+    },
+    {
+      "dimension": "独特个性",
+      "weight": "10%",
+      "description": "差异化视角和独特见解",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": "有独特拆分视角+原创框架+深度洞察"
+        },
+        "good": {
+          "score": 4,
+          "criteria": "有少量独特见解"
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": "以复用经典为主"
+        },
+        "poor": {
+          "score": 1,
+          "criteria": "无独特性"
+        }
+      }
+    },
+    {
+      "dimension": "规范性",
+      "weight": "10%",
+      "description": "格式规范和Critical Rules完整性",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": "格式完全规范+Critical Rules≥5条+Workflow Steps完整"
+        },
+        "good": {
+          "score": 4,
+          "criteria": "格式规范，Critical Rules≥3条"
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": "格式基本规范"
+        },
+        "poor": {
+          "score": 1,
+          "criteria": "格式混乱"
+        }
+      }
+    }
+  ],
+  "评分说明": "总分=各维度得分×权重之和，满分100分。≥85分为通过"
+}

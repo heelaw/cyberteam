@@ -1,0 +1,99 @@
+{
+  "skill_name": "promotion-channel-selector",
+  "测试案例": [
+    {
+      "id": "eval-1",
+      "难度": "medium",
+      "案例": "某职场教育平台，目标用户是25-35岁一二线城市白领，预算10万/月，需要选择推广渠道",
+      "输入": {
+        "user_persona": {
+          "demographics": {
+            "age_range": "25-35岁",
+            "gender": "男女均衡",
+            "location": "一二线城市",
+            "occupation": "互联网/金融/咨询等行业白领"
+          },
+          "behavior_patterns": {
+            "online_habits": "微信公众号、知乎、抖音为主要信息来源",
+            "purchase_behavior": "愿意为自我提升付费，决策周期2-4周"
+          }
+        },
+        "product_info": "职场技能在线课程，客单价500-2000元",
+        "product_stage": "成长期",
+        "budget": "10万/月",
+        "competitor_channels": ["公众号投放", "知乎信息流", "抖音"]
+      },
+      "预期输出": {
+        "recommended_channels": [
+          {
+            "channel_type": "精准营销效果广告",
+            "channel_name": "知乎信息流",
+            "priority": "primary",
+            "reason": "用户画像匹配，职场教育目标用户活跃在知乎"
+          },
+          {
+            "channel_type": "精准营销效果广告",
+            "channel_name": "抖音",
+            "priority": "secondary",
+            "reason": "流量大，可定向职场人群"
+          }
+        ],
+        "mismatched_channels": [
+          {
+            "channel_name": "搜索引擎竞价",
+            "reason": "用户主动搜索意图强但量级有限"
+          }
+        ]
+      }
+    },
+    {
+      "id": "eval-2",
+      "难度": "simple",
+      "案例": "新上市的功能性饮料，预算5万，需要选择首批推广渠道",
+      "输入": {
+        "user_persona": {
+          "demographics": {
+            "age_range": "18-35岁",
+            "gender": "男性为主",
+            "location": "一二线城市"
+          },
+          "behavior_patterns": {
+            "online_habits": "社交媒体重度用户",
+            "purchase_behavior": "便利店渠道为主，冲动消费"
+          }
+        },
+        "product_info": "功能性饮料，定价6元/罐",
+        "product_stage": "初创期",
+        "budget": "5万",
+        "existing_channels": []
+      },
+      "预期输出": {
+        "recommended_channels": [
+          {
+            "channel_type": "信息分发平台",
+            "channel_name": "抖音短视频",
+            "priority": "primary",
+            "reason": "年轻人群聚集，内容形式匹配产品调性"
+          },
+          {
+            "channel_type": "传播事件型",
+            "channel_name": "KOL合作",
+            "priority": "secondary",
+            "reason": "通过信任背书带动尝试"
+          }
+        ],
+        "budget_allocation": {
+          "抖音投放": "60%",
+          "KOL合作": "30%",
+          "测试预留": "10%"
+        }
+      }
+    }
+  ],
+  "评分标准": {
+    "用户匹配": "渠道是否与目标用户画像匹配",
+    "预算合理": "成本是否在预算范围内且分配合理",
+    "阶段适配": "方式是否与产品阶段匹配",
+    "执行可行": "是否有能力执行该渠道的运营"
+  }
+}

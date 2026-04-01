@@ -1,0 +1,471 @@
+import pubsub, { PubSubEvents } from "@/utils/pubsub"
+import { useDeepCompareEffect, useDebounceFn, useUpdateEffect, useMemoizedFn } from "ahooks"
+import { isEmpty } from "lodash-es"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { useMessageChanges } from "../../hooks/useMessageChanges"
+import Detail, { type DetailRef } from "../../components/Detail"
+import { SendMessageOptions } from "../../components/MessagePanel/types"
+import useStyles from "../Workspace/style"
+import { JSONContent } from "@tiptap/core"
+import GlobalMentionPanelStore from "@/components/business/MentionPanel/store"
+import projectFilesStore from "@/stores/projectFiles"
+import { filterClickableMessageWithoutRevoked } from "../../utils/handleMessage"
+import { useDetailModeCache } from "../../hooks/useDetailModeCache"
+import { useAttachmentsPolling } from "../../hooks/useAttachmentsPolling"
+import { useAutoOpenFile } from "../../hooks/useAutoOpenFile"
+import { useDeferUntilFileTabsCacheLoaded } from "../../hooks/useDeferUntilFileTabsCacheLoaded"
+import { useRefreshTopicDetailOnTaskComplete } from "../../hooks/useRefreshTopicDetailOnTaskComplete"
+import { AttachmentDataProcessor } from "../../utils/attachmentDataProcessor"
+import { isCollaborationWorkspace } from "../../constants"
+import { useNoPermissionCollaborationProject } from "../../hooks/useNoPermissionCollaborationProject"
+import { superMagicStore } from "@/pages/superMagic/stores"
+import { observer } from "mobx-react-lite"
+import { LongMemoryApi, SuperMagicApi } from "@/apis"
+import { workspaceStore, projectStore, topicStore } from "../../stores/core"
+import SuperMagicService from "../../services"
+import { userStore } from "@/models/user"
+import { LongMemory } from "@/types/longMemory"
+import { useInterruptAndUndoMessage } from "../../hooks/useInterruptAndUndoMessage"
+import { useTopicConversationLoading } from "../../hooks/useTopicConversationLoading"
+import { useTopicMessages } from "../../hooks/useTopicMessages"
+import { useCreateTopicListener } from "../../components/TopicMode/useCreateTopicListener"
+import { useTopicFiles } from "./hooks/useTopicFiles"
+import TopicSidebar from "./components/TopicSidebar"
+import TopicMessagePanel from "./components/TopicMessagePanel"
+import TopicDesktopPanels from "./components/TopicDesktopPanels"
+import { useTopicDetailPanelController } from "./hooks/useTopicDetailPanelController"
+import type { AttachmentItem } from "../../components/TopicFilesButton/hooks"
+import { resolveMessageSendContext } from "../../services/messageSendPreparation"
+import { messageSendService } from "../../services/messageSendFlowService"
+import { isReadOnlyProject } from "../../utils/permission"
+
+// 工作区组件
+function TopicPage() {
+	// Get workspace and project state from stores
+	const selectedWorkspace = workspaceStore.selectedWorkspace
+	const selectedProject = projectStore.selectedProject
+	const selectedTopic = topicStore.selectedTopic
+	const attachments = projectFilesStore.workspaceFileTree
+	const attachmentList = projectFilesStore.workspaceFilesList
+	const setAttachments = useMemoizedFn((nextAttachments: AttachmentItem[]) => {
+		projectFilesStore.setWorkspaceFileTree(nextAttachments)
+	})
+
+	/** ======================== Hooks ======================== */
+	const { styles } = useStyles()
+	const { handleNoPermissionCollaborationProject } = useNoPermissionCollaborationProject()
+
+	/** ======================== Refs ======================== */
+	const detailRef = useRef<DetailRef>(null)
+
+	/** ======================== States ======================== */
+	const [autoDetail, setAutoDetail] = useState<any>()
+	const [userSelectDetail, setUserSelectDetail] = useState<any>()
+	const [isShowLoadingInit, setIsShowLoadingInit] = useState(false)
+	const [isDetailPanelFullscreen, setIsDetailPanelFullscreen] = useState(false)
+	// Calculate read-only status based on user role
+	const isReadOnly = isReadOnlyProject(selectedProject?.user_role)
+
+	// Use topic files hook to manage file-related logic
+	const { activeFileId, handleFileClick, topicFilesProps, setActiveFileId } = useTopicFiles({
+		selectedProject,
+		selectedWorkspace,
+		selectedTopic,
+		projects: projectStore.projects,
+		workspaces: workspaceStore.workspaces,
+		attachments,
+		setAttachments,
+		setUserSelectDetail,
+		detailRef,
+		isReadOnly,
+	})
+
+	const {
+		shouldShowDetailPanel,
+		handleFileClickWithPanel,
+		topicFilesPropsWithPanel,
+		handleActiveDetailTabChange,
+		clearActiveDetailTabType,
+	} = useTopicDetailPanelController({
+		detailRef,
+		isReadOnly,
+		activeFileId,
+		setActiveFileId,
+		handleFileClick,
+		topicFilesProps,
+	})
+
+	const activeFileIdRef = useRef<string | null>(activeFileId)
+	activeFileIdRef.current = activeFileId
+
+	const { onFileTabsCacheLoaded, scheduleWhenTabsCacheReady } = useDeferUntilFileTabsCacheLoaded(
+		selectedProject?.id,
+	)
+
+	// 使用详情模式缓存 hook
+	useDetailModeCache({
+		selectedProjectId: selectedProject?.id,
+		autoDetail,
+		userDetail: userSelectDetail,
+		setAutoDetail,
+		setUserDetail: setUserSelectDetail,
+	})
+
+	const {
+		checkAndOpenFileByMessages,
+		checkAndOpenFileByTopicChanged,
+		reset: resetAutoOpenFile,
+	} = useAutoOpenFile()
+
+	useRefreshTopicDetailOnTaskComplete({
+		selectedTopic,
+		onTopicDetailLoaded: topicStore.updateTopic,
+	})
+
+	// 当项目或话题发生变化时，清理状态
+	useUpdateEffect(() => {
+		setAutoDetail(null)
+		setUserSelectDetail(null)
+		clearActiveDetailTabType()
+		resetAutoOpenFile()
+	}, [selectedProject?.id])
+
+	const updateDetail = useMemoizedFn(
+		({
+			latestMessageDetail,
+			isLoading,
+			tool,
+		}: {
+			latestMessageDetail: any
+			isLoading: boolean
+			tool?: any
+		}) => {
+			if (isEmpty(latestMessageDetail)) {
+				setAutoDetail({
+					type: "empty",
+					data: {
+						text: isLoading ? "正在思考" : "完成任务",
+					},
+				})
+			} else {
+				setAutoDetail({
+					...latestMessageDetail,
+					id: tool?.id,
+					name: tool?.name,
+				})
+			}
+		},
+	)
+
+	const currentTopicStatus = selectedTopic?.task_status
+	const { messages, showLoading } = useTopicConversationLoading({
+		selectedTopic,
+		hideLoadingWhenBufferHasContent: true,
+		onTopicMessagesChange: ({
+			isLoading,
+			lastMessageNode,
+			selectedTopic: currentTopic,
+			topicMessages,
+		}) => {
+			setIsShowLoadingInit(true)
+
+			// 记录任务状态是否发生变化（用于判断是否为新消息导致的任务完成）
+			const hasStatusChanged = lastMessageNode?.status !== currentTopicStatus
+
+			// 接收到任务消息并监测到状态变化后，需重新拉取工作区、项目、话题，更新其工作状态
+			if (hasStatusChanged && selectedProject) {
+				if (selectedWorkspace?.id) {
+					void SuperMagicService.workspace.updateWorkspaceStatus(selectedWorkspace.id)
+				}
+				if (selectedProject?.id) {
+					void SuperMagicService.project.updateProjectStatus(selectedProject.id)
+				}
+				if (currentTopic?.id) {
+					void SuperMagicService.topic.updateTopicStatus(
+						currentTopic.id,
+						lastMessageNode?.status,
+					)
+				}
+			}
+
+			const lastDetailMessage = topicMessages.findLast((message) => {
+				const node = superMagicStore.getMessageNode(message?.app_message_id)
+				return filterClickableMessageWithoutRevoked(node)
+			})
+
+			const lastDetailMessageNode = superMagicStore.getMessageNode(
+				lastDetailMessage?.app_message_id,
+			)
+			if (filterClickableMessageWithoutRevoked(lastDetailMessageNode)) {
+				updateDetail({
+					latestMessageDetail: lastDetailMessageNode?.tool?.detail,
+					isLoading,
+					tool: lastDetailMessageNode?.tool,
+				})
+
+				scheduleWhenTabsCacheReady(() => {
+					checkAndOpenFileByMessages({
+						lastMessageNode,
+						lastDetailMessageNode,
+						hasStatusChanged,
+						activeFileId,
+						getActiveFileId: () => activeFileIdRef.current,
+					})
+				})
+			}
+		},
+	})
+
+	const { hasMemoryUpdateMessage } = useMessageChanges(messages)
+
+	useEffect(() => {
+		if (!hasMemoryUpdateMessage) return
+		// 更新长期记忆
+		try {
+			LongMemoryApi.getMemories({
+				status: [LongMemory.MemoryStatus.Pending, LongMemory.MemoryStatus.PENDING_REVISION],
+				page_size: 99,
+			}).then((res) => {
+				if (res?.success) {
+					userStore.user.setPendingMemoryList(res.data || [])
+				}
+			})
+		} catch (error) {
+			console.error(error)
+		}
+	}, [hasMemoryUpdateMessage])
+
+	// Handle interrupt and undo message functionality
+	useInterruptAndUndoMessage({
+		selectedTopic,
+		messages,
+		userInfo: userStore.user.userInfo,
+	})
+
+	useDeepCompareEffect(() => {
+		setUserSelectDetail(null)
+		clearActiveDetailTabType()
+	}, [selectedTopic?.id, selectedTopic?.chat_topic_id])
+
+	// 集成轮询hook（需在 useTopicMessages 之前，以注入 checkNowDebounced）
+	const { checkNowDebounced } = useAttachmentsPolling({
+		projectId: selectedProject?.id,
+		onAttachmentsChange: useCallback(({ tree, list }: { tree: any[]; list: never[] }) => {
+			// 统一处理 metadata，内部自闭环处理验证和返回逻辑
+			const processedData = AttachmentDataProcessor.processAttachmentData({ tree, list })
+			projectFilesStore.setWorkspaceFileTree(processedData.tree)
+		}, []),
+		onError: useMemoizedFn((error: any, _projectId: string) => {
+			if (isCollaborationWorkspace(selectedWorkspace)) {
+				// 团队共享项目，如果权限不足，回到首页
+				handleNoPermissionCollaborationProject(error)
+				return
+			}
+		}),
+	})
+
+	const { handlePullMoreMessage, isMessagesInitialLoading, isSelectedTopicMessagesReady } =
+		useTopicMessages({
+			selectedTopic,
+			checkNowDebounced,
+		})
+
+	useUpdateEffect(() => {
+		if (!isSelectedTopicMessagesReady) return
+		scheduleWhenTabsCacheReady(() => {
+			checkAndOpenFileByTopicChanged({
+				activeFileId,
+				getActiveFileId: () => activeFileIdRef.current,
+			})
+		})
+		// eslint-disable-next-line react-hooks/exhaustive-deps -- 仅在话题 id / 消息首轮就绪变化时调度；回调内通过 ref 取最新 activeFileId
+	}, [selectedTopic?.id, isSelectedTopicMessagesReady])
+
+	const updateAttachments = useDebounceFn(
+		(selectedProject: any, callback?: () => void) => {
+			if (!selectedProject?.id) {
+				projectFilesStore.setWorkspaceFileTree([])
+				return
+			}
+			try {
+				pubsub.publish(PubSubEvents.Update_Attachments_Loading, true)
+				SuperMagicApi.getAttachmentsByProjectId({
+					projectId: selectedProject?.id,
+					// @ts-ignore 使用window添加临时的token
+					temporaryToken: window.temporary_token || "",
+				})
+					.then((res) => {
+						// 统一处理 metadata，包括 index.html 文件的特殊逻辑，内部自闭环处理验证和返回逻辑
+						const processedData = AttachmentDataProcessor.processAttachmentData(res)
+						projectFilesStore.setWorkspaceFileTree(processedData.tree)
+						GlobalMentionPanelStore.finishLoadAttachmentsPromise(selectedProject?.id)
+					})
+					.finally(() => {
+						pubsub.publish(PubSubEvents.Update_Attachments_Loading, false)
+					})
+			} catch (error) {
+				console.error("Failed to fetch attachments:", error)
+				projectFilesStore.setWorkspaceFileTree([])
+			} finally {
+				callback?.()
+			}
+		},
+		{
+			wait: 500,
+		},
+	).run
+
+	useDeepCompareEffect(() => {
+		const projectId = selectedProject?.id
+		if (selectedProject) {
+			// 初始化加载附件的Promise
+			GlobalMentionPanelStore.initLoadAttachments(selectedProject?.id)
+			updateAttachments(selectedProject)
+		}
+
+		return () => {
+			if (projectId) {
+				GlobalMentionPanelStore.clearInitLoadAttachmentsPromise(projectId)
+			}
+		}
+	}, [selectedProject])
+
+	const disPlayDetail = useMemo(() => {
+		return userSelectDetail || autoDetail
+	}, [userSelectDetail, autoDetail])
+
+	useEffect(() => {
+		pubsub.subscribe(PubSubEvents.Update_Attachments, (callback: any) => {
+			if (
+				selectedProject &&
+				selectedTopic
+				// 消息只跟topic关联
+				// &&
+				// data?.chat_topic_id === selectedTopic.chat_topic_id
+			) {
+				updateAttachments(selectedProject, callback)
+			}
+		})
+		return () => {
+			pubsub?.unsubscribe(PubSubEvents.Update_Attachments)
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [selectedTopic, selectedProject])
+
+	useEffect(() => {
+		pubsub.subscribe(PubSubEvents.Super_Magic_Update_Auto_Detail, (data: any) => {
+			setAutoDetail(data)
+		})
+		return () => {
+			pubsub?.unsubscribe(PubSubEvents.Super_Magic_Update_Auto_Detail)
+		}
+	}, [])
+
+	// Listen for Create_New_Topic event and handle topic creation
+	useCreateTopicListener()
+
+	// 封装消息发送处理函数
+	const handleSendMsg = useMemoizedFn(
+		(content: JSONContent | string, options?: SendMessageOptions) => {
+			messageSendService.sendContent({
+				content,
+				options,
+				showLoading: messages?.length > 1 && showLoading,
+				context: resolveMessageSendContext({
+					selectedProject,
+					selectedTopic,
+					selectedWorkspace,
+					setSelectedTopic: topicStore.setSelectedTopic,
+				}),
+			})
+
+			// 延迟200ms通知MessageList组件滚动到底部
+			pubsub.publish(PubSubEvents.Message_Scroll_To_Bottom, { time: 1000 })
+		},
+	)
+
+	const handleSelectedTopicChange = useMemoizedFn((topic: any) => {
+		topicStore.setSelectedTopic(topic)
+	})
+
+	const renderMessagePanel = useMemoizedFn(
+		({
+			isConversationPanelCollapsed,
+			isDraggingPanel,
+			onToggleConversationPanel,
+			onExpandConversationPanel,
+		}: {
+			isConversationPanelCollapsed: boolean
+			isDraggingPanel: boolean
+			onToggleConversationPanel: () => void
+			onExpandConversationPanel: () => void
+		}) => (
+			<TopicMessagePanel
+				selectedProject={selectedProject}
+				selectedTopic={selectedTopic}
+				messages={messages as any}
+				showLoading={showLoading}
+				isShowLoadingInit={isShowLoadingInit}
+				currentTopicStatus={currentTopicStatus}
+				attachments={attachments}
+				handleSendMsg={handleSendMsg}
+				handlePullMoreMessage={handlePullMoreMessage}
+				isMessagesLoading={isMessagesInitialLoading}
+				handleFileClick={handleFileClickWithPanel}
+				setUserSelectDetail={setUserSelectDetail}
+				setSelectedTopic={handleSelectedTopicChange}
+				isConversationPanelCollapsed={isConversationPanelCollapsed}
+				isDraggingPanel={isDraggingPanel}
+				onToggleConversationPanel={onToggleConversationPanel}
+				onExpandConversationPanel={onExpandConversationPanel}
+				detailPanelVisible={shouldShowDetailPanel}
+			/>
+		),
+	)
+
+	return (
+		<TopicDesktopPanels
+			containerClassName={styles.container}
+			detailPanelClassName={styles.detailPanel}
+			isDetailPanelFullscreen={isDetailPanelFullscreen}
+			sidebar={
+				<TopicSidebar
+					selectedProject={selectedProject}
+					selectedWorkspace={selectedWorkspace}
+					selectedTopic={selectedTopic}
+					isReadOnly={isReadOnly}
+					topicFilesProps={topicFilesPropsWithPanel}
+				/>
+			}
+			detailPanel={
+				<Detail
+					ref={detailRef}
+					disPlayDetail={disPlayDetail}
+					userSelectDetail={userSelectDetail}
+					setUserSelectDetail={setUserSelectDetail}
+					attachments={attachments}
+					attachmentList={attachmentList}
+					topicId={selectedTopic?.id}
+					baseShareUrl={`${window.location.origin}/share`}
+					currentTopicStatus={currentTopicStatus}
+					messages={messages}
+					autoDetail={autoDetail}
+					allowEdit={!isReadOnly}
+					selectedTopic={selectedTopic}
+					selectedProject={selectedProject}
+					activeFileId={activeFileId}
+					onActiveFileChange={setActiveFileId}
+					onActiveTabChange={handleActiveDetailTabChange}
+					onFullscreenChange={setIsDetailPanelFullscreen}
+					onFileTabsCacheLoaded={onFileTabsCacheLoaded}
+				/>
+			}
+			isReadOnly={isReadOnly}
+			shouldShowDetailPanel={shouldShowDetailPanel}
+			renderMessagePanel={renderMessagePanel}
+		/>
+	)
+}
+
+// 导出的工作区组件
+export default observer(TopicPage)
