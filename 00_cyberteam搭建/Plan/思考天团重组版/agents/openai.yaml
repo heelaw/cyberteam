@@ -1,0 +1,7 @@
+interface:
+  display_name: "思考天团重组版"
+  short_description: "多思维模型协作入口与路由"
+  default_prompt: "Use $think-team to route the problem, choose the right expert agents, and return a concise actionable conclusion."
+
+policy:
+  allow_implicit_invocation: true
