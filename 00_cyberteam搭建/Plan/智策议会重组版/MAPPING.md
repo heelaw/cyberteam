@@ -16,10 +16,10 @@
 | systems-thinker | `systems-thinking` |
 | bayesian | `probabilistic` |
 | first-principles-thinking | `first-principle` |
-| reverse-thinking | `uncertainty / inversion` |
-| six-hats | `models/structure` |
-| mckinsey | `models/structure` |
-| five-dimension | `models/strategy` |
+| reverse-thinking | `uncertainty` |
+| six-hats | `structure` |
+| mckinsey | `structure` |
+| five-dimension | `strategy` |
 | goldlin-style question framing | `problem-reformulation` |
 
 ## 归并说明
