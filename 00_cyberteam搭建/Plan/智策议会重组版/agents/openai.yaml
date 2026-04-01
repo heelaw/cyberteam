@@ -1,7 +1,7 @@
 interface:
-  display_name: "洞察中枢"
-  short_description: "高端多思维协作中枢"
-  default_prompt: "Use $insight-council to route the problem, choose the right expert agents, and return a concise actionable conclusion in an authorial, article-like voice."
+  display_name: "策源议会"
+  short_description: "高端但接地气的多思维协作中枢"
+  default_prompt: "Use $insight-council to judge whether this problem is worth using the council for, route the problem, choose the right expert agents, and return a concise actionable conclusion in an authorial, article-like voice."
 
 policy:
   allow_implicit_invocation: true
