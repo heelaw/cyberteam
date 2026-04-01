@@ -125,11 +125,9 @@ function getDatabaseCounts(runtime: RuntimeState | null) {
 
 function resolveRoadmap(seed: SeedState, runtime: RuntimeState | null) {
   const roadmap = runtime?.database?.roadmapPhases
-  if (runtime) {
-    return [...(roadmap ?? [])].sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0))
-  }
 
-  if (roadmap?.length) {
+  // Runtime has priority; fall back to seed if runtime is unavailable or has no phases
+  if (runtime && roadmap?.length) {
     return [...roadmap].sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0))
   }
 
@@ -166,17 +164,8 @@ function getSeedConversationParticipantCount(seed: SeedState, conversationId: st
 function resolveMessages(seed: SeedState, runtime: RuntimeState | null, conversationId: string) {
   const runtimeMessages = runtime?.database?.messagesByConversation?.[conversationId]
 
-  if (runtime) {
-    return runtimeMessages?.length ? runtimeMessages.map((message) => ({
-      id: message.id,
-      content: message.content,
-      senderId: message.senderId,
-      createdAt: message.createdAt ?? '',
-      mentions: parseMentions(message.mentions),
-    })) : []
-  }
-
-  if (runtimeMessages?.length) {
+  // Runtime has priority; fall back to seed if runtime is unavailable or has no messages
+  if (runtime && runtimeMessages?.length) {
     return runtimeMessages.map((message) => ({
       id: message.id,
       content: message.content,
@@ -190,18 +179,17 @@ function resolveMessages(seed: SeedState, runtime: RuntimeState | null, conversa
 }
 
 function resolveActiveConversation(seed: SeedState, runtime: RuntimeState | null) {
-  const runtimeConversation = runtime?.database?.conversations.find((conversation) => conversation.type !== 'private')
-    ?? runtime?.database?.conversations[0]
+  const runtimeConversations = runtime?.database?.conversations
 
-  if (runtime) {
-    return runtimeConversation
+  // Runtime has priority; fall back to seed if runtime is unavailable or has no conversations
+  if (runtimeConversations?.length) {
+    return runtimeConversations.find((conversation) => conversation.type !== 'private')
+      ?? runtimeConversations[0]
   }
 
-  if (runtimeConversation) {
-    return runtimeConversation
-  }
-
-  return seed.conversations[1] ?? seed.conversations[0]
+  // Fall back to seed: prefer non-private conversation, then first available
+  return seed.conversations.find((conversation) => conversation.type !== 'private')
+    ?? seed.conversations[0]
 }
 
 function buildRoadmapDrafts(phases: ReturnType<typeof resolveRoadmap>) {
@@ -690,7 +678,7 @@ export function OrganizationView({ seed }: { seed: SeedState }) {
                         <div className="conversationTitle">{agent.name}</div>
                         <div className="conversationMeta">{agent.title} · {agent.status}</div>
                       </div>
-                      <span className="subtle">{agent.isCEO ? 'CEO' : 'Member'}</span>
+                      <span className="subtle">{agent.isCEO === 1 ? 'CEO' : 'Member'}</span>
                     </div>
                   ))}
               </div>
