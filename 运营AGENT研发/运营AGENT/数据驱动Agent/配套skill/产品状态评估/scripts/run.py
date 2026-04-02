@@ -889,6 +889,8 @@ def _assess(data: dict) -> dict:
         "investment_advice": investment_advice,
         "priority_actions": priority_actions,
 
+        "next_step": "优先查看 key_findings、key_risks 和 priority_actions，再决定是否补充趋势或行业对标数据",
+
         "calculation_notes": [
             "五维度等权重计分",
             "综合得分 = 五维度平均",
