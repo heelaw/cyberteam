@@ -1,0 +1,57 @@
+{
+  "version": "1.0",
+  "core_theory": {
+    "name": "业务模型巩固方法论",
+    "source": "业务操盘手课程 - 第三章：业务模型巩固篇",
+    "summary": "诊断和优化已搭建的业务模型，确保模型稳定持续产生价值",
+    "key_principle": "诊断 → 识别 → 优化 → 跟踪"
+  },
+  "diagnosis_dimensions": [
+    {
+      "dimension": "完整性",
+      "description": "各环节是否都有覆盖",
+      "check_method": "检查业务链条是否完整"
+    },
+    {
+      "dimension": "关联性",
+      "description": "环节之间是否有效联动",
+      "check_method": "检查转化路径是否顺畅"
+    },
+    {
+      "dimension": "效率性",
+      "description": "转化效率是否正常",
+      "check_method": "对比行业平均水平"
+    },
+    {
+      "dimension": "稳定性",
+      "description": "各指标是否波动异常",
+      "check_method": "追踪指标变化趋势"
+    }
+  ],
+  "issue_types": [
+    {
+      "type": "断点",
+      "signal": "某环节转化率异常低",
+      "optimization": "优化该环节的转化路径"
+    },
+    {
+      "type": "瓶颈",
+      "signal": "某环节处理能力不足",
+      "optimization": "增加资源或优化流程"
+    },
+    {
+      "type": "冗余",
+      "signal": "某环节产出低效",
+      "optimization": "简化或合并环节"
+    },
+    {
+      "type": "风险",
+      "signal": "某环节依赖外部资源",
+      "optimization": "建立备选方案"
+    }
+  ],
+  "references": [
+    {"name": "业务模型巩固", "source": "业务操盘手课程 - 第三章"},
+    {"name": "漏斗分析", "source": "数据分析方法"}
+  ]
+}

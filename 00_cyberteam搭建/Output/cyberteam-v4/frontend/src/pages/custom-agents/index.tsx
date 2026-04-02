@@ -38,7 +38,7 @@ const { Title, Text, Paragraph } = Typography
 export default function CustomAgentsPage() {
   const [agents, setAgents] = useState<CustomAgent[]>([])
   const [loading, setLoading] = useState(false)
-  const [apiAvailable, setApiAvailable] = useState<boolean | null>(null)
+  const [apiAvailable, setApiAvailable] = useState<boolean>(true)
 
   // 筛选
   const [filterCompany, setFilterCompany] = useState<string>('')
@@ -68,12 +68,8 @@ export default function CustomAgentsPage() {
       if (filterSkill) params.skillIds = [filterSkill]
 
       const data = await fetchAgents(params.companyId, params.skillIds)
-      if (data.length > 0 || apiAvailable === null) {
-        setAgents(data)
-        setApiAvailable(true)
-      } else {
-        setApiAvailable(false)
-      }
+      setAgents(data)
+      setApiAvailable(true)
     } catch (error) {
       console.warn('[CustomAgents] 加载失败:', error)
       setApiAvailable(false)

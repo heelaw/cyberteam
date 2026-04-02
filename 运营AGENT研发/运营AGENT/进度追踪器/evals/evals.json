@@ -1,0 +1,53 @@
+{
+  "version": "1.0",
+  "test_cases": [
+    {
+      "id": "1",
+      "scenario": "项目进度追踪",
+      "description": "追踪一个10人月项目的进度",
+      "difficulty": "medium",
+      "input": {
+        "task_list": [
+          {"id": 1, "name": "需求分析", "owner": "张三", "status": "完成"},
+          {"id": 2, "name": "设计", "owner": "李四", "status": "进行中"},
+          {"id": 3, "name": "开发", "owner": "王五", "status": "未开始"}
+        ],
+        "current_status": "设计阶段完成60%",
+        "update_time": "2024-03-15"
+      },
+      "expected_output": {
+        "completion_rate": "40-50%",
+        "risks": "识别设计延期风险",
+        "issues": "明确问题及责任人"
+      },
+      "evaluation_points": [
+        "进度计算准确",
+        "风险识别及时"
+      ]
+    },
+    {
+      "id": "2",
+      "scenario": "营销活动进度追踪",
+      "description": "追踪618营销活动进度",
+      "difficulty": "simple",
+      "input": {
+        "task_list": [
+          {"id": 1, "name": "方案制定", "status": "完成"},
+          {"id": 2, "name": "素材准备", "status": "进行中"}
+        ]
+      },
+      "expected_output": {
+        "completion_rate": "50%",
+        "milestone_status": "第一阶段达成"
+      },
+      "evaluation_points": [
+        "进度清晰"
+      ]
+    }
+  ],
+  "evaluation_criteria": {
+    "accuracy": "进度计算准确",
+    "risk_identification": "风险识别及时",
+    "issue_resolution": "问题推动有效"
+  }
+}

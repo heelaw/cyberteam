@@ -1,0 +1,18 @@
+{
+  "id": "assess_atmosphere",
+  "name": "氛围塑造评估",
+  "category": "assess",
+  "description": "评估社区氛围塑造效果",
+  "metrics": [
+    {
+      "metric": "正向内容占比",
+      "target": "≥70%",
+      "measurement": "内容抽检"
+    },
+    {
+      "metric": "社区调性统一度",
+      "target": "统一",
+      "measurement": "评审通过"
+    }
+  ]
+}

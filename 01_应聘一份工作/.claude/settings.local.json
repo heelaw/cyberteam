@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -lt \"罗晓原\"*.md | head -20)"
+    ]
+  }
+}

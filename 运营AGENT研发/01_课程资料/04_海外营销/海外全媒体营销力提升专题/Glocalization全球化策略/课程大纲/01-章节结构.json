@@ -1,0 +1,71 @@
+{
+  "course_name": "Glocalization全球化策略",
+  "course_id": "34007547",
+  "product_id": "8006686",
+  "learning_url": "https://www.sanjieke.cn/lesson/0/34007547/36287724",
+  "total_chapters": 4,
+  "total_sections": 5,
+  "chapters": [
+    {
+      "node_id": "36287721",
+      "name": "第一章 认识Glocalization全球本地化"
+    },
+    {
+      "node_id": "36287722",
+      "name": "第二章 Glocalization的机会与挑战"
+    },
+    {
+      "node_id": "36287723",
+      "name": "第三章 Glocalization的策略与实施"
+    },
+    {
+      "node_id": "36287729",
+      "name": "第四章 了解不同国家市场的差异"
+    }
+  ],
+  "sections": [
+    {
+      "node_id": "36287724",
+      "name": "3.1 设计全球化与本地化的结构"
+    },
+    {
+      "node_id": "36287725",
+      "name": "3.2 Globalization全球化策略"
+    },
+    {
+      "node_id": "36287726",
+      "name": "3.3.1 产品和服务的本地化策略"
+    },
+    {
+      "node_id": "36287727",
+      "name": "3.3.2 本地化营销与品牌管理"
+    },
+    {
+      "node_id": "36287728",
+      "name": "3.3.3 本地团队与跨文化管理"
+    }
+  ],
+  "all_sections": [
+    {
+      "node_id": "36287724",
+      "name": "3.1 设计全球化与本地化的结构"
+    },
+    {
+      "node_id": "36287725",
+      "name": "3.2 Globalization全球化策略"
+    },
+    {
+      "node_id": "36287726",
+      "name": "3.3.1 产品和服务的本地化策略"
+    },
+    {
+      "node_id": "36287727",
+      "name": "3.3.2 本地化营销与品牌管理"
+    },
+    {
+      "node_id": "36287728",
+      "name": "3.3.3 本地团队与跨文化管理"
+    }
+  ],
+  "parse_time": "2026-02-25T13:24:21.401750"
+}

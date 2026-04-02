@@ -238,8 +238,7 @@ app.include_router(debate.router, prefix="/api/debate", tags=["debate"])
 app.include_router(scoring.router, prefix="/api/scoring", tags=["scoring"])
 app.include_router(health.router, prefix="/api", tags=["health"])
 app.include_router(todos.router, prefix="/api/todos", tags=["todos"])
-app.include_router(departments.router, prefix="/api/departments", tags=["departments"])
-app.include_router(teams.router, prefix="/api/teams", tags=["teams"])
+# departments/teams/skills 已迁移到 v1 版本（见下方）
 app.include_router(skills.router, prefix="/api/skills", tags=["skills"])
 app.include_router(state_machine.router, prefix="/api/config/state-machine", tags=["state-machine"])
 app.include_router(rbac_config.router, prefix="/api/config/rbac", tags=["rbac"])
@@ -255,7 +254,7 @@ app.include_router(ws_api.router, tags=["websocket"])
 app.include_router(sse_api.router, prefix="/api", tags=["sse"])
 
 # 新增：API v1 路由（抄 Magic）
-from .api.v1 import chat as v1_chat, agents as v1_agents, projects as v1_projects, skills as v1_skills, expert_agents as v1_expert_agents, playground as v1_playground, companies as v1_companies, teams as v1_teams, spawn_api as v1_spawn
+from .api.v1 import chat as v1_chat, agents as v1_agents, projects as v1_projects, skills as v1_skills, expert_agents as v1_expert_agents, playground as v1_playground, companies as v1_companies, teams as v1_teams, spawn_api as v1_spawn, organization as v1_organization, departments as v1_departments
 
 app.include_router(v1_chat.router, prefix="/api/v1", tags=["chat v1"])
 app.include_router(v1_agents.router, prefix="/api/v1", tags=["agents v1"])
@@ -264,17 +263,27 @@ app.include_router(v1_skills.router, prefix="/api/v1", tags=["skills v1"])
 app.include_router(v1_expert_agents.router, prefix="/api/v1", tags=["expert-agents v1"])
 app.include_router(v1_companies.router, prefix="/api/v1", tags=["companies v1"])
 app.include_router(v1_teams.router, prefix="/api/v1", tags=["teams v1"])
+app.include_router(v1_departments.router, prefix="/api/v1", tags=["departments v1"])
 app.include_router(v1_playground.router, prefix="/api", tags=["playground"])
 app.include_router(v1_spawn.router, prefix="/api/v1", tags=["spawn v1"])
+app.include_router(v1_organization.router, prefix="/api/v1", tags=["organization v1"])
 
-# ── 静态文件服务（serve frontend dist） ──
-if _frontend_dist_path.exists() and _frontend_dist_path.is_dir():
+# ── 静态文件服务（serve frontend dist，仅在生产模式） ──
+# 注意：开发模式下不应挂载到 /，否则会覆盖 API 路由
+# 开发时应使用 Vite dev 服务器 (localhost:5173)
+# 只有部署时才挂载静态文件
+import os
+_is_production = os.environ.get("ENVIRONMENT", "development") == "production"
+
+if _is_production and _frontend_dist_path.exists() and _frontend_dist_path.is_dir():
     app.mount(
         "/",
         StaticFiles(directory=str(_frontend_dist_path), html=True),
         name="frontend",
     )
-    log.info(f"Frontend static files mounted from {_frontend_dist_path}")
+    log.info(f"Frontend static files mounted from {_frontend_dist_path} (production mode)")
+else:
+    log.info("Frontend static files NOT mounted (development mode - use Vite dev server)")
 
 
 @app.get("/")

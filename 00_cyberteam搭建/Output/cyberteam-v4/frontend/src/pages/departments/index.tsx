@@ -37,7 +37,7 @@ const { Title, Text } = Typography
 export default function DepartmentsPage() {
   const [departments, setDepartments] = useState<Department[]>([])
   const [loading, setLoading] = useState(false)
-  const [apiAvailable, setApiAvailable] = useState<boolean | null>(null)
+  const [apiAvailable, setApiAvailable] = useState<boolean>(true)
   const [statistics, setStatistics] = useState<{
     total_count: number
     builtin_count: number
@@ -60,12 +60,8 @@ export default function DepartmentsPage() {
     setLoading(true)
     try {
       const data = await fetchDepartments()
-      if (data.length > 0 || apiAvailable === null) {
-        setDepartments(data)
-        setApiAvailable(true)
-      } else {
-        setApiAvailable(false)
-      }
+      setDepartments(data)
+      setApiAvailable(true)
     } catch (error) {
       console.warn('[Departments] 加载失败:', error)
       setApiAvailable(false)
@@ -196,14 +192,19 @@ export default function DepartmentsPage() {
   }
 
   // 绑定/解绑 Agent
-  const handleAgentChange = async (targetKeys: string[]) => {
+  const handleAgentChange = async (
+    targetKeys: React.Key[],
+    direction: 'left' | 'right',
+    moveKeys: React.Key[]
+  ) => {
     if (!selectedDepartment) return
 
     const departmentId = selectedDepartment.department_id
 
     // 找出新增的和移除的
-    const toAdd = targetKeys.filter(key => !boundAgents.includes(key))
-    const toRemove = boundAgents.filter(key => !targetKeys.includes(key))
+    const targetKeysStr = targetKeys.map(k => String(k))
+    const toAdd = targetKeysStr.filter(key => !boundAgents.includes(key))
+    const toRemove = boundAgents.filter(key => !targetKeysStr.includes(key))
 
     for (const agentCode of toAdd) {
       await bindAgentToDepartment(departmentId, agentCode)
@@ -212,7 +213,7 @@ export default function DepartmentsPage() {
       await unbindAgentFromDepartment(departmentId, agentCode)
     }
 
-    setBoundAgents(targetKeys)
+    setBoundAgents(targetKeysStr)
     message.success('Agent 绑定更新成功')
   }
 
@@ -507,7 +508,6 @@ export default function DepartmentsPage() {
           listStyle={{ width: 450, height: 400 }}
           operations={['绑定', '解绑']}
           titles={['可选 Agent', '已绑定 Agent']}
-          loading={agentLoading}
         />
         <div style={{ marginTop: 16 }}>
           <Text type="secondary">

@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/01_Project/.claude/skills/00-core/cyberwiz-skill-template-v2.md)",
+      "WebFetch",
+      "Bash(npx -y @modelcontextprotocol/server-filesystem --help)",
+      "Bash(npm config:*)"
+    ]
+  },
+  "skipDangerousModePermissionPrompt": true
+}

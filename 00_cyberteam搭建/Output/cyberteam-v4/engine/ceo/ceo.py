@@ -100,6 +100,9 @@ class RoutingResult:
     # 消息驱动字段
     message_sent: bool = False  # 是否已发送消息
     message_id: Optional[str] = None  # 发送的消息 ID
+    # ========== 新增：项目上下文字段 ==========
+    project_context: Optional[Dict[str, Any]] = None  # 项目上下文信息
+    # =========================================
 
 
 class CEORouter:
@@ -287,6 +290,15 @@ class CEORouter:
             msg_result = self._send_to_target(result, user_input, context)
             result.message_sent = msg_result["sent"]
             result.message_id = msg_result.get("message_id")
+
+        # Step 9: 附加项目上下文（如果有）
+        if context:
+            result.project_context = {
+                "project_id": context.get("project_id"),
+                "project_name": context.get("project_name"),
+                "project_path": context.get("project_path"),
+                "business_context": context.get("business_context", ""),
+            }
 
         return result
 

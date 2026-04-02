@@ -7,6 +7,9 @@ export interface Project {
   id: string
   name: string
   description?: string
+  // ========== 新增字段：本地文件夹路径 ==========
+  local_path?: string
+  // =============================================
   status: 'planning' | 'executing' | 'completed' | 'paused'
   currentStep: number
   totalSteps: number
@@ -19,7 +22,22 @@ export interface Project {
 export interface CreateProjectRequest {
   name: string
   description?: string
+  // ========== 新增字段：本地文件夹路径 ==========
+  local_path?: string
+  // =============================================
   metadata?: Record<string, any>
+}
+
+/**
+ * 项目上下文接口
+ */
+export interface ProjectContext {
+  project_id: string
+  project_name: string
+  local_path?: string
+  business_context: string  // 业务背景内容（markdown文本）
+  has_context: boolean     // 是否有业务背景
+  files: string[]          // context目录下的文件列表
 }
 
 export async function fetchProjects(): Promise<Project[]> {
@@ -48,6 +66,26 @@ export async function fetchProject(id: string): Promise<Project | null> {
     return normalizeProject(data)
   } catch (error) {
     console.error('[Projects API] 获取项目失败:', error)
+    return null
+  }
+}
+
+/**
+ * 获取项目上下文（business_context.md内容）
+ */
+export async function fetchProjectContext(projectId: string): Promise<ProjectContext | null> {
+  try {
+    const data = await api<any>('GET', `/v1/projects/${projectId}/context`)
+    return {
+      project_id: data.project_id,
+      project_name: data.project_name,
+      local_path: data.local_path,
+      business_context: data.business_context || '',
+      has_context: data.has_context || false,
+      files: data.files || [],
+    }
+  } catch (error) {
+    console.error('[Projects API] 获取项目上下文失败:', error)
     return null
   }
 }
@@ -98,6 +136,9 @@ function normalizeProject(raw: any): Project {
     id: raw.id || raw.project_id || raw.name || 'unknown',
     name: raw.name || '未命名项目',
     description: raw.description || '',
+    // ========== 新增字段：本地路径 ==========
+    local_path: raw.local_path || undefined,
+    // =====================================
     status: normalizeStatus(raw.status),
     currentStep: raw.current_step || raw.currentStep || 1,
     totalSteps: raw.total_steps || raw.totalSteps || 8,

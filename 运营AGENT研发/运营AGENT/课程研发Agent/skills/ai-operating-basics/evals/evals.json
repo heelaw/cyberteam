@@ -1,0 +1,29 @@
+{
+  "skill": "ai-operating-basics",
+  "cases": [
+    {
+      "input": {
+        "business_goal": "提升新用户留存",
+        "scenario": "新用户完成注册后的第1天运营",
+        "metrics": ["次日回访率", "首日关键动作完成率"]
+      },
+      "expected": ["6要素拆解", "AI可介入点", "边界"]
+    },
+    {
+      "input": {
+        "business_goal": "提升内容产出效率",
+        "scenario": "运营同学每周整理选题并起草内容",
+        "metrics": ["选题产出数", "初稿完成时长"]
+      },
+      "expected": ["6要素拆解", "AI可介入点", "下一步动作"]
+    },
+    {
+      "input": {
+        "business_goal": "减少活动复盘耗时",
+        "scenario": "一场活动结束后整理数据和反馈",
+        "metrics": ["复盘耗时", "问题发现数"]
+      },
+      "expected": ["6要素拆解", "AI可介入点", "风险与边界"]
+    }
+  ]
+}

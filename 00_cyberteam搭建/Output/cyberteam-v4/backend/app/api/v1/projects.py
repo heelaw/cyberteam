@@ -37,6 +37,9 @@ class CreateProjectRequest(BaseModel):
     """创建项目请求。"""
     name: str
     description: Optional[str] = None
+    # ========== 新增字段：本地文件夹路径 ==========
+    local_path: Optional[str] = None
+    # =============================================
     metadata: dict = Field(default_factory=dict)
 
 
@@ -54,6 +57,9 @@ class ProjectResponse(BaseModel):
     user_id: str
     name: str
     description: Optional[str]
+    # ========== 新增字段：本地文件夹路径 ==========
+    local_path: Optional[str] = None
+    # =============================================
     status: str
     metadata: dict
     created_at: str
@@ -63,10 +69,11 @@ class ProjectResponse(BaseModel):
 class ContextResponse(BaseModel):
     """项目上下文响应。"""
     project_id: str
-    business_context: dict
-    research: dict
-    agents: dict
-    files: List[str]
+    project_name: str
+    local_path: Optional[str] = None
+    business_context: str  # 改为字符串而非字典
+    has_context: bool = False
+    files: List[str] = []
 
 
 # === Routes ===
@@ -86,6 +93,7 @@ async def create_project(
         goal="",  # 可以后续通过更新接口设置
         description=request.description,
         extra_data=request.metadata,
+        local_path=request.local_path,  # ========== 保存本地路径 ==========
     )
 
     return ProjectResponse(
@@ -93,6 +101,7 @@ async def create_project(
         user_id=user["sub"],
         name=project.name,
         description=project.description,
+        local_path=project.local_path,  # ========== 返回本地路径 ==========
         status=project.status,
         metadata=project.extra_data or {},
         created_at=project.created_at.isoformat() if project.created_at else "",
@@ -123,6 +132,7 @@ async def list_projects(
             user_id=user["sub"],
             name=p.name,
             description=p.description,
+            local_path=p.local_path,  # ========== 返回本地路径 ==========
             status=p.status,
             metadata=p.extra_data or {},
             created_at=p.created_at.isoformat() if p.created_at else "",
@@ -150,6 +160,7 @@ async def get_project(
         user_id=user["sub"],
         name=project.name,
         description=project.description,
+        local_path=project.local_path,  # ========== 返回本地路径 ==========
         status=project.status,
         metadata=project.extra_data or {},
         created_at=project.created_at.isoformat() if project.created_at else "",
@@ -183,6 +194,7 @@ async def update_project(
         user_id=user["sub"],
         name=project.name,
         description=project.description,
+        local_path=project.local_path,  # ========== 返回本地路径 ==========
         status=project.status,
         metadata=project.extra_data or {},
         created_at=project.created_at.isoformat() if project.created_at else "",
@@ -209,16 +221,69 @@ async def delete_project(
 @router.get("/{project_id}/context", response_model=ContextResponse)
 async def get_project_context(
     project_id: str,
+    db: AsyncSession = Depends(get_db),
     user: dict = Depends(get_current_user),
 ):
-    """获取项目上下文。"""
-    # TODO: 读取项目目录下的 context/ 文件
+    """获取项目上下文。
+
+    优先读取顺序：
+    1. local_path 下的 context/business_context.md
+    2. 项目模板目录下的 context/business_context.md
+    3. 如果都没有，返回空
+    """
+    from pathlib import Path
+
+    repo = ProjectRepository(db)
+    project = await repo.get(project_id)
+
+    if not project:
+        raise HTTPException(status_code=404, detail="Project not found")
+
+    context_content = ""
+    context_files: List[str] = []
+    local_path = project.local_path
+
+    # 策略1: 如果有 local_path，尝试读取文件
+    if local_path:
+        base_path = Path(local_path)
+
+        # 读取 context/business_context.md
+        business_context_file = base_path / "context" / "business_context.md"
+        if business_context_file.exists():
+            try:
+                context_content = business_context_file.read_text(encoding="utf-8")
+            except Exception as e:
+                context_content = f"（读取失败: {str(e)}）"
+
+        # 扫描 context/ 目录下的所有文件
+        context_dir = base_path / "context"
+        if context_dir.exists() and context_dir.is_dir():
+            for f in context_dir.rglob("*"):
+                if f.is_file():
+                    context_files.append(str(f.relative_to(base_path)))
+
+    # 策略2: 如果没有 local_path 或文件不存在，尝试从项目模板目录读取
+    if not context_content:
+        template_context = (
+            Path(__file__).parent.parent.parent.parent
+            / "projects"
+            / "_template"
+            / "context"
+            / "business_context.md"
+        )
+        if template_context.exists():
+            try:
+                context_content = template_context.read_text(encoding="utf-8")
+            except Exception:
+                pass
+
     return ContextResponse(
         project_id=project_id,
-        business_context={},
-        research={},
-        agents={},
-        files=[],
+        project_name=project.name,
+        local_path=local_path,
+        business_context=context_content,
+        has_context=bool(context_content.strip()),
+        files=context_files,
     )
 
 

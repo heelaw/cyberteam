@@ -1,0 +1,475 @@
+{
+  "skill_name": "活动效果评估",
+  "version": "2.0.0",
+  "assess_date": "2026-04-02",
+  "assessor": "系统评估",
+  "assess_purpose": "对评估报告本身的质量进行检查，确保报告可验收、可交付",
+  "assess_object": "活动效果评估报告",
+  "quality_dimension": [
+    {
+      "dimension": "完整性",
+      "weight": 25,
+      "description": "评估报告是否覆盖所有必要模块，数据是否齐全",
+      "check_items": [
+        {
+          "item": "任务定义完整",
+          "check": "活动名称/周期/类型/目标是否齐全",
+          "method": "对照P0数据清单逐项核对",
+          "pass": "四项全部存在且准确",
+          "fail": "任一项缺失或错误"
+        },
+        {
+          "item": "四维度评估完整",
+          "check": "产出/成本/传播/行为是否全部评估",
+          "method": "检查四个维度是否有数据有结论",
+          "pass": "四维度全部有数据有结论",
+          "fail": "任一维度缺失核心内容"
+        },
+        {
+          "item": "对比基准存在",
+          "check": "是否至少有目标基准，是否说明对比来源",
+          "method": "检查基准类型和具体数值",
+          "pass": "至少两类基准且数值明确",
+          "fail": "无基准或基准数值缺失"
+        },
+        {
+          "item": "综合结论明确",
+          "check": "是否有评级、核心发现、复用/停止项",
+          "method": "检查结论模块是否完整",
+          "pass": "评级+发现+复用+停止项齐全",
+          "fail": "任一结论项缺失"
+        },
+        {
+          "item": "行动计划具体",
+          "check": "是否有P0/P1/P2分层，每条是否有动作和预期",
+          "method": "检查行动项的结构和内容",
+          "pass": "P0/P1/P2分层且每条有动作和预期",
+          "fail": "无分层或动作模糊"
+        }
+      ],
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "五项全部通过，无缺失项",
+          "condition": "全部5项pass"
+        },
+        "good": {
+          "score": 4,
+          "description": "五项中有四项通过，轻微遗漏",
+          "condition": "≥4项pass"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "五项中有三项通过，主要框架可读",
+          "condition": "≥3项pass"
+        },
+        "poor": {
+          "score": 1,
+          "description": "三项以下通过，关键模块缺失",
+          "condition": "<3项pass"
+        }
+      }
+    },
+    {
+      "dimension": "准确性",
+      "weight": 20,
+      "description": "评估指标计算、链路判断和数据使用是否准确",
+      "check_items": [
+        {
+          "item": "指标计算正确",
+          "check": "ROI、CAC、完成率、转化率等核心指标计算是否正确",
+          "method": "用公式验算关键指标",
+          "pass": "核心指标全部计算正确",
+          "fail": "任一核心指标计算错误"
+        },
+        {
+          "item": "数据口径一致",
+          "check": "成本、产出、用户数据的口径是否与基准一致",
+          "method": "对比数据定义是否统一",
+          "pass": "口径统一，无歧义",
+          "fail": "口径不一致，如成本是否含税"
+        },
+        {
+          "item": "漏斗数据闭合",
+          "check": "漏斗各层数据是否符合逻辑（如曝光≥点击）",
+          "method": "逐层核对数据大小关系",
+          "pass": "数据逻辑自洽",
+          "fail": "存在明显数据矛盾"
+        },
+        {
+          "item": "评级有据可依",
+          "check": "综合评级是否与各维度评分逻辑一致",
+          "method": "反推评级是否合理",
+          "pass": "评级与数据一致",
+          "fail": "评级与数据矛盾"
+        },
+        {
+          "item": "结论与数据匹配",
+          "check": "核心发现是否由数据推导，而非主观判断",
+          "method": "检查每条发现是否有数据支撑",
+          "pass": "每条发现均有数据支撑",
+          "fail": "任一发现无数据支撑"
+        }
+      ],
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "五项全部正确",
+          "condition": "全部5项pass"
+        },
+        "good": {
+          "score": 4,
+          "description": "五项中有四项正确",
+          "condition": "≥4项pass"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "五项中有三项正确",
+          "condition": "≥3项pass"
+        },
+        "poor": {
+          "score": 1,
+          "description": "三项以下正确",
+          "condition": "<3项pass"
+        }
+      }
+    },
+    {
+      "dimension": "实用性",
+      "weight": 20,
+      "description": "评估报告的建议是否可直接用于下一轮活动决策",
+      "check_items": [
+        {
+          "item": "复用项明确",
+          "check": "是否有明确的可复用打法，附带适用场景和操作方式",
+          "method": "检查复用项的三要素：做法+场景+方式",
+          "pass": "复用项含三要素且可操作",
+          "fail": "复用项模糊或无可操作性"
+        },
+        {
+          "item": "停止项明确",
+          "check": "是否有明确的必须停止做法，附带停止原因",
+          "method": "检查停止项是否具体可执行",
+          "pass": "停止项具体且有原因",
+          "fail": "无停止项或过于模糊"
+        },
+        {
+          "item": "行动优先级清晰",
+          "check": "P0/P1/P2是否按紧急程度分层",
+          "method": "检查优先级是否合理",
+          "pass": "P0/P1/P2分层合理",
+          "fail": "无分层或分层混乱"
+        },
+        {
+          "item": "每条行动有预期",
+          "check": "是否每条行动都标注了预期效果",
+          "method": "检查行动项是否含预期",
+          "pass": "每条行动含预期效果",
+          "fail": "行动无预期或预期模糊"
+        },
+        {
+          "item": "责任和时间明确",
+          "check": "行动项是否含负责人和完成时间",
+          "method": "检查行动项的完整性",
+          "pass": "行动项含责任人和时间",
+          "fail": "行动项缺失关键信息"
+        }
+      ],
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "五项全部满足，可直接执行",
+          "condition": "全部5项pass"
+        },
+        "good": {
+          "score": 4,
+          "description": "五项中有四项满足",
+          "condition": "≥4项pass"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "五项中有三项满足",
+          "condition": "≥3项pass"
+        },
+        "poor": {
+          "score": 1,
+          "description": "三项以下满足，实用价值低",
+          "condition": "<3项pass"
+        }
+      }
+    },
+    {
+      "dimension": "严谨性",
+      "weight": 20,
+      "description": "评估是否客观，避免只报喜不报忧，数据使用是否规范",
+      "check_items": [
+        {
+          "item": "正反两面都说",
+          "check": "是否同时说明了活动的问题和成绩",
+          "method": "检查是否存在“只说好处不说问题”的单面化问题",
+          "pass": "好坏都说，无明显偏颇",
+          "fail": "只报喜不报忧"
+        },
+        {
+          "item": "数据来源标注",
+          "check": "估算数据是否标注了[估算]，来源是否说明",
+          "method": "检查数据是否有来源或估算标注",
+          "pass": "全部数据有来源或估算标注",
+          "fail": "存在无标注的估算数据"
+        },
+        {
+          "item": "置信度说明",
+          "check": "样本小/周期短/数据异常时是否标注了置信度",
+          "method": "检查边界情况是否处理",
+          "pass": "边界情况均有置信度说明",
+          "fail": "边界情况无置信度说明"
+        },
+        {
+          "item": "ROI正负明确",
+          "check": "亏损活动是否明确标注ROI<0，不给正向评级",
+          "method": "检查亏损活动是否如实报告",
+          "pass": "亏损活动如实评级",
+          "fail": "亏损活动给良好及以上"
+        },
+        {
+          "item": "异常数据排查",
+          "check": "异常数据（如ROI突然飙升）是否排查了刷量或口径问题",
+          "method": "检查异常数据的处理",
+          "pass": "异常数据有说明或排查",
+          "fail": "异常数据直接使用"
+        }
+      ],
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "五项全部符合，客观严谨",
+          "condition": "全部5项pass"
+        },
+        "good": {
+          "score": 4,
+          "description": "五项中有四项符合",
+          "condition": "≥4项pass"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "五项中有三项符合",
+          "condition": "≥3项pass"
+        },
+        "poor": {
+          "score": 1,
+          "description": "三项以下符合，有失客观",
+          "condition": "<3项pass"
+        }
+      }
+    },
+    {
+      "dimension": "规范性",
+      "weight": 15,
+      "description": "输出格式是否符合标准结构，字段是否齐全",
+      "check_items": [
+        {
+          "item": "报告结构完整",
+          "check": "是否包含：任务定义、四维度、综合结论、行动计划",
+          "method": "对照SKILL.md输出骨架核对",
+          "pass": "四大模块齐全",
+          "fail": "任一模块缺失"
+        },
+        {
+          "item": "格式统一",
+          "check": "表格、列表、层级是否格式统一",
+          "method": "检查格式规范性",
+          "pass": "格式基本统一",
+          "fail": "格式混乱"
+        },
+        {
+          "item": "字段齐全",
+          "check": "核心字段（评级、得分、趋势）是否齐全",
+          "method": "检查核心评估字段",
+          "pass": "核心字段齐全",
+          "fail": "核心字段缺失"
+        },
+        {
+          "item": "版本信息存在",
+          "check": "是否有评估日期、评估人、版本号",
+          "method": "检查元信息",
+          "pass": "元信息齐全",
+          "fail": "元信息缺失"
+        }
+      ],
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "四项全部符合",
+          "condition": "全部4项pass"
+        },
+        "good": {
+          "score": 4,
+          "description": "四项中有三项符合",
+          "condition": "≥3项pass"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "四项中有两项符合",
+          "condition": "≥2项pass"
+        },
+        "poor": {
+          "score": 1,
+          "description": "两项以下符合",
+          "condition": "<2项pass"
+        }
+      }
+    }
+  ],
+  "quality_score": {
+    "total_score": 100,
+    "pass_threshold": 75,
+    "excellent": [90, 100],
+    "good": [75, 89],
+    "acceptable": [60, 74],
+    "poor": [0, 59]
+  },
+  "scoring_calculator": {
+    "method": "加权求和",
+    "formula": "总分 = 产出分×0.25 + 准确分×0.20 + 实用分×0.20 + 严谨分×0.20 + 规范分×0.15",
+    "example": "如产出5分×25%+准确4分×20%+实用4分×20%+严谨5分×20%+规范4分×15% = 1.25+0.80+0.80+1.00+0.60 = 4.45分(89分)→良好"
+  },
+  "critical_rules_check": {
+    "description": "关键红线检查，任何一项触发即需重做",
+    "rules": [
+      {
+        "rule": "必须先定义目标",
+        "check_item": "活动类型和目标是否明确",
+        "pass_condition": "目标与类型齐全"
+      },
+      {
+        "rule": "必须有参照系",
+        "check_item": "是否存在目标/历史/行业对比",
+        "pass_condition": "至少两类基准"
+      },
+      {
+        "rule": "必须四维度完整",
+        "check_item": "产出/成本/传播/行为是否齐全",
+        "pass_condition": "四维度缺一不可"
+      },
+      {
+        "rule": "必须给出可执行动作",
+        "check_item": "建议是否带优先级和预期",
+        "pass_condition": "P0/P1/P2明确且每条有预期"
+      },
+      {
+        "rule": "必须说明复用边界",
+        "check_item": "是否写清可复用与应停止项",
+        "pass_condition": "两类信息都要有"
+      },
+      {
+        "rule": "禁止只看GMV不看成本",
+        "check_item": "成本维度是否有完整拆解",
+        "pass_condition": "成本结构和ROI必须分析"
+      },
+      {
+        "rule": "禁止没有基准就评级",
+        "check_item": "评级是否基于对比基准",
+        "pass_condition": "有目标/历史/行业任一基准"
+      },
+      {
+        "rule": "禁止把亏损活动评为良好",
+        "check_item": "ROI<0时评级是否≤及格",
+        "pass_condition": "亏损必须指出且不给高评级"
+      }
+    ]
+  },
+  "forbidden_check": {
+    "description": "禁止行为检查清单，触发即为不合格",
+    "items": [
+      {
+        "forbidden": "禁止只看GMV不看成本",
+        "check": "是否完整拆解了成本结构",
+        "pass": "成本结构和ROI都有分析"
+      },
+      {
+        "forbidden": "禁止只报喜不报忧",
+        "check": "是否同时说明了问题和成绩",
+        "pass": "正反两面都有"
+      },
+      {
+        "forbidden": "禁止没有基准就评级",
+        "check": "是否有对比基准",
+        "pass": "至少有一类对比基准"
+      },
+      {
+        "forbidden": "禁止把样本偏差当成稳定结论",
+        "check": "小样本是否有置信度说明",
+        "pass": "边界情况有置信度标注"
+      },
+      {
+        "forbidden": "禁止建议空泛",
+        "check": "建议是否有具体动作和预期",
+        "pass": "每条建议含动作+预期"
+      },
+      {
+        "forbidden": "禁止把活动复盘写成流水账",
+        "check": "是否有核心发现和复用/停止项",
+        "pass": "有结论性内容"
+      },
+      {
+        "forbidden": "禁止在数据不完整时强行评估",
+        "check": "P0数据是否完整",
+        "pass": "P0数据齐全或标注缺失"
+      },
+      {
+        "forbidden": "禁止忽略ROI<0的情况",
+        "check": "亏损活动是否如实报告",
+        "pass": "亏损活动评级≤及格"
+      }
+    ]
+  },
+  "output_standard": {
+    "must_include": [
+      "任务定义（活动名称/周期/类型/目标）",
+      "四维度评估（产出/成本/传播/行为）",
+      "综合结论（含评级和核心发现）",
+      "行动建议（含P0/P1/P2优先级）",
+      "可复用经验（做法+场景+方式）",
+      "不建议复用的做法（做法+原因）"
+    ],
+    "format_requirement": "四维度评估必须完整，综合评级需说明基准与样本风险",
+    "min_length": "正文部分不少于2000字（不含表格）"
+  },
+  "assess_checklist": {
+    "step1": "核对任务定义（活动名称/周期/类型/目标是否齐全）",
+    "step2": "核对四维度评估（每维度是否完整）",
+    "step3": "核对数据准确性（指标计算是否正确）",
+    "step4": "核对结论合理性（评级是否与数据匹配）",
+    "step5": "核对实用性（复用/停止项是否明确）",
+    "step6": "核对严谨性（是否只报喜不报忧）",
+    "step7": "核对规范性（格式是否统一）",
+    "step8": "核对红线规则（是否触发禁止项）"
+  },
+  "common_fail_cases": {
+    "case1": {
+      "problem": "只有GMV没有成本分析",
+      "trigger": "成本维度缺失或仅一句话带过",
+      "fix": "必须完整拆解各成本类型及占比，计算ROI"
+    },
+    "case2": {
+      "problem": "只报喜不报忧",
+      "trigger": "全是正面描述，无问题分析",
+      "fix": "必须列出至少2个问题点和1个必须停止项"
+    },
+    "case3": {
+      "problem": "建议过于空泛",
+      "trigger": "建议写'继续优化'、'加强运营'等无实质内容",
+      "fix": "每条建议必须包含具体动作和可量化预期"
+    },
+    "case4": {
+      "problem": "无复用/停止项",
+      "trigger": "缺少经验沉淀",
+      "fix": "必须列出至少1个可复用项和1个必须停止项"
+    },
+    "case5": {
+      "problem": "评级与数据矛盾",
+      "trigger": "数据很差但给优秀评级",
+      "fix": "重新核对评级逻辑，确保评级有据可依"
+    }
+  }
+}

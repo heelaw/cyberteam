@@ -1,0 +1,173 @@
+{
+  "skill_name": "痛点选题三步法",
+  "version": "1.0",
+  "evaluation_type": "skill_quality",
+  "quality_dimensions": [
+    {
+      "dimension": "完整性",
+      "weight": "20%",
+      "score_levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": [
+            "包含提取用户关键词、找出用户痛点、产出选题三步骤完整",
+            "有数据验证机制",
+            "有痛点分类框架（认知型/执行型/资源型/动机型/决策型）",
+            "有优先级排序"
+          ]
+        },
+        "good": {
+          "score": 4,
+          "criteria": ["步骤齐全但部分简略"]
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": ["仅覆盖2个步骤"]
+        },
+        "poor": {
+          "score": 1,
+          "criteria": ["步骤不完整"]
+        }
+      }
+    },
+    {
+      "dimension": "实用性",
+      "weight": "20%",
+      "score_levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": [
+            "可直接落地执行",
+            "有优先级排序方法",
+            "产出具体可写的选题",
+            "选题与痛点对应关系清晰"
+          ]
+        },
+        "good": {
+          "score": 4,
+          "criteria": ["较实用"]
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": ["基本可用"]
+        },
+        "poor": {
+          "score": 1,
+          "criteria": ["难以落地"]
+        }
+      }
+    },
+    {
+      "dimension": "专业性",
+      "weight": "20%",
+      "score_levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": [
+            "痛点真实有数据支撑",
+            "追问深度足够（追问3个为什么）",
+            "分类准确（认知型/执行型/资源型/动机型/决策型）",
+            "多维度验证机制完善"
+          ]
+        },
+        "good": {
+          "score": 4,
+          "criteria": ["专业性较好"]
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": ["存在少量问题"]
+        },
+        "poor": {
+          "score": 1,
+          "criteria": ["专业性不足"]
+        }
+      }
+    },
+    {
+      "dimension": "严谨性",
+      "weight": "20%",
+      "score_levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": [
+            "Critical Rules完整（≥5条）",
+            "禁止行为明确（≥5条）",
+            "错误处理机制完善",
+            "数据验证要求明确"
+          ]
+        },
+        "good": {
+          "score": 4,
+          "criteria": ["Critical Rules完整"]
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": ["Critical Rules不足5条"]
+        },
+        "poor": {
+          "score": 1,
+          "criteria": ["Critical Rules缺失或不足3条"]
+        }
+      }
+    },
+    {
+      "dimension": "独特个性",
+      "weight": "10%",
+      "score_levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": [
+            "体现「用户洞察者」独特视角",
+            "从表面抱怨挖掘深层需求",
+            "区分真痛点和伪需求",
+            "用数据支撑创意"
+          ]
+        },
+        "good": {
+          "score": 4,
+          "criteria": ["独特个性较鲜明"]
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": ["有一定独特性但不明显"]
+        },
+        "poor": {
+          "score": 1,
+          "criteria": ["缺乏独特个性"]
+        }
+      }
+    },
+    {
+      "dimension": "规范性",
+      "weight": "10%",
+      "score_levels": {
+        "excellent": {
+          "score": 5,
+          "criteria": [
+            "完全符合模板规范",
+            "输入字段完整",
+            "输出格式统一",
+            "JSON结构规范"
+          ]
+        },
+        "good": {
+          "score": 4,
+          "criteria": ["基本符合规范"]
+        },
+        "acceptable": {
+          "score": 3,
+          "criteria": ["部分格式不规范"]
+        },
+        "poor": {
+          "score": 1,
+          "criteria": ["格式混乱"]
+        }
+      }
+    }
+  ],
+  "pass_threshold": {
+    "total_score": "≥85分",
+    "各维度最低要求": "每个维度至少3分"
+  }
+}

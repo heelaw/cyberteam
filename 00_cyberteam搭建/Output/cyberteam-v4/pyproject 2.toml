@@ -1,0 +1,88 @@
+[project]
+name = "cyberteam"
+version = "4.0.0"
+description = "CyberTeam V4 - Enterprise AI Agent Swarm Intelligence System"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [
+    {name = "CyberTeam", email = "cyberteam@example.com"}
+]
+keywords = ["ai", "agents", "swarm", "multi-agent", "claude"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+
+dependencies = [
+    "typer>=0.9.0,<1.0.0",
+    "pyyaml>=6.0,<7.0",
+    "rich>=13.0.0,<14.0.0",
+    "pydantic>=2.0.0,<3.0.0",
+    "aiosqlite>=0.19.0,<1.0.0",
+    "fastapi>=0.100.0,<1.0.0",
+    "uvicorn>=0.23.0,<1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0,<9.0.0",
+    "pytest-asyncio>=0.21.0,<1.0.0",
+    "black>=23.0.0,<24.0.0",
+    "ruff>=0.1.0,<1.0.0",
+]
+
+[project.scripts]
+cyberteam = "cyberteam.cli.commands:app"
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+# CYBERTEAM 是 Layer 1 - 底层能力层（融合 ClawTeam）
+# cyberteam 是 Layer 0 - 核心引擎层
+packages = [
+    "CYBERTEAM",
+    "CYBERTEAM.board",
+    "CYBERTEAM.cli",
+    "CYBERTEAM.spawn",
+    "CYBERTEAM.team",
+    "CYBERTEAM.transport",
+    "CYBERTEAM.workspace",
+    "cyberteam",
+    "cyberteam.adaptors",
+    "cyberteam.agent_runtime",
+    "cyberteam.assets",
+    "cyberteam.board",
+    "cyberteam.cli",
+    "cyberteam.mcp",
+    "cyberteam.mcp.tools",
+    "cyberteam.memory",
+    "cyberteam.monitoring",
+    "cyberteam.skills",
+    "cyberteam.spawn",
+    "cyberteam.team",
+    "cyberteam.templates",
+    "cyberteam.thinking_models",
+    "cyberteam.transport",
+    "cyberteam.workspace",
+]
+
+[tool.black]
+line-length = 88
+target-version = ['py39', 'py310', 'py311']
+
+[tool.ruff]
+line-length = 88
+select = ["E", "F", "W", "I", "N", "UP", "B", "A", "C4", "PT"]
+ignore = ["E501"]
+
+[tool.pytest]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"

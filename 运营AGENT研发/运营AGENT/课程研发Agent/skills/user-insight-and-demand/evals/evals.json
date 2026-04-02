@@ -1,0 +1,29 @@
+{
+  "skill": "user-insight-and-demand",
+  "cases": [
+    {
+      "input": {
+        "user": "新手运营",
+        "scenario": "刚注册就流失",
+        "evidence": ["登录后停留时长短", "次日无回访"]
+      },
+      "expected": ["场景判断", "痛点描述", "优先级"]
+    },
+    {
+      "input": {
+        "user": "老用户",
+        "scenario": "频繁查看某个功能但不下单",
+        "evidence": ["多次进入详情页", "咨询中反复问价格"]
+      },
+      "expected": ["需求定位", "证据", "优先级"]
+    },
+    {
+      "input": {
+        "user": "内容消费用户",
+        "scenario": "阅读后只收藏不转化",
+        "evidence": ["收藏率高", "转化率低"]
+      },
+      "expected": ["痛点描述", "需求定位", "可验证"]
+    }
+  ]
+}

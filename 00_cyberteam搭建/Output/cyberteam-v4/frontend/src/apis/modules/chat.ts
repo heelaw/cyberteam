@@ -104,7 +104,8 @@ export function subscribeSSEStream(
   callbacks: SSEStreamCallbacks
 ): () => void {
   const baseURL = '/api'
-  const url = `${baseURL}/sse/${encodeURIComponent(taskId)}?message=${encodeURIComponent(message)}`
+  // 注意：后端 SSE 端点是 /api/{task_id}?message=xxx，没有 /sse 前缀
+  const url = `${baseURL}/${encodeURIComponent(taskId)}?message=${encodeURIComponent(message)}`
   const eventSource = new EventSource(url)
 
   eventSource.onmessage = (e) => {

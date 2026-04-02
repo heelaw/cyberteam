@@ -1,0 +1,18 @@
+{
+  "id": "assess_activity",
+  "name": "活动策划评估",
+  "category": "assess",
+  "description": "评估活动策划效果",
+  "metrics": [
+    {
+      "metric": "活动参与率",
+      "target": "≥30%",
+      "measurement": "参与人数/触达人数"
+    },
+    {
+      "metric": "DAU增长",
+      "target": "≥15%",
+      "measurement": "活动前后的DAU对比"
+    }
+  ]
+}

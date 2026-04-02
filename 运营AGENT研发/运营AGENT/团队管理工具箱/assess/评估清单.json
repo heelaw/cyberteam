@@ -1,0 +1,37 @@
+{
+  "dimension": "团队管理工具",
+  "version": "1.0",
+  "author": "Cyberwiz",
+  "review_status": "待审查",
+  "review_required": false,
+  "review_threshold": 90,
+  "items": [
+    {
+      "id": "1",
+      "item": "目标管理",
+      "weight": 40,
+      "criteria": "目标设定符合SMART原则，分解合理，责任明确",
+      "measurement": "达成率≥90%"
+    },
+    {
+      "id": "2",
+      "item": "进度管理",
+      "weight": 30,
+      "criteria": "进度可视化，可实时跟踪，偏差可控",
+      "measurement": "偏差率≤10%"
+    },
+    {
+      "id": "3",
+      "item": "协作效率",
+      "weight": 30,
+      "criteria": "协作文档规范，信息同步及时，沟通成本降低",
+      "measurement": "沟通成本降低30%"
+    }
+  ],
+  "scoring_rules": {
+    "excellent": "90-100",
+    "good": "80-89",
+    "pass": "70-79",
+    "fail": "0-69"
+  }
+}

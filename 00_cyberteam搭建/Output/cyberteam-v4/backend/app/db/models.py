@@ -161,9 +161,15 @@ class Project(Base):
     user_id = Column(String(64), ForeignKey("users.id"), nullable=False, index=True)
     name = Column(String(255), nullable=False)
     description = Column(Text, nullable=True)
+    # ========== 新增：本地文件夹路径 ==========
+    local_path = Column(String(512), nullable=True)
+    # =========================================
+    goal = Column(Text, default="")  # 项目目标
+    tags = Column(JSON, default=list)  # 标签
     status = Column(String(32), default="planning")  # planning/executing/completed/archived
     extra_data = Column(JSON, default=dict)  # 存储业务上下文、方案等
     is_deleted = Column(Boolean, default=False)
+    task_count = Column(Integer, default=0)  # 任务计数
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 

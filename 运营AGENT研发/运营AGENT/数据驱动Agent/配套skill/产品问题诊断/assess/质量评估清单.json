@@ -1,0 +1,221 @@
+{
+  "skill_name": "产品问题诊断",
+  "version": "1.1.0",
+  "assess_date": "2026-04-02",
+  "assessor": "系统评估",
+  "quality_dimension": [
+    {
+      "dimension": "完整性",
+      "weight": 25,
+      "description": "评估是否覆盖现象、拆解、定位、假设、验证、恢复六步",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "六步完整，且每步都可复核"
+        },
+        "good": {
+          "score": 4,
+          "description": "六步齐全，少量非关键细节遗漏"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "主框架完整，但辅助内容略少"
+        },
+        "poor": {
+          "score": 1,
+          "description": "关键步骤缺失，无法闭环"
+        }
+      },
+      "criteria": [
+        "是否先定义现象与严重程度",
+        "是否有四维度拆解",
+        "是否有问题定位与假设清单",
+        "是否有验证、止损和恢复动作"
+      ]
+    },
+    {
+      "dimension": "实用性",
+      "weight": 20,
+      "description": "评估解决方案是否能直接派给执行团队",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "动作明确，能立即执行"
+        },
+        "good": {
+          "score": 4,
+          "description": "动作明确，预期略粗"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "方向对，但动作不够细"
+        },
+        "poor": {
+          "score": 1,
+          "description": "只有判断，没有动作"
+        }
+      },
+      "criteria": [
+        "是否有 P0/P1/P2 动作",
+        "是否有验证顺序",
+        "是否有恢复和预防动作"
+      ]
+    },
+    {
+      "dimension": "专业性",
+      "weight": 20,
+      "description": "评估归因是否专业、是否避免单因归因",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "归因有层次，能区分主因和次因"
+        },
+        "good": {
+          "score": 4,
+          "description": "归因清晰，层次略少"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "归因可用，但深度一般"
+        },
+        "poor": {
+          "score": 1,
+          "description": "归因简单粗暴"
+        }
+      },
+      "criteria": [
+        "是否先排除口径问题",
+        "是否能识别主因/次因",
+        "是否给出验证依据"
+      ]
+    },
+    {
+      "dimension": "严谨性",
+      "weight": 20,
+      "description": "评估是否有证据链、置信度与边界说明",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "证据链完整，边界清楚"
+        },
+        "good": {
+          "score": 4,
+          "description": "证据较完整，边界略粗"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "逻辑通顺但证据略薄"
+        },
+        "poor": {
+          "score": 1,
+          "description": "凭感觉下结论"
+        }
+      },
+      "criteria": [
+        "是否识别并排除干扰因素",
+        "是否说明问题严重程度",
+        "是否说明置信度和待验证项"
+      ]
+    },
+    {
+      "dimension": "规范性",
+      "weight": 15,
+      "description": "评估输出格式与检查清单是否完整",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "结构完整，字段明确"
+        },
+        "good": {
+          "score": 4,
+          "description": "结构完整，少量字段可补"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "结构可读，但不够厚"
+        },
+        "poor": {
+          "score": 1,
+          "description": "格式散乱，无法验收"
+        }
+      },
+      "criteria": [
+        "是否包含问题定义、多维拆解、问题定位、根因假设、解决方案",
+        "是否有日志/数据/版本等检查项",
+        "是否包含止损与恢复说明"
+      ]
+    }
+  ],
+  "quality_score": {
+    "total_score": 100,
+    "pass_threshold": 90,
+    "excellent": [
+      94,
+      100
+    ],
+    "good": [
+      90,
+      93
+    ],
+    "acceptable": [
+      75,
+      87
+    ],
+    "poor": [
+      0,
+      74
+    ]
+  },
+  "critical_rules_check": {
+    "description": "Critical Rules检查清单",
+    "rules": [
+      {
+        "rule": "先定义现象",
+        "check_item": "现象、影响范围、时间范围是否清楚",
+        "pass_condition": "三要素齐全"
+      },
+      {
+        "rule": "必须先排除口径",
+        "check_item": "是否检查埋点、延迟、重复、漏数",
+        "pass_condition": "口径已确认"
+      },
+      {
+        "rule": "必须多维度拆解",
+        "check_item": "时间/渠道/用户/功能是否都有分析",
+        "pass_condition": "四维度缺一不可"
+      },
+      {
+        "rule": "必须有验证动作",
+        "check_item": "每个假设是否有验证方式",
+        "pass_condition": "假设可验证"
+      },
+      {
+        "rule": "必须给出止损与恢复",
+        "check_item": "是否有 P0 止损、根因修复和预防",
+        "pass_condition": "动作闭环"
+      }
+    ]
+  },
+  "forbidden_check": {
+    "description": "禁止行为检查",
+    "items": [
+      "禁止简单归因于单一因素",
+      "禁止不验证假设就下结论",
+      "禁止忽视外部因素",
+      "禁止只看负面不看正向",
+      "禁止问题扩大化",
+      "禁止建议空泛不具体"
+    ]
+  },
+  "output_standard": {
+    "must_include": [
+      "问题定义",
+      "多维拆解",
+      "问题定位",
+      "根因假设",
+      "解决方案",
+      "监控指标"
+    ],
+    "format_requirement": "五步诊断法必须完整，归因必须有数据支撑"
+  }
+}

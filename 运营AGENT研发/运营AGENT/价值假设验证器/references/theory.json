@@ -1,0 +1,74 @@
+{
+  "version": "1.0",
+  "core_theory": {
+    "name": "价值假设验证方法论",
+    "source": "业务操盘手课程 - 第五章：探索型项目破局",
+    "summary": "用最小成本验证业务假设，降低探索风险",
+    "key_principle": "设计 → 执行 → 判断 → 决策"
+  },
+  "verification_steps": [
+    {
+      "step": "验证设计",
+      "description": "设计低成本高回报的验证方案"
+    },
+    {
+      "step": "验证执行",
+      "description": "指导验证的执行过程"
+    },
+    {
+      "step": "结果判断",
+      "description": "用数据判断假设是否成立"
+    },
+    {
+      "step": "决策建议",
+      "description": "基于验证结果给出决策建议"
+    }
+  ],
+  "verification_methods": [
+    {
+      "method": "用户访谈",
+      "cost": "低",
+      "time": "1周",
+      "适用": "需求假设",
+      "success_criteria": "≥70%用户表示需要"
+    },
+    {
+      "method": "问卷调查",
+      "cost": "低",
+      "time": "1周",
+      "适用": "规模验证",
+      "success_criteria": "≥50%用户反馈积极"
+    },
+    {
+      "method": "MVP测试",
+      "cost": "中",
+      "time": "2-4周",
+      "适用": "方案假设",
+      "success_criteria": "≥30%用户完成核心行为"
+    },
+    {
+      "method": "A/B测试",
+      "cost": "中",
+      "time": "2-4周",
+      "适用": "效果假设",
+      "success_criteria": "实验组优于对照组"
+    },
+    {
+      "method": "小规模试点",
+      "cost": "高",
+      "time": "4-8周",
+      "适用": "商业假设",
+      "success_criteria": "LTV>CAC"
+    }
+  ],
+  "success_criteria": {
+    "需求假设": "≥70%目标用户表示需要",
+    "方案假设": "≥30%用户完成核心行为",
+    "商业假设": "付费意愿≥20%或LTV>CAC"
+  },
+  "references": [
+    {"name": "精益创业", "source": "Eric Ries"},
+    {"name": "假设验证方法", "source": "业务实践"},
+    {"name": "探索型项目破局", "source": "业务操盘手课程 - 第五章"}
+  ]
+}

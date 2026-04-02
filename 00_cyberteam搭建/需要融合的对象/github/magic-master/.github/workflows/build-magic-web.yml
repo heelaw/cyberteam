@@ -1,0 +1,24 @@
+name: Build and push magic-web image
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'frontend/magic-web/**'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build and push magic-web image
+    uses: ./.github/workflows/image-build.yml
+    secrets: inherit
+    permissions:
+      contents: write
+      packages: write
+      id-token: write
+      attestations: write
+    with:
+      imageName: magic-web

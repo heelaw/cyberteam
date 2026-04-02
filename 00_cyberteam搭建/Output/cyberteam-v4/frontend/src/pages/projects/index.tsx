@@ -12,7 +12,7 @@ import {
 import {
   ProjectOutlined, PlusOutlined, ClockCircleOutlined,
   CheckCircleOutlined, SyncOutlined, PlayCircleOutlined,
-  ReloadOutlined, ApiOutlined,
+  ReloadOutlined, ApiOutlined, FolderOutlined,
 } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
 import { fetchProjects, createProject, type Project } from '@/apis/modules/projects'
@@ -58,12 +58,13 @@ export default function ProjectList() {
     loadProjects()
   }, [loadProjects])
 
-  const handleCreate = async (values: { name: string; description?: string }) => {
+  const handleCreate = async (values: { name: string; description?: string; local_path?: string }) => {
     setCreating(true)
     try {
       const newProject = await createProject({
         name: values.name,
         description: values.description,
+        local_path: values.local_path,
       })
       if (newProject) {
         message.success(`项目「${values.name}」创建成功`)
@@ -166,6 +167,12 @@ export default function ProjectList() {
                       <Paragraph type="secondary" style={{ marginBottom: 12 }}>
                         {project.description || '暂无描述'}
                       </Paragraph>
+                      {/* ========== 显示本地路径（如果有） ========== */}
+                      {project.local_path && (
+                        <Text type="secondary" className="text-xs" style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                          <FolderOutlined /> {project.local_path}
+                        </Text>
+                      )}
 
                       <Steps
                         size="small"
@@ -226,6 +233,17 @@ export default function ProjectList() {
             <Input.TextArea
               placeholder="简要描述项目背景和目标..."
               rows={3}
+            />
+          </Form.Item>
+          {/* ========== 新增：本地文件夹路径输入 ========== */}
+          <Form.Item
+            name="local_path"
+            label="本地项目文件夹路径（可选）"
+            extra="关联本地项目文件夹，系统将自动读取业务背景。例如：/Users/cyberwiz/Documents/my-project"
+          >
+            <Input
+              placeholder="/Users/用户名/项目文件夹"
+              prefix={<FolderOutlined />}
             />
           </Form.Item>
           <Form.Item style={{ marginBottom: 0, textAlign: 'right' }}>

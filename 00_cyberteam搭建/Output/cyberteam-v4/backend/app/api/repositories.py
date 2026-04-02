@@ -26,15 +26,18 @@ class ProjectRepository:
         description: Optional[str] = None,
         tags: List[str] = None,
         extra_data: Optional[Dict[str, Any]] = None,
+        local_path: Optional[str] = None,  # ========== 新增参数 ==========
     ) -> Project:
         """创建新项目。"""
         project = Project(
             id=str(uuid.uuid4()),
+            user_id=user_id,  # ========== 修复：缺少 user_id ==========
             name=name,
             goal=goal,
             description=description,
             tags=tags or [],
             extra_data=extra_data or {},
+            local_path=local_path,  # ========== 保存本地路径 ==========
             status="active",
             task_count=0,
         )

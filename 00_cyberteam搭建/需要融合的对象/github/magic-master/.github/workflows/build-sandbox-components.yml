@@ -1,0 +1,24 @@
+name: Build and push sandbox-components image
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'backend/sandbox-components/**'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build and push sandbox-components image
+    uses: ./.github/workflows/image-build.yml
+    secrets: inherit
+    permissions:
+      contents: write
+      packages: write
+      id-token: write
+      attestations: write
+    with:
+      imageName: sandbox-components

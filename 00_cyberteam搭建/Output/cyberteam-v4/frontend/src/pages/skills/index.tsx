@@ -388,9 +388,9 @@ export default function SkillsPage() {
                   placeholder="关键词1, 关键词2, ..."
                 />
                 <button type="button" onClick={() => addKeyword(false)}>添加</button>
-                {formData.trigger_keywords.length > 0 && (
+                {(formData.trigger_keywords?.length ?? 0) > 0 && (
                   <div className="keywords-preview">
-                    {formData.trigger_keywords.map(k => (
+                    {(formData.trigger_keywords ?? []).map(k => (
                       <span key={k} className="keyword-tag">{k}</span>
                     ))}
                   </div>

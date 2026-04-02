@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(clawteam team:*)",
+      "Bash(happy --help)",
+      "mcp__Playwright__browser_snapshot",
+      "mcp__Playwright__browser_navigate",
+      "Bash(curl -v http://localhost:5173)",
+      "mcp__Playwright__browser_console_messages",
+      "mcp__Playwright__browser_evaluate"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "filesystem"
+  ]
+}

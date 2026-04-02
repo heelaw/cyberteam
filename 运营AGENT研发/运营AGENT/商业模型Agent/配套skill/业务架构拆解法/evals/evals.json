@@ -1,0 +1,81 @@
+{
+  "skill_name": "业务架构拆解法",
+  "version": "1.0",
+  "eval_type": "skill_functional",
+  "test_cases": [
+    {
+      "id": 1,
+      "difficulty": "simple",
+      "category": "基础拆解",
+      "input": {
+        "scenario": "请拆解一个社区团购的业务架构"
+      },
+      "expected_output": {
+        "must_include": [
+          "供给端：生鲜供应链/源头直采/供应商管理",
+          "流通端：团长+自提点/物流配送/仓储管理",
+          "需求端：社区居民/家庭用户/价格敏感用户",
+          "支撑端：IT系统/运营团队/资金支持"
+        ],
+        "output_structure": "四维度结构化输出",
+        "min_score": 3
+      },
+      "evaluation_criteria": {
+        "completeness": "是否覆盖全部四大维度（供给端、流通端、需求端、支撑端）",
+        "accuracy": "拆解是否准确",
+        "clarity": "输出是否清晰可读"
+      }
+    },
+    {
+      "id": 2,
+      "difficulty": "medium",
+      "category": "中等复杂度",
+      "input": {
+        "scenario": "请拆解一个在线教育平台的业务架构"
+      },
+      "expected_output": {
+        "must_include": [
+          "供给端：课程内容供给/讲师入驻/课程制作",
+          "流通端：在线获客/渠道推广/课程交付",
+          "需求端：学生用户/终身学习者/付费用户",
+          "支撑端：技术平台/教研团队/客服团队"
+        ],
+        "output_structure": "四维度结构化输出",
+        "min_score": 3
+      },
+      "evaluation_criteria": {
+        "completeness": "是否覆盖全部四大维度",
+        "depth": "拆解是否有深度",
+        "clarity": "输出是否清晰可读"
+      }
+    },
+    {
+      "id": 3,
+      "difficulty": "hard",
+      "category": "复杂多业务",
+      "input": {
+        "scenario": "请拆解一个综合生活服务平台（如美团）的业务架构，包含外卖、到店、酒旅、单车等多种业务"
+      },
+      "expected_output": {
+        "must_include": [
+          "供给端：商家入驻/商户拓展/供应链（需分业务）",
+          "流通端：配送网络/地推团队/流量获取/技术系统（需分业务）",
+          "需求端：个人用户/企业用户/不同消费场景用户",
+          "支撑端：技术中台/数据中台/支付系统/风控系统"
+        ],
+        "output_structure": "四维度结构化输出，需区分不同业务线",
+        "min_score": 3
+      },
+      "evaluation_criteria": {
+        "completeness": "是否覆盖全部四大维度",
+        "differentiation": "是否清晰区分不同业务线",
+        "depth": "拆解是否有深度"
+      }
+    }
+  ],
+  "evaluation_methodology": {
+    "scoring": "每个维度1-5分，5分制评分",
+    "pass_criteria": "总分≥15分（满分25分），且每个维度≥3分",
+    "process": "1.确定分析对象 2.从供给端开始逐维度拆解 3.识别各端核心业务模块 4.验证模块间逻辑关系"
+  }
+}

@@ -1,337 +1,435 @@
 /**
- * 组织架构页 - 公司 → 部门 → Agent 树形可视化
+ * 组织架构页 - CyberTeam 组织架构 Builder
  *
- * API 调用:
- * - GET /api/v1/companies - 公司列表
- * - GET /api/v1/companies/{id}/departments - 部门列表
- * - GET /api/v1/companies/{id}/agents - Agent列表
- * - GET /api/v1/departments - 全部部门（用于获取部门树结构）
+ * 功能：
+ * - 左树右详情布局
+ * - 可自定义的交互式树形 Builder
+ * - 支持拖拽排序
+ * - 支持内联编辑
+ * - 支持上下文菜单
+ * - 支持绑定 Agent
+ * - 支持讨论层/执行层切换
+ *
+ * API:
+ * - GET /api/v1/organization/structure/{company_id} - 获取组织结构
+ * - PUT /api/v1/organization/structure/{company_id} - 更新组织结构
+ * - GET /api/v1/agents - 获取所有可用 Agent
+ * - POST /api/v1/organization/configs/{company_id} - 保存配置快照
+ * - GET /api/v1/organization/configs/{company_id} - 加载配置快照
  */
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import {
-  Card, Select, Typography, Space, Button, Spin, Empty,
-  Modal, Form, Input, message, Drawer, Descriptions, Tag, Divider,
+  Card,
+  Button,
+  Space,
+  Typography,
+  message,
+  Modal,
+  Input,
+  Select,
+  Spin,
+  Tooltip,
+  Divider,
 } from 'antd'
 import {
-  ApartmentOutlined, TeamOutlined, RobotOutlined,
-  PlusOutlined, ExpandOutlined, CollapseOutlined, ReloadOutlined,
+  PlusOutlined,
+  SaveOutlined,
+  ReloadOutlined,
+  ExpandOutlined,
+  NodeCollapseOutlined,
+  SwapOutlined,
 } from '@ant-design/icons'
+import {
+  OrgNodeComponent,
+  NodeDetail,
+  AddNodeModal,
+  AddAgentModal,
+  LayerTabs,
+} from './components'
+import type {
+  OrgNode,
+  OrgNodeType,
+  OrgStructure,
+  AvailableAgent,
+  LayerType,
+} from '@/types/organization'
+import {
+  createOrgNode,
+  generateNodeId,
+  NODE_COLORS,
+} from '@/types/organization'
 import { api } from '@/apis/clients/cyberteam'
-import { fetchDepartmentAgents } from '@/apis/modules/departments'
+import { fetchAgents } from '@/apis/modules/custom-agents'
+import {
+  adaptBackendToFrontend,
+  adaptFrontendToBackend,
+  type BackendOrgStructure,
+} from '@/adapters/orgStructureAdapter'
 
 const { Title, Text } = Typography
 
-// === 类型定义 ===
+// 当前公司 ID（Mock）
+const CURRENT_COMPANY_ID = 'cyberteam_default'
 
-interface Company {
-  id: string
-  name: string
-  description?: string
-  status: string
-  department_count: number
-  agent_count: number
+// 默认组织结构（Mock 数据）
+const DEFAULT_ORG_STRUCTURE: OrgStructure = {
+  companyId: CURRENT_COMPANY_ID,
+  companyName: 'CyberTeam',
+  root: {
+    id: 'ceo_001',
+    name: 'CyberTeam CEO',
+    type: 'ceo',
+    layer: 'ceo',
+    icon: '👑',
+    color: NODE_COLORS.ceo,
+    description: 'CyberTeam 总指挥，负责全局决策和调度',
+    boundAgents: [],
+    expanded: true,
+    editable: false,
+    deletable: false,
+    children: [
+      // 讨论层
+      {
+        id: 'discuss_group_001',
+        name: '讨论层',
+        type: 'discuss_group',
+        layer: 'discuss',
+        icon: '💭',
+        color: NODE_COLORS.discuss_group,
+        description: '讨论层负责策略制定和分析',
+        boundAgents: [],
+        expanded: true,
+        children: [
+          {
+            id: 'discuss_team_001',
+            name: '战略讨论组',
+            type: 'discuss_team',
+            layer: 'discuss',
+            icon: '💬',
+            color: NODE_COLORS.discuss_team,
+            description: '负责战略方向和重大决策讨论',
+            boundAgents: [],
+            expanded: true,
+            children: [
+              {
+                id: 'agent_001',
+                name: '战略顾问',
+                type: 'agent',
+                layer: 'execute',
+                icon: '🎯',
+                color: NODE_COLORS.agent,
+                description: '提供战略规划建议',
+                boundAgents: ['agent_strategic_advisor'],
+                expanded: true,
+                children: [],
+              },
+              {
+                id: 'agent_002',
+                name: '质疑者',
+                type: 'agent',
+                layer: 'execute',
+                icon: '🤖',
+                color: NODE_COLORS.agent,
+                description: '苏格拉底式提问，确保讨论质量',
+                boundAgents: ['agent_questioner'],
+                expanded: true,
+                children: [],
+              },
+              {
+                id: 'agent_003',
+                name: '风险专家',
+                type: 'agent',
+                layer: 'execute',
+                icon: '⚠️',
+                color: NODE_COLORS.agent,
+                description: '识别和评估项目风险',
+                boundAgents: ['agent_risk_expert'],
+                expanded: true,
+                children: [],
+              },
+            ],
+          },
+          {
+            id: 'discuss_team_002',
+            name: '战术分析组',
+            type: 'discuss_team',
+            layer: 'discuss',
+            icon: '💬',
+            color: NODE_COLORS.discuss_team,
+            description: '负责战术分析和执行方案制定',
+            boundAgents: [],
+            expanded: true,
+            children: [
+              {
+                id: 'agent_004',
+                name: '数据分析师',
+                type: 'agent',
+                layer: 'execute',
+                icon: '📊',
+                color: NODE_COLORS.agent,
+                description: '数据分析支持',
+                boundAgents: ['agent_data_analyst'],
+                expanded: true,
+                children: [],
+              },
+              {
+                id: 'agent_005',
+                name: '市场专家',
+                type: 'agent',
+                layer: 'execute',
+                icon: '🚀',
+                color: NODE_COLORS.agent,
+                description: '市场分析和竞争情报',
+                boundAgents: ['agent_market_expert'],
+                expanded: true,
+                children: [],
+              },
+            ],
+          },
+        ],
+      },
+      // 执行层
+      {
+        id: 'execute_group_001',
+        name: '执行层',
+        type: 'execute_group',
+        layer: 'execute',
+        icon: '⚙️',
+        color: NODE_COLORS.execute_group,
+        description: '执行层负责具体执行落地',
+        boundAgents: [],
+        expanded: true,
+        children: [
+          {
+            id: 'execute_dept_001',
+            name: '技术开发部',
+            type: 'execute_dept',
+            layer: 'execute',
+            icon: '💻',
+            color: NODE_COLORS.execute_dept,
+            description: '负责产品和技术开发',
+            boundAgents: [],
+            expanded: true,
+            children: [
+              {
+                id: 'agent_006',
+                name: '前端工程师',
+                type: 'agent',
+                layer: 'execute',
+                icon: '🎨',
+                color: NODE_COLORS.agent,
+                description: '前端开发',
+                boundAgents: ['agent_frontend'],
+                expanded: true,
+                children: [],
+              },
+              {
+                id: 'agent_007',
+                name: '后端工程师',
+                type: 'agent',
+                layer: 'execute',
+                icon: '⚙️',
+                color: NODE_COLORS.agent,
+                description: '后端开发',
+                boundAgents: ['agent_backend'],
+                expanded: true,
+                children: [],
+              },
+              {
+                id: 'agent_008',
+                name: '测试工程师',
+                type: 'agent',
+                layer: 'execute',
+                icon: '🧪',
+                color: NODE_COLORS.agent,
+                description: '质量保证和测试',
+                boundAgents: ['agent_qa'],
+                expanded: true,
+                children: [],
+              },
+            ],
+          },
+          {
+            id: 'execute_dept_002',
+            name: '运营执行部',
+            type: 'execute_dept',
+            layer: 'execute',
+            icon: '📢',
+            color: NODE_COLORS.execute_dept,
+            description: '负责运营和推广执行',
+            boundAgents: [],
+            expanded: true,
+            children: [
+              {
+                id: 'agent_009',
+                name: '内容运营',
+                type: 'agent',
+                layer: 'execute',
+                icon: '✍️',
+                color: NODE_COLORS.agent,
+                description: '内容策划和创作',
+                boundAgents: ['agent_content_ops'],
+                expanded: true,
+                children: [],
+              },
+              {
+                id: 'agent_010',
+                name: '数据运营',
+                type: 'agent',
+                layer: 'execute',
+                icon: '📈',
+                color: NODE_COLORS.agent,
+                description: '数据分析和运营优化',
+                boundAgents: ['agent_data_ops'],
+                expanded: true,
+                children: [],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
 }
 
-interface Department {
-  id: string
-  name: string
-  code: string
-  description?: string
-  is_active: boolean
-}
+// Mock 可用 Agent 列表
+const MOCK_AVAILABLE_AGENTS: AvailableAgent[] = [
+  { id: 'agent_strategic_advisor', code: 'strategic_advisor', name: '战略顾问', agentType: 'advisor', layer: 'execute', skills: ['战略规划', '商业分析'], status: 'active' },
+  { id: 'agent_questioner', code: 'questioner', name: '质疑者', agentType: 'questioner', layer: 'execute', skills: ['批判性思维', '逻辑分析'], status: 'active' },
+  { id: 'agent_risk_expert', code: 'risk_expert', name: '风险专家', agentType: 'expert', layer: 'execute', skills: ['风险评估', '危机管理'], status: 'active' },
+  { id: 'agent_data_analyst', code: 'data_analyst', name: '数据分析师', agentType: 'analyst', layer: 'execute', skills: ['数据分析', '数据可视化'], status: 'active' },
+  { id: 'agent_market_expert', code: 'market_expert', name: '市场专家', agentType: 'expert', layer: 'execute', skills: ['市场分析', '竞品调研'], status: 'active' },
+  { id: 'agent_frontend', code: 'frontend', name: '前端工程师', agentType: 'engineer', layer: 'execute', skills: ['React', 'TypeScript'], status: 'active' },
+  { id: 'agent_backend', code: 'backend', name: '后端工程师', agentType: 'engineer', layer: 'execute', skills: ['Python', 'FastAPI'], status: 'active' },
+  { id: 'agent_qa', code: 'qa', name: '测试工程师', agentType: 'engineer', layer: 'execute', skills: ['测试用例', '自动化测试'], status: 'active' },
+  { id: 'agent_content_ops', code: 'content_ops', name: '内容运营', agentType: 'operator', layer: 'execute', skills: ['内容策划', '文案撰写'], status: 'active' },
+  { id: 'agent_data_ops', code: 'data_ops', name: '数据运营', agentType: 'operator', layer: 'execute', skills: ['数据分析', '运营优化'], status: 'active' },
+  { id: 'agent_growth_expert', code: 'growth_expert', name: '增长专家', agentType: 'expert', layer: 'execute', skills: ['用户增长', 'A/B测试'], status: 'inactive' },
+  { id: 'agent_designer', code: 'designer', name: 'UI设计师', agentType: 'designer', layer: 'execute', skills: ['UI设计', '交互设计'], status: 'active' },
+]
 
-interface Agent {
-  id: string
-  name: string
-  agent_type: string
-  status: string
-  description?: string
-}
+// === 主页面组件 ===
 
-// 树节点类型
-interface TreeNode {
-  key: string
-  title: string
-  type: 'company' | 'department' | 'agent'
-  data: Company | Department | Agent
-  children?: TreeNode[]
-  expanded?: boolean
-}
-
-// === API 函数 ===
-
-async function fetchCompanies(): Promise<Company[]> {
-  return api<Company[]>('GET', '/v1/companies')
-}
-
-async function fetchCompanyDepartments(companyId: string): Promise<Department[]> {
-  return api<Department[]>('GET', `/v1/companies/${companyId}/departments`)
-}
-
-async function fetchCompanyAgents(companyId: string): Promise<Agent[]> {
-  return api<Agent[]>('GET', `/v1/companies/${companyId}/agents`)
-}
-
-async function fetchAllDepartments(): Promise<Department[]> {
-  return api<Department[]>('GET', '/v1/departments')
-}
-
-// === 树形组件 ===
-
-interface TreeNodeProps {
-  node: TreeNode
-  onToggle: (key: string) => void
-  onSelect: (node: TreeNode) => void
-  level?: number
-}
-
-function TreeNodeComponent({ node, onToggle, onSelect, level = 0 }: TreeNodeProps) {
-  const hasChildren = node.children && node.children.length > 0
-  const indent = level * 24
-
-  const getNodeIcon = () => {
-    switch (node.type) {
-      case 'company':
-        return <TeamOutlined style={{ color: '#3b82f6' }} />
-      case 'department':
-        return <ApartmentOutlined style={{ color: '#10b981' }} />
-      case 'agent':
-        return <RobotOutlined style={{ color: '#f59e0b' }} />
-    }
-  }
-
-  const getNodeColor = () => {
-    switch (node.type) {
-      case 'company':
-        return 'bg-blue-50 border-blue-200'
-      case 'department':
-        return 'bg-green-50 border-green-200'
-      case 'agent':
-        return 'bg-amber-50 border-amber-200'
-    }
-  }
-
-  const agent = node.data as Agent
-  const isActive = node.type === 'agent' && agent.status === 'active'
-
-  return (
-    <div style={{ marginLeft: indent }}>
-      <div
-        className={`flex items-center gap-2 p-2 mb-1 rounded border cursor-pointer transition-all hover:shadow-sm ${getNodeColor()}`}
-        onClick={() => onSelect(node)}
-      >
-        {hasChildren && (
-          <Button
-            type="text"
-            size="small"
-            icon={node.expanded ? <CollapseOutlined /> : <ExpandOutlined />}
-            onClick={(e) => {
-              e.stopPropagation()
-              onToggle(node.key)
-            }}
-            className="w-6 h-6 min-w-6 p-0 flex items-center justify-center"
-          />
-        )}
-        {!hasChildren && <span className="w-6" />}
-
-        <span className="text-lg">{getNodeIcon()}</span>
-
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2">
-            <Text strong className="text-sm">{node.title}</Text>
-            {node.type === 'agent' && (
-              <Tag
-                color={isActive ? 'processing' : 'default'}
-                style={{ fontSize: 10 }}
-              >
-                {isActive ? '运行中' : '空闲'}
-              </Tag>
-            )}
-          </div>
-          {node.type === 'agent' && agent.description && (
-            <Text type="secondary" className="text-xs block truncate">
-              {agent.description}
-            </Text>
-          )}
-          {node.type === 'company' && (node.data as Company).description && (
-            <Text type="secondary" className="text-xs block truncate">
-              {(node.data as Company).description}
-            </Text>
-          )}
-        </div>
-
-        <div className="text-xs text-gray-400">
-          {node.type === 'company' && `${(node.data as Company).department_count}部门`}
-          {node.type === 'department' && `${node.children?.length || 0} Agent`}
-          {node.type === 'agent' && agent.agent_type}
-        </div>
-      </div>
-
-      {node.expanded && hasChildren && (
-        <div className="border-l-2 border-gray-200 ml-3">
-          {node.children!.map((child) => (
-            <TreeNodeComponent
-              key={child.key}
-              node={child}
-              onToggle={onToggle}
-              onSelect={onSelect}
-              level={0}
-            />
-          ))}
-        </div>
-      )}
-    </div>
-  )
-}
-
-// === 主页面 ===
-
-export default function OrganizationPage() {
-  const [companies, setCompanies] = useState<Company[]>([])
-  const [selectedCompany, setSelectedCompany] = useState<string | null>(null)
-  const [departments, setDepartments] = useState<Department[]>([])
-  const [agents, setAgents] = useState<Agent[]>([])
-  const [treeData, setTreeData] = useState<TreeNode[]>([])
-  const [departmentAgentMap, setDepartmentAgentMap] = useState<Record<string, string[]>>({})
+export default function OrganizationBuilderPage() {
+  // 状态
+  const [orgStructure, setOrgStructure] = useState<OrgStructure>(DEFAULT_ORG_STRUCTURE)
+  const [selectedNode, setSelectedNode] = useState<OrgNode | null>(null)
+  const [activeLayer, setActiveLayer] = useState<'all' | 'discuss' | 'execute'>('all')
+  const [availableAgents, setAvailableAgents] = useState<AvailableAgent[]>(MOCK_AVAILABLE_AGENTS)
   const [loading, setLoading] = useState(false)
-  const [detailVisible, setDetailVisible] = useState(false)
-  const [selectedNode, setSelectedNode] = useState<TreeNode | null>(null)
-  const [addDeptVisible, setAddDeptVisible] = useState(false)
-  const [addAgentVisible, setAddAgentVisible] = useState(false)
-  const [form] = Form.useForm()
-  const [agentForm] = Form.useForm()
+  const [loadingAgents, setLoadingAgents] = useState(false)
 
-  // 加载公司列表
-  const loadCompanies = useCallback(async () => {
-    setLoading(true)
+  // Modal 状态
+  const [addNodeModalVisible, setAddNodeModalVisible] = useState(false)
+  const [addNodeParentNode, setAddNodeParentNode] = useState<OrgNode | null>(null)
+  const [addNodeDefaultType, setAddNodeDefaultType] = useState<OrgNodeType | undefined>()
+  const [addAgentModalVisible, setAddAgentModalVisible] = useState(false)
+  const [addAgentTargetNode, setAddAgentTargetNode] = useState<OrgNode | null>(null)
+
+  // 拖拽状态
+  const [draggedNode, setDraggedNode] = useState<OrgNode | null>(null)
+
+  // 保存 Modal 状态
+  const [saveModalVisible, setSaveModalVisible] = useState(false)
+  const [configName, setConfigName] = useState('')
+
+  // 加载可用 Agent（Mock 暂时使用本地数据）
+  const loadAvailableAgents = useCallback(async () => {
+    setLoadingAgents(true)
     try {
-      const data = await fetchCompanies()
-      setCompanies(data)
-      if (data.length > 0 && !selectedCompany) {
-        setSelectedCompany(data[0].id)
+      // 尝试从 API 获取
+      const agents = await fetchAgents()
+      if (agents.length > 0) {
+        const mapped: AvailableAgent[] = agents.map((a) => ({
+          id: a.code,
+          code: a.code,
+          name: a.name,
+          agentType: a.agent_type,
+          layer: 'execute' as LayerType,
+          skills: a.skills,
+          status: a.is_active ? 'active' : 'inactive',
+        }))
+        setAvailableAgents(mapped)
       }
     } catch (error) {
-      console.error('[Organization] 加载公司失败:', error)
-      message.error('加载公司列表失败')
+      console.warn('[Organization] 加载 Agent 列表失败，使用 Mock 数据:', error)
     } finally {
-      setLoading(false)
+      setLoadingAgents(false)
     }
-  }, [selectedCompany])
-
-  // 加载选中公司的部门和Agent
-  const loadCompanyData = useCallback(async () => {
-    if (!selectedCompany) return
-
-    setLoading(true)
-    try {
-      const [deptData, agentData] = await Promise.all([
-        fetchCompanyDepartments(selectedCompany),
-        fetchCompanyAgents(selectedCompany),
-      ])
-      setDepartments(deptData)
-      setAgents(agentData)
-
-      // 加载每个部门的真实绑定Agent
-      const deptAgentMap: Record<string, string[]> = {}
-      for (const dept of deptData) {
-        deptAgentMap[dept.id] = await fetchDepartmentAgents(dept.id)
-      }
-      setDepartmentAgentMap(deptAgentMap)
-    } catch (error) {
-      console.error('[Organization] 加载公司数据失败:', error)
-      message.error('加载公司组织数据失败')
-    } finally {
-      setLoading(false)
-    }
-  }, [selectedCompany])
-
-  useEffect(() => {
-    loadCompanies()
   }, [])
 
-  useEffect(() => {
-    if (selectedCompany) {
-      loadCompanyData()
-    }
-  }, [selectedCompany, loadCompanyData])
-
-  // 构建树形数据
-  useEffect(() => {
-    if (!selectedCompany) {
-      setTreeData([])
-      return
-    }
-
-    const company = companies.find((c) => c.id === selectedCompany)
-    if (!company) return
-
-    // 构建公司节点
-    const companyNode: TreeNode = {
-      key: `company-${company.id}`,
-      title: company.name,
-      type: 'company',
-      data: company,
-      expanded: true,
-      children: [],
-    }
-
-    // 按部门分组Agent（使用真实API绑定数据）
-    const deptAgentsMap = new Map<string, Agent[]>()
-    const departmentNodes: TreeNode[] = departments.map((dept) => {
-      // 使用真实API返回的绑定Agent列表
-      const boundAgentCodes = departmentAgentMap[dept.id] || []
-      const deptAgents = (agents as Agent[]).filter((a) =>
-        boundAgentCodes.includes(a.id)
-      )
-
-      return {
-        key: `dept-${dept.id}`,
-        title: dept.name,
-        type: 'department',
-        data: dept,
-        expanded: false,
-        children: deptAgents.map((agent) => ({
-          key: `agent-${agent.id}`,
-          title: agent.name,
-          type: 'agent',
-          data: agent,
-        })),
+  // 加载组织架构（从后端 API）
+  const loadOrgStructure = useCallback(async () => {
+    setLoading(true)
+    try {
+      const data = await api<BackendOrgStructure>('GET', `/v1/organization/structure/${CURRENT_COMPANY_ID}`)
+      if (data && data.ceo_node) {
+        const adapted = adaptBackendToFrontend(data)
+        setOrgStructure(adapted)
       }
-    })
+    } catch (error) {
+      console.warn('[Organization] 从API加载组织架构失败，使用默认数据:', error)
+    } finally {
+      setLoading(false)
+    }
+  }, [])
 
-    // 如果有未分配的Agent，创建"其他"部门
-    const assignedAgentIds = new Set(
-      departmentNodes.flatMap((d) => d.children?.map((a) => a.key) || [])
-    )
-    const unassignedAgents = agents.filter(
-      (a) => !assignedAgentIds.has(`agent-${a.id}`)
-    )
+  // 初始化加载
+  useEffect(() => {
+    loadOrgStructure()
+    loadAvailableAgents()
+  }, [loadOrgStructure, loadAvailableAgents])
 
-    if (unassignedAgents.length > 0) {
-      departmentNodes.push({
-        key: 'dept-unassigned',
-        title: '未分类',
-        type: 'department',
-        data: { id: 'unassigned', name: '未分类', code: 'UNASSIGNED', is_active: true } as Department,
-        expanded: false,
-        children: unassignedAgents.map((agent) => ({
-          key: `agent-${agent.id}`,
-          title: agent.name,
-          type: 'agent',
-          data: agent,
-        })),
-      })
+  // 统计各层级节点数量
+  const layerCounts = useMemo(() => {
+    const countNode = (node: OrgNode): { discuss: number; execute: number } => {
+      let discuss = 0
+      let execute = 0
+
+      if (node.layer === 'discuss' && node.type !== 'ceo') {
+        discuss++
+      } else if (node.layer === 'execute') {
+        execute++
+      }
+
+      if (node.children) {
+        for (const child of node.children) {
+          const childCounts = countNode(child)
+          discuss += childCounts.discuss
+          execute += childCounts.execute
+        }
+      }
+
+      return { discuss, execute }
     }
 
-    companyNode.children = departmentNodes
-    setTreeData([companyNode])
-  }, [companies, selectedCompany, departments, agents, departmentAgentMap])
+    return countNode(orgStructure.root)
+  }, [orgStructure.root])
+
+  // 过滤显示的节点（根据层级）
+  const getVisibleNodes = useCallback((nodes: OrgNode[]): OrgNode[] => {
+    if (activeLayer === 'all') {
+      return nodes
+    }
+
+    return nodes.filter((node) => {
+      if (activeLayer === 'discuss') {
+        return node.layer === 'discuss' || node.type === 'ceo'
+      } else if (activeLayer === 'execute') {
+        return node.layer === 'execute'
+      }
+      return true
+    }).map((node) => ({
+      ...node,
+      children: node.children ? getVisibleNodes(node.children) : [],
+    }))
+  }, [activeLayer])
 
   // 展开/折叠节点
-  const handleToggle = useCallback((key: string) => {
-    const toggleNode = (nodes: TreeNode[]): TreeNode[] => {
+  const handleToggle = useCallback((nodeId: string) => {
+    const toggleNode = (nodes: OrgNode[]): OrgNode[] => {
       return nodes.map((node) => {
-        if (node.key === key) {
+        if (node.id === nodeId) {
           return { ...node, expanded: !node.expanded }
         }
         if (node.children) {
@@ -340,305 +438,569 @@ export default function OrganizationPage() {
         return node
       })
     }
-    setTreeData((prev) => toggleNode(prev))
+    setOrgStructure((prev) => ({
+      ...prev,
+      root: { ...prev.root, children: toggleNode(prev.root.children) },
+    }))
   }, [])
 
   // 展开全部
   const expandAll = useCallback(() => {
-    const expand = (nodes: TreeNode[]): TreeNode[] => {
+    const expand = (nodes: OrgNode[]): OrgNode[] => {
       return nodes.map((node) => ({
         ...node,
         expanded: true,
-        children: node.children ? expand(node.children) : undefined,
+        children: node.children ? expand(node.children) : [],
       }))
     }
-    setTreeData((prev) => expand(prev))
+    setOrgStructure((prev) => ({
+      ...prev,
+      root: { ...prev.root, children: expand(prev.root.children) },
+    }))
   }, [])
 
   // 折叠全部
   const collapseAll = useCallback(() => {
-    const collapse = (nodes: TreeNode[]): TreeNode[] => {
+    const collapse = (nodes: OrgNode[]): OrgNode[] => {
       return nodes.map((node) => ({
         ...node,
         expanded: false,
-        children: node.children ? collapse(node.children) : undefined,
+        children: node.children ? collapse(node.children) : [],
       }))
     }
-    setTreeData((prev) => collapse(prev))
+    setOrgStructure((prev) => ({
+      ...prev,
+      root: { ...prev.root, children: collapse(prev.root.children) },
+    }))
   }, [])
 
   // 选择节点
-  const handleSelect = useCallback((node: TreeNode) => {
+  const handleSelect = useCallback((node: OrgNode) => {
     setSelectedNode(node)
-    setDetailVisible(true)
   }, [])
 
-  // 新增部门
-  const handleAddDepartment = async () => {
-    try {
-      const values = await form.validateFields()
-      message.info(`新增部门功能待后端支持: ${values.name}`)
-      setAddDeptVisible(false)
-      form.resetFields()
-    } catch (error) {
-      // 表单验证失败
-    }
-  }
+  // 关闭详情面板
+  const handleCloseDetail = useCallback(() => {
+    setSelectedNode(null)
+  }, [])
 
-  // 新增Agent
-  const handleAddAgent = async () => {
-    try {
-      const values = await agentForm.validateFields()
-      message.info(`新增Agent功能待后端支持: ${values.name}`)
-      setAddAgentVisible(false)
-      agentForm.resetFields()
-    } catch (error) {
-      // 表单验证失败
-    }
-  }
+  // 新增节点
+  const handleAddChild = useCallback((parentNode: OrgNode, type: OrgNodeType) => {
+    setAddNodeParentNode(parentNode)
+    setAddNodeDefaultType(type)
+    setAddNodeModalVisible(true)
+  }, [])
 
-  const selectedCompanyData = companies.find((c) => c.id === selectedCompany)
+  // 确认新增节点
+  const handleConfirmAddNode = useCallback((data: { name: string; type: OrgNodeType; description: string }) => {
+    if (!addNodeParentNode) return
+
+    const newNode = createOrgNode({
+      id: generateNodeId(data.type),
+      name: data.name,
+      type: data.type,
+      description: data.description,
+      children: [],
+    })
+
+    // 添加到父节点
+    const addToParent = (nodes: OrgNode[]): OrgNode[] => {
+      return nodes.map((node) => {
+        if (node.id === addNodeParentNode!.id) {
+          return {
+            ...node,
+            children: [...(node.children || []), newNode],
+            expanded: true,
+          }
+        }
+        if (node.children) {
+          return { ...node, children: addToParent(node.children) }
+        }
+        return node
+      })
+    }
+
+    setOrgStructure((prev) => ({
+      ...prev,
+      root: { ...prev.root, children: addToParent(prev.root.children) },
+    }))
+
+    message.success(`已添加「${data.name}」`)
+    setAddNodeModalVisible(false)
+    setAddNodeParentNode(null)
+    setAddNodeDefaultType(undefined)
+  }, [addNodeParentNode])
+
+  // 删除节点
+  const handleDelete = useCallback((nodeId: string) => {
+    Modal.confirm({
+      title: '确认删除',
+      content: '确定要删除此节点吗？此操作不可撤销。',
+      okText: '删除',
+      okButtonProps: { danger: true },
+      cancelText: '取消',
+      onOk: () => {
+        const deleteNode = (nodes: OrgNode[]): OrgNode[] => {
+          return nodes
+            .filter((node) => node.id !== nodeId)
+            .map((node) => ({
+              ...node,
+              children: node.children ? deleteNode(node.children) : [],
+            }))
+        }
+
+        setOrgStructure((prev) => ({
+          ...prev,
+          root: { ...prev.root, children: deleteNode(prev.root.children) },
+        }))
+
+        if (selectedNode?.id === nodeId) {
+          setSelectedNode(null)
+        }
+
+        message.success('节点已删除')
+      },
+    })
+  }, [selectedNode])
+
+  // 内联编辑节点名称
+  const handleInlineEdit = useCallback((nodeId: string, newName: string) => {
+    const updateNode = (nodes: OrgNode[]): OrgNode[] => {
+      return nodes.map((node) => {
+        if (node.id === nodeId) {
+          return { ...node, name: newName }
+        }
+        if (node.children) {
+          return { ...node, children: updateNode(node.children) }
+        }
+        return node
+      })
+    }
+
+    setOrgStructure((prev) => ({
+      ...prev,
+      root: { ...prev.root, children: updateNode(prev.root.children) },
+    }))
+
+    if (selectedNode?.id === nodeId) {
+      setSelectedNode((prev) => prev ? { ...prev, name: newName } : null)
+    }
+
+    message.success('已更新名称')
+  }, [selectedNode])
+
+  // 保存节点属性更新
+  const handleSaveNode = useCallback((nodeId: string, updates: Partial<OrgNode>) => {
+    const updateNode = (nodes: OrgNode[]): OrgNode[] => {
+      return nodes.map((node) => {
+        if (node.id === nodeId) {
+          return { ...node, ...updates }
+        }
+        if (node.children) {
+          return { ...node, children: updateNode(node.children) }
+        }
+        return node
+      })
+    }
+
+    setOrgStructure((prev) => ({
+      ...prev,
+      root: { ...prev.root, children: updateNode(prev.root.children) },
+    }))
+
+    if (selectedNode?.id === nodeId) {
+      setSelectedNode((prev) => prev ? { ...prev, ...updates } : null)
+    }
+  }, [selectedNode])
+
+  // 绑定 Agent
+  const handleBindAgent = useCallback((nodeId: string, agentId: string) => {
+    const updateNode = (nodes: OrgNode[]): OrgNode[] => {
+      return nodes.map((node) => {
+        if (node.id === nodeId) {
+          return {
+            ...node,
+            boundAgents: [...node.boundAgents, agentId],
+          }
+        }
+        if (node.children) {
+          return { ...node, children: updateNode(node.children) }
+        }
+        return node
+      })
+    }
+
+    setOrgStructure((prev) => ({
+      ...prev,
+      root: { ...prev.root, children: updateNode(prev.root.children) },
+    }))
+
+    if (selectedNode?.id === nodeId) {
+      setSelectedNode((prev) =>
+        prev ? { ...prev, boundAgents: [...prev.boundAgents, agentId] } : null
+      )
+    }
+
+    setAddAgentModalVisible(false)
+    setAddAgentTargetNode(null)
+    message.success('Agent 绑定成功')
+  }, [selectedNode])
+
+  // 解绑 Agent
+  const handleUnbindAgent = useCallback((nodeId: string, agentId: string) => {
+    const updateNode = (nodes: OrgNode[]): OrgNode[] => {
+      return nodes.map((node) => {
+        if (node.id === nodeId) {
+          return {
+            ...node,
+            boundAgents: node.boundAgents.filter((id) => id !== agentId),
+          }
+        }
+        if (node.children) {
+          return { ...node, children: updateNode(node.children) }
+        }
+        return node
+      })
+    }
+
+    setOrgStructure((prev) => ({
+      ...prev,
+      root: { ...prev.root, children: updateNode(prev.root.children) },
+    }))
+
+    if (selectedNode?.id === nodeId) {
+      setSelectedNode((prev) =>
+        prev
+          ? { ...prev, boundAgents: prev.boundAgents.filter((id) => id !== agentId) }
+          : null
+      )
+    }
+  }, [selectedNode])
+
+  // 打开添加 Agent Modal
+  const handleOpenAddAgent = useCallback((node: OrgNode) => {
+    setAddAgentTargetNode(node)
+    setAddAgentModalVisible(true)
+  }, [])
+
+  // 拖拽开始
+  const handleDragStart = useCallback((e: React.DragEvent, node: OrgNode) => {
+    if (node.type === 'ceo') {
+      e.preventDefault()
+      return
+    }
+    setDraggedNode(node)
+    e.dataTransfer.effectAllowed = 'move'
+  }, [])
+
+  // 拖拽经过
+  const handleDragOver = useCallback((e: React.DragEvent) => {
+    e.preventDefault()
+    e.dataTransfer.dropEffect = 'move'
+  }, [])
+
+  // 放下节点
+  const handleDrop = useCallback((e: React.DragEvent, targetNode: OrgNode) => {
+    e.preventDefault()
+    if (!draggedNode) return
+    if (draggedNode.id === targetNode.id) return
+    if (draggedNode.type === 'ceo') return
+
+    // 如果目标节点是叶子节点，不允许放置
+    if (targetNode.type === 'agent') {
+      message.warning('不能将节点拖放到 Agent 上')
+      setDraggedNode(null)
+      return
+    }
+
+    // 从原位置删除
+    const removeNode = (nodes: OrgNode[]): OrgNode[] => {
+      return nodes
+        .filter((n) => n.id !== draggedNode!.id)
+        .map((node) => ({
+          ...node,
+          children: node.children ? removeNode(node.children) : [],
+        }))
+    }
+
+    // 添加到新位置
+    const addToTarget = (nodes: OrgNode[]): OrgNode[] => {
+      return nodes.map((node) => {
+        if (node.id === targetNode.id) {
+          return {
+            ...node,
+            children: [...(node.children || []), { ...draggedNode!, expanded: true }],
+            expanded: true,
+          }
+        }
+        if (node.children) {
+          return { ...node, children: addToTarget(node.children) }
+        }
+        return node
+      })
+    }
+
+    const withoutDragged = removeNode(orgStructure.root.children || [])
+    const withDropped = addToTarget(withoutDragged)
+
+    setOrgStructure((prev) => ({
+      ...prev,
+      root: { ...prev.root, children: withDropped },
+    }))
+
+    message.success(`已将「${draggedNode.name}」移动到「${targetNode.name}」`)
+    setDraggedNode(null)
+  }, [draggedNode, orgStructure.root.children])
+
+  // 保存结构
+  const handleSave = useCallback(async () => {
+    setLoading(true)
+    try {
+      // 将前端树形结构转换为后端扁平格式
+      const backendData = adaptFrontendToBackend(orgStructure)
+      await api('PUT', `/v1/organization/structure/${CURRENT_COMPANY_ID}`, backendData)
+      message.success('组织结构已保存')
+    } catch (error) {
+      console.warn('[Organization] 保存失败（Mock 模式）:', error)
+      localStorage.setItem('cyberteam_org_structure', JSON.stringify(orgStructure))
+      message.success('组织结构已保存（本地 Mock）')
+    } finally {
+      setLoading(false)
+    }
+  }, [orgStructure])
+
+  // 另存为配置
+  const handleSaveAs = useCallback(async () => {
+    if (!configName.trim()) {
+      message.warning('请输入配置名称')
+      return
+    }
+
+    try {
+      const backendData = adaptFrontendToBackend(orgStructure)
+      await api('POST', `/v1/organization/configs/${CURRENT_COMPANY_ID}`, {
+        name: configName,
+        structure: backendData,
+      })
+      message.success(`配置「${configName}」已保存`)
+      setSaveModalVisible(false)
+      setConfigName('')
+    } catch (error) {
+      console.warn('[Organization] 保存配置失败:', error)
+      // Mock 模式
+      const configs = JSON.parse(localStorage.getItem('cyberteam_org_configs') || '[]')
+      configs.push({
+        id: Date.now().toString(),
+        name: configName,
+        structure: orgStructure,
+        createdAt: new Date().toISOString(),
+      })
+      localStorage.setItem('cyberteam_org_configs', JSON.stringify(configs))
+      message.success(`配置「${configName}」已保存（本地 Mock）`)
+      setSaveModalVisible(false)
+      setConfigName('')
+    }
+  }, [configName, orgStructure])
+
+  // 重置结构
+  const handleReset = useCallback(() => {
+    Modal.confirm({
+      title: '确认重置',
+      content: '确定要恢复默认结构吗？所有未保存的更改将丢失。',
+      okText: '重置',
+      okButtonProps: { danger: true },
+      cancelText: '取消',
+      onOk: () => {
+        setOrgStructure(DEFAULT_ORG_STRUCTURE)
+        setSelectedNode(null)
+        message.success('已恢复默认结构')
+      },
+    })
+  }, [])
+
+  // 获取过滤后的可见节点
+  const visibleNodes = useMemo(() => {
+    return getVisibleNodes([orgStructure.root])
+  }, [orgStructure.root, getVisibleNodes])
 
   return (
-    <div className="p-6">
-      {/* 页面标题 */}
-      <div className="flex items-center justify-between mb-4">
-        <Title level={3} style={{ margin: 0 }}>
-          <ApartmentOutlined className="mr-2 text-blue-500" />
-          组织架构
-        </Title>
+    <div className="h-full flex flex-col">
+      {/* 顶部标题栏 */}
+      <div className="bg-white border-b px-4 py-3 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <Title level={4} className="m-0">
+            🏢 CyberTeam 组织架构 Builder
+          </Title>
+        </div>
         <Space>
-          <Select
-            placeholder="选择公司"
-            value={selectedCompany}
-            onChange={setSelectedCompany}
-            style={{ width: 200 }}
-            loading={loading && companies.length === 0}
-          >
-            {companies.map((company) => (
-              <Select.Option key={company.id} value={company.id}>
-                {company.name}
-              </Select.Option>
-            ))}
-          </Select>
-          <Button icon={<ReloadOutlined />} onClick={loadCompanyData} loading={loading}>
-            刷新
+          <Button icon={<SaveOutlined />} onClick={handleSave} loading={loading}>
+            保存结构
           </Button>
-          <Button icon={<ExpandOutlined />} onClick={expandAll}>
-            展开
+          <Button icon={<SwapOutlined />} onClick={() => setSaveModalVisible(true)}>
+            另存为...
           </Button>
-          <Button icon={<CollapseOutlined />} onClick={collapseAll}>
-            折叠
+          <Button icon={<ReloadOutlined />} onClick={handleReset}>
+            重置
           </Button>
         </Space>
       </div>
 
-      {/* 统计信息 */}
-      {selectedCompanyData && (
-        <div className="mb-4 flex gap-4">
-          <Card size="small" className="flex-1">
-            <div className="flex items-center gap-2">
-              <TeamOutlined className="text-blue-500" />
-              <Text>公司: </Text>
-              <Text strong>{selectedCompanyData.name}</Text>
-            </div>
-          </Card>
-          <Card size="small" className="flex-1">
-            <div className="flex items-center gap-2">
-              <ApartmentOutlined className="text-green-500" />
-              <Text>部门: </Text>
-              <Text strong>{departments.length}</Text>
-            </div>
-          </Card>
-          <Card size="small" className="flex-1">
-            <div className="flex items-center gap-2">
-              <RobotOutlined className="text-amber-500" />
-              <Text>Agent: </Text>
-              <Text strong>{agents.length}</Text>
-            </div>
-          </Card>
-        </div>
-      )}
+      {/* 主体内容 */}
+      <div className="flex-1 flex overflow-hidden">
+        {/* 左侧树形结构 */}
+        <div className="w-1/2 border-r bg-gray-50 flex flex-col">
+          {/* 层级切换 Tab */}
+          <div className="bg-white border-b px-4">
+            <LayerTabs
+              activeLayer={activeLayer}
+              onChange={setActiveLayer}
+              discussCount={layerCounts.discuss}
+              executeCount={layerCounts.execute}
+            />
+          </div>
 
-      {/* 操作按钮 */}
-      <div className="mb-4 flex gap-2">
-        <Button type="primary" icon={<PlusOutlined />} onClick={() => setAddDeptVisible(true)}>
-          新增部门
-        </Button>
-        <Button icon={<PlusOutlined />} onClick={() => setAddAgentVisible(true)}>
-          新增Agent
-        </Button>
+          {/* 快捷操作按钮 */}
+          <div className="px-4 py-2 flex gap-2 border-b bg-white">
+            <Button
+              size="small"
+              icon={<PlusOutlined />}
+              onClick={() => {
+                setAddNodeParentNode(orgStructure.root)
+                setAddNodeDefaultType('discuss_group')
+                setAddNodeModalVisible(true)
+              }}
+            >
+              添加讨论团队
+            </Button>
+            <Button
+              size="small"
+              icon={<PlusOutlined />}
+              onClick={() => {
+                setAddNodeParentNode(orgStructure.root)
+                setAddNodeDefaultType('execute_group')
+                setAddNodeModalVisible(true)
+              }}
+            >
+              添加执行部门
+            </Button>
+            <div className="flex-1" />
+            <Button size="small" icon={<ExpandOutlined />} onClick={expandAll}>
+              展开
+            </Button>
+            <Button size="small" icon={<NodeCollapseOutlined />} onClick={collapseAll}>
+              折叠
+            </Button>
+          </div>
+
+          {/* 树形结构区域 */}
+          <div className="flex-1 overflow-auto p-4">
+            <Card className="mb-4 bg-gradient-to-r from-amber-50 to-yellow-50 border-amber-200">
+              <div className="flex items-center gap-2 text-sm">
+                <span className="text-xs text-gray-500">提示：</span>
+                <span className="text-xs text-gray-500">单击选中 | 双击重命名</span>
+                <span className="text-xs text-gray-500">| 右键菜单</span>
+                <span className="text-xs text-gray-500">| 拖拽排序</span>
+              </div>
+            </Card>
+
+            {loading ? (
+              <div className="flex items-center justify-center py-12">
+                <Spin size="large" />
+              </div>
+            ) : (
+              visibleNodes.map((node) => (
+                <OrgNodeComponent
+                  key={node.id}
+                  node={node}
+                  level={0}
+                  selectedId={selectedNode?.id || null}
+                  onSelect={handleSelect}
+                  onToggle={handleToggle}
+                  onAddChild={handleAddChild}
+                  onDelete={handleDelete}
+                  onInlineEdit={handleInlineEdit}
+                  onDragStart={handleDragStart}
+                  onDragOver={handleDragOver}
+                  onDrop={handleDrop}
+                />
+              ))
+            )}
+          </div>
+        </div>
+
+        {/* 右侧详情面板 */}
+        <div className="w-1/2 bg-gray-100 overflow-auto">
+          <NodeDetail
+            node={selectedNode}
+            availableAgents={availableAgents}
+            onSave={handleSaveNode}
+            onAddChild={(node, type) => {
+              if (type === 'agent') {
+                handleOpenAddAgent(node)
+              } else {
+                handleAddChild(node, type)
+              }
+            }}
+            onBindAgent={handleBindAgent}
+            onUnbindAgent={handleUnbindAgent}
+            onClose={handleCloseDetail}
+          />
+        </div>
       </div>
 
-      {/* 树形结构 */}
-      <Card>
-        {loading && treeData.length === 0 ? (
-          <div className="flex items-center justify-center py-12">
-            <Spin size="large" />
-          </div>
-        ) : treeData.length === 0 ? (
-          <Empty description="请选择公司以查看组织架构" />
-        ) : (
-          <div className="min-h-[400px]">
-            {treeData.map((node) => (
-              <TreeNodeComponent
-                key={node.key}
-                node={node}
-                onToggle={handleToggle}
-                onSelect={handleSelect}
-              />
-            ))}
-          </div>
-        )}
-      </Card>
-
-      {/* 详情抽屉 */}
-      <Drawer
-        title="详情"
-        placement="right"
-        width={400}
-        onClose={() => setDetailVisible(false)}
-        open={detailVisible}
-      >
-        {selectedNode && (
-          <div>
-            <Descriptions column={1} bordered size="small">
-              <Descriptions.Item label="类型">
-                <Tag color={
-                  selectedNode.type === 'company' ? 'blue' :
-                  selectedNode.type === 'department' ? 'green' : 'amber'
-                }>
-                  {selectedNode.type === 'company' ? '公司' :
-                   selectedNode.type === 'department' ? '部门' : 'Agent'}
-                </Tag>
-              </Descriptions.Item>
-              <Descriptions.Item label="名称">
-                <Text strong>{selectedNode.title}</Text>
-              </Descriptions.Item>
-            </Descriptions>
-
-            <Divider />
-
-            {selectedNode.type === 'company' && (
-              <Descriptions column={1} bordered size="small">
-                <Descriptions.Item label="描述">
-                  {(selectedNode.data as Company).description || '-'}
-                </Descriptions.Item>
-                <Descriptions.Item label="部门数">
-                  {(selectedNode.data as Company).department_count}
-                </Descriptions.Item>
-                <Descriptions.Item label="Agent数">
-                  {(selectedNode.data as Company).agent_count}
-                </Descriptions.Item>
-                <Descriptions.Item label="状态">
-                  <Tag>{(selectedNode.data as Company).status}</Tag>
-                </Descriptions.Item>
-              </Descriptions>
-            )}
-
-            {selectedNode.type === 'department' && (
-              <Descriptions column={1} bordered size="small">
-                <Descriptions.Item label="编码">
-                  {(selectedNode.data as Department).code}
-                </Descriptions.Item>
-                <Descriptions.Item label="描述">
-                  {(selectedNode.data as Department).description || '-'}
-                </Descriptions.Item>
-                <Descriptions.Item label="状态">
-                  <Tag color={(selectedNode.data as Department).is_active ? 'success' : 'error'}>
-                    {(selectedNode.data as Department).is_active ? '活跃' : '未激活'}
-                  </Tag>
-                </Descriptions.Item>
-              </Descriptions>
-            )}
-
-            {selectedNode.type === 'agent' && (
-              <Descriptions column={1} bordered size="small">
-                <Descriptions.Item label="类型">
-                  {(selectedNode.data as Agent).agent_type}
-                </Descriptions.Item>
-                <Descriptions.Item label="状态">
-                  <Tag color={(selectedNode.data as Agent).status === 'active' ? 'processing' : 'default'}>
-                    {(selectedNode.data as Agent).status === 'active' ? '运行中' : '空闲'}
-                  </Tag>
-                </Descriptions.Item>
-                <Descriptions.Item label="描述">
-                  {(selectedNode.data as Agent).description || '-'}
-                </Descriptions.Item>
-              </Descriptions>
-            )}
-          </div>
-        )}
-      </Drawer>
-
-      {/* 新增部门弹窗 */}
-      <Modal
-        title="新增部门"
-        open={addDeptVisible}
-        onOk={handleAddDepartment}
+      {/* 新增节点 Modal */}
+      <AddNodeModal
+        open={addNodeModalVisible}
+        parentNodeType={addNodeParentNode?.type}
+        defaultType={addNodeDefaultType}
+        onAdd={handleConfirmAddNode}
         onCancel={() => {
-          setAddDeptVisible(false)
-          form.resetFields()
+          setAddNodeModalVisible(false)
+          setAddNodeParentNode(null)
+          setAddNodeDefaultType(undefined)
         }}
-        okText="创建"
+      />
+
+      {/* 绑定 Agent Modal */}
+      <AddAgentModal
+        open={addAgentModalVisible}
+        nodeId={addAgentTargetNode?.id || ''}
+        nodeName={addAgentTargetNode?.name || ''}
+        nodeLayer={addAgentTargetNode?.layer || 'execute'}
+        availableAgents={availableAgents}
+        boundAgentIds={addAgentTargetNode?.boundAgents || []}
+        loading={loadingAgents}
+        onAdd={(agentId) => handleBindAgent(addAgentTargetNode!.id, agentId)}
+        onCancel={() => {
+          setAddAgentModalVisible(false)
+          setAddAgentTargetNode(null)
+        }}
+      />
+
+      {/* 另存为 Modal */}
+      <Modal
+        title="另存为配置"
+        open={saveModalVisible}
+        onOk={handleSaveAs}
+        onCancel={() => {
+          setSaveModalVisible(false)
+          setConfigName('')
+        }}
+        okText="保存"
         cancelText="取消"
       >
-        <Form form={form} layout="vertical">
-          <Form.Item
-            name="name"
-            label="部门名称"
-            rules={[{ required: true, message: '请输入部门名称' }]}
-          >
-            <Input placeholder="请输入部门名称" />
-          </Form.Item>
-          <Form.Item
-            name="code"
-            label="部门编码"
-            rules={[{ required: true, message: '请输入部门编码' }]}
-          >
-            <Input placeholder="请输入部门编码，如 PRODUCT" />
-          </Form.Item>
-          <Form.Item name="description" label="描述">
-            <Input.TextArea placeholder="请输入部门描述" rows={3} />
-          </Form.Item>
-        </Form>
-      </Modal>
-
-      {/* 新增Agent弹窗 */}
-      <Modal
-        title="新增Agent"
-        open={addAgentVisible}
-        onOk={handleAddAgent}
-        onCancel={() => {
-          setAddAgentVisible(false)
-          agentForm.resetFields()
-        }}
-        okText="创建"
-        cancelText="取消"
-      >
-        <Form form={agentForm} layout="vertical">
-          <Form.Item
-            name="name"
-            label="Agent名称"
-            rules={[{ required: true, message: '请输入Agent名称' }]}
-          >
-            <Input placeholder="请输入Agent名称" />
-          </Form.Item>
-          <Form.Item
-            name="agent_type"
-            label="Agent类型"
-            rules={[{ required: true, message: '请选择Agent类型' }]}
-          >
-            <Select placeholder="请选择Agent类型">
-              <Select.Option value="executor">执行器</Select.Option>
-              <Select.Option value="coordinator">协调者</Select.Option>
-              <Select.Option value="leader">领导者</Select.Option>
-            </Select>
-          </Form.Item>
-          <Form.Item name="description" label="描述">
-            <Input.TextArea placeholder="请输入Agent描述" rows={3} />
-          </Form.Item>
-        </Form>
+        <div className="py-4">
+          <label className="block mb-2 text-sm font-medium">配置名称</label>
+          <Input
+            placeholder="输入配置名称..."
+            value={configName}
+            onChange={(e) => setConfigName(e.target.value)}
+            onPressEnter={handleSaveAs}
+          />
+          <Text type="secondary" className="text-xs">
+            保存当前组织结构为命名配置快照，方便后续加载
+          </Text>
+        </div>
       </Modal>
     </div>
   )

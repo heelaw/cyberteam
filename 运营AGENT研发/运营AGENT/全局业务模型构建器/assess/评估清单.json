@@ -1,0 +1,48 @@
+{
+  "dimension": "全局业务模型构建",
+  "version": "1.0",
+  "author": "Cyberwiz",
+  "items": [
+    {
+      "id": "1",
+      "item": "收入链条完整性",
+      "weight": 25,
+      "criteria": "必须覆盖流量→转化→收入全链条，关键环节无遗漏",
+      "measurement": "链条完整性评分"
+    },
+    {
+      "id": "2",
+      "item": "商业模式匹配度",
+      "weight": 25,
+      "criteria": "选择的收入模式（4种之一）与实际业务高度匹配",
+      "measurement": "模式匹配度评估"
+    },
+    {
+      "id": "3",
+      "item": "3个额外思考覆盖",
+      "weight": 20,
+      "criteria": "产品生命周期、稀缺资源、供应链制约三个问题全部分析到位",
+      "measurement": "思考覆盖度"
+    },
+    {
+      "id": "4",
+      "item": "假设明确性",
+      "weight": 15,
+      "criteria": "模型基于的关键假设清晰列出，并标注不确定性",
+      "measurement": "假设清晰度"
+    },
+    {
+      "id": "5",
+      "item": "模型可执行性",
+      "weight": 15,
+      "criteria": "模型可直接指导业务决策，输出具体可落地",
+      "measurement": "用户评估"
+    }
+  ],
+  "scoring_rules": {
+    "excellent": "90-100",
+    "good": "75-89",
+    "pass": "60-74",
+    "fail": "0-59"
+  }
+}

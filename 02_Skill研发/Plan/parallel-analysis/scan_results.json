@@ -1,0 +1,562 @@
+{
+  "summary": {
+    "total_files": 392,
+    "high_potential_files": 115,
+    "beginner_course_files": 81,
+    "small_course_files": 311
+  },
+  "high_potential_files": [
+    {
+      "course": "运营初阶课",
+      "filename": "37-6.1 如何搭建新媒体账号的基础运营框架.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营初阶课/逐字稿/37-6.1 如何搭建新媒体账号的基础运营框架.md",
+      "title": "6.1 如何搭建新媒体账号的基础运营框架",
+      "potential_score": 6,
+      "reasons": [
+        "包含模板/公式类关键词",
+        "包含操作类关键词",
+        "包含文案/活动类关键词"
+      ]
+    },
+    {
+      "course": "运营初阶课",
+      "filename": "50-以百度SEM为例，拆解渠道推广的执行流程（下）.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营初阶课/逐字稿/50-以百度SEM为例，拆解渠道推广的执行流程（下）.md",
+      "title": "以百度SEM为例，拆解渠道推广的执行流程（下）",
+      "potential_score": 5,
+      "reasons": [
+        "包含步骤/流程类关键词",
+        "包含操作类关键词",
+        "包含文案/活动类关键词"
+      ]
+    },
+    {
+      "course": "运营初阶课",
+      "filename": "49-以百度SEM为例，拆解渠道推广的执行流程（上）.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营初阶课/逐字稿/49-以百度SEM为例，拆解渠道推广的执行流程（上）.md",
+      "title": "以百度SEM为例，拆解渠道推广的执行流程（上）",
+      "potential_score": 5,
+      "reasons": [
+        "包含步骤/流程类关键词",
+        "包含操作类关键词",
+        "包含文案/活动类关键词"
+      ]
+    },
+    {
+      "course": "运营初阶课",
+      "filename": "28-5.3 社群运营：如何让一个群产生价值.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营初阶课/逐字稿/28-5.3 社群运营：如何让一个群产生价值.md",
+      "title": "5.3 社群运营：如何让一个群产生价值",
+      "potential_score": 3,
+      "reasons": [
+        "包含操作类关键词",
+        "包含文案/活动类关键词"
+      ]
+    },
+    {
+      "course": "运营初阶课",
+      "filename": "07-「选修」没有运营经验，如何找工作.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营初阶课/逐字稿/07-「选修」没有运营经验，如何找工作.md",
+      "title": "「选修」没有运营经验，如何找工作",
+      "potential_score": 3,
+      "reasons": [
+        "包含操作类关键词",
+        "包含文案/活动类关键词"
+      ]
+    },
+    {
+      "course": "运营初阶课",
+      "filename": "48-如何完整地执行一次渠道推广.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营初阶课/逐字稿/48-如何完整地执行一次渠道推广.md",
+      "title": "如何完整地执行一次渠道推广",
+      "potential_score": 3,
+      "reasons": [
+        "包含操作类关键词",
+        "包含文案/活动类关键词"
+      ]
+    },
+    {
+      "course": "运营初阶课",
+      "filename": "12-2.2.1 不同类型文案应该如何写作.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营初阶课/逐字稿/12-2.2.1 不同类型文案应该如何写作.md",
+      "title": "2.2.1 不同类型文案应该如何写作",
+      "potential_score": 3,
+      "reasons": [
+        "包含操作类关键词",
+        "包含文案/活动类关键词"
+      ]
+    },
+    {
+      "course": "运营初阶课",
+      "filename": "32-「选修」社群运营：面对一些老群，我们该怎么办.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营初阶课/逐字稿/32-「选修」社群运营：面对一些老群，我们该怎么办.md",
+      "title": "「选修」社群运营：面对一些老群，我们该怎么办",
+      "potential_score": 3,
+      "reasons": [
+        "包含操作类关键词",
+        "包含文案/活动类关键词"
+      ]
+    },
+    {
+      "course": "运营初阶课",
+      "filename": "17-2.6 如何写150字以上的长文案.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营初阶课/逐字稿/17-2.6 如何写150字以上的长文案.md",
+      "title": "2.6 如何写150字以上的长文案",
+      "potential_score": 3,
+      "reasons": [
+        "包含操作类关键词",
+        "包含文案/活动类关键词"
+      ]
+    },
+    {
+      "course": "运营初阶课",
+      "filename": "23-3.2 如何快速提出活动创意.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营初阶课/逐字稿/23-3.2 如何快速提出活动创意.md",
+      "title": "3.2 如何快速提出活动创意",
+      "potential_score": 3,
+      "reasons": [
+        "包含操作类关键词",
+        "包含文案/活动类关键词"
+      ]
+    },
+    {
+      "course": "运营初阶课",
+      "filename": "30-5.5 社群运营：如何处理群内问题.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营初阶课/逐字稿/30-5.5 社群运营：如何处理群内问题.md",
+      "title": "5.5 社群运营：如何处理群内问题",
+      "potential_score": 3,
+      "reasons": [
+        "包含操作类关键词",
+        "包含文案/活动类关键词"
+      ]
+    },
+    {
+      "course": "运营初阶课",
+      "filename": "35-社群增长：如何用任务宝进行裂变？.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营初阶课/逐字稿/35-社群增长：如何用任务宝进行裂变？.md",
+      "title": "社群增长：如何用任务宝进行裂变？",
+      "potential_score": 3,
+      "reasons": [
+        "包含操作类关键词",
+        "包含文案/活动类关键词"
+      ]
+    },
+    {
+      "course": "运营初阶课",
+      "filename": "06-1.3 如何通过学习，快速成为优秀的运营.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营初阶课/逐字稿/06-1.3 如何通过学习，快速成为优秀的运营.md",
+      "title": "1.3 如何通过学习，快速成为优秀的运营",
+      "potential_score": 3,
+      "reasons": [
+        "包含操作类关键词",
+        "包含文案/活动类关键词"
+      ]
+    },
+    {
+      "course": "运营初阶课",
+      "filename": "39-6.3 如何搜集内容素材.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营初阶课/逐字稿/39-6.3 如何搜集内容素材.md",
+      "title": "6.3 如何搜集内容素材",
+      "potential_score": 3,
+      "reasons": [
+        "包含操作类关键词",
+        "包含文案/活动类关键词"
+      ]
+    },
+    {
+      "course": "运营初阶课",
+      "filename": "43-如何多平台传播内容.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营初阶课/逐字稿/43-如何多平台传播内容.md",
+      "title": "如何多平台传播内容",
+      "potential_score": 3,
+      "reasons": [
+        "包含操作类关键词",
+        "包含文案/活动类关键词"
+      ]
+    },
+    {
+      "course": "运营初阶课",
+      "filename": "34-社群增长：如何操作一场裂变活动.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营初阶课/逐字稿/34-社群增长：如何操作一场裂变活动.md",
+      "title": "社群增长：如何操作一场裂变活动",
+      "potential_score": 3,
+      "reasons": [
+        "包含操作类关键词",
+        "包含文案/活动类关键词"
+      ]
+    },
+    {
+      "course": "运营初阶课",
+      "filename": "54-3.4 如何写出好的活动策划方案.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营初阶课/逐字稿/54-3.4 如何写出好的活动策划方案.md",
+      "title": "3.4 如何写出好的活动策划方案",
+      "potential_score": 3,
+      "reasons": [
+        "包含操作类关键词",
+        "包含文案/活动类关键词"
+      ]
+    },
+    {
+      "course": "运营初阶课",
+      "filename": "62-4.3 如何维系UGC内容和管理用户.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营初阶课/逐字稿/62-4.3 如何维系UGC内容和管理用户.md",
+      "title": "4.3 如何维系UGC内容和管理用户",
+      "potential_score": 3,
+      "reasons": [
+        "包含操作类关键词",
+        "包含文案/活动类关键词"
+      ]
+    },
+    {
+      "course": "运营初阶课",
+      "filename": "61-4.2 如何从0到1地搭建UGC内容.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营初阶课/逐字稿/61-4.2 如何从0到1地搭建UGC内容.md",
+      "title": "4.2 如何从0到1地搭建UGC内容",
+      "potential_score": 3,
+      "reasons": [
+        "包含操作类关键词",
+        "包含文案/活动类关键词"
+      ]
+    },
+    {
+      "course": "运营初阶课",
+      "filename": "16-2.5 如何写20字-150字的中长型文案.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营初阶课/逐字稿/16-2.5 如何写20字-150字的中长型文案.md",
+      "title": "2.5 如何写20字-150字的中长型文案",
+      "potential_score": 3,
+      "reasons": [
+        "包含操作类关键词",
+        "包含文案/活动类关键词"
+      ]
+    },
+    {
+      "course": "运营初阶课",
+      "filename": "53-3.3 如何将活动创意翻倍.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营初阶课/逐字稿/53-3.3 如何将活动创意翻倍.md",
+      "title": "3.3 如何将活动创意翻倍",
+      "potential_score": 3,
+      "reasons": [
+        "包含操作类关键词",
+        "包含文案/活动类关键词"
+      ]
+    },
+    {
+      "course": "运营初阶课",
+      "filename": "55-3.5 怎样完整地执行一个活动.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营初阶课/逐字稿/55-3.5 怎样完整地执行一个活动.md",
+      "title": "3.5 怎样完整地执行一个活动",
+      "potential_score": 3,
+      "reasons": [
+        "包含操作类关键词",
+        "包含文案/活动类关键词"
+      ]
+    },
+    {
+      "course": "运营初阶课",
+      "filename": "13-2.2.2 写文案的正确步骤是什么.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营初阶课/逐字稿/13-2.2.2 写文案的正确步骤是什么.md",
+      "title": "2.2.2 写文案的正确步骤是什么",
+      "potential_score": 3,
+      "reasons": [
+        "包含步骤/流程类关键词",
+        "包含文案/活动类关键词"
+      ]
+    },
+    {
+      "course": "运营初阶课",
+      "filename": "03-活动策划-从创意到执行.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营初阶课/内容增强-颗粒度对齐版/03-活动策划-从创意到执行.md",
+      "title": "第三章：活动策划 - 从创意到执行",
+      "potential_score": 3,
+      "reasons": [
+        "包含操作类关键词",
+        "包含文案/活动类关键词"
+      ]
+    },
+    {
+      "course": "运营初阶课",
+      "filename": "03-活动策划-从创意到执行.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营初阶课/内容增强/03-活动策划-从创意到执行.md",
+      "title": "第三章：活动策划 - 从创意到执行",
+      "potential_score": 3,
+      "reasons": [
+        "包含操作类关键词",
+        "包含文案/活动类关键词"
+      ]
+    },
+    {
+      "course": "运营初阶课",
+      "filename": "38-6.2 如何快速策划选题.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营初阶课/逐字稿/38-6.2 如何快速策划选题.md",
+      "title": "6.2 如何快速策划选题",
+      "potential_score": 2,
+      "reasons": [
+        "包含操作类关键词"
+      ]
+    },
+    {
+      "course": "运营初阶课",
+      "filename": "27-5.2 如何引导用户进群.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营初阶课/逐字稿/27-5.2 如何引导用户进群.md",
+      "title": "5.2 如何引导用户进群",
+      "potential_score": 2,
+      "reasons": [
+        "包含操作类关键词"
+      ]
+    },
+    {
+      "course": "运营初阶课",
+      "filename": "33-「选修」如何把握社群变现的时机？.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营初阶课/逐字稿/33-「选修」如何把握社群变现的时机？.md",
+      "title": "「选修」如何把握社群变现的时机？",
+      "potential_score": 2,
+      "reasons": [
+        "包含操作类关键词"
+      ]
+    },
+    {
+      "course": "运营小课",
+      "filename": "08-传播事件型推广的操作法方法-内容增强.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营小课/营销推广基本功/内容增强-颗粒度对齐版/08-传播事件型推广的操作法方法-内容增强.md",
+      "title": "传播事件型推广的操作方法 - 内容增强版",
+      "potential_score": 5,
+      "reasons": [
+        "包含步骤/流程类关键词",
+        "包含操作类关键词",
+        "包含文案/活动类关键词"
+      ]
+    },
+    {
+      "course": "运营小课",
+      "filename": "09-信息分发平台流量推广的操作方法-内容增强.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营小课/营销推广基本功/内容增强-颗粒度对齐版/09-信息分发平台流量推广的操作方法-内容增强.md",
+      "title": "信息分发平台流量推广的操作方法 - 内容增强版",
+      "potential_score": 5,
+      "reasons": [
+        "包含步骤/流程类关键词",
+        "包含操作类关键词",
+        "包含文案/活动类关键词"
+      ]
+    },
+    {
+      "course": "运营小课",
+      "filename": "2.8-\"6要素\"的框架怎么帮助我们更好理解一份工作？.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营小课/03-AI时代下的运营基石课/逐字稿/逐字稿2/2.8-\"6要素\"的框架怎么帮助我们更好理解一份工作？.md",
+      "title": "2.8 \"6要素\"的框架怎么帮助我们更好理解一份工作？",
+      "potential_score": 5,
+      "reasons": [
+        "包含模板/公式类关键词",
+        "包含操作类关键词"
+      ]
+    },
+    {
+      "course": "运营小课",
+      "filename": "2.8-\"6要素\"的框架怎么帮助我们更好理解一份工作？.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营小课/03-AI时代下的运营基石课/内容增强-颗粒度对齐版/2.8-\"6要素\"的框架怎么帮助我们更好理解一份工作？.md",
+      "title": "2.8 \"6要素\"的框架怎么帮助我们更好理解一份工作?",
+      "potential_score": 5,
+      "reasons": [
+        "包含模板/公式类关键词",
+        "包含操作类关键词"
+      ]
+    },
+    {
+      "course": "运营小课",
+      "filename": "1.1-如何通过流程化思维更好解决问题.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营小课/07-深刻理解4种常见的运营数据漏斗/逐字稿/深刻理解4种常见的运营数据漏斗/1.1-如何通过流程化思维更好解决问题.md",
+      "title": "1.1 如何通过\"流程化思维\"更好解决问题",
+      "potential_score": 4,
+      "reasons": [
+        "包含步骤/流程类关键词",
+        "包含操作类关键词"
+      ]
+    },
+    {
+      "course": "运营小课",
+      "filename": "01-如何通过流程化思维更好解决问题.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营小课/07-深刻理解4种常见的运营数据漏斗/内容增强-颗粒度对齐版/01-如何通过流程化思维更好解决问题.md",
+      "title": "如何通过\"流程化思维\"更好解决问题",
+      "potential_score": 4,
+      "reasons": [
+        "包含步骤/流程类关键词",
+        "包含操作类关键词"
+      ]
+    },
+    {
+      "course": "运营小课",
+      "filename": "08-项目管理的典型场景和操作方法-内容增强版.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营小课/互联网运营必备的底层心法/内容增强-颗粒度对齐版/08-项目管理的典型场景和操作方法-内容增强版.md",
+      "title": "项目管理的典型场景和操作方法",
+      "potential_score": 4,
+      "reasons": [
+        "包含步骤/流程类关键词",
+        "包含操作类关键词"
+      ]
+    },
+    {
+      "course": "运营小课",
+      "filename": "02-运营6要素模型.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营小课/03-AI时代下的运营基石课/内容增强/02-运营6要素模型.md",
+      "title": "第二章：运营6要素模型",
+      "potential_score": 4,
+      "reasons": [
+        "包含模板/公式类关键词",
+        "包含文案/活动类关键词"
+      ]
+    },
+    {
+      "course": "运营小课",
+      "filename": "4.3.2-案例库示例.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营小课/ 03-AI 时代下的运营基石课/内容增强 - 颗粒度对齐版/4.3.2-案例库示例.md",
+      "title": "4.3.2 案例库示例：如何建立自己的运营武器库",
+      "potential_score": 3,
+      "reasons": [
+        "包含操作类关键词",
+        "包含文案/活动类关键词"
+      ]
+    },
+    {
+      "course": "运营小课",
+      "filename": "1.2-流程梳理运营从业者的最重要基本功之一.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营小课/07-深刻理解4种常见的运营数据漏斗/逐字稿/深刻理解4种常见的运营数据漏斗/1.2-流程梳理运营从业者的最重要基本功之一.md",
+      "title": "1.2 流程梳理——运营从业者的最重要基本功之一",
+      "potential_score": 3,
+      "reasons": [
+        "包含步骤/流程类关键词",
+        "包含文案/活动类关键词"
+      ]
+    },
+    {
+      "course": "运营小课",
+      "filename": "02-流程梳理运营从业者的最重要基本功之一.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营小课/07-深刻理解4种常见的运营数据漏斗/内容增强-颗粒度对齐版/02-流程梳理运营从业者的最重要基本功之一.md",
+      "title": "流程梳理——运营从业者的最重要基本功之一",
+      "potential_score": 3,
+      "reasons": [
+        "包含步骤/流程类关键词",
+        "包含文案/活动类关键词"
+      ]
+    },
+    {
+      "course": "运营小课",
+      "filename": "2.1-支付宝中国锦鲤：如何做一场低成本高传播活动（上）.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营小课/05-10倍放大个人学习效率/逐字稿/2.1-支付宝中国锦鲤：如何做一场低成本高传播活动（上）.md",
+      "title": "2.1 支付宝\"中国锦鲤\"：如何做一场低成本高传播活动（上）",
+      "potential_score": 3,
+      "reasons": [
+        "包含操作类关键词",
+        "包含文案/活动类关键词"
+      ]
+    },
+    {
+      "course": "运营小课",
+      "filename": "2.3-得到仗义证：如何做一场强口碑裂变增长.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营小课/05-10倍放大个人学习效率/逐字稿/2.3-得到仗义证：如何做一场强口碑裂变增长.md",
+      "title": "2.3 得到\"仗义证\"：如何做一场强口碑裂变增长",
+      "potential_score": 3,
+      "reasons": [
+        "包含操作类关键词",
+        "包含文案/活动类关键词"
+      ]
+    },
+    {
+      "course": "运营小课",
+      "filename": "2.2-支付宝中国锦鲤：如何做一场低成本高传播活动（下）.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营小课/05-10倍放大个人学习效率/逐字稿/2.2-支付宝中国锦鲤：如何做一场低成本高传播活动（下）.md",
+      "title": "2.2 支付宝\"中国锦鲤\"：如何做一场低成本高传播活动（下）",
+      "potential_score": 3,
+      "reasons": [
+        "包含操作类关键词",
+        "包含文案/活动类关键词"
+      ]
+    },
+    {
+      "course": "运营小课",
+      "filename": "用户运营核心方法论.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营小课/运营必学-从根本提升你的流量-用户敏锐度与洞察/逐字稿2/用户运营核心方法论.md",
+      "title": "用户运营核心方法论 - 深度增强版",
+      "potential_score": 3,
+      "reasons": [
+        "包含步骤/流程类关键词",
+        "包含文案/活动类关键词"
+      ]
+    },
+    {
+      "course": "运营小课",
+      "filename": "03-4类常见营销推广方式及其操作逻辑-增强版.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营小课/17-运营必学营销推广/内容增强-颗粒度对齐版/03-4类常见营销推广方式及其操作逻辑-增强版.md",
+      "title": "第三章 4类常见营销推广方式及其操作逻辑",
+      "potential_score": 3,
+      "reasons": [
+        "包含操作类关键词",
+        "包含文案/活动类关键词"
+      ]
+    },
+    {
+      "course": "运营小课",
+      "filename": "02-推广营销工作基本方法-增强版.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营小课/17-运营必学营销推广/内容增强-颗粒度对齐版/02-推广营销工作基本方法-增强版.md",
+      "title": "第一章 推广营销工作的基本方法",
+      "potential_score": 3,
+      "reasons": [
+        "包含步骤/流程类关键词",
+        "包含文案/活动类关键词"
+      ]
+    },
+    {
+      "course": "运营小课",
+      "filename": "02-营销推广方式与转化链路.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营小课/17-运营必学营销推广/内容增强/02-营销推广方式与转化链路.md",
+      "title": "第二章：4类常见营销推广方式及其操作逻辑",
+      "potential_score": 3,
+      "reasons": [
+        "包含操作类关键词",
+        "包含文案/活动类关键词"
+      ]
+    },
+    {
+      "course": "运营小课",
+      "filename": "推广营销核心方法论.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营小课/08-运营必学-一切营销推广-转化链路的设计关键原则/内容增强/推广营销核心方法论.md",
+      "title": "推广营销核心方法论 - 深度增强版",
+      "potential_score": 3,
+      "reasons": [
+        "包含步骤/流程类关键词",
+        "包含文案/活动类关键词"
+      ]
+    },
+    {
+      "course": "运营小课",
+      "filename": "02-第一章 如何发现及开拓与你匹配的推广“入口”.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营小课/08-运营必学：一切营销推广、转化链路的设计关键原则/逐字稿/运营必学：一切营销推广、转化链路的设计关键原则/02-第一章 如何发现及开拓与你匹配的推广“入口”.md",
+      "title": "第一章 如何发现及开拓与你匹配的推广\"入口\"",
+      "potential_score": 3,
+      "reasons": [
+        "包含操作类关键词",
+        "包含文案/活动类关键词"
+      ]
+    },
+    {
+      "course": "运营小课",
+      "filename": "03-第二章 推广营销工作的基本方法.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营小课/08-运营必学：一切营销推广、转化链路的设计关键原则/逐字稿/运营必学：一切营销推广、转化链路的设计关键原则/03-第二章 推广营销工作的基本方法.md",
+      "title": "第二章 推广营销工作的基本方法",
+      "potential_score": 3,
+      "reasons": [
+        "包含步骤/流程类关键词",
+        "包含文案/活动类关键词"
+      ]
+    },
+    {
+      "course": "运营小课",
+      "filename": "04-第三章 4类常见营销推广方式及其操作逻辑.md",
+      "filepath": "/Users/cyberwiz/Library/Mobile Documents/iCloud~md~obsidian/Documents/03_Resource/01_课程资料/02_运营领域/运营小课/08-运营必学：一切营销推广、转化链路的设计关键原则/逐字稿/运营必学：一切营销推广、转化链路的设计关键原则/04-第三章 4类常见营销推广方式及其操作逻辑.md",
+      "title": "第三章 4类常见营销推广方式及其操作逻辑",
+      "potential_score": 3,
+      "reasons": [
+        "包含操作类关键词",
+        "包含文案/活动类关键词"
+      ]
+    }
+  ]
+}

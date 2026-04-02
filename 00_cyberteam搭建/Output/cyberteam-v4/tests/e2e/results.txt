@@ -1,0 +1,86 @@
+CyberTeam V4 E2E Test Report - Tue Mar 31 14:21:30 CST 2026
+Frontend: http://localhost:5173
+Backend: http://localhost:8000
+
+
+========================================
+PRE-FLIGHT: Service Check
+========================================
+  [PASS] Frontend (http://localhost:5173) responding with 200
+  [PASS] Backend (http://localhost:8000) responding with 200
+  Backend health: {"status":"ok","service":"CyberTeam V4 API","version":"4.0.0"}
+
+========================================
+TEST 1: Page Load
+========================================
+  Console errors detected: (no console errors)
+  [BUG #1] Console errors on /chat: (no console errors)
+  [PASS] Screenshot captured: 01-chat-page.png
+  [PASS] Chat page renders with expected elements (新建对话/搜索对话)
+  [PASS] Left navigation menu contains '对话'
+
+========================================
+TEST 2: Session List
+========================================
+  Snapshot elements count: 0
+0
+  API conversation count: 4
+  [PASS] Session list shows conversations from backend
+
+========================================
+TEST 3: Create New Session
+========================================
+  [FAIL] Could not find '新建对话' button
+
+========================================
+TEST 4: @ Department Mention
+========================================
+  Textarea ref: 
+  [FAIL] Could not find chat input textarea
+
+========================================
+TEST 5: Message Send
+========================================
+  Message count before: 2
+  [FAIL] Could not find textarea for message input
+
+========================================
+TEST 6: Layout Completeness
+========================================
+  [PASS] Left navigation sidebar present (仪表盘/对话/Agent管理)
+  [PASS] Middle content area (message area) present
+  [FAIL] Right panel - Agent execution status missing
+  [FAIL] Right panel - Task nodes panel missing
+  [PASS] Input area positioned at bottom of chat
+  Layout info: {"siderWidth":200,"contentHeight":720,"textareaVisible":true,"textareaRect":720,"viewportHeight":720}
+  [PASS] Input area is near bottom of viewport (0px from bottom)
+
+========================================
+TEST 7: Edge Cases
+========================================
+  [FAIL] Could not find textarea for edge case tests
+
+========================================
+TEST 8: Navigation & Back
+========================================
+  [FAIL] Back button not found in chat room
+
+========================================
+TEST 9: Console Error Summary
+========================================
+  Total console errors: 1
+  [BUG #2] Console errors found: (no console errors)
+
+========================================
+TEST SUMMARY
+========================================
+
+  Total Tests: 17
+  Passed:      10
+  Failed:      7
+  Bugs Found:  2
+  Pass Rate:   58.8%
+
+  Screenshots: /Users/cyberwiz/Documents/01_Project/00_cyberteam搭建/Output/cyberteam-v4/tests/e2e/screenshots
+  Full Report: /Users/cyberwiz/Documents/01_Project/00_cyberteam搭建/Output/cyberteam-v4/tests/e2e/results.txt
+  STATUS: SOME TESTS FAILED - SEE DETAILS ABOVE

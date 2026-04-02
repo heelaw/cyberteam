@@ -1,0 +1,9 @@
+{
+  "/_not-found/page": "/_not-found",
+  "/playground/page": "/playground",
+  "/market/page": "/market",
+  "/organization/page": "/organization",
+  "/chat/page": "/chat",
+  "/page": "/",
+  "/settings/page": "/settings"
+}

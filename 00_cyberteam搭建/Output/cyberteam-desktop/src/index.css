@@ -1,0 +1,339 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-primary: #0a0a0f;
+  --bg-secondary: #111118;
+  --bg-tertiary: #1a1a24;
+  --border-color: #2a2a3a;
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0b0;
+  --text-muted: #606070;
+  --accent-primary: #6366f1;
+  --accent-secondary: #818cf8;
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --error: #ef4444;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* 输入框样式 */
+input, textarea {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  border-radius: 6px;
+  padding: 8px 12px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+input:focus, textarea:focus {
+  border-color: var(--accent-primary);
+}
+
+input::placeholder, textarea::placeholder {
+  color: var(--text-muted);
+}
+
+/* 按钮样式 */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  gap: 6px;
+}
+
+.btn-primary {
+  background: var(--accent-primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: var(--accent-secondary);
+}
+
+.btn-secondary {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+  background: var(--border-color);
+}
+
+.btn-danger {
+  background: var(--error);
+  color: white;
+}
+
+.btn-danger:hover {
+  opacity: 0.9;
+}
+
+/* 卡片样式 */
+.card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+/* Agent 头像 */
+.agent-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  background: var(--bg-tertiary);
+  border: 2px solid var(--border-color);
+}
+
+.agent-avatar.online {
+  border-color: var(--success);
+}
+
+.agent-avatar.busy {
+  border-color: var(--warning);
+}
+
+/* 聊天消息 */
+.message {
+  max-width: 80%;
+  padding: 10px 14px;
+  border-radius: 12px;
+  word-break: break-word;
+}
+
+.message.user {
+  background: var(--accent-primary);
+  color: white;
+  margin-left: auto;
+  border-bottom-right-radius: 4px;
+}
+
+.message.assistant {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  border-bottom-left-radius: 4px;
+}
+
+/* 状态指示器 */
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.status-dot.online {
+  background: var(--success);
+}
+
+.status-dot.offline {
+  background: var(--text-muted);
+}
+
+.status-dot.busy {
+  background: var(--warning);
+}
+
+/* ==================== Markdown 渲染器 ==================== */
+.markdown-renderer {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #e5e7eb;
+}
+
+.markdown-renderer h1,
+.markdown-renderer h2,
+.markdown-renderer h3,
+.markdown-renderer h4 {
+  color: #f9fafb;
+  font-weight: 600;
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+
+.markdown-renderer h1 { font-size: 20px; }
+.markdown-renderer h2 { font-size: 17px; }
+.markdown-renderer h3 { font-size: 15px; }
+
+.markdown-renderer p {
+  margin-bottom: 8px;
+}
+
+.markdown-renderer a {
+  color: #60a5fa;
+  text-decoration: underline;
+}
+
+.markdown-renderer a:hover {
+  color: #93c5fd;
+}
+
+.markdown-renderer ul,
+.markdown-renderer ol {
+  padding-left: 20px;
+  margin-bottom: 8px;
+}
+
+.markdown-renderer li {
+  margin-bottom: 4px;
+}
+
+.markdown-renderer code.inline-code {
+  background-color: #374151;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-family: 'Fira Code', 'SF Mono', Consolas, monospace;
+}
+
+.markdown-renderer pre {
+  margin: 12px 0;
+  border-radius: 8px;
+  overflow-x: auto;
+}
+
+.markdown-renderer table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 8px 0;
+}
+
+.markdown-renderer th,
+.markdown-renderer td {
+  border: 1px solid #374151;
+  padding: 8px 12px;
+  text-align: left;
+}
+
+.markdown-renderer th {
+  background-color: #1f2937;
+  font-weight: 600;
+}
+
+.markdown-renderer blockquote {
+  border-left: 4px solid #3b82f6;
+  padding-left: 12px;
+  color: #9ca3af;
+  font-style: italic;
+  margin: 8px 0;
+}
+
+.markdown-renderer hr {
+  border: none;
+  border-top: 1px solid #374151;
+  margin: 16px 0;
+}
+
+.markdown-renderer input[type="checkbox"] {
+  margin-right: 6px;
+  accent-color: var(--accent-primary);
+}
+
+/* ==================== @mention 高亮 ==================== */
+.mention {
+  background-color: rgba(59, 130, 246, 0.2);
+  color: #93c5fd;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.mention:hover {
+  background-color: rgba(59, 130, 246, 0.3);
+}
+
+/* ==================== Agent Mention 选择器 ==================== */
+.agent-mention-selector {
+  animation: slideUp 0.15s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==================== 打字机光标 ==================== */
+.streaming-cursor {
+  display: inline-block;
+  background-color: #3b82f6;
+  height: 1.1em;
+  width: 2px;
+  border-radius: 1px;
+  vertical-align: text-bottom;
+  animation: blink 1.06s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ==================== 表格滚动 ==================== */
+.table-wrapper {
+  overflow-x: auto;
+  margin: 8px 0;
+}
+
+.table-wrapper table {
+  min-width: 100%;
+}

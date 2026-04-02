@@ -110,6 +110,12 @@ class TaskContext:
     stage_results: dict = field(default_factory=dict)
     messages: list = field(default_factory=list)
     cancelled: bool = False
+    # ========== 新增：项目相关字段 ==========
+    project_id: Optional[str] = None  # 项目ID
+    project_name: Optional[str] = None  # 项目名称
+    project_path: Optional[str] = None  # 项目本地路径
+    business_context: str = ""  # 业务背景内容
+    # =========================================
 
 
 # ============================================================================
@@ -769,7 +775,19 @@ class CyberTeamV4:
         print("-" * 40)
 
         start_time = datetime.now()
-        routing = self.router.route(ctx.user_input)
+
+        # 构建路由上下文（包含项目上下文）
+        route_context = None
+        if ctx.business_context:
+            route_context = {
+                "project_id": ctx.project_id,
+                "project_name": ctx.project_name,
+                "project_path": ctx.project_path,
+                "business_context": ctx.business_context,
+            }
+            print(f"  项目上下文: {ctx.project_name} (已加载业务背景)")
+
+        routing = self.router.route(ctx.user_input, context=route_context)
         ctx.routing = routing
 
         print(f"  意图识别: {routing.intent}")
@@ -794,6 +812,7 @@ class CyberTeamV4:
             "target_name": routing.target_name,
             "reason": routing.reason,
             "expert_inboxes": ctx.expert_inboxes,
+            "project_context": route_context,
             "duration": duration,
             "status": "success"
         }
@@ -806,18 +825,28 @@ class CyberTeamV4:
         start_time = datetime.now()
         messages_sent = 0
 
-        # 构建任务消息
+        # ========== 构建任务消息（注入业务背景）==========
+        business_context_section = ""
+        if ctx.business_context:
+            business_context_section = f"""
+## 业务背景
+
+{ctx.business_context}
+
+"""
+
         task_message = f"""
 任务来源: 用户
 任务描述: {ctx.user_input}
 
-路由信息:
+{business_context_section}路由信息:
 - 意图: {ctx.routing.intent}
 - 复杂度: {ctx.routing.complexity}
 - 目标: {ctx.routing.target} → {ctx.routing.target_name}
 
 请进行策略讨论并向我汇报。
 """
+        # =============================================
 
         # 发送消息给 COO
         self.mailbox.send(
@@ -829,6 +858,8 @@ class CyberTeamV4:
         messages_sent += 1
 
         print(f"  → 已发送任务消息给 COO")
+        if ctx.business_context:
+            print(f"  → 业务背景: 已注入 ({len(ctx.business_context)} 字符)")
         print(f"  → 等待 COO 确认...")
 
         duration = (datetime.now() - start_time).total_seconds()

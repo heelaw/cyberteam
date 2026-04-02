@@ -1,0 +1,58 @@
+{
+  "dimension": "工作管理",
+  "version": "2.0",
+  "author": "Cyberwiz",
+  "review_status": "待审查",
+  "review_required": true,
+  "review_threshold": 90,
+  "items": [
+    {
+      "id": "1",
+      "item": "流程梳理完整性",
+      "weight": 20,
+      "criteria": "现有流程能够被完整梳理，问题识别准确",
+      "measurement": "用户确认问题识别准确率≥90%"
+    },
+    {
+      "id": "2",
+      "item": "SOP可执行性",
+      "weight": 25,
+      "criteria": "SOP设计简洁实用，可直接指导执行，层级不超过3层",
+      "measurement": "执行成功率≥95%"
+    },
+    {
+      "id": "3",
+      "item": "执行跟踪有效性",
+      "weight": 20,
+      "criteria": "建立有效的进度跟踪机制，能及时发现并解决问题",
+      "measurement": "任务按时完成率≥90%"
+    },
+    {
+      "id": "4",
+      "item": "复盘优化效果",
+      "weight": 15,
+      "criteria": "复盘流程标准化，能有效沉淀经验并推动改进",
+      "measurement": "优化建议采纳率≥70%"
+    },
+    {
+      "id": "5",
+      "item": "整体效率提升",
+      "weight": 20,
+      "criteria": "通过流程优化和SOP实施，工作效率有显著提升",
+      "measurement": "流程效率提升≥20%"
+    }
+  ],
+  "scoring_rules": {
+    "excellent": "95-100",
+    "good": "85-94",
+    "pass": "75-84",
+    "fail": "0-74"
+  },
+  "review_dimensions": [
+    "流程梳理完整性",
+    "SOP可执行性",
+    "执行跟踪有效性",
+    "复盘优化效果",
+    "整体效率提升"
+  ]
+}

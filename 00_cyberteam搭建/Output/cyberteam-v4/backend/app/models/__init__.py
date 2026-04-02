@@ -305,11 +305,15 @@ class Project(Base):
     __tablename__ = "projects"
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    user_id: Mapped[str] = mapped_column(String(36), index=True)  # ========== 添加 user_id ==========
     name: Mapped[str] = mapped_column(String(200), index=True)
     description: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     goal: Mapped[str] = mapped_column(Text, default="")
     tags: Mapped[str] = mapped_column(JSON, default=list)
     extra_data: Mapped[Optional[str]] = mapped_column(JSON, nullable=True)  # 避免与SQLAlchemy保留字metadata冲突
+    # ========== 新增字段：本地文件夹路径 ==========
+    local_path: Mapped[Optional[str]] = mapped_column(String(512), nullable=True)
+    # =============================================
     status: Mapped[str] = mapped_column(String(20), default="active", index=True)
     task_count: Mapped[int] = mapped_column(Integer, default=0)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
@@ -319,11 +323,13 @@ class Project(Base):
         """转换为字典。"""
         return {
             "project_id": self.id,
+            "user_id": self.user_id,
             "name": self.name,
             "description": self.description,
             "goal": self.goal,
             "tags": self.tags if isinstance(self.tags, list) else [],
             "metadata": self.extra_data or {},
+            "local_path": self.local_path or "",
             "status": self.status,
             "task_count": self.task_count,
             "created_at": self.created_at.isoformat() if self.created_at else None,

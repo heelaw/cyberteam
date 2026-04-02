@@ -1,0 +1,11 @@
+{
+  "name": "@cyberteam/renderer",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev -p 3000",
+    "build": "next build",
+    "typecheck": "next typegen && tsc -p tsconfig.json --noEmit"
+  }
+}

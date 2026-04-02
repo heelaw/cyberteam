@@ -7,9 +7,9 @@
  * - WebSocket 实时推送 Agent 状态事件（/ws/{user_id}）
  * - 右栏 Agent 状态面板随 SSE 事件实时更新
  */
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { Input, Button, Card, Tag, Avatar, Space, Timeline, Typography, message } from 'antd'
+import { Input, Button, Card, Tag, Avatar, Space, Timeline, Typography, message, Select, Alert } from 'antd'
 import {
   SendOutlined,
   RobotOutlined,
@@ -18,9 +18,12 @@ import {
   ThunderboltOutlined,
   EyeOutlined,
   ArrowLeftOutlined,
+  ProjectOutlined,
 } from '@ant-design/icons'
+import DOMPurify from 'dompurify'
 import ReactMarkdown from 'react-markdown'
 import { fetchMessages, sendMessage } from '@/apis/modules/chat'
+import { fetchProjects, fetchProjectContext, type Project, type ProjectContext } from '@/apis/modules/projects'
 import { wsClient } from '@/apis/clients/websocket'
 import type { Message } from '@/types'
 import { cn } from '@/utils/cn'
@@ -31,7 +34,7 @@ const { TextArea } = Input
 const { Text } = Typography
 
 // === Agent 状态面板类型 ===
-type AgentStatus = 'pending' | 'running' | 'done' | 'error'
+type AgentStatus = 'pending' | 'thinking' | 'running' | 'done' | 'error'
 
 interface AgentStatusItem {
   name: string
@@ -95,6 +98,31 @@ const tagColor = (dept: string) => {
   return 'default'
 }
 
+// === 部门选项类型 ===
+interface DeptOption {
+  label: string      // 显示名称（部门名）
+  value: string      // 部门代码
+  agent: string      // 对应 Agent 名称
+}
+
+// === 轮询常量 ===
+const MAX_POLLS = 20
+const POLL_INTERVAL = 2000
+const MAX_POLL_ERRORS = 3
+
+// 从 deptAgentMap 提取唯一的部门选项
+const deptOptions: DeptOption[] = [
+  { label: 'CEO', value: 'ceo', agent: 'CEO' },
+  { label: 'COO', value: 'coo', agent: 'COO' },
+  { label: '决策层', value: '决策层', agent: 'CEO' },
+  { label: '质量门禁', value: '质量门禁', agent: '质疑者' },
+  { label: '协调层', value: '协调层', agent: '增长总监' },
+  { label: '增长总监', value: 'growth', agent: '增长总监' },
+  { label: '产品总监', value: 'product', agent: '产品总监' },
+  { label: '运营总监', value: 'ops', agent: '运营总监' },
+  { label: '运营', value: '运营', agent: '运营总监' },
+]
+
 export default function ChatRoom() {
   const { id: conversationId } = useParams<{ id: string }>()
   const navigate = useNavigate()
@@ -108,10 +136,162 @@ export default function ChatRoom() {
   const [loading, setLoading] = useState(false)
   const [sending, setSending] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+
+  // ========== 新增：项目选择相关状态 ==========
+  const [projects, setProjects] = useState<Project[]>([])
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+  const [projectContext, setProjectContext] = useState<ProjectContext | null>(null)
+  const [loadingProjects, setLoadingProjects] = useState(false)
+
+  // 加载项目列表
+  useEffect(() => {
+    setLoadingProjects(true)
+    fetchProjects()
+      .then(setProjects)
+      .catch(() => setProjects([]))
+      .finally(() => setLoadingProjects(false))
+  }, [])
+
+  // 当选择项目时，加载项目上下文
+  const handleProjectChange = useCallback(async (projectId: string | null) => {
+    if (!projectId) {
+      setSelectedProject(null)
+      setProjectContext(null)
+      return
+    }
+    const project = projects.find(p => p.id === projectId)
+    setSelectedProject(project || null)
+    if (project) {
+      try {
+        const ctx = await fetchProjectContext(projectId)
+        setProjectContext(ctx)
+        if (ctx?.has_context) {
+          message.info(`已加载项目「${project.name}」的业务背景`)
+        }
+      } catch {
+        message.error('加载项目上下文失败')
+        setProjectContext(null)
+      }
+    } else {
+      setProjectContext(null)
+    }
+  }, [projects])
+  // ==========================================
   // StreamSessionManager session id，用于跨 HMR 保持订阅
   const sessionIdRef = useRef<string | null>(null)
   // unsubscribe 函数引用
   const unsubscribeRef = useRef<(() => void) | null>(null)
+
+  // === @ 提及功能状态 ===
+  const [mentionSearch, setMentionSearch] = useState<string | null>(null)
+  const [selectedIndex, setSelectedIndex] = useState(0)
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
+  const pollTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  // 根据搜索过滤部门选项（useMemo 避免每次渲染创建新数组）
+  const filteredOptions = useMemo(() =>
+    mentionSearch === null
+      ? deptOptions
+      : deptOptions.filter(opt =>
+          opt.label.toLowerCase().includes(mentionSearch.toLowerCase()) ||
+          opt.agent.toLowerCase().includes(mentionSearch.toLowerCase())
+        )
+  , [mentionSearch])
+
+  // 插入提及文本到光标位置
+  const insertMention = useCallback((option: DeptOption) => {
+    const textarea = textareaRef.current
+    if (!textarea) return
+
+    // 统一用 DOM value 计算，避免 React state 和 DOM 不同步
+    const domValue = textarea.value
+    const selStart = textarea.selectionStart
+    const selEnd = textarea.selectionEnd
+    const beforeCursor = domValue.substring(0, selStart)
+    const afterCursor = domValue.substring(selEnd)
+
+    // 找到最后一个 @ 符号的位置
+    const atIndex = beforeCursor.lastIndexOf('@')
+    if (atIndex === -1) return
+
+    // 构建新文本：@部门名 + 空格（替换 @ 符号后的搜索词）
+    const newText = beforeCursor.substring(0, atIndex) + `@${option.agent} ` + afterCursor
+    setInput(newText)
+
+    // 重置提及状态
+    setMentionSearch(null)
+    setSelectedIndex(0)
+
+    // 设置光标位置到插入文本之后
+    setTimeout(() => {
+      const newPos = atIndex + option.agent.length + 2 // @ + agent名 + 空格
+      textarea.focus()
+      textarea.selectionStart = newPos
+      textarea.selectionEnd = newPos
+    }, 0)
+  }, [])
+
+  // 处理键盘事件
+  const handleMentionKeyDown = useCallback((e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (mentionSearch === null) return
+
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault()
+        setSelectedIndex(i => Math.min(i + 1, filteredOptions.length - 1))
+        break
+      case 'ArrowUp':
+        e.preventDefault()
+        setSelectedIndex(i => Math.max(i - 1, 0))
+        break
+      case 'Enter':
+        e.preventDefault()
+        if (filteredOptions[selectedIndex]) {
+          insertMention(filteredOptions[selectedIndex])
+        }
+        break
+      case 'Escape':
+        e.preventDefault()
+        setMentionSearch(null)
+        setSelectedIndex(0)
+        break
+    }
+  }, [mentionSearch, filteredOptions, selectedIndex, insertMention])
+
+  // 处理 TextArea 变化，检测 @ 触发
+  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value
+    const cursorPos = e.target.selectionStart
+    setInput(value)
+
+    // 查找光标前最近的 @
+    const textBeforeCursor = value.substring(0, cursorPos)
+    const lastAtIndex = textBeforeCursor.lastIndexOf('@')
+
+    if (lastAtIndex !== -1) {
+      // 检查 @ 后面是否有空格或其他分隔符
+      const textAfterAt = textBeforeCursor.substring(lastAtIndex + 1)
+      if (!textAfterAt.includes(' ') && !textAfterAt.includes('\n')) {
+        // @ 后面没有分隔符，显示下拉
+        const searchText = textAfterAt
+        setMentionSearch(searchText)
+        setSelectedIndex(0)
+        return
+      }
+    }
+
+    // 没有有效的 @，关闭下拉
+    setMentionSearch(null)
+  }, [])
+
+  // 点击外部关闭下拉
+  useEffect(() => {
+    const handleClickOutside = () => setMentionSearch(null)
+    if (mentionSearch !== null) {
+      document.addEventListener('click', handleClickOutside)
+      return () => document.removeEventListener('click', handleClickOutside)
+    }
+  }, [mentionSearch])
 
   // 滚动到底部
   const scrollToBottom = useCallback(() => {
@@ -242,7 +422,9 @@ export default function ChatRoom() {
         setStreamingContent('')
         // 刷新消息列表
         if (conversationId) {
-          fetchMessages(conversationId).then(setMessages)
+          fetchMessages(conversationId).then(setMessages).catch(() => {
+            message.error('刷新消息列表失败')
+          })
         }
       },
     }
@@ -255,10 +437,19 @@ export default function ChatRoom() {
     setInput('')
     setSending(true)
 
+    // ========== 新增：构建带项目上下文的完整消息 ==========
+    let fullContent = userContent
+    if (selectedProject && projectContext?.business_context) {
+      fullContent = `【项目：${selectedProject.name}】\n\n` +
+        `【业务背景】\n${projectContext.business_context}\n\n` +
+        `【用户问题】\n${userContent}`
+    }
+    // ====================================================
+
     // 1. 发送用户消息
     let userMsg: Message
     try {
-      userMsg = await sendMessage(conversationId, { content: userContent })
+      userMsg = await sendMessage(conversationId, { content: fullContent })
       setMessages((prev) => [...prev, userMsg])
     } catch {
       message.error('发送失败，请检查后端服务')
@@ -267,29 +458,59 @@ export default function ChatRoom() {
     }
 
     // 2. 重置 Agent 面板状态
-    setAgentPanel(defaultAgents.map((a) => ({ ...a, status: 'pending' as AgentStatus })))
+    setAgentPanel(defaultAgents.map((a) => ({ ...a, status: 'thinking' as AgentStatus })))
     setProcessStep(0)
     setIsStreaming(true)
 
-    // 3. 通过 StreamSessionManager 启动并订阅 SSE 流
-    const manager = StreamSessionManager.getInstance()
-    const session = manager.startStream(conversationId, userContent)
-    sessionIdRef.current = session.id
-    const callbacks = buildSSECallbacks()
-    const unsubscribe = manager.subscribe(session.id, callbacks)
-    unsubscribeRef.current = unsubscribe
+    // 3. 轮询获取 Agent 响应（SSE 尚未实现，临时用轮询）
+    let pollCount = 0
+    let errorCount = 0
+    const pollForResponse = async () => {
+      if (pollCount >= MAX_POLLS) {
+        setIsStreaming(false)
+        setAgentPanel(prev => prev.map(a => ({ ...a, status: 'done' as AgentStatus, output: '处理完成' })))
+        return
+      }
+      pollCount++
+      try {
+        const msgs = await fetchMessages(conversationId)
+        errorCount = 0 // 重置错误计数
+        const latest = msgs[msgs.length - 1]
+        // 如果有新消息（非用户发的），说明 Agent 已响应
+        if (latest && latest.senderType !== 'user') {
+          setMessages(msgs)
+          setAgentPanel(prev => prev.map(a => ({ ...a, status: 'done' as AgentStatus })))
+          setIsStreaming(false)
+          return
+        }
+      } catch {
+        errorCount++
+        if (errorCount >= MAX_ERRORS) {
+          message.warning('获取 Agent 响应时遇到问题，请检查后端服务')
+          setIsStreaming(false)
+          return
+        }
+      }
+      pollTimerRef.current = setTimeout(pollForResponse, POLL_INTERVAL)
+    }
+    pollForResponse()
 
     setSending(false)
   }
 
-  // 组件卸载时取消订阅并关闭 session
+  // 组件卸载时取消订阅、清理轮询、关闭 session
   useEffect(() => {
     return () => {
+      // 清理轮询计时器
+      if (pollTimerRef.current) {
+        clearTimeout(pollTimerRef.current)
+        pollTimerRef.current = null
+      }
       unsubscribeRef.current?.()
       if (sessionIdRef.current) {
         StreamSessionManager.getInstance().closeSession(sessionIdRef.current)
       }
-      wsClient.disconnect()
+      wsClient.cleanup() // 只关闭连接，不禁用重连
     }
   }, [])
 
@@ -305,12 +526,35 @@ export default function ChatRoom() {
 
   return (
     <div className="flex h-full">
-      {/* 中栏：消息流 */}
-      <div className="flex-1 flex flex-col">
+      {/* 中栏：消息流 + 输入（Grid 布局确保输入区固定在底部） */}
+      <div className="flex-1 flex flex-col" style={{ minHeight: 0 }}>
         {/* 顶部栏 */}
-        <div className="border-b bg-white px-4 py-2 flex items-center gap-3">
+        <div className="border-b bg-white px-4 py-2 flex items-center gap-3 shrink-0">
           <Button icon={<ArrowLeftOutlined />} onClick={() => navigate('/chat')} type="text" />
-          <Text strong>对话 {conversationId.slice(0, 8)}...</Text>
+          <Text strong>对话 {conversationId?.slice(0, 8)}...</Text>
+
+          {/* ========== 新增：项目选择器 ========== */}
+          <Select
+            placeholder="选择项目（可选）"
+            value={selectedProject?.id}
+            onChange={handleProjectChange}
+            allowClear
+            loading={loadingProjects}
+            style={{ width: 200 }}
+            suffixIcon={<ProjectOutlined />}
+            options={projects.map(p => ({
+              value: p.id,
+              label: (
+                <Space>
+                  <ProjectOutlined />
+                  {p.name}
+                  {p.local_path && <span className="text-gray-400 text-xs">📁</span>}
+                </Space>
+              ),
+            }))}
+          />
+          {/* ==================================== */}
+
           <div className="flex-1" />
           {isStreaming && (
             <Tag color="processing" className="animate-pulse">
@@ -319,8 +563,49 @@ export default function ChatRoom() {
           )}
         </div>
 
-        {/* 消息区域 */}
-        <div className="flex-1 overflow-auto p-4 space-y-4">
+        {/* 消息区域（flex-1 + overflow-auto 自动填满中间） */}
+        <div className="flex-1 overflow-auto p-4 space-y-4" style={{ minHeight: 0 }}>
+          {/* ========== 新增：项目上下文提示 ========== */}
+          {selectedProject && projectContext?.has_context && (
+            <Alert
+              message={
+                <Space>
+                  <ProjectOutlined />
+                  <span>当前项目：<Text strong>{selectedProject.name}</Text></span>
+                  <Tag color="green">业务背景已加载</Tag>
+                </Space>
+              }
+              description={
+                <Text type="secondary" className="text-xs">
+                  系统将基于业务背景进行分析。如需更新背景，请修改项目目录下的 context/business_context.md
+                </Text>
+              }
+              type="info"
+              showIcon
+              style={{ marginBottom: 8 }}
+            />
+          )}
+          {selectedProject && !projectContext?.has_context && (
+            <Alert
+              message={
+                <Space>
+                  <ProjectOutlined />
+                  <span>当前项目：<Text strong>{selectedProject.name}</Text></span>
+                  <Tag color="warning">暂无业务背景</Tag>
+                </Space>
+              }
+              description={
+                <Text type="secondary" className="text-xs">
+                  项目目录下未找到 context/business_context.md。请创建该文件或关联已有项目文件夹。
+                </Text>
+              }
+              type="warning"
+              showIcon
+              style={{ marginBottom: 8 }}
+            />
+          )}
+          {/* ====================================== */}
+
           {loading ? (
             <div className="text-center text-gray-400 mt-8">加载消息...</div>
           ) : messages.length === 0 && !isStreaming ? (
@@ -354,13 +639,11 @@ export default function ChatRoom() {
                       </div>
                     )}
                     <div className="prose prose-sm max-w-none">
-                      <ReactMarkdown>{msg.content}</ReactMarkdown>
+                      <ReactMarkdown>{DOMPurify.sanitize(msg.content)}</ReactMarkdown>
                     </div>
                   </Card>
                 </div>
               ))}
-
-              {/* 流式输出（实时显示 Agent 输出） */}
               {isStreaming && streamingContent && (
                 <div className="flex gap-3">
                   <Avatar
@@ -373,7 +656,7 @@ export default function ChatRoom() {
                       <Tag color="blue" className="text-xs animate-pulse">流式输出</Tag>
                     </div>
                     <div className="prose prose-sm max-w-none">
-                      <ReactMarkdown>{streamingContent}</ReactMarkdown>
+                      <ReactMarkdown>{DOMPurify.sanitize(streamingContent)}</ReactMarkdown>
                     </div>
                   </Card>
                 </div>
@@ -383,35 +666,76 @@ export default function ChatRoom() {
           <div ref={messagesEndRef} />
         </div>
 
-        {/* 输入区 */}
-        <div className="border-t bg-white p-3">
-          <Space.Compact className="w-full">
-            <TextArea
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="输入消息... (@提及 Agent 如 @增长总监)"
-              autoSize={{ minRows: 1, maxRows: 4 }}
-              onPressEnter={(e) => {
-                if (!e.shiftKey) { e.preventDefault(); handleSend() }
-              }}
-              className="flex-1"
-              disabled={sending || isStreaming}
-            />
-            <Button
-              type="primary"
-              icon={<SendOutlined />}
-              onClick={handleSend}
-              className="h-auto"
-              loading={sending || isStreaming}
-            >
-              {isStreaming ? '执行中' : '发送'}
-            </Button>
-          </Space.Compact>
+        {/* 输入区（shrink-0 防止被压缩） */}
+        <div className="border-t bg-white p-3 shrink-0">
+          <div className="relative overflow-visible" style={{ position: 'relative', width: '100%' }}>
+            <div className="flex w-full gap-2 items-end">
+              <textarea
+                ref={textareaRef}
+                value={input}
+                onChange={handleInputChange}
+                onKeyDown={handleMentionKeyDown}
+                placeholder="输入消息... (@提及 Agent 如 @增长总监)"
+                rows={1}
+                className="flex-1 resize-none border rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-blue-400 disabled:bg-gray-50 disabled:text-gray-400"
+                disabled={sending || isStreaming}
+              />
+              <Button
+                type="primary"
+                icon={<SendOutlined />}
+                onClick={handleSend}
+                loading={sending || isStreaming}
+              >
+                {isStreaming ? '执行中' : '发送'}
+              </Button>
+            </div>
+
+            {/* @ 提及下拉框（内联样式确保 position:absolute 生效） */}
+            {mentionSearch !== null && filteredOptions.length > 0 && (
+              <div
+                style={{
+                  position: 'absolute',
+                  zIndex: 9999,
+                  top: 'calc(100% + 4px)',
+                  left: 0,
+                  width: '100%',
+                  maxHeight: '256px',
+                  overflowY: 'auto',
+                  backgroundColor: '#ffffff',
+                  border: '1px solid #e5e7eb',
+                  borderRadius: '8px',
+                  boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)',
+                }}
+              >
+                {filteredOptions.map((opt, index) => (
+                  <div
+                    key={opt.value}
+                    className={cn(
+                      'px-3 py-2 cursor-pointer flex items-center justify-between',
+                      index === selectedIndex ? 'bg-blue-50' : 'hover:bg-gray-50'
+                    )}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      insertMention(opt)
+                    }}
+                  >
+                    <div className="flex items-center gap-2">
+                      <Tag color={tagColor(opt.label)} className="text-xs">{opt.label}</Tag>
+                      <span className="text-sm text-gray-600">{opt.agent}</span>
+                    </div>
+                    {index === selectedIndex && (
+                      <span className="text-xs text-blue-500">按 Enter 选择</span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
       {/* 右栏：Agent 状态面板 */}
-      <div className="w-72 border-l bg-white p-4 overflow-auto">
+      <div className="w-72 border-l border-t bg-white p-4 overflow-auto shrink-0">
         <Typography.Title level={5} className="mb-3">Agent 执行状态</Typography.Title>
         <Timeline
           items={agentPanel.map((a) => ({
