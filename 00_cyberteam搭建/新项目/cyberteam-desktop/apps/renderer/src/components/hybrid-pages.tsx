@@ -124,10 +124,9 @@ function getDatabaseCounts(runtime: RuntimeState | null) {
 }
 
 function resolveRoadmap(seed: SeedState, runtime: RuntimeState | null) {
-  const roadmap = runtime?.database?.roadmapPhases
+  const roadmap = runtime?.database?.roadmapPhases ?? []
 
-  // Runtime has priority; fall back to seed if runtime is unavailable or has no phases
-  if (runtime && roadmap?.length) {
+  if (runtime) {
     return [...roadmap].sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0))
   }
 
@@ -135,16 +134,25 @@ function resolveRoadmap(seed: SeedState, runtime: RuntimeState | null) {
 }
 
 function resolveConversation(seed: SeedState, runtime: RuntimeState | null, conversationId?: string) {
-  if (conversationId && runtime?.database?.conversations) {
-    return runtime.database.conversations.find((conversation) => conversation.id === conversationId)
-      ?? runtime.database.conversations[0]
+  if (runtime) {
+    const runtimeConversations = runtime.database?.conversations ?? []
+
+    if (!runtimeConversations.length) {
+      return undefined
+    }
+
+    if (conversationId) {
+      return runtimeConversations.find((conversation) => conversation.id === conversationId)
+    }
+
+    return runtimeConversations[0]
   }
 
-  if (!conversationId) {
-    return seed.conversations[0]
+  if (conversationId) {
+    return seed.conversations.find((conversation) => conversation.id === conversationId) ?? seed.conversations[0]
   }
 
-  return seed.conversations.find((conversation) => conversation.id === conversationId) ?? seed.conversations[0]
+  return seed.conversations[0]
 }
 
 function resolveAgentName(seed: SeedState, runtime: RuntimeState | null, agentId?: string) {
@@ -162,10 +170,9 @@ function getSeedConversationParticipantCount(seed: SeedState, conversationId: st
 }
 
 function resolveMessages(seed: SeedState, runtime: RuntimeState | null, conversationId: string) {
-  const runtimeMessages = runtime?.database?.messagesByConversation?.[conversationId]
+  const runtimeMessages = runtime?.database?.messagesByConversation?.[conversationId] ?? []
 
-  // Runtime has priority; fall back to seed if runtime is unavailable or has no messages
-  if (runtime && runtimeMessages?.length) {
+  if (runtime) {
     return runtimeMessages.map((message) => ({
       id: message.id,
       content: message.content,
@@ -181,8 +188,11 @@ function resolveMessages(seed: SeedState, runtime: RuntimeState | null, conversa
 function resolveActiveConversation(seed: SeedState, runtime: RuntimeState | null) {
   const runtimeConversations = runtime?.database?.conversations
 
-  // Runtime has priority; fall back to seed if runtime is unavailable or has no conversations
-  if (runtimeConversations?.length) {
+  if (runtime) {
+    if (!runtimeConversations?.length) {
+      return undefined
+    }
+
     return runtimeConversations.find((conversation) => conversation.type !== 'private')
       ?? runtimeConversations[0]
   }
@@ -534,11 +544,13 @@ export function ChatView({ seed }: { seed: SeedState }) {
       return
     }
 
+    const senderId = runtime?.database?.agents?.[0]?.id ?? seed.organization.agents[0]?.id
+
     setSending(true)
     try {
       await api.chat.sendMessage(activeConversationId, {
         content,
-        senderId: seed.organization.agents[0]?.id,
+        senderId,
         mentions: [],
       })
 
