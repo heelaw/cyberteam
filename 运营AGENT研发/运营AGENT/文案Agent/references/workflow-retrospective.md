@@ -233,9 +233,83 @@ if all(criteria):
     stop and publish the handoff state
 ```
 
+## 本轮经验教训
+
+- 结构只写主线会显得薄，必须补齐看什么、怎么采、怎么判、怎么错、怎么回退。
+- 每个 Skill 至少要同时具备：判定标准、反例、边界、输出骨架、QA、回退路径。
+- 文档越厚，不是越啰嗦，而是越能让新人直接执行、让旧窗口无缝接手。
+- 以后扩散新章节时，先复制这套密度，再做章节差异，不要重新发明格式。
+- 新窗口接手最关键的不是“看过很多”，而是“能直接开始改，且知道先改哪里”。
+
+## 本轮已加厚的节点
+
+- `judge-scenario`
+- `select-structure`
+- `draft-copy`
+- `edit-copy`
+- `self-check-copy`
+
 ## 当前建议
 
 - 继续优先加厚最薄的 Skill，不要平均铺开。
 - 先把 `run.py` 补齐，再做二轮内容加厚。
 - 每完成一轮，就把经验回写到这份总接手文档。
 - 后续新章节必须先读这份文档，再开始改文件。
+
+## 新窗口开工清单
+
+新对话如果要无损接手，按这个顺序读完就够：
+
+1. [`SKILL.md`](/Users/cyberwiz/Documents/01_Project/运营AGENT研发/运营AGENT/文案Agent/SKILL.md)
+2. [`SOUL.md`](/Users/cyberwiz/Documents/01_Project/运营AGENT研发/运营AGENT/文案Agent/SOUL.md)
+3. [`references/route-map.md`](/Users/cyberwiz/Documents/01_Project/运营AGENT研发/运营AGENT/文案Agent/references/route-map.md)
+4. [`references/platform-presets.md`](/Users/cyberwiz/Documents/01_Project/运营AGENT研发/运营AGENT/文案Agent/references/platform-presets.md)
+5. [`references/method-matrix.md`](/Users/cyberwiz/Documents/01_Project/运营AGENT研发/运营AGENT/文案Agent/references/method-matrix.md)
+6. [`references/assessment.md`](/Users/cyberwiz/Documents/01_Project/运营AGENT研发/运营AGENT/文案Agent/references/assessment.md)
+7. [`references/workflow-retrospective.md`](/Users/cyberwiz/Documents/01_Project/运营AGENT研发/运营AGENT/文案Agent/references/workflow-retrospective.md)
+8. 目标 Skill 的 `SKILL.md`
+9. 目标 Skill 的 `references/reference.md`
+10. 目标 Skill 的 `assessments/assessment.md`
+11. 目标 Skill 的 `scripts/run.py`
+
+## 现在该怎么看质量
+
+把每个 Skill 当成一个新人岗前 SOP 来看，检查四件事：
+
+1. 能不能独立启动，不依赖上下文猜题。
+2. 能不能做出判断，不只是复述知识。
+3. 能不能说清楚什么是好、什么是坏、什么绝对不能做。
+4. 能不能在失败时知道回到哪里补证据。
+
+## 这次工作真正修正了什么
+
+- 以前的问题不是“有没有知识”，而是“知识有没有变成可执行判断”。
+- 以前的问题不是“有没有 Skill”，而是“Skill 有没有厚到新人能照着做”。
+- 以前的问题不是“有没有流程”，而是“流程有没有带 QA、回退和边界”。
+- 以前的问题不是“有没有输出”，而是“输出能不能直接喂给下一跳”。
+
+## 后续扩散规则
+
+- 每新增一个章节，先把它拆成最小单元，再写三件套。
+- 每个最小单元都必须有输入、判断、输出、边界、失败案例、QA。
+- 如果一个文件里同时出现多个目标，就继续拆，不要硬合并。
+- 如果一个 Skill 的 reference 还不能让新人做事，就继续补例子和反例，直到能做。
+
+## 批量化作业顺序
+
+1. 找最薄的单元。
+2. 补 SOP。
+3. 补案例。
+4. 补反例。
+5. 补红线。
+6. 补 QA。
+7. 补回退路径。
+8. 跑校验脚本。
+9. 记录到复盘文档。
+
+## 质量底线
+
+- 不是“写得像”，而是“能干活”。
+- 不是“看着完整”，而是“遇到分叉时知道怎么判”。
+- 不是“有例子”，而是“例子能覆盖边界和失败”。
+- 不是“能过一遍”，而是“新窗口也能接着干”。

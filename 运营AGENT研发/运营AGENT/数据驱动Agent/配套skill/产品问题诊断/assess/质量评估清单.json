@@ -1,213 +1,198 @@
 {
   "skill_name": "产品问题诊断",
-  "version": "1.0.0",
-  "assess_date": "2026-03-19",
+  "version": "1.1.0",
+  "assess_date": "2026-04-02",
   "assessor": "系统评估",
   "quality_dimension": [
     {
       "dimension": "完整性",
-      "weight": 20,
-      "description": "评估问题诊断框架的完整程度",
+      "weight": 25,
+      "description": "评估是否覆盖现象、拆解、定位、假设、验证、恢复六步",
       "levels": {
         "excellent": {
           "score": 5,
-          "description": "五步诊断法完整，问题定义清晰，多维度拆分全面"
+          "description": "六步完整，且每步都可复核"
         },
         "good": {
           "score": 4,
-          "description": "五步诊断法基本完整，有轻微遗漏"
+          "description": "六步齐全，少量非关键细节遗漏"
         },
         "acceptable": {
           "score": 3,
-          "description": "部分步骤缺失，但核心框架完整"
+          "description": "主框架完整，但辅助内容略少"
         },
         "poor": {
           "score": 1,
-          "description": "诊断框架严重缺失"
+          "description": "关键步骤缺失，无法闭环"
         }
       },
       "criteria": [
-        "是否包含问题定义（现象/范围/严重程度）",
-        "是否有多维度拆分（时间/渠道/用户/功能）",
-        "是否有定位问题和提出假设",
-        "是否有验证和解决方案"
+        "是否先定义现象与严重程度",
+        "是否有四维度拆解",
+        "是否有问题定位与假设清单",
+        "是否有验证、止损和恢复动作"
       ]
     },
     {
       "dimension": "实用性",
       "weight": 20,
-      "description": "评估解决方案的可执行性和落地价值",
+      "description": "评估解决方案是否能直接派给执行团队",
       "levels": {
         "excellent": {
           "score": 5,
-          "description": "方案具体可执行，有明确优先级和时间预期"
+          "description": "动作明确，能立即执行"
         },
         "good": {
           "score": 4,
-          "description": "方案较具体，有优先级"
+          "description": "动作明确，预期略粗"
         },
         "acceptable": {
           "score": 3,
-          "description": "方案方向正确但较模糊"
+          "description": "方向对，但动作不够细"
         },
         "poor": {
           "score": 1,
-          "description": "方案空洞无法落地"
+          "description": "只有判断，没有动作"
         }
       },
       "criteria": [
-        "每个问题是否有对应的解决方案",
-        "方案是否有明确优先级（P0/P1/P2）",
-        "方案是否有可量化的预期效果"
+        "是否有 P0/P1/P2 动作",
+        "是否有验证顺序",
+        "是否有恢复和预防动作"
       ]
     },
     {
       "dimension": "专业性",
       "weight": 20,
-      "description": "评估归因分析的准确性和专业性",
+      "description": "评估归因是否专业、是否避免单因归因",
       "levels": {
         "excellent": {
           "score": 5,
-          "description": "归因逻辑严密，多维度分析，根因验证方案完整"
+          "description": "归因有层次，能区分主因和次因"
         },
         "good": {
           "score": 4,
-          "description": "归因逻辑较清晰，有一定分析深度"
+          "description": "归因清晰，层次略少"
         },
         "acceptable": {
           "score": 3,
-          "description": "归因有偏差但基本合理"
+          "description": "归因可用，但深度一般"
         },
         "poor": {
           "score": 1,
-          "description": "归因简单粗暴，逻辑混乱"
+          "description": "归因简单粗暴"
         }
       },
       "criteria": [
-        "假设是否有数据支撑",
-        "归因是否避免单一化",
-        "是否有根因验证方案"
+        "是否先排除口径问题",
+        "是否能识别主因/次因",
+        "是否给出验证依据"
       ]
     },
     {
       "dimension": "严谨性",
       "weight": 20,
-      "description": "评估分析过程的逻辑严密性和客观性",
+      "description": "评估是否有证据链、置信度与边界说明",
       "levels": {
         "excellent": {
           "score": 5,
-          "description": "分析逻辑严密，客观公正，能识别排除因素"
+          "description": "证据链完整，边界清楚"
         },
         "good": {
           "score": 4,
-          "description": "分析逻辑较严密，基本客观"
+          "description": "证据较完整，边界略粗"
         },
         "acceptable": {
           "score": 3,
-          "description": "分析逻辑有漏洞但整体可接受"
+          "description": "逻辑通顺但证据略薄"
         },
         "poor": {
           "score": 1,
-          "description": "分析逻辑混乱，存在明显偏见"
+          "description": "凭感觉下结论"
         }
       },
       "criteria": [
         "是否识别并排除干扰因素",
-        "问题严重程度判断是否准确",
-        "是否避免问题扩大化"
-      ]
-    },
-    {
-      "dimension": "独特个性",
-      "weight": 10,
-      "description": "评估是否体现诊断专业见解",
-      "levels": {
-        "excellent": {
-          "score": 5,
-          "description": "有独特见解，能发现隐藏的根本原因"
-        },
-        "good": {
-          "score": 4,
-          "description": "有部分独到见解"
-        },
-        "acceptable": {
-          "score": 3,
-          "description": "见解较常规但合理"
-        },
-        "poor": {
-          "score": 1,
-          "description": "缺乏独特见解"
-        }
-      },
-      "criteria": [
-        "是否能发现常规分析忽略的问题",
-        "是否有独特的分析视角"
+        "是否说明问题严重程度",
+        "是否说明置信度和待验证项"
       ]
     },
     {
       "dimension": "规范性",
-      "weight": 10,
-      "description": "评估输出格式和Critical Rules的规范性",
+      "weight": 15,
+      "description": "评估输出格式与检查清单是否完整",
       "levels": {
         "excellent": {
           "score": 5,
-          "description": "格式规范，Critical Rules完整，Workflow Steps标准"
+          "description": "结构完整，字段明确"
         },
         "good": {
           "score": 4,
-          "description": "格式规范，Critical Rules较完整"
+          "description": "结构完整，少量字段可补"
         },
         "acceptable": {
           "score": 3,
-          "description": "格式基本规范，有部分缺失"
+          "description": "结构可读，但不够厚"
         },
         "poor": {
           "score": 1,
-          "description": "格式混乱，Critical Rules严重缺失"
+          "description": "格式散乱，无法验收"
         }
       },
       "criteria": [
-        "输出格式是否符合标准模板",
-        "Critical Rules是否≥5条必须遵守+≥5条禁止行为",
-        "Workflow Steps是否包含输入/处理/输出/成功标准"
+        "是否包含问题定义、多维拆解、问题定位、根因假设、解决方案",
+        "是否有日志/数据/版本等检查项",
+        "是否包含止损与恢复说明"
       ]
     }
   ],
   "quality_score": {
     "total_score": 100,
-    "pass_threshold": 85,
-    "excellent": [90, 100],
-    "good": [85, 89],
-    "acceptable": [70, 84],
-    "poor": [0, 69]
+    "pass_threshold": 90,
+    "excellent": [
+      94,
+      100
+    ],
+    "good": [
+      90,
+      93
+    ],
+    "acceptable": [
+      75,
+      87
+    ],
+    "poor": [
+      0,
+      74
+    ]
   },
   "critical_rules_check": {
     "description": "Critical Rules检查清单",
     "rules": [
       {
-        "rule": "先明确定义问题",
-        "check_item": "问题边界、影响范围、严重程度是否清晰",
+        "rule": "先定义现象",
+        "check_item": "现象、影响范围、时间范围是否清楚",
         "pass_condition": "三要素齐全"
       },
       {
-        "rule": "必须多维度拆分",
-        "check_item": "时间/渠道/用户/功能四维度是否都有分析",
+        "rule": "必须先排除口径",
+        "check_item": "是否检查埋点、延迟、重复、漏数",
+        "pass_condition": "口径已确认"
+      },
+      {
+        "rule": "必须多维度拆解",
+        "check_item": "时间/渠道/用户/功能是否都有分析",
         "pass_condition": "四维度缺一不可"
       },
       {
-        "rule": "假设必须有数据支撑",
-        "check_item": "每个假设是否有数据依据",
-        "pass_condition": "数据说话"
+        "rule": "必须有验证动作",
+        "check_item": "每个假设是否有验证方式",
+        "pass_condition": "假设可验证"
       },
       {
-        "rule": "结论必须可验证",
-        "check_item": "是否有验证方案和监控指标",
-        "pass_condition": "可追踪"
-      },
-      {
-        "rule": "归因不能单一化",
-        "check_item": "是否考虑了多重因素",
-        "pass_condition": "避免简单归因"
+        "rule": "必须给出止损与恢复",
+        "check_item": "是否有 P0 止损、根因修复和预防",
+        "pass_condition": "动作闭环"
       }
     ]
   },
@@ -224,11 +209,12 @@
   },
   "output_standard": {
     "must_include": [
-      "一、明确现象（数据表现/影响范围/时间范围）",
-      "二、拆分维度（时间/渠道/用户/功能四维度）",
-      "三、定位问题（问题类型/焦点/排除因素）",
-      "四、提出假设（假设清单/验证方案）",
-      "五、验证解决（根因确认/解决方案/监控指标）"
+      "问题定义",
+      "多维拆解",
+      "问题定位",
+      "根因假设",
+      "解决方案",
+      "监控指标"
     ],
     "format_requirement": "五步诊断法必须完整，归因必须有数据支撑"
   }

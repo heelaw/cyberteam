@@ -1,237 +1,297 @@
 {
   "skill_name": "产品状态评估",
-  "version": "1.0.0",
-  "assess_date": "2026-03-19",
-  "assessor": "系统评估",
-  "quality_dimension": [
+  "version": "2.0.0",
+  "assess_date": "2026-04-02",
+  "assessor": "系统质量评估",
+  "assess_scope": "五维度状态评估流程完整性",
+  "quality_dimensions": [
     {
-      "dimension": "完整性",
-      "weight": 20,
-      "description": "评估产品状态评估维度的完整程度",
+      "dimension": "评估目的区分度",
+      "weight": 15,
+      "description": "是否区分投入决策/问题排查/常规体检三种目的，并针对性调整侧重点",
       "levels": {
         "excellent": {
           "score": 5,
-          "description": "五维度（渠道/功能/复购/活跃/趋势）评估完整，无遗漏"
+          "description": "三种目的评估框架完全不同，侧重点清晰，有专属产出模板"
         },
         "good": {
           "score": 4,
-          "description": "五维度评估基本完整，有轻微遗漏"
+          "description": "三种目的评估框架有区分，侧重点略有不同"
         },
         "acceptable": {
           "score": 3,
-          "description": "部分维度评估缺失，但核心维度完整"
+          "description": "提到三种目的差异，但评估框架雷同"
         },
         "poor": {
           "score": 1,
-          "description": "维度严重缺失，评估不完整"
+          "description": "未区分评估目的，所有场景用同一套评估"
         }
       },
-      "criteria": [
-        "渠道质量分析是否完整",
-        "功能使用分析是否完整",
-        "复购率分析是否完整",
-        "活跃度分析是否完整",
-        "数据趋势分析是否完整"
-      ]
+      "check_items": [
+        "是否明确区分投入决策、问题排查、常规体检三种目的",
+        "不同目的的侧重点是否不同",
+        "不同目的的产出模板是否有差异",
+        "评估人员是否能根据目的选择正确框架"
+      ],
+      "verify_method": "对比三种目的的评估章节，看框架、侧重点、产出是否完全不同"
     },
     {
-      "dimension": "实用性",
+      "dimension": "B2B/B2C口径区分",
       "weight": 20,
-      "description": "评估结论和建议对实际业务的指导价值",
+      "description": "B2B和B2C的指标体系、对标方法、评估重点是否完全区分",
       "levels": {
         "excellent": {
           "score": 5,
-          "description": "建议具体可执行，有明确优先级和预期效果"
+          "description": "B2B和B2C有独立指标体系、独立阈值、独立评估流程"
         },
         "good": {
           "score": 4,
-          "description": "建议较具体，有优先级"
+          "description": "B2B和B2C核心指标已区分，但部分细节仍有混用"
         },
         "acceptable": {
           "score": 3,
-          "description": "建议较模糊，但方向正确"
+          "description": "提到B2B/B2C差异，但评估时仍用同一套指标"
         },
         "poor": {
           "score": 1,
-          "description": "建议空洞笼统，无法落地"
+          "description": "完全未区分B2B/B2C，用同一套指标评估所有产品"
         }
       },
-      "criteria": [
-        "问题提炼是否准确",
-        "建议是否有明确优先级",
-        "建议是否有可量化的预期效果"
-      ]
+      "check_items": [
+        "B2C是否有独立的DAU/MAU、复购率、LTV/CAC指标体系",
+        "B2B是否有独立的续费率、NRR、增购率指标体系",
+        "健康阈值是否区分B2B和B2C",
+        "评估报告模板是否区分B2B和B2C输出",
+        "是否禁止B2B/B2C指标混用"
+      ],
+      "verify_method": "抽查B2C产品是否用了B2B指标（如续费率），抽查B2B产品是否用了B2C指标（如DAU/MAU）"
     },
     {
-      "dimension": "专业性",
-      "weight": 20,
-      "description": "评估数据分析的专业程度和方法论正确性",
+      "dimension": "五维度定义完整性",
+      "weight": 25,
+      "description": "每个维度是否都有：定义、输入要求、评估方法、健康阈值、拐点判断、结构风险识别",
       "levels": {
         "excellent": {
           "score": 5,
-          "description": "综合评级计算准确，对标分析专业，结论有数据支撑"
+          "description": "五个维度每个都有完整七要素，且有计算公式和示例"
         },
         "good": {
           "score": 4,
-          "description": "评级计算基本准确，有对标分析"
+          "description": "五个维度每个都有完整七要素，但部分细节较简略"
         },
         "acceptable": {
           "score": 3,
-          "description": "评级计算有小误差，对标分析较简单"
+          "description": "五个维度有基本定义，但健康阈值、拐点判断、结构风险有缺失"
         },
         "poor": {
           "score": 1,
-          "description": "评级计算错误，缺乏对标分析"
+          "description": "维度定义模糊，无法实际操作评估"
         }
       },
-      "criteria": [
-        "五维度权重设置是否合理",
-        "综合评级计算是否准确",
-        "行业对标是否合理"
-      ]
+      "check_items": [
+        "渠道质量维度：是否有流量占比、CAC、转化率、渠道ROI的定义和阈值",
+        "功能使用维度：是否有渗透率、深度、路径转化的定义和阈值",
+        "复购率维度：是否有B2C复购率和B2B续费率的定义和阈值",
+        "活跃度维度：是否有DAU/MAU、用户分层、沉默占比的定义和阈值",
+        "数据趋势维度：是否有拐点判断、系统性风险识别的定义和阈值",
+        "每个维度是否有结构风险识别方法"
+      ],
+      "verify_method": "逐维度检查是否包含：1.定义 2.输入 3.评估方法 4.健康阈值 5.拐点判断 6.结构风险识别 7.典型案例"
     },
     {
-      "dimension": "严谨性",
-      "weight": 20,
-      "description": "评估分析过程的逻辑严密性和客观性",
+      "dimension": "健康阈值具体性",
+      "weight": 15,
+      "description": "健康阈值是否具体到可执行的数字，而非模糊表述",
       "levels": {
         "excellent": {
           "score": 5,
-          "description": "分析逻辑严密，客观公正，现状与趋势结合紧密"
+          "description": "所有阈值都有具体数字，且标注了数据来源和适用场景"
         },
         "good": {
           "score": 4,
-          "description": "分析逻辑较严密，基本客观"
+          "description": "主要阈值有具体数字，部分次要阈值用范围表述"
         },
         "acceptable": {
           "score": 3,
-          "description": "分析逻辑有漏洞，但整体可接受"
+          "description": "阈值用模糊表述（如'行业均值以上'）但有参考方向"
         },
         "poor": {
           "score": 1,
-          "description": "分析逻辑混乱，存在明显偏见"
+          "description": "阈值缺失或完全模糊，无法指导评估"
         }
       },
-      "criteria": [
-        "是否既看现状又看趋势",
-        "是否客观呈现正负两面发现",
-        "评级是否基于加权计算"
-      ]
+      "check_items": [
+        "DAU/MAU健康阈值是否具体（如≥20%）",
+        "续费率健康阈值是否具体（如≥85%）",
+        "NRR健康阈值是否具体（如≥110%）",
+        "渠道集中度危险阈值是否具体（如>80%）",
+        "LTV/CAC危险阈值是否具体（如<1）",
+        "阈值是否有B2B/B2C区分"
+      ],
+      "verify_method": "抽查5个核心阈值，看是否能直接用于评估判断"
     },
     {
-      "dimension": "独特个性",
+      "dimension": "拐点与结构风险识别",
+      "weight": 15,
+      "description": "是否能识别趋势拐点和结构性风险，而非只看静态数据",
+      "levels": {
+        "excellent": {
+          "score": 5,
+          "description": "有完整的拐点识别流程、阈值、判断标准，且能区分偶发与趋势"
+        },
+        "good": {
+          "score": 4,
+          "description": "有拐点识别方法，但判断阈值较粗"
+        },
+        "acceptable": {
+          "score": 3,
+          "description": "提到趋势重要性，但拐点识别方法不具体"
+        },
+        "poor": {
+          "score": 1,
+          "description": "只看现状，不看趋势，无法识别拐点和风险"
+        }
+      },
+      "check_items": [
+        "是否有拐点定义（如连续2个月下滑>15%）",
+        "是否有系统性风险识别方法（如≥2维度同跌）",
+        "是否能区分单点异动和联动下滑",
+        "是否有增长质量判断（如规模涨但效率跌）",
+        "拐点识别是否有时间维度（如180天趋势）"
+      ],
+      "verify_method": "用典型案例测试拐点识别逻辑是否正确"
+    },
+    {
+      "dimension": "典型案例完整性",
       "weight": 10,
-      "description": "评估是否体现专业见解和独特视角",
+      "description": "是否有足够的典型好案例和坏案例，且案例有完整数据和判断逻辑",
       "levels": {
         "excellent": {
           "score": 5,
-          "description": "有独特见解，能发现隐藏的产品机会"
+          "description": "有≥4个典型案例，覆盖健康/亚健康/风险/危机，且每个案例有完整数据和判断推导"
         },
         "good": {
           "score": 4,
-          "description": "有部分独到见解"
+          "description": "有≥2个典型案例，覆盖主要健康等级，数据完整"
         },
         "acceptable": {
           "score": 3,
-          "description": "见解较常规但合理"
+          "description": "有案例但数据较简略，或案例数量不足"
         },
         "poor": {
           "score": 1,
-          "description": "缺乏独特见解"
+          "description": "无案例，或案例无数据无法验证判断逻辑"
         }
       },
-      "criteria": [
-        "是否能发现产品中的隐藏机会",
-        "是否有独特的分析视角"
-      ]
-    },
-    {
-      "dimension": "规范性",
-      "weight": 10,
-      "description": "评估输出格式和Critical Rules的规范性",
-      "levels": {
-        "excellent": {
-          "score": 5,
-          "description": "格式规范，Critical Rules完整，Workflow Steps标准"
-        },
-        "good": {
-          "score": 4,
-          "description": "格式规范，Critical Rules较完整"
-        },
-        "acceptable": {
-          "score": 3,
-          "description": "格式基本规范，有部分缺失"
-        },
-        "poor": {
-          "score": 1,
-          "description": "格式混乱，Critical Rules严重缺失"
-        }
-      },
-      "criteria": [
-        "输出格式是否符合标准模板",
-        "Critical Rules是否≥5条必须遵守+≥5条禁止行为",
-        "Workflow Steps是否包含输入/处理/输出/成功标准"
-      ]
+      "check_items": [
+        "是否有B2C健康案例（数据完整）",
+        "是否有B2C危机案例（数据完整）",
+        "是否有B2B亚健康案例（数据完整）",
+        "每个案例是否有五维度评分",
+        "每个案例是否有综合判断和行动计划",
+        "案例是否能解释'为什么这样判'"
+      ],
+      "verify_method": "随机选一个案例，用流程重新推演，看是否能得到相同结论"
     }
   ],
   "quality_score": {
     "total_score": 100,
     "pass_threshold": 85,
-    "excellent": [90, 100],
-    "good": [85, 89],
+    "excellent": [95, 100],
+    "good": [85, 94],
     "acceptable": [70, 84],
     "poor": [0, 69]
   },
   "critical_rules_check": {
-    "description": "Critical Rules检查清单",
+    "description": "质量铁律检查清单（任一不通过则整体评估降级）",
     "rules": [
       {
-        "rule": "评估必须全面系统",
-        "check_item": "五维度是否都有完整分析",
-        "pass_condition": "五维度缺一不可"
+        "rule": "必须区分评估目的",
+        "check_item": "投入决策/问题排查/常规体检是否有完全不同的评估框架",
+        "pass_condition": "三种目的框架完全不同，或明确说明可复用同一框架但侧重点不同",
+        "severity": "critical"
       },
       {
-        "rule": "现状与趋势必须结合",
-        "check_item": "是否既看现状又看趋势",
-        "pass_condition": "趋势判断有数据依据"
+        "rule": "必须区分B2B/B2C指标",
+        "check_item": "B2C是否使用正确指标体系（DAU/MAU、复购率、LTV/CAC）",
+        "check_item_b": "B2B是否使用正确指标体系（续费率、NRR、增购率）",
+        "pass_condition": "指标体系完全区分，无混用",
+        "severity": "critical"
       },
       {
-        "rule": "对标必须合理",
-        "check_item": "是否有自身对比和行业对标",
-        "pass_condition": "有参照系才有意义"
+        "rule": "必须有具体健康阈值",
+        "check_item": "核心指标（DAU/MAU、续费率、NRR等）是否有具体数字阈值",
+        "pass_condition": "≥5个核心指标有具体阈值",
+        "severity": "critical"
       },
       {
-        "rule": "结论必须数据化",
-        "check_item": "是否用数据说话，给出具体分数",
-        "pass_condition": "避免主观模糊评价"
+        "rule": "必须有拐点识别逻辑",
+        "check_item": "是否能识别趋势拐点和系统性风险",
+        "pass_condition": "有明确的拐点定义和判断标准",
+        "severity": "major"
       },
       {
-        "rule": "建议必须有优先级",
-        "check_item": "是否区分P0/P1/P2",
-        "pass_condition": "资源有限要分主次"
+        "rule": "必须有典型案例",
+        "check_item": "是否有可验证的案例支撑评估逻辑",
+        "pass_condition": "≥2个有完整数据的案例",
+        "severity": "major"
+      },
+      {
+        "rule": "必须有投入建议",
+        "check_item": "是否明确给出继续投/收缩/止损/放弃的建议",
+        "pass_condition": "四选一结论 + 优先级动作",
+        "severity": "major"
       }
     ]
   },
   "forbidden_check": {
-    "description": "禁止行为检查",
+    "description": "绝对禁止行为（出现任意一条，整体评估降一级）",
     "items": [
-      "禁止只看现状不看趋势",
-      "禁止只看正向不看问题",
-      "禁止脱离行业对标",
-      "禁止模糊的主观评价",
-      "禁止眉毛胡子一把抓",
-      "禁止建议不落地"
+      {
+        "forbidden": "禁止只看现状不看趋势",
+        "example": "只有当前DAU数据，没有30/90/180天趋势"
+      },
+      {
+        "forbidden": "禁止只看流量不看价值",
+        "example": "只说DAU涨了多少，不看LTV/CAC和复购"
+      },
+      {
+        "forbidden": "禁止单一维度当总分",
+        "example": "只评估复购率，不评估其他四个维度"
+      },
+      {
+        "forbidden": "禁止没有对标就下评级",
+        "example": "没有历史或行业对标，直接说'健康'或'风险'"
+      },
+      {
+        "forbidden": "禁止只给'继续观察'",
+        "example": "只说'建议持续观察'，没有明确动作"
+      },
+      {
+        "forbidden": "禁止B2B/B2C核心指标混用",
+        "example": "B2B产品用DAU/MAU作为主要留存指标"
+      },
+      {
+        "forbidden": "禁止唯分数论",
+        "example": "综合得分≥85但渠道集中度>80%，仍判为健康"
+      },
+      {
+        "forbidden": "禁止出现旧式学习语境措辞",
+        "example": "引用中出现旧式学习语境拼贴词汇"
+      }
     ]
   },
   "output_standard": {
     "must_include": [
-      "一、渠道质量评估",
-      "二、功能使用评估",
-      "三、复购率评估",
-      "四、活跃度评估",
-      "五、数据趋势评估",
-      "六、综合评级与建议"
+      "五维度完整评估（缺一不可）",
+      "综合判断（健康/亚健康/风险/危机）",
+      "结构风险识别（如有）",
+      "拐点判断（如有）",
+      "投入建议（继续/收缩/止损/放弃）",
+      "行动计划（P0/P1/P2）"
     ],
-    "format_requirement": "五维度评估必须完整，综合评级需加权计算"
+    "format_requirement": "必须包含五维度评分、评分依据、对标参照、风险点、建议动作",
+    "min_length": "评估报告正文≥2000字",
+    "min_cases": "至少2个有完整数据的典型案例"
   }
 }
