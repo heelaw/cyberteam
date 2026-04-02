@@ -65,6 +65,8 @@ goal-driven-main(goal):
 - 再读 `references/source-map.md`，确认原始资料映射。
 - 再读 `references/workflow-retrospective.md`，确认工作流、QA、经验和接手顺序。
 - 再按路由读取对应 Skill 的 `references/`。
+- 做深度排障时，优先读 `配套skill/产品问题诊断/references/实战归因手册.md`。
+- 做产品体检时，优先读 `配套skill/产品状态评估/references/状态分层与案例库.md`。
 - 需要验收时，再读 `assess/` 和 `evals/`。
 - 需要执行脚本时，再读 `scripts/run.py`。
 - 主文档只保留路由、边界、质量门禁，不塞满细节。
@@ -73,7 +75,7 @@ goal-driven-main(goal):
 
 - 新窗口必读：先读 `总接手文件.md`，再读 `memory.md`，再读本文件。
 - 输入 / 输出 对照：输入只从原始资料池来，输出只进当前主包。
-- 当前进度：根路由、岗位文档、理论边界、三组 Skill、脚本与门禁都已落位。
+- 当前进度：根路由、岗位文档、理论边界、三组 Skill、脚本与门禁都已落位，且两个薄 Skill 已开始补实战参考。
 
 ## 路由流程
 
@@ -152,6 +154,7 @@ goal-driven-main(goal):
 - 细节必须进入对应 Skill 的 reference。
 - 不把知识写成泛泛介绍，要写成可执行 SOP。
 - 不写旧式学习语境措辞，不写来源拼贴表达。
+- 不把一段长文当成完成，必须能直接接手、直接执行、直接验收。
 
 ## 读取指引
 
