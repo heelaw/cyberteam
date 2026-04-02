@@ -1,267 +1,241 @@
-# 文案Agent 全流程复盘与执行手册
+# 文案Agent 全流程复盘与总接手文档
+
+## 这份文档的用途
+
+这是一份给新窗口直接接手的总说明。它回答四件事：
+
+1. 这个包是什么。
+2. 现在做到哪里了。
+3. 还缺什么。
+4. 下一位接手者先看什么、先做什么、先验证什么。
+
+它不是背景介绍，也不是工作日志。它是后续批量化扩散的操作底稿。
+
+## 包的边界
+
+- 当前工作区是 `/Users/cyberwiz/Documents/01_Project/运营AGENT研发/运营AGENT/文案Agent`。
+- 这个包已经是可上岗的数字员工包，不再用旧的培训语境组织表达。
+- 所有对外可读内容都要围绕岗位、SOP、判断、边界、QA 展开。
+- 根层只保留路由、门禁、复盘和最小导航，不塞长文。
+
+## 目录路径图
+
+| 位置 | 作用 | 说明 |
+|---|---|---|
+| [`SKILL.md`](/Users/cyberwiz/Documents/01_Project/运营AGENT研发/运营AGENT/文案Agent/SKILL.md) | 根调度入口 | 只负责岗位定义、调度原则、路由表和交接说明 |
+| [`SOUL.md`](/Users/cyberwiz/Documents/01_Project/运营AGENT研发/运营AGENT/文案Agent/SOUL.md) | 岗位人格和边界 | 说明如何判断、何时回退、什么不能做 |
+| [`references/route-map.md`](/Users/cyberwiz/Documents/01_Project/运营AGENT研发/运营AGENT/文案Agent/references/route-map.md) | 流程主路由 | 定义从需求到交付的主链路 |
+| [`references/platform-presets.md`](/Users/cyberwiz/Documents/01_Project/运营AGENT研发/运营AGENT/文案Agent/references/platform-presets.md) | 平台预设 | 把短/中/长触点映射到具体平台 |
+| [`references/method-matrix.md`](/Users/cyberwiz/Documents/01_Project/运营AGENT研发/运营AGENT/文案Agent/references/method-matrix.md) | 不变量矩阵 | 只保留跨 Skill 的统一判断 |
+| [`references/assessment.md`](/Users/cyberwiz/Documents/01_Project/运营AGENT研发/运营AGENT/文案Agent/references/assessment.md) | 根层验收 | 定义包级别的 pass / fail 门禁 |
+| [`references/workflow-retrospective.md`](/Users/cyberwiz/Documents/01_Project/运营AGENT研发/运营AGENT/文案Agent/references/workflow-retrospective.md) | 总接手文档 | 当前进度、质量要求、QA、扩散模板 |
+| [`skills/*/SKILL.md`](/Users/cyberwiz/Documents/01_Project/运营AGENT研发/运营AGENT/文案Agent/skills) | 最小 SOP 单元 | 每个文件只做一个可执行单元 |
+| [`skills/*/references/reference.md`](/Users/cyberwiz/Documents/01_Project/运营AGENT研发/运营AGENT/文案Agent/skills) | 该单元的详细 SOP | 讲清楚看什么、怎么采、怎么判、什么是好、什么不能做 |
+| [`skills/*/assessments/assessment.md`](/Users/cyberwiz/Documents/01_Project/运营AGENT研发/运营AGENT/文案Agent/skills) | 该单元考核 | 明确 pass / fail 条件和测试样例 |
+| [`skills/*/scripts/run.py`](/Users/cyberwiz/Documents/01_Project/运营AGENT研发/运营AGENT/文案Agent/skills) | 该单元入口 | 统一包装器，输出结构化诊断 |
+| [`scripts/copywriting_skill_runner.py`](/Users/cyberwiz/Documents/01_Project/运营AGENT研发/运营AGENT/文案Agent/scripts/copywriting_skill_runner.py) | 共享诊断逻辑 | 统一处理输入、校验、红线和下一步 |
+| [`scripts/validate_agent_package.py`](/Users/cyberwiz/Documents/01_Project/运营AGENT研发/运营AGENT/文案Agent/scripts/validate_agent_package.py) | 包级校验 | 检查禁词、链接、噪音文件和技能目录完整性 |
+
+## 当前进度
+
+### 已完成
+
+- 根层 `SKILL.md` 已切到调度型数字员工定位。
+- `SOUL.md` 已写清岗位边界、工作姿态、兜底规则。
+- `references/route-map.md` 已建立主链路和回退规则。
+- `references/platform-presets.md` 已把短 / 中 / 长映射到平台。
+- `references/method-matrix.md` 已写出跨 Skill 不变量。
+- `references/assessment.md` 已定义根层门禁。
+- `skills/*/SKILL.md` 已拆成 9 个最小单元。
+- `skills/*/references/reference.md` 已初步落地细分 SOP。
+- `skills/*/assessments/assessment.md` 已初步落地验收门禁。
+- `skills/*/scripts/run.py` 已全部落地统一入口。
+- `scripts/copywriting_skill_runner.py` 已能输出结构化诊断。
+- `scripts/validate_agent_package.py` 已能做包级检查。
+
+### 仍需补强
+
+- `research-sellpoint-forward` 还可以继续加厚证据采样和边界示例。
+- `research-sellpoint-backward` 还可以继续加厚反推链路的断点判断。
+- 未来扩散到其他章节时，需要统一模板，不允许每章重新发明格式。
+- 后续新增 Skill 时，必须先回到这份总接手文档，再进入具体章节。
+
+### 当前规模
 
-## 这份文档解决什么
+- Skill 总数：9 个。
+- 根层参考文件：5 个。
+- 根层脚本：2 个。
+- 统一 Skill 入口脚本：9 个。
+- 当前最需要继续加厚的内容：正向卖点、反向卖点、后续章节复制模板。
 
-这份文档只回答一件事：后续所有未完成章节，应该怎样按同一套标准拆解、制作、复核和发布，才能做到“新成员拿到就能做，做出来就能过，过了就能扩散”。
+## 新窗口接手顺序
 
-它不是背景说明，也不是项目回顾纪念稿。它是后续批量生产的操作基线。
+新对话只要按这个顺序看，就能恢复上下文：
 
-## 第一性原理
+1. [`SKILL.md`](/Users/cyberwiz/Documents/01_Project/运营AGENT研发/运营AGENT/文案Agent/SKILL.md)
+2. [`SOUL.md`](/Users/cyberwiz/Documents/01_Project/运营AGENT研发/运营AGENT/文案Agent/SOUL.md)
+3. [`references/route-map.md`](/Users/cyberwiz/Documents/01_Project/运营AGENT研发/运营AGENT/文案Agent/references/route-map.md)
+4. [`references/platform-presets.md`](/Users/cyberwiz/Documents/01_Project/运营AGENT研发/运营AGENT/文案Agent/references/platform-presets.md)
+5. [`references/method-matrix.md`](/Users/cyberwiz/Documents/01_Project/运营AGENT研发/运营AGENT/文案Agent/references/method-matrix.md)
+6. [`references/assessment.md`](/Users/cyberwiz/Documents/01_Project/运营AGENT研发/运营AGENT/文案Agent/references/assessment.md)
+7. [`references/workflow-retrospective.md`](/Users/cyberwiz/Documents/01_Project/运营AGENT研发/运营AGENT/文案Agent/references/workflow-retrospective.md)
+8. 具体要改的 `skills/<skill>/SKILL.md`
+9. 对应的 `skills/<skill>/references/reference.md`
+10. 对应的 `skills/<skill>/assessments/assessment.md`
+11. 对应的 `skills/<skill>/scripts/run.py`
 
-文案型数字员工的本质，不是“会写字”，而是“会判断”。
+## 输出文件规范
 
-因此，任何一个 Skill 都必须满足四个最小要求：
+- 所有 Skill 必须保留三件套：`SKILL.md`、`references/reference.md`、`assessments/assessment.md`。
+- 所有 Skill 必须补齐 `scripts/run.py`。
+- 根层文件只写导航和门禁，不写章节内细节。
+- 细节全部下沉到对应 Skill，不许堆在根层。
+- 新增文件优先放在对应 Skill 目录下，不要散落到总目录。
 
-1. 只解决一个最小 SOP 单元。
-2. 能让新人按步骤执行，不靠猜。
-3. 能说清楚什么是好、什么是坏、什么绝对不能做。
-4. 能被 QA 复核，不是只靠感觉通过。
+## Input / Output 规范
 
-如果一份材料做不到这四点，它就只是摘要，不是可上岗 SOP。
+### Input 在哪里
 
-## 全流程总览
+- 用户原话、行为、搜索、反馈、对话、对比、数据，都属于输入证据。
+- 输入证据可以来自聊天记录、访谈、埋点、工单、竞品、内容表现、转化表现。
+- 输入不足时，先补证据，不许直接写终稿。
 
-原始资料研读 -> 知识提炼 -> SOP 拆分 -> Skill 编写 -> Reference 展开 -> Assessment 门禁 -> Script / 诊断 -> 根路由整合 -> 校验 -> 扩散复用
+### Output 在哪里
 
-## 各环节标准
+- 需求判断输出：`detect-need-type`
+- 用户分层输出：`segment-users`
+- 卖点输出：`research-sellpoint-forward` 或 `research-sellpoint-backward`
+- 场景输出：`judge-scenario`
+- 结构输出：`select-structure`
+- 初稿输出：`draft-copy`
+- 改写输出：`edit-copy`
+- 终检输出：`self-check-copy`
+- 包级输出：`references/workflow-retrospective.md` 和 `scripts/validate_agent_package.py`
 
-| 环节 | 输出质量要求 | QA 标准 | 具体操作方法 |
-|---|---|---|---|
-| 原始资料研读 | 先读全局，再读局部；只提炼方法、流程、判断逻辑，不保留冗余叙述 | 抽查不同章节是否都被覆盖；同一概念是否在多处重复出现 | 先做目录级扫描，再做逐章摘录；把“知识点 / SOP / 判断句 / 例子 / 红线”分列记录 |
-| 知识提炼 | 产出可执行的判断，而不是抽象结论 | 反问“新人能不能直接照做”；如果不能，说明提炼不够 | 每个知识点都要拆成“看什么、怎么采、怎么判、怎么回退” |
-| SOP 拆分 | 一个 Skill 只做一个最小单元，不混流程 | 如果一个 Skill 里同时出现多个目标，必须继续切 | 按输入状态拆：需求、用户、卖点、场景、结构、初稿、删改、自检 |
-| Skill 编写 | SKILL.md 只保留核心流程、边界和调度，不堆大段教材 | 检查是否有职责混叠、跳步、空泛描述、重复判断 | 用“适用场景 -> 流程 -> 交付 -> 回退 -> 红线”写法 |
-| Reference 展开 | 把一件事讲透：采什么、怎么采、怎么判、什么是好、什么不能做 | 每个判断点都必须有例子、失败案例和边界条件 | 先写采集方法，再写判断规则，再写典型样例和反例 |
-| Assessment 门禁 | 用明确条件决定通过与否，不靠主观印象 | 必须能判 pass / fail；必须能指出具体缺口 | 把“必须有 / 不能有 / 缺一项就回退”写成硬门槛 |
-| Script / 诊断 | 要么真的有逻辑，要么明确声明为占位，不允许假装自动化 | 抽样测试正常输入、空输入、脏输入 | 结构化输出诊断信息，至少包含缺口、红线、下一步 |
-| 根路由整合 | 根 Agent 只做判断和分流，不吞掉子 Skill 细节 | 检查是否存在越权写作、重复解释、无限回退 | 只保留路由图、回退规则、总不变量和发布门禁 |
-| 校验 | 结构完整、禁词清零、链接可达、入口清楚 | 运行自动校验 + 人工抽查 | 先修链接，再修结构，再修表达密度 |
-| 扩散复用 | 新章节必须继承同一套颗粒度和门禁 | 新 Skill 与旧 Skill 的粒度、厚度、门禁一致 | 用模板复制后再按章节差异补齐，不从零乱写 |
+## 质量要求
 
-## 每个环节的 QA 重点
+### 1. 输出必须是可执行判断，不是摘要
 
-### 1. 资料研读 QA
+- 要写“怎么做”，不是只写“是什么”。
+- 要写“为什么这么判”，不是只给标签。
+- 要写“下一步回到哪一步”，不是一句“继续优化”。
 
-- 是否覆盖了所有大章节。
-- 是否区分了“方法论、流程、判断逻辑、案例、红线”。
-- 是否把图片、表格、口述里的隐含知识也提出来了。
-- 是否存在只看标题、不看正文的遗漏。
+### 2. 每个环节必须有 QA
 
-### 2. SOP 拆分 QA
+- 必须能通过 pass / fail 判定。
+- 必须能指出缺口。
+- 必须能处理反例和边界。
 
-- 这是不是最小单元。
-- 这个单元是不是还能继续拆。
-- 它是不是只服务一个决策点。
-- 它有没有和别的 Skill 重叠。
+### 3. 必须遵循渐进式披露
 
-### 3. Reference QA
+- 根层只保留总规则。
+- 具体方法放到 `references/reference.md`。
+- 把完整案例、失败案例、红线、边界放到各自 Skill 的 reference 和 assessment 里。
 
-- 是否讲清楚“看什么”。
-- 是否讲清楚“怎么收集”。
-- 是否讲清楚“怎么判断”。
-- 是否讲清楚“什么是好、什么是坏、什么绝对不能”。
-- 是否有完整样例、失败案例、边界条件。
+### 4. 必须能让新人照着做
 
-### 4. Assessment QA
+- 新人拿到文件后，应能知道先看什么。
+- 新人应能知道缺什么要补什么。
+- 新人应能知道什么情况下绝对不能硬做。
 
-- 是否能一眼判定通过或不通过。
-- 是否有量化门槛，而不是“差不多”。
-- 是否能拦住高风险错误。
-- 是否能逼迫补缺，而不是鼓励糊弄。
+## QA 总表
 
-### 5. Script QA
+| 环节 | QA 重点 | 通过标准 |
+|---|---|---|
+| 需求识别 | 证据够不够、冲突处理对不对 | 能判断明确 / 模糊 / 潜在，并写出缺口 |
+| 用户分层 | 决策链清不清、主次清不清 | 能明确主写对象、辅助对象和不该写的人群 |
+| 卖点提炼 | 证据足不足、方向全不全 | 能找到主卖点并保留证据缺口 |
+| 场景判断 | 平台和时长是否匹配 | 能输出平台预设、触点和 CTA 强度 |
+| 结构选择 | 用户状态和结构是否匹配 | 能给主结构和备用结构，并说明排除理由 |
+| 初稿 | 主张、理由、证据、动作是否闭环 | 能写出第一版可读内容 |
+| 删改 | 是否改事实、改卖点、改主线 | 只改表达，不改事实 |
+| 自检 | 七问是否全部通过 | 7/7 才能通过 |
+| 包级校验 | 禁词、链接、噪音、入口是否完整 | 能通过 `validate_agent_package.py` |
 
-- 是否真的执行了逻辑。
-- 是否对坏输入有提示。
-- 是否对缺口有结构化回传。
-- 是否不把回显包装成能力。
+## 具体操作方法
 
-### 6. 根包 QA
+### 资料研读
 
-- 是否存在旧命名残留。
-- 是否存在散落文件和重复职责。
-- 是否存在断链、死链、漏链。
-- 是否能用一个索引读懂整个包。
+先做目录级扫描，再做逐章摘录。摘录时按这五列记：来源、知识点、SOP、案例、红线。
 
-## 执行方法
+### 拆分方法
 
-### 资料阶段
+先问四个问题：输入是什么、输出是什么、判断点是什么、能不能独立交付。只要混了两个以上目标，就继续拆。
 
-先做“抽取表”，不要直接写 Skill。抽取表至少包含：来源、章节、核心方法、操作步骤、判断句、例子、反例、红线。
+### 编写方法
 
-### 拆分阶段
+每个 Skill 先写“适用场景”，再写“执行步骤”，再写“交付骨架”，再写“绝对不能”，最后补“案例”和“QA 门禁”。
 
-遇到一个大流程，先问四个问题：
+### 复核方法
 
-1. 这里真正的输入是什么。
-2. 这里真正的输出是什么。
-3. 这里真正的判断点是什么。
-4. 这里能不能独立交付。
+用“新人测试”验证：新人能不能做、会不会回退、知不知道好坏、知不知道什么不能做。
 
-只要有两个以上答案混在一起，就继续拆。
+## 这次暴露的问题
 
-### 写作阶段
+### 问题 1：结构还不够厚
 
-每个 Skill 都要按同一顺序写：
+原因：只把主线写出来了，边界、反例、失败路径还不够密。
 
-1. 适用场景。
-2. SOP 步骤。
-3. 输出骨架。
-4. 交接判断。
-5. 绝对不能。
-6. 失败案例。
-7. 量化门禁。
+修正：每个判断点都补“看什么、怎么采、怎么判、怎么错、怎么回退”。
 
-### 复核阶段
+### 问题 2：脚本层曾经是空壳
 
-用“新人成员测试”检查：
+原因：有入口意识，但没把入口写成可运行包装器。
 
-- 他能不能按文档把事情做完。
-- 他会不会在边界条件下停下来求证。
-- 他能不能分清事实、推断和建议。
-- 他知不知道哪里该回退，哪里该继续。
+修正：每个 Skill 都要有 `scripts/run.py`，输出结构化诊断。
 
-如果答不上来，说明文档还不够厚。
+### 问题 3：包级结构容易散
 
-## 这次工作里暴露出来的问题
+原因：文件多，但入口和索引不够清晰。
 
-### 问题 1：把摘要当成 SOP
+修正：根层只留总图，细节全部下沉到 Skill 目录。
 
-根因：只抓了“讲了什么”，没有抓“怎么做”。
+### 问题 4：扩散时容易不齐
 
-纠正：每个知识点必须落到动作、判断和回退。
+原因：每一章都从头想，导致粒度不一致。
 
-### 问题 2：一个 Skill 装了太多责任
-
-根因：没有先做最小单元拆分，导致后面只能平均铺内容。
-
-纠正：先按决策点拆，再按输入状态拆，不按章节标题硬切。
-
-### 问题 3：Reference 还不够厚
-
-根因：只写了主规则，没把边界、反例、失败路径、例子补齐。
-
-纠正：每个规则都要配“怎么看、怎么采、怎么判、怎么错、怎么回退”。
-
-### 问题 4：Assessment 太软
-
-根因：门禁多是定性判断，缺少可量化门槛。
-
-纠正：把“通过”改成可勾选的条件，把“不通过”改成明确回退理由。
-
-### 问题 5：脚本容易沦为摆设
-
-根因：如果脚本只有回显，就会制造“有自动化”的错觉。
-
-纠正：脚本要么输出诊断，要么说明占位，不许伪装能力。
-
-### 问题 6：结构散、索引弱
-
-根因：文件多，但入口没有把用途说清楚。
-
-纠正：根层只保留导航和不变量，细节全部下沉到对应 Skill。
-
-### 问题 7：没有统一扩散模板
-
-根因：每个新章节都从头想，导致质量波动。
-
-纠正：后续统一按模板复制，再按章节差异补强。
-
-### 问题 8：清理顺序不固定
-
-根因：新增内容时没有先删重复、再合并同类、最后清噪音，导致包越来越乱。
-
-纠正：先删冗余入口，再统一索引，再补新内容，最后做一次包级校验。
+修正：后续必须统一模板，复制后再补章节差异。
 
 ## 后续扩散模板
 
-新章节上线前，必须先过这 8 个问题：
+每个新章节先补齐这 8 项：
 
-1. 这个章节的最小 SOP 单元是什么。
-2. 这个单元的输入和输出是什么。
-3. 这一步的判断阈值是什么。
-4. 这一步的边界和红线是什么。
-5. 新人会在哪些地方卡住。
-6. 需要哪些例子和反例。
-7. 这一步怎么 QA。
-8. 这一步失败后回到哪里。
+1. 最小单元是什么。
+2. 输入是什么。
+3. 输出是什么。
+4. 判断阈值是什么。
+5. 红线是什么。
+6. 失败案例是什么。
+7. QA 怎么做。
+8. 失败后回到哪里。
 
-如果这 8 个问题没有答案，先不要写文件，先补知识。
+## goal-driven-main 伪代码
 
-## 统一质量底线
+```text
+goal = "把文案Agent扩散成可直接上岗的数字员工包，并确保每个Skill都足够厚、可执行、可QA"
+criteria = [
+  "根层无禁词，无散乱入口",
+  "每个Skill都有SKILL.md、reference.md、assessment.md、run.py",
+  "每个Skill都能输出明确判断、缺口、回退和下一步",
+  "自检通过率为7/7，包级校验通过",
+  "新窗口只读总接手文档就能恢复上下文"
+]
 
-- 必须能让新人执行。
-- 必须能让 QA 复核。
-- 必须能让下游 Skill 接得住。
-- 必须能让后续章节直接复用。
-- 必须清除旧版命名和混乱结构。
-- 必须保留回退路径和门禁。
+while not all(criteria):
+    read latest skill docs
+    identify thinnest node
+    thicken SOP, cases, red lines, and QA
+    add or repair run.py
+    update retrospective memory
+    re-run package validation
 
-## 章节扩散作业卡
+if all(criteria):
+    stop and publish the handoff state
+```
 
-每个未完成章节都按同一张作业卡推进，避免“每次都重新发明流程”。
+## 当前建议
 
-| 卡位 | 必填内容 | 通过标准 |
-|---|---|---|
-| 章节名 | 章节主题、对应岗位、对应场景 | 能一眼看出这是哪个独立能力 |
-| 最小单元 | 这章拆成的最小 SOP 名称 | 不能再继续混入别的目标 |
-| 输入 | 上游需要喂进来的事实、资料或状态 | 没有输入也知道该去补什么 |
-| 输出 | 这一步交付给下游的内容 | 能直接接下一步 Skill |
-| 证据 | 原话、案例、数据、对比、边界 | 至少有一类可复核证据 |
-| 红线 | 绝对不能写的东西 | 一眼能拦住越界内容 |
-| QA | 这一章怎么验收 | 能判 pass / fail，不靠感觉 |
-
-## 厚度标准
-
-如果一个 Skill 想算“够厚”，至少要同时满足：
-
-1. 能讲清楚流程。
-2. 能讲清楚判断。
-3. 能讲清楚边界。
-4. 能讲清楚失败案例。
-5. 能讲清楚回退路径。
-6. 能让新人做出结果。
-
-缺任意两项，就只能算半成品。
-
-## 五层 QA
-
-### 第 1 层：结构 QA
-
-- 是否只做一件事。
-- 是否有明确输入和输出。
-- 是否能和上下游接上。
-
-### 第 2 层：内容 QA
-
-- 是否有足够的判断句。
-- 是否有例子、反例、边界。
-- 是否有“好 / 坏 / 不能做”的明确说法。
-
-### 第 3 层：执行 QA
-
-- 是否能按步骤完成。
-- 是否能在缺信息时停下来。
-- 是否能把判断写成动作。
-
-### 第 4 层：回退 QA
-
-- 是否知道不通过时回哪里。
-- 是否知道缺口怎么补。
-- 是否知道什么时候不能硬写。
-
-### 第 5 层：扩散 QA
-
-- 新章节能不能直接套模板。
-- 新章节会不会把旧问题再复制一遍。
-- 新章节的质量是否和前一章对齐。
-
-## 批量扩散步骤
-
-1. 先选一个章节做样板，不要同时开多章。
-2. 把该章拆成最小 SOP 单元。
-3. 给每个单元补满 Reference、Assessment、Script。
-4. 用新人测试跑一遍，记录卡点。
-5. 把卡点反写回文档，补例子、补边界、补回退。
-6. 通过后再复制模板到下一章。
-7. 复制后先删噪音，再补差异，最后校验。
+- 继续优先加厚最薄的 Skill，不要平均铺开。
+- 先把 `run.py` 补齐，再做二轮内容加厚。
+- 每完成一轮，就把经验回写到这份总接手文档。
+- 后续新章节必须先读这份文档，再开始改文件。
