@@ -6,6 +6,28 @@ import sys
 from typing import Any
 
 
+REQUIRED_FIELDS = [
+    '异常指标',
+    '开始时间',
+    '影响范围',
+]
+
+KEYWORD_SEVERITY = [
+    ('P0', ['支付失败', '下单失败', '提交失败', '核心链路', '大面积', '全量']),
+    ('P1', ['明显下滑', '连续下跌', '核心体验', '转化骤降', '严重异常']),
+    ('P2', ['局部异常', '单渠道', '单功能', '局部下滑', '部分用户']),
+]
+
+CAUSE_RULES = [
+    ('数据口径或埋点问题', ['埋点', '口径', '漏数', '延迟', '重复统计', '新旧口径']),
+    ('版本变更或发布异常', ['版本', '发版', '上线', '更新', '灰度', '回滚']),
+    ('支付或订单链路异常', ['支付', '订单', '库存', '退款', '结算']),
+    ('运营触达或活动影响', ['活动', '触达', '推送', '短信', '投放', '活动页']),
+    ('渠道或流量结构变化', ['渠道', '来源', '投放', '自然流量', '搜索流量']),
+    ('用户分层或使用习惯变化', ['新用户', '老用户', '高价值用户', '沉默', '活跃', '留存']),
+]
+
+
 def _load_payload() -> dict[str, Any]:
     if len(sys.argv) > 1 and sys.argv[1].strip():
         try:
@@ -13,9 +35,20 @@ def _load_payload() -> dict[str, Any]:
         except json.JSONDecodeError:
             pass
     raw = sys.stdin.read().strip()
-    if raw:
+    if not raw:
+        return {}
+    try:
         return json.loads(raw)
-    return {}
+    except json.JSONDecodeError:
+        return {'_raw_input': raw}
+
+
+def _flatten_text(obj: Any) -> str:
+    if isinstance(obj, dict):
+        return ' '.join(f'{k} { _flatten_text(v) }' for k, v in obj.items())
+    if isinstance(obj, list):
+        return ' '.join(_flatten_text(item) for item in obj)
+    return str(obj)
 
 
 def _to_number(value: Any) -> float | None:
@@ -32,65 +65,131 @@ def _to_number(value: Any) -> float | None:
         return None
 
 
-def _severity(payload: dict[str, Any]) -> str:
-    text = json.dumps(payload, ensure_ascii=False)
-    if any(k in text for k in ['P0', '支付失败', '核心链路', '大面积', '全渠道']):
-        return 'P0'
-    if any(k in text for k in ['连续', '7天', '明显下滑', '核心体验']):
-        return 'P1'
-    if any(k in text for k in ['局部', '单渠道', '单功能']):
-        return 'P2'
+def _collect_numbers(obj: Any) -> list[float]:
+    numbers: list[float] = []
+    if isinstance(obj, dict):
+        for value in obj.values():
+            numbers.extend(_collect_numbers(value))
+    elif isinstance(obj, list):
+        for item in obj:
+            numbers.extend(_collect_numbers(item))
+    else:
+        num = _to_number(obj)
+        if num is not None:
+            numbers.append(num)
+    return numbers
+
+
+def _severity(text: str, payload: dict[str, Any]) -> str:
+    explicit = str(payload.get('severity') or payload.get('级别') or '').upper().strip()
+    if explicit in {'P0', 'P1', 'P2', 'P3'}:
+        return explicit
+    for level, keywords in KEYWORD_SEVERITY:
+        if any(keyword in text for keyword in keywords):
+            return level
     return 'P3'
 
 
-def _likely_root_cause(payload: dict[str, Any]) -> str:
-    text = json.dumps(payload, ensure_ascii=False)
-    if '支付' in text or '订单' in text:
-        return '支付或订单链路异常'
-    if '版本' in text or '发版' in text or '更新' in text:
-        return '版本变更引发的体验或兼容问题'
-    if '埋点' in text or '口径' in text or '漏数' in text:
-        return '数据口径或埋点异常'
-    if '投放' in text or '活动' in text or '触达' in text:
-        return '运营触达或活动策略变化'
-    return '需要继续分维度验证'
+def _diagnosis_signals(text: str, payload: dict[str, Any]) -> list[str]:
+    signals: list[str] = []
+    if any(keyword in text for keyword in ['今日', '昨天', '单日', '突发', '骤降']):
+        signals.append('突发型')
+    if any(keyword in text for keyword in ['连续', '7天', '30天', '趋势', '持续']):
+        signals.append('趋势型')
+    if any(keyword in text for keyword in ['全量', '大面积', '核心链路']):
+        signals.append('高影响范围')
+    if any(keyword in text for keyword in ['单渠道', '单功能', '单端']):
+        signals.append('局部异常')
+    if payload.get('版本') or payload.get('发版记录'):
+        signals.append('版本变更信号')
+    if payload.get('活动') or payload.get('活动记录'):
+        signals.append('运营动作信号')
+    return signals or ['待补充信号']
+
+
+def _likely_causes(text: str) -> list[str]:
+    causes: list[str] = []
+    for cause, keywords in CAUSE_RULES:
+        if any(keyword in text for keyword in keywords):
+            causes.append(cause)
+    if not causes:
+        causes = ['需要先排口径，再按维度下钻，再验证业务假设']
+    return causes[:3]
+
+
+def _missing_fields(payload: dict[str, Any]) -> list[str]:
+    text = _flatten_text(payload)
+    missing: list[str] = []
+    for field in REQUIRED_FIELDS:
+        if field not in text:
+            missing.append(field)
+    if not any(key in payload for key in ['指标序列', 'metrics', '数据背景']) and not any(word in text for word in ['时间', '渠道', '用户', '功能']):
+        missing.append('时间/渠道/用户/功能维度数据')
+    return missing
+
+
+def _drop_rate(payload: dict[str, Any]) -> float | None:
+    source = payload.get('指标序列') or payload.get('metrics') or payload.get('数据背景') or {}
+    numbers = _collect_numbers(source)
+    if len(numbers) >= 2 and numbers[0] != 0:
+        return round((numbers[0] - numbers[-1]) / numbers[0], 4)
+    return None
 
 
 def main() -> int:
     payload = _load_payload()
-    metrics = payload.get('metrics') or payload.get('数据背景') or {}
-    text = json.dumps(payload, ensure_ascii=False)
+    text = _flatten_text(payload)
+    severity = _severity(text, payload)
+    missing = _missing_fields(payload)
+    drop_rate = _drop_rate(payload)
+    signals = _diagnosis_signals(text, payload)
+    causes = _likely_causes(text)
 
-    drop = None
-    numbers = []
-    for value in metrics.values() if isinstance(metrics, dict) else []:
-        if isinstance(value, dict):
-            for nested in value.values():
-                num = _to_number(nested)
-                if num is not None:
-                    numbers.append(num)
-        else:
-            num = _to_number(value)
-            if num is not None:
-                numbers.append(num)
-    if len(numbers) >= 2 and numbers[0] != 0:
-        drop = round((numbers[0] - numbers[-1]) / numbers[0], 4)
+    if missing:
+        output = {
+            'skill': '产品问题诊断',
+            'status': 'blocked',
+            'severity': severity,
+            'missing': missing,
+            'signals': signals,
+            'root_cause_hypotheses': causes,
+            'verification_order': [
+                '先确认指标口径与埋点',
+                '再确认版本、活动和配置变更',
+                '再按时间、渠道、用户、功能下钻',
+                '最后确认外部事件或竞品扰动',
+            ],
+            'immediate_actions': [
+                '补齐缺失字段后再进入归因',
+                '先冻结当前口径，避免混算',
+            ],
+            'fallback': '如果只能输出当前判断，先标明不确定性，不要假装已完成归因。',
+            'next_step': '补齐缺失输入后，重新运行并输出完整诊断。',
+        }
+        print(json.dumps(output, ensure_ascii=False, indent=2))
+        return 0
 
     output = {
         'skill': '产品问题诊断',
-        'severity': _severity(payload),
-        'time_signal': '单日突发' if any(k in text for k in ['今日', '昨天', '单日']) else '趋势性',
-        'dimension_focus': [k for k in ['时间', '渠道', '用户', '功能'] if k in text] or ['时间', '渠道', '用户', '功能'],
-        'computed': {
-            'observed_drop_rate': drop,
-        },
-        'root_cause_hypothesis': _likely_root_cause(payload),
-        'actions': {
-            'stop_loss': ['先恢复核心链路'] if '支付' in text or '订单' in text else ['先排除口径问题'],
-            'verify': ['按时间、渠道、用户、功能四维拆解验证'],
-            'recover': ['修复后回看同口径指标']
-        },
-        'next_step': 'Use references/五步诊断详解.md to write the hypothesis list, then verify in the order of口径->版本->分层->漏斗->外部事件.',
+        'status': 'ready',
+        'severity': severity,
+        'signals': signals,
+        'observed_drop_rate': drop_rate,
+        'root_cause_hypotheses': causes,
+        'verification_order': [
+            '先确认指标口径与埋点',
+            '再确认版本、活动和配置变更',
+            '再按时间、渠道、用户、功能下钻',
+            '最后确认外部事件或竞品扰动',
+        ],
+        'immediate_actions': [
+            '按最可能假设先止损',
+            '把验证动作拆成可执行检查项',
+            '复盘同口径数据变化并记录恢复时间点',
+        ],
+        'fallback': '如果证据不足，先输出当前最优判断并标注置信度，不要强行收口。',
+        'confidence': '中' if severity in {'P2', 'P3'} else '低',
+        'next_step': 'Use references/五步诊断详解.md and references/诊断检查清单.md to expand the hypothesis tree, then verify in order.',
     }
     print(json.dumps(output, ensure_ascii=False, indent=2))
     return 0

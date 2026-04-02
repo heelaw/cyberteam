@@ -40,6 +40,7 @@ REQUIRED_SKILLS = {
     ],
     '产品状态评估': [
         'SKILL.md',
+        'references/状态分层与案例库.md',
         'references/五维度评估详解.md',
         'references/产品健康度指标.md',
         'references/评估报告模板.md',
@@ -50,7 +51,7 @@ REQUIRED_SKILLS = {
 }
 REQUIRED_ROOT_PHRASES = ['goal-driven-main', '输入 / 输出 对照', '新窗口必读', '当前进度']
 REQUIRED_AGENT_PHRASES = ['goal-driven-main', '主循环', '任务归类', '路由', '岗位边界']
-REQUIRED_SKILL_PHRASES = ['SOP', '绝对不能', '输出骨架', '参考文件']
+REQUIRED_SKILL_PHRASES = ['SOP', '绝对不能', '输出骨架', '参考文件', '状态分层与案例库']
 
 
 def read_text(path: Path) -> str:

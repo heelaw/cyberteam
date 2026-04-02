@@ -1,0 +1,29 @@
+{
+  "skill": "sop-project-fundamentals",
+  "cases": [
+    {
+      "input": {
+        "task": "上线一场拉新活动",
+        "roles": ["运营", "设计", "研发"],
+        "deadline": "7天"
+      },
+      "expected": ["SOP步骤", "责任分工", "检查点"]
+    },
+    {
+      "input": {
+        "task": "每周发布 3 篇内容",
+        "roles": ["选题", "写作", "审核"],
+        "deadline": "持续执行"
+      },
+      "expected": ["推进表", "责任分工", "异常处理"]
+    },
+    {
+      "input": {
+        "task": "做一次老用户召回",
+        "roles": ["运营", "数据"],
+        "deadline": "3天"
+      },
+      "expected": ["SOP步骤", "检查点", "推进节奏"]
+    }
+  ]
+}
